@@ -103,7 +103,7 @@ namespace CheckDlc.Clients
                     }
                     catch (Exception ex)
                     {
-                        Common.LogError(ex, true);
+                        Common.LogError(ex, false);
                     }
                 }
             }

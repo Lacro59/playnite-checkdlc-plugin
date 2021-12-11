@@ -126,7 +126,7 @@ namespace CheckDlc.Clients
                     Models.ProductApiDetail productApiDetail = Serialization.FromJson<Models.ProductApiDetail>(data);
 
                     string stringDlcs = Serialization.ToJson(productApiDetail?.dlcs);
-                    if (!stringDlcs.IsNullOrEmpty())
+                    if (stringDlcs.IsNullOrEmpty())
                     {
                         return GameDlc;
                     }
@@ -153,7 +153,10 @@ namespace CheckDlc.Clients
                         }
                         catch (Exception ex)
                         {
-                            Common.LogError(ex, true);
+                            if (!ex.Message.Contains("404(Not Found)"))
+                            {
+                                Common.LogError(ex, false);
+                            }
                         }
                     }
                 }
@@ -164,10 +167,7 @@ namespace CheckDlc.Clients
             }
             catch (Exception ex)
             {
-                if (!ex.Message.Contains("404(Not Found)"))
-                {
-                    ShowNotificationPluginError(ex);
-                }
+                ShowNotificationPluginError(ex);
             }
 
             return GameDlc;
