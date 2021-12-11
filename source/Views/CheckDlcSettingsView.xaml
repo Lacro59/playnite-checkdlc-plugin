@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="CheckDlc.Views.CheckDlcSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:CheckDlc="clr-namespace:CheckDlc"
+             mc:Ignorable="d" d:DesignWidth="650"
+             d:DataContext="{d:DesignInstance CheckDlc:CheckDlcSettingsViewModel}">
+
+    <Grid Margin="20">
+        <TabControl Name="tcSettings">
+            <TabItem Header="{DynamicResource LOCCheckDlc}">
+                <ScrollViewer  Margin="0,10,0,0">
+                    <Grid Name="CheckDlcSettings">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        
+                        <CheckBox IsChecked="{Binding Settings.AutoImport}">
+                            <Label Content="{DynamicResource LOCCommonAutoImport}" />
+                        </CheckBox>
+
+                        <Grid Grid.Row="2" >
+                            <CheckBox Name="cbEnableTag" Grid.Row="4" IsChecked="{Binding Settings.EnableTag}" Grid.Column="0" VerticalAlignment="Center">
+                                <Label Content="{DynamicResource LOCCheckDlcAddTagDescription}" />
+                            </CheckBox>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="{DynamicResource LOCAddTitle}" Margin="0,0,10,0" VerticalAlignment="Center" Click="ButtonAddTag_Click" />
+                                <Button Content="{DynamicResource LOCRemoveTitle}" VerticalAlignment="Bottom" Click="ButtonRemoveTag_Click" Margin="0,0,0,1" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="{DynamicResource LOCCommonIntegration}">
+                <ScrollViewer>
+                    <StackPanel Margin="0,10,0,0">
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

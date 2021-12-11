@@ -1,0 +1,14 @@
+﻿Id: playnite-checkdlc-plugin
+Name: CheckDlc
+Author: Lacro59
+Version: 0.1
+Module: CheckDlc.dll
+Type: GenericPlugin
+Icon: icon.png
+Links:
+  - Name: Forum
+    Url: https://playnite.link/forum/thread-275.html
+  - Name: Github
+    Url: https://github.com/Lacro59/playnite-checkdlc-plugin
+  - Name: Translate
+    Url: https://crowdin.com/project/playnite-extensions

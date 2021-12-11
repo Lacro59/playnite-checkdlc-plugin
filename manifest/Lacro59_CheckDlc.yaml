@@ -1,0 +1,8 @@
+AddonId: playnite-checkdlc-plugin
+Packages:
+  - Version: 0.1
+    RequiredApiVersion: 6.2.0
+    ReleaseDate: 2021-12-11
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v0.1/playnite-checkdlc-plugin_0_1.pext
+    Changelog:
+      - First version
