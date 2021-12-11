@@ -33,6 +33,7 @@ namespace CheckDlc.Clients
                         using (var WebViewOffscreen = API.Instance.WebViews.CreateOffscreenView())
                         {
                             WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
+                            WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
                             string data = WebViewOffscreen.GetPageText();
                             _UserData = Serialization.FromJson<SteamUserData>(data);
                         }

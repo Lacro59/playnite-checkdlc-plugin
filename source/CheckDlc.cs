@@ -27,7 +27,8 @@ namespace CheckDlc
 
         public CheckDlc(IPlayniteAPI api) : base(api)
         {
-
+            // Add Event for WindowBase for get the "WindowSettings".
+            EventManager.RegisterClassHandler(typeof(Window), Window.LoadedEvent, new RoutedEventHandler(WindowBase_LoadedEvent));
         }
 
 
