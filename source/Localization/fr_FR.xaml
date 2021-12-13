@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewDlc">Voir les dlc du jeu</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">Voir les DLC du jeu</sys:String>
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Ajouter un tag aux jeux avec DLC</sys:String>
 
