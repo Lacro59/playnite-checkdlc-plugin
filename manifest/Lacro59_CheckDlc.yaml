@@ -6,3 +6,11 @@ Packages:
     PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v0.1/playnite-checkdlc-plugin_0_1.pext
     Changelog:
       - First version
+  - Version: 0.1.1
+    RequiredApiVersion: 6.2.0
+    ReleaseDate: 2021-12-15
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v0.1.1/playnite-checkdlc-plugin_0_1_1.pext
+    Changelog:
+      - Improved performances
+      - Updated localizations
+      - Fixed minors bugs
