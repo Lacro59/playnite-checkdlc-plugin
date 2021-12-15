@@ -12,6 +12,7 @@ using Playnite.SDK;
 using CommonPlayniteShared.PluginLibrary.Services.GogLibrary;
 using CommonPlayniteShared.PluginLibrary.GogLibrary.Models;
 using static CommonPluginsShared.PlayniteTools;
+using CommonPluginsShared.Extensions;
 
 namespace CheckDlc.Clients
 {
@@ -116,6 +117,8 @@ namespace CheckDlc.Clients
 
         public override List<Dlc> GetGameDlc(Game game)
         {
+            logger.Info($"Get Dlc for {game.Name} with {ClientName}");
+
             List<Dlc> GameDlc = new List<Dlc>();
             string UrlLang = string.Format(UrlGogLang, LocalLang.ToLower());
 
@@ -127,12 +130,12 @@ namespace CheckDlc.Clients
                     Models.ProductApiDetail productApiDetail = Serialization.FromJson<Models.ProductApiDetail>(data);
 
                     string stringDlcs = Serialization.ToJson(productApiDetail?.dlcs);
-                    if (stringDlcs.IsNullOrEmpty())
+                    if (stringDlcs.IsNullOrEmpty() || stringDlcs.IsEqual("[]"))
                     {
                         return GameDlc;
                     }
 
-                    var Dlcs = Serialization.FromJson<Models.GogDlcs>(stringDlcs);
+                    var Dlcs = Serialization.FromJson<GogDlcs>(stringDlcs);
                     foreach (var el in Dlcs?.products)
                     {
                         try

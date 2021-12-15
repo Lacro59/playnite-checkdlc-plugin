@@ -58,6 +58,7 @@ namespace CheckDlc.Clients
 
         public override List<Dlc> GetGameDlc(Game game)
         {
+            logger.Info($"Get Dlc for {game.Name} with {ClientName}");
             List<Dlc> GameDlc = new List<Dlc>();
 
             try
