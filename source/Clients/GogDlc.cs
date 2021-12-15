@@ -11,6 +11,7 @@ using CommonPluginsShared;
 using Playnite.SDK;
 using CommonPlayniteShared.PluginLibrary.Services.GogLibrary;
 using CommonPlayniteShared.PluginLibrary.GogLibrary.Models;
+using static CommonPluginsShared.PlayniteTools;
 
 namespace CheckDlc.Clients
 {
@@ -162,7 +163,7 @@ namespace CheckDlc.Clients
                 }
                 else
                 {
-                    ShowNotificationPluginNoAuthenticate(string.Format(resources.GetString("LOCCommonStoresNoAuthenticate"), ClientName));
+                    ShowNotificationPluginNoAuthenticate(string.Format(resources.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.GogLibrary);
                 }
             }
             catch (Exception ex)
@@ -183,7 +184,7 @@ namespace CheckDlc.Clients
             }
             else
             {
-                ShowNotificationPluginNoAuthenticate(string.Format(resources.GetString("LOCCommonStoresNoAuthenticate"), ClientName));
+                ShowNotificationPluginNoAuthenticate(string.Format(resources.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.GogLibrary);
                 return false;
             }
         }

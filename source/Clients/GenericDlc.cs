@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static CommonPluginsShared.PlayniteTools;
 
 namespace CheckDlc.Clients
 {
@@ -69,6 +70,11 @@ namespace CheckDlc.Clients
 
         public virtual void ShowNotificationPluginNoAuthenticate(string Message)
         {
+            ShowNotificationPluginNoAuthenticate(Message, ExternalPlugin.None);
+        }
+
+        public virtual void ShowNotificationPluginNoAuthenticate(string Message, ExternalPlugin externalPlugin)
+        {
             LastErrorId = $"checkdlc-{ClientName.RemoveWhiteSpace().ToLower()}-noauthenticate";
             LastErrorMessage = Message;
             logger.Warn($"{ClientName} user is not authenticated");
@@ -76,7 +82,11 @@ namespace CheckDlc.Clients
             PluginDatabase.PlayniteApi.Notifications.Add(new NotificationMessage(
                 $"checkdlc-{ClientName.RemoveWhiteSpace().ToLower()}-noauthenticate",
                 $"CheckDlc" + Environment.NewLine + $"{Message}",
-                NotificationType.Error
+                NotificationType.Error,
+                () =>
+                {
+                    PlayniteTools.ShowPluginSettings(externalPlugin);
+                }
             ));
         }
         #endregion

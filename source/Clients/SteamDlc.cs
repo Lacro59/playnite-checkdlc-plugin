@@ -10,6 +10,7 @@ using Playnite.SDK.Data;
 using CommonPlayniteShared.PluginLibrary.SteamLibrary.SteamShared;
 using CommonPluginsShared;
 using Playnite.SDK;
+using static CommonPluginsShared.PlayniteTools;
 
 namespace CheckDlc.Clients
 {
@@ -126,7 +127,7 @@ namespace CheckDlc.Clients
             }
             else
             {
-                ShowNotificationPluginNoAuthenticate(string.Format(resources.GetString("LOCCommonStoresNoAuthenticate"), ClientName));
+                ShowNotificationPluginNoAuthenticate(string.Format(resources.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.SteamLibrary);
                 return false;
             }
         }
