@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
+    <sys:String x:Key="LOCCheckDlc">DLC Überprüfen</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewDlc">View game dlc</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">Spiel DLC anzeigen</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">Tag zum DLC hinzufügen</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">Im Besitz</sys:String>
     
 </ResourceDictionary>

@@ -3,10 +3,10 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewDlc">View game dlc</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">Показати DLC гри</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">Додати тег до ігор з DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">У власності</sys:String>
     
 </ResourceDictionary>
