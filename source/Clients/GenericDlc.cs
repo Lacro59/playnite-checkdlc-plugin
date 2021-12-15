@@ -85,6 +85,8 @@ namespace CheckDlc.Clients
                 NotificationType.Error,
                 () =>
                 {
+                    GogDlc.SettingsOpen = true;
+                    SteamDlc.SettingsOpen = true;
                     PlayniteTools.ShowPluginSettings(externalPlugin);
                 }
             ));

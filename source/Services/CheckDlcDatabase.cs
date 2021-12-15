@@ -9,9 +9,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 using static CommonPluginsShared.PlayniteTools;
 
 namespace CheckDlc.Services
@@ -105,52 +102,6 @@ namespace CheckDlc.Services
             }
 
             return gameDlc;
-        }
-
-
-        public override void AddTag(Game game, bool noUpdate = false)
-        {
-            GetPluginTags();
-            GameDlc gameDlc = Get(game, true);
-
-            if (gameDlc.HasData)
-            {
-                try
-                {
-                    Guid? TagId = FindGoodPluginTags("");
-
-                    if (TagId != null)
-                    {
-                        if (game.TagIds != null)
-                        {
-                            game.TagIds.Add((Guid)TagId);
-                        }
-                        else
-                        {
-                            game.TagIds = new List<Guid> { (Guid)TagId };
-                        }
-
-                        if (!noUpdate)
-                        {
-                            Application.Current.Dispatcher?.Invoke(() =>
-                            {
-                                PlayniteApi.Database.Games.Update(game);
-                                game.OnPropertyChanged();
-                            }, DispatcherPriority.Send);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Common.LogError(ex, true);
-                    logger.Error($"Tag insert error with {game.Name}");
-                    PlayniteApi.Notifications.Add(new NotificationMessage(
-                        $"{PluginName}-Tag-Errors",
-                        $"{PluginName}\r\n" + resources.GetString("LOCCommonNotificationTagError"),
-                        NotificationType.Error
-                    ));
-                }
-            }
         }
 
 
