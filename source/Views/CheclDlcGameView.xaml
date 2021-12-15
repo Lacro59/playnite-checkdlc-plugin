@@ -39,7 +39,7 @@
                                 <RowDefinition Height="150" />
                             </Grid.RowDefinitions>
 
-                            <Image Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Source="{Binding Image, IsAsync=True}" Stretch="UniformToFill" 
+                            <Image Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="UniformToFill" 
                                    Height="120" Width="250" />
                             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Name}" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" />
                             <Label Content="{DynamicResource LOCCheckDlcOwned}" Grid.Column="4" Grid.Row="0"
