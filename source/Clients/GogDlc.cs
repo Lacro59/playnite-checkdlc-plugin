@@ -178,7 +178,7 @@ namespace CheckDlc.Clients
                 }
                 else
                 {
-                    logger.Warn($"No data find for {game.Name}");
+                    logger.Warn($"No data for {game.Name}");
                 }
             }
 
