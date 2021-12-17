@@ -13,6 +13,7 @@ using CommonPlayniteShared.PluginLibrary.Services.GogLibrary;
 using CommonPlayniteShared.PluginLibrary.GogLibrary.Models;
 using static CommonPluginsShared.PlayniteTools;
 using CommonPluginsShared.Extensions;
+using System.Net;
 
 namespace CheckDlc.Clients
 {
@@ -157,7 +158,7 @@ namespace CheckDlc.Clients
                         }
                         catch (Exception ex)
                         {
-                            if (!ex.Message.Contains("404(Not Found)"))
+                            if (!ex.Message.Contains("404"))
                             {
                                 Common.LogError(ex, false);
                             }
@@ -171,7 +172,14 @@ namespace CheckDlc.Clients
             }
             catch (Exception ex)
             {
-                ShowNotificationPluginError(ex);
+                if (!ex.Message.Contains("404"))
+                {
+                    ShowNotificationPluginError(ex);
+                }
+                else
+                {
+                    logger.Warn($"No data find for {game.Name}");
+                }
             }
 
             return GameDlc;
