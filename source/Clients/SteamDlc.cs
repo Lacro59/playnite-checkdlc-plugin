@@ -13,6 +13,9 @@ using Playnite.SDK;
 using static CommonPluginsShared.PlayniteTools;
 using AngleSharp.Parser.Html;
 using AngleSharp.Dom.Html;
+using CommonPlayniteShared.Common;
+using CommonPluginsShared.Converters;
+using System.Globalization;
 
 namespace CheckDlc.Clients
 {
@@ -26,6 +29,8 @@ namespace CheckDlc.Clients
 
         private string SteamDbDlc = "https://steamdb.info/app/{0}/dlc/";
 
+        private static string FileUserData = Path.Combine(PluginDatabase.Paths.PluginUserDataPath, "SteamUserData.json");
+
         private static SteamUserData _UserData = null;
         private static SteamUserData UserData
         {
@@ -35,13 +40,30 @@ namespace CheckDlc.Clients
                 {
                     try
                     {
-                        using (var WebViewOffscreen = API.Instance.WebViews.CreateOffscreenView())
+                        _UserData = LoadUserData(true);
+                        if (_UserData == null)
                         {
-                            WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
-                            WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
-                            string data = WebViewOffscreen.GetPageText();
-                            _UserData = Serialization.FromJson<SteamUserData>(data);
+
+                            using (var WebViewOffscreen = API.Instance.WebViews.CreateOffscreenView())
+                            {
+                                WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
+                                WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
+                                string data = WebViewOffscreen.GetPageText();
+                                _UserData = Serialization.FromJson<SteamUserData>(data);
+
+
+                                if (_UserData?.rgOwnedApps?.Count > 0)
+                                {
+                                    SaveUserData(_UserData);
+                                }
+                                else
+                                {
+                                    var loadedData = LoadUserData();
+                                    _UserData = loadedData != null ? loadedData : _UserData;
+                                }
+                            }
                         }
+
                         SettingsOpen = false;
                     }
                     catch (Exception ex)
@@ -197,6 +219,49 @@ namespace CheckDlc.Clients
             }
 
             return Dlcs;
+        }
+        
+
+        private static SteamUserData LoadUserData(bool OnlyNow = false)
+        {
+            if (File.Exists(FileUserData))
+            {
+                try
+                {
+                    var DateLastWrite = File.GetLastWriteTime(FileUserData);
+                    if (OnlyNow && !(DateLastWrite.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd")))
+                    {
+                        return null;
+                    }
+
+                    if (!OnlyNow)
+                    {
+                        LocalDateTimeConverter localDateTimeConverter = new LocalDateTimeConverter();
+                        string formatedDateLastWrite = localDateTimeConverter.Convert(DateLastWrite, null, null, CultureInfo.CurrentCulture).ToString();
+                        logger.Warn($"Use saved UserData - {formatedDateLastWrite}");
+                        API.Instance.Notifications.Add(new NotificationMessage(                        
+                            $"checkdlc-steam-saveddata",
+                            $"CheckDlc" + Environment.NewLine 
+                                + string.Format(resources.GetString("LOCCheckDlcUseSavedUserData"), "Steam", formatedDateLastWrite),
+                            NotificationType.Info
+                        ));
+                    }
+
+                    return Serialization.FromJsonFile<SteamUserData>(FileUserData);
+                }
+                catch (Exception ex)
+                {
+                    Common.LogError(ex, false, true, "CheckDlc");
+                }
+            }
+
+            return null;
+        }
+
+        private static void SaveUserData(SteamUserData UserData)
+        {
+            FileSystem.PrepareSaveFile(FileUserData);
+            File.WriteAllText(FileUserData, Serialization.ToJson(UserData));
         }
     }
 }

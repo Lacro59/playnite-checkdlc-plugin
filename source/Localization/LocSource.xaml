@@ -9,4 +9,6 @@
 
     <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
     
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData">Use saved data for {0} [{1}]</sys:String>
+    
 </ResourceDictionary>
