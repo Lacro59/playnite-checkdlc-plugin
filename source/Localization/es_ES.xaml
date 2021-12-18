@@ -3,12 +3,24 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">View free DLC no onwed</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Ver dlc del juego</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcAddTagDescription">Añadir etiqueta a juegos con DLC</sys:String>
-
     <sys:String x:Key="LOCCheckDlcOwned">Poseído</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
+
+    <!-- FreeView -->
+    
+    <sys:String x:Key="LOCCheckDlcDlc">DLC</sys:String>
+    
+    <!-- SettingsView -->
+
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">Añadir etiqueta a juegos con DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
+
+    <!-- Notifications -->
     
     <sys:String x:Key="LOCCheckDlcUseSavedUserData">Usar datos guardados para {0} [{1}]</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
     
 </ResourceDictionary>

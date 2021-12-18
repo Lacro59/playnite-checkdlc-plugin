@@ -3,12 +3,24 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDLC</sys:String>
 
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">View free DLC no onwed</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Vis spill-DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcAddTagDescription">Legg til tag til spill med DLC</sys:String>
-
     <sys:String x:Key="LOCCheckDlcOwned">Eid</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
+
+    <!-- FreeView -->
+    
+    <sys:String x:Key="LOCCheckDlcDlc">DLC</sys:String>
+    
+    <!-- SettingsView -->
+
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">Legg til tag til spill med DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
+
+    <!-- Notifications -->
     
     <sys:String x:Key="LOCCheckDlcUseSavedUserData">Use saved data for {0} [{1}]</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
     
 </ResourceDictionary>
