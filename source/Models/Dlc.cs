@@ -31,7 +31,7 @@ namespace CheckDlc.Models
                 {
                     if (Price.IsNullOrEmpty())
                     {
-                        return true;
+                        return false;
                     }
 
                     string temp = Regex.Split(Price, @"\s+").Where(s => s != string.Empty).First();

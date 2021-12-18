@@ -161,6 +161,18 @@ namespace CheckDlc
                     {
                         PluginDatabase.GetSelectData();
                     }
+                },
+
+                new MainMenuItem
+                {
+                    MenuSection = MenuInExtensions + resources.GetString("LOCCheckDlc"),
+                    Description = resources.GetString("LOCCheckDlcViewFreeDlcNoOwned"),
+                    Action = (mainMenuItem) =>
+                    {
+                        var ViewExtension = new CheckDlcFreeView();
+                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
+                        windowExtension.ShowDialog();
+                    }
                 }
             };
 
