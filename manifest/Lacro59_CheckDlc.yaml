@@ -14,3 +14,13 @@ Packages:
       - Improved performances
       - Updated localizations
       - Fixed minors bugs
+  - Version: 0.2
+    RequiredApiVersion: 6.2.0
+    ReleaseDate: 2021-12-18
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v0.2/playnite-checkdlc-plugin_0_2.pext
+    Changelog:
+      - Added price for DLC no owned
+      - Added Epic DLC
+      - Added view with free DLC no owned
+      - Updated localizations
+      - Fixed minors bugs
