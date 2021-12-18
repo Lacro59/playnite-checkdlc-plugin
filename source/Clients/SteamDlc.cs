@@ -109,7 +109,7 @@ namespace CheckDlc.Clients
 
                         Dlc dlc = new Dlc
                         {
-                            GameId = DlcId.ToString(),
+                            DlcId = DlcId.ToString(),
                             Name = storeAppDetailsResultDlc.data.name,
                             Description = storeAppDetailsResultDlc.data.detailed_description,
                             Image = storeAppDetailsResultDlc.data.header_image,
@@ -124,7 +124,6 @@ namespace CheckDlc.Clients
                         Common.LogError(ex, false);
                     }
                 }
-
             }
             catch(Exception ex)
             {

@@ -131,7 +131,7 @@ namespace CheckDlc
             {
                 MenuSection = resources.GetString("LOCCheckDlc"),
                 Description = "Test",
-                Action = (gameMenuItem) => 
+                Action = (gameMenuItem) =>
                 {
 
                 }

@@ -146,7 +146,7 @@ namespace CheckDlc.Clients
 
                             Dlc dlc = new Dlc
                             {
-                                GameId = el.id.ToString(),
+                                DlcId = el.id.ToString(),
                                 Name = productApiDetailDlc.title,
                                 Description = productApiDetailDlc.description.full,
                                 Image = "https:" + productApiDetailDlc.images.logo2x,

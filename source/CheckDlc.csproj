@@ -81,11 +81,15 @@
   <ItemGroup>
     <Compile Include="CheckDlc.cs" />
     <Compile Include="CheckDlcSettings.cs" />
+    <Compile Include="Clients\EpicDlc.cs" />
     <Compile Include="Clients\GenericDlc.cs" />
     <Compile Include="Clients\GogDlc.cs" />
     <Compile Include="Clients\SteamDlc.cs" />
     <Compile Include="Models\CheckDlcCollection.cs" />
     <Compile Include="Models\Dlc.cs" />
+    <Compile Include="Models\EpicCatalogOffer.cs" />
+    <Compile Include="Models\EpicData.cs" />
+    <Compile Include="Models\EpicDlcData.cs" />
     <Compile Include="Models\GameDlc.cs" />
     <Compile Include="Models\GogUserData.cs" />
     <Compile Include="Models\ProductApiDetail.cs" />

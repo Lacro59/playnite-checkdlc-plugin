@@ -90,6 +90,11 @@ namespace CheckDlc.Services
                         GogDlc gogDlc = new GogDlc();
                         dlcs = gogDlc.GetGameDlc(game);
                         break;
+
+                    case ExternalPlugin.EpicLibrary:
+                        EpicDlc epicDlc = new EpicDlc();
+                        dlcs = epicDlc.GetGameDlc(game);
+                        break;
                 }
 
                 gameDlc.Items = dlcs;
