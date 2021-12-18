@@ -214,7 +214,8 @@ namespace CheckDlc.Clients
                                     Image = epicCatalogOffer.Catalog.catalogOffer.keyImages.Find(x => x.type.IsEqual("OfferImageWide")).url.Replace("\u002F", "/"),
                                     Link = string.Format(UrlStore, LocalLangFinal, epicCatalogOffer.Catalog.catalogOffer.urlSlug),
                                     IsOwned = IsOwned(DlcData, epicCatalogOffer.Catalog.catalogOffer.id),
-                                    Price = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.discountPrice
+                                    Price = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.discountPrice,
+                                    PriceBase = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.originalPrice
                                 };
                             }
                             else if (epicCatalogOffer.Catalog.catalogOffer.categories.Find(x => x.path.IsEqual("addons")) != null)
@@ -227,7 +228,8 @@ namespace CheckDlc.Clients
                                     Image = epicCatalogOffer.Catalog.catalogOffer.keyImages.Find(x => x.type.IsEqual("OfferImageWide")).url.Replace("\u002F", "/"),
                                     Link = string.Format(UrlStore, LocalLangFinal, epicCatalogOffer.Catalog.catalogOffer.urlSlug),
                                     IsOwned = IsOwned(DlcData, epicCatalogOffer.Catalog.catalogOffer.id),
-                                    Price = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.discountPrice
+                                    Price = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.discountPrice,
+                                    PriceBase = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.originalPrice
                                 });
                             }
                         }

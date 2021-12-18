@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CheckDlc.Views"
              xmlns:controls="clr-namespace:DescriptionEditor.PlayniteResources.Controls"
+             xmlns:converters="clr-namespace:CommonPlayniteShared.Converters"
              mc:Ignorable="d" 
              Height="800" Width="1000">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
     </UserControl.Resources>
 
     <Grid Margin="10">
@@ -41,14 +43,34 @@
 
                             <Image Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="UniformToFill" 
                                    Height="120" Width="250" />
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Name}" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" />
-                            <Label Content="{DynamicResource LOCCheckDlcOwned}" Grid.Column="4" Grid.Row="0"
-                                   Visibility="{Binding IsOwned, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Name, FallbackValue='Game name'}" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" />
+
+                            <Label Content="{DynamicResource LOCCheckDlcOwned}" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center"
+                                   Visibility="{Binding IsOwned, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}" />
+                            
+                            <Grid Grid.Column="4" Grid.Row="0"
+                                  Visibility="{Binding IsOwned, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}">
+
+                                <Label Content="{DynamicResource LOCCheckDlcFree}" VerticalAlignment="Center"
+                                       Visibility="{Binding IsFree, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=false}" />
+
+                                <Grid Visibility="{Binding IsFree, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="{Binding Price, FallbackValue='10.0€'}" Grid.Column="0" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding PriceBase, FallbackValue='20.0€'}" Grid.Column="1" Margin="10,0,0,0" TextDecorations="Strikethrough" VerticalAlignment="Center"
+                                               Visibility="{Binding IsDiscount, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=True}" />
+                                </Grid>
+                            </Grid>
+                            
                             <Button Tag="{Binding Link}" Click="Button_Click" Content="&#xf028;" FontFamily="{DynamicResource FontIcoFont}"
                                     Grid.Row="0" Grid.Column="6" />
 
                             <ScrollViewer Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                                <controls:HtmlTextView HtmlText="{Binding Description}" Width="620" HorizontalAlignment="left"
+                                <controls:HtmlTextView HtmlText="{Binding Description, FallbackValue='Description HTML'}" Width="620" HorizontalAlignment="left"
                                                        HtmlFontFamily="{DynamicResource FontFamily}"
                                                        HtmlForeground="{DynamicResource TextColor}"
                                                        LinkForeground="{DynamicResource GlyphColor}"

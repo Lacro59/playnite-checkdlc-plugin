@@ -91,6 +91,7 @@
     <Compile Include="Models\EpicData.cs" />
     <Compile Include="Models\EpicDlcData.cs" />
     <Compile Include="Models\GameDlc.cs" />
+    <Compile Include="Models\GogPriceResult.cs" />
     <Compile Include="Models\GogUserData.cs" />
     <Compile Include="Models\ProductApiDetail.cs" />
     <Compile Include="Models\SteamUserData.cs" />

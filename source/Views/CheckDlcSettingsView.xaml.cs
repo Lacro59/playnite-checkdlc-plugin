@@ -1,4 +1,5 @@
 ﻿using CheckDlc.Services;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -26,5 +27,11 @@ namespace CheckDlc.Views
             PluginDatabase.RemoveTagAllGame();
         }
         #endregion
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start((string)((FrameworkElement)sender).Tag);
+        }
     }
 }

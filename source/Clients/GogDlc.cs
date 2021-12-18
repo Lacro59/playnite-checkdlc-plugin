@@ -84,6 +84,8 @@ namespace CheckDlc.Clients
         private static string UrlGogAppDetails = "https://api.gog.com/products/{0}?expand=description";
         private static string UrlGogGame = "https://www.gog.com/game/{0}";
 
+        private static string UrlGogPrice = "https://api.gog.com/products/prices?ids={0}&countryCode={1}&currency={2}";
+
         private static GogUserData _UserData = null;
         private static GogUserData UserData
         {
@@ -162,6 +164,48 @@ namespace CheckDlc.Clients
                             {
                                 Common.LogError(ex, false);
                             }
+                        }
+                    }
+
+                    // Price
+                    if (GameDlc.Count > 0)
+                    {
+                        try
+                        {
+                            var ids = GameDlc.Select(x => x.DlcId);
+                            string joined = string.Join(",", ids);
+                            string UrlPrice = string.Format(UrlGogPrice, joined, (LocalLang.IsEqual("en") ? "us" : LocalLang), PluginDatabase.PluginSettings.Settings.GogCurrency);
+                            string DataPrice = Web.DownloadStringData(UrlPrice).GetAwaiter().GetResult();
+                            dynamic dataObj = Serialization.FromJson<dynamic>(DataPrice);
+
+                            if (dataObj["message"] != null)
+                            {
+                                ShowNotificationPluginError(dataObj["Message"]);
+                                return GameDlc;
+                            }
+
+                            string dataObjString = Serialization.ToJson(dataObj["_embedded"]);
+                            GogPriceResult gogPriceResult = Serialization.FromJson<GogPriceResult>(dataObjString);
+
+                            foreach (var el in gogPriceResult.items)
+                            {
+                                int idx = GameDlc.FindIndex(x => x.DlcId.IsEqual(el._embedded.product.id.ToString()));
+                                if (idx > -1)
+                                {
+                                    double.TryParse(el._embedded.prices[0].finalPrice.Replace(PluginDatabase.PluginSettings.Settings.GogCurrency, string.Empty), out double Price);
+                                    double.TryParse(el._embedded.prices[0].basePrice.Replace(PluginDatabase.PluginSettings.Settings.GogCurrency, string.Empty), out double PriceBase);
+
+                                    Price = Price * 0.01;
+                                    PriceBase = PriceBase * 0.01;
+
+                                    GameDlc[idx].Price = Price + " " + PluginDatabase.PluginSettings.Settings.GogCurrency;
+                                    GameDlc[idx].PriceBase = PriceBase + " " + PluginDatabase.PluginSettings.Settings.GogCurrency;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Common.LogError(ex, false, true, "CheckDlc", resources.GetString("LOCCheckDlcGogErrorCurrency"));
                         }
                     }
                 }

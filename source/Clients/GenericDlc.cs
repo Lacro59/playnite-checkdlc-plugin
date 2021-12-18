@@ -55,6 +55,17 @@ namespace CheckDlc.Clients
             Common.LogError(ex, false, $"{ClientName}", true, "CheckDlc");
         }
 
+        public virtual void ShowNotificationPluginError(string message)
+        {
+            logger.Error($"{ClientName}: {message}");
+
+            PluginDatabase.PlayniteApi.Notifications.Add(new NotificationMessage(
+                $"checkdlc-{ClientName.RemoveWhiteSpace().ToLower()}-noconfig",
+                $"CheckDlc" + Environment.NewLine + $"{ClientName}: {message}",
+                NotificationType.Error
+            ));
+        }
+
         public virtual void ShowNotificationPluginNoConfiguration(string Message)
         {
             LastErrorId = $"checkdlc-{ClientName.RemoveWhiteSpace().ToLower()}-noconfig";

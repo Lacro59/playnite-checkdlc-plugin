@@ -16,13 +16,15 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="10" />
                             <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
                         
                         <CheckBox IsChecked="{Binding Settings.AutoImport}">
                             <Label Content="{DynamicResource LOCCommonAutoImport}" />
                         </CheckBox>
 
-                        <Grid Grid.Row="2" >
+                        <Grid Grid.Row="2">
                             <CheckBox Name="cbEnableTag" Grid.Row="4" IsChecked="{Binding Settings.EnableTag}" Grid.Column="0" VerticalAlignment="Center">
                                 <Label Content="{DynamicResource LOCCheckDlcAddTagDescription}" />
                             </CheckBox>
@@ -31,6 +33,21 @@
                                 <Button Content="{DynamicResource LOCAddTitle}" Margin="0,0,10,0" VerticalAlignment="Center" Click="ButtonAddTag_Click" />
                                 <Button Content="{DynamicResource LOCRemoveTitle}" VerticalAlignment="Bottom" Click="ButtonRemoveTag_Click" Margin="0,0,0,1" />
                             </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Content="{DynamicResource LOCCheckDlcDefineGogCurrency}" />
+                            <TextBox Grid.Column="2" Text="{Binding Settings.GogCurrency}" />
+
+                            <Button Content="&#xefca;" FontFamily="{DynamicResource FontIcoFont}" HorizontalAlignment="Right" Grid.Column="4"
+                                    Click="Button_Click" Tag="https://www.gog.com/account/settings/personal" />
                         </Grid>
                     </Grid>
                 </ScrollViewer>

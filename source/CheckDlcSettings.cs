@@ -14,6 +14,8 @@ namespace CheckDlc
         public bool EnableTag { get; set; } = false;
         public bool AutoImport { get; set; } = true;
 
+        public string GogCurrency { get; set; } = "USD";
+
 
         private bool _EnableIntegrationButton { get; set; } = true;
         public bool EnableIntegrationButton

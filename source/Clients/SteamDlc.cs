@@ -114,7 +114,9 @@ namespace CheckDlc.Clients
                             Description = storeAppDetailsResultDlc.data.detailed_description,
                             Image = storeAppDetailsResultDlc.data.header_image,
                             Link = string.Format(UrlSteamGame, DlcId, LocalLang),
-                            IsOwned = IsOwned(DlcId)
+                            IsOwned = IsOwned(DlcId),
+                            Price = storeAppDetailsResultDlc.data.price_overview.final_formatted,
+                            PriceBase = storeAppDetailsResultDlc.data.price_overview.initial_formatted
                         };
 
                         GameDlc.Add(dlc);
