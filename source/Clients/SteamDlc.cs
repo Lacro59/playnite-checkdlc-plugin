@@ -107,6 +107,12 @@ namespace CheckDlc.Clients
                         var parsedDataDlc = Serialization.FromJson<Dictionary<string, StoreAppDetailsResult>>(dataDlc);
                         StoreAppDetailsResult storeAppDetailsResultDlc = parsedDataDlc[DlcId.ToString()];
 
+                        if (storeAppDetailsResultDlc?.data == null)
+                        {
+                            logger.Warn($"No data for {game.Name}");
+                            return GameDlc;
+                        }
+
                         Dlc dlc = new Dlc
                         {
                             DlcId = DlcId.ToString(),
@@ -115,8 +121,8 @@ namespace CheckDlc.Clients
                             Image = storeAppDetailsResultDlc.data.header_image,
                             Link = string.Format(UrlSteamGame, DlcId, LocalLang),
                             IsOwned = IsOwned(DlcId),
-                            Price = storeAppDetailsResultDlc.data.price_overview.final_formatted,
-                            PriceBase = storeAppDetailsResultDlc.data.price_overview.initial_formatted
+                            Price = storeAppDetailsResultDlc.data.price_overview?.final_formatted,
+                            PriceBase = storeAppDetailsResultDlc.data.price_overview?.initial_formatted
                         };
 
                         GameDlc.Add(dlc);
