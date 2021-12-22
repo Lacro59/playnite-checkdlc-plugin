@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:AttachedProperties="clr-namespace:CommonPluginsShared.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:CheckDlc="clr-namespace:CheckDlc"
              mc:Ignorable="d" d:DesignWidth="650"
@@ -56,7 +57,29 @@
             <TabItem Header="{DynamicResource LOCCommonIntegration}">
                 <ScrollViewer>
                     <StackPanel Margin="0,10,0,0">
+                        <StackPanel>
+                            <Label Content="{DynamicResource LOCCommonControlsAvailable}" />
+                            <Separator Margin="0,0,0,10" />
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
 
+                                <Expander Grid.Row="1" AttachedProperties:ExpanderAttachedProperties.HideExpanderArrow="True">
+                                    <Expander.Style>
+                                        <Style TargetType="{x:Type Expander}" BasedOn="{StaticResource {x:Type Expander}}">
+                                            <Setter Property="Background" Value="Transparent" />
+                                        </Style>
+                                    </Expander.Style>
+
+                                    <Expander.Header>
+                                        <CheckBox IsChecked="{Binding Settings.EnableIntegrationButton}" Name="PART_IntegrationButton">
+                                            <Label Content="{DynamicResource LOCCommonControlsPluginButtonShow}" />
+                                        </CheckBox>
+                                    </Expander.Header>
+                                </Expander>
+                            </Grid>
+                        </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

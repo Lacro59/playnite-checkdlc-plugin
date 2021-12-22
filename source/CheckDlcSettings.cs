@@ -82,31 +82,33 @@ namespace CheckDlc
             }
         }
 
+        // Code executed when settings view is opened and user starts editing values.
         public void BeginEdit()
         {
-            // Code executed when settings view is opened and user starts editing values.
             EditingClone = Serialization.GetClone(Settings);
         }
 
+        // Code executed when user decides to cancel any changes made since BeginEdit was called.
+        // This method should revert any changes made to Option1 and Option2.
         public void CancelEdit()
         {
-            // Code executed when user decides to cancel any changes made since BeginEdit was called.
-            // This method should revert any changes made to Option1 and Option2.
             Settings = EditingClone;
         }
 
+        // Code executed when user decides to confirm changes made since BeginEdit was called.
+        // This method should save settings made to Option1 and Option2.
         public void EndEdit()
         {
-            // Code executed when user decides to confirm changes made since BeginEdit was called.
-            // This method should save settings made to Option1 and Option2.
             Plugin.SavePluginSettings(Settings);
+            CheckDlc.PluginDatabase.PluginSettings = this;
+            this.OnPropertyChanged();
         }
 
+        // Code execute when user decides to confirm changes made since BeginEdit was called.
+        // Executed before EndEdit is called and EndEdit is not called if false is returned.
+        // List of errors is presented to user if verification fails.
         public bool VerifySettings(out List<string> errors)
         {
-            // Code execute when user decides to confirm changes made since BeginEdit was called.
-            // Executed before EndEdit is called and EndEdit is not called if false is returned.
-            // List of errors is presented to user if verification fails.
             errors = new List<string>();
             return true;
         }

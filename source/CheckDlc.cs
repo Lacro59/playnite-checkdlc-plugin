@@ -1,4 +1,5 @@
 ﻿using CheckDlc.Clients;
+using CheckDlc.Controls;
 using CheckDlc.Models;
 using CheckDlc.Services;
 using CheckDlc.Views;
@@ -26,6 +27,23 @@ namespace CheckDlc
         {
             // Add Event for WindowBase for get the "WindowSettings".
             EventManager.RegisterClassHandler(typeof(Window), Window.LoadedEvent, new RoutedEventHandler(WindowBase_LoadedEvent));
+
+            // Custom theme button
+            EventManager.RegisterClassHandler(typeof(Button), Button.ClickEvent, new RoutedEventHandler(OnCustomThemeButtonClick));
+
+            // Custom elements integration
+            AddCustomElementSupport(new AddCustomElementSupportArgs
+            {
+                ElementList = new List<string> { "PluginButton" },
+                SourceName = "CheckDlc"
+            });
+
+            // Settings integration
+            AddSettingsSupport(new AddSettingsSupportArgs
+            {
+                SourceName = "CheckDlc",
+                SettingsRoot = $"{nameof(PluginSettings)}.{nameof(PluginSettings.Settings)}"
+            });
         }
 
 
@@ -47,6 +65,41 @@ namespace CheckDlc
             {
                 Common.LogError(ex, false, $"Error on WindowBase_LoadedEvent for {WinIdProperty}", true, "CheckDlc");
             }
+        }
+
+        public void OnCustomThemeButtonClick(object sender, RoutedEventArgs e)
+        {
+            string ButtonName = string.Empty;
+            try
+            {
+                ButtonName = ((Button)sender).Name;
+                if (ButtonName == "PART_CustomHowLongToBeatButton")
+                {
+                    Common.LogDebug(true, $"OnCustomThemeButtonClick()");
+
+                    var ViewExtension = new CheclDlcGameView(PluginDatabase.GameContext);
+                    Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
+                    windowExtension.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.LogError(ex, false, true, "CheckDlc");
+            }
+        }
+        #endregion
+
+
+        #region Theme integration
+        // List custom controls
+        public override Control GetGameViewControl(GetGameViewControlArgs args)
+        {
+            if (args.Name == "PluginButton")
+            {
+                return new PluginButton();
+            }
+
+            return null;
         }
         #endregion
 
