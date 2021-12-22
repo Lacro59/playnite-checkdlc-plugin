@@ -144,6 +144,12 @@ namespace CheckDlc.Clients
                         .Where(x => (Serialization.ToJson(x.queryHash)).Contains("PDP_PREFETCH_PRODUCT_DATA", StringComparison.InvariantCultureIgnoreCase))
                         .FirstOrDefault();
 
+                    if (AppData?.state?.data == null)
+                    {
+                        logger.Warn($"No product data for {game.Name}");
+                        return GameDlc;
+                    }
+
                     string dataString = Serialization.ToJson(AppData.state.data);
                     dynamic DataObject = Serialization.FromJson<dynamic>(dataString);
 
@@ -285,6 +291,7 @@ namespace CheckDlc.Clients
                 var catalogs = client.QuerySearch(Name).GetAwaiter().GetResult();
                 if (catalogs.HasItems())
                 {
+                    catalogs = catalogs.OrderBy(x => x.title.Length).ToList();
                     var catalog = catalogs.FirstOrDefault(a => a.title.Equals(Name, StringComparison.InvariantCultureIgnoreCase));
                     if (catalog == null)
                     {
