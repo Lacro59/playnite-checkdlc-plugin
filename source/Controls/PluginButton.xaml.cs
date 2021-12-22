@@ -80,6 +80,7 @@ namespace CheckDlc.Controls
         public override void SetData(Game newContext, PluginDataBaseGameBase PluginGameData)
         {
             GameDlc gameDlc = (GameDlc)PluginGameData;
+            MustDisplay = gameDlc.HasData;
         }
 
 
