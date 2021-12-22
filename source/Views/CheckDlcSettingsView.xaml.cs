@@ -1,4 +1,8 @@
 ﻿using CheckDlc.Services;
+using Playnite.SDK;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,6 +11,7 @@ namespace CheckDlc.Views
 {
     public partial class CheckDlcSettingsView : UserControl
     {
+        private static IResourceProvider resources = new ResourceProvider();
         private CheckDlcDatabase PluginDatabase = CheckDlc.PluginDatabase;
 
 
@@ -32,6 +37,22 @@ namespace CheckDlc.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Process.Start((string)((FrameworkElement)sender).Tag);
+        }
+
+
+        private void Button_Click_Remove(object sender, RoutedEventArgs e)
+        {
+            int index = int.Parse(((FrameworkElement)sender).Tag.ToString());
+            ((ObservableCollection<string>)PART_IgnoredList.ItemsSource).RemoveAt(index);
+        }
+
+        private void Button_Click_Add(object sender, RoutedEventArgs e)
+        {
+            var item = PluginDatabase.PlayniteApi.Dialogs.SelectString(resources.GetString("LOCCommonInputItemIgnore"), resources.GetString("LOCCheckDlc"), string.Empty);
+            if (!item.SelectedString.IsNullOrEmpty())
+            {
+                ((ObservableCollection<string>)PART_IgnoredList.ItemsSource).Add(item.SelectedString);
+            }
         }
     }
 }

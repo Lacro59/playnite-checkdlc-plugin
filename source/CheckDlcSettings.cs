@@ -2,6 +2,7 @@
 using Playnite.SDK.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace CheckDlc
 {
@@ -16,6 +17,7 @@ namespace CheckDlc
 
         public string GogCurrency { get; set; } = "USD";
 
+        public ObservableCollection<string> IgnoredList { get; set; } = new ObservableCollection<string>();
 
         private bool _EnableIntegrationButton { get; set; } = true;
         public bool EnableIntegrationButton

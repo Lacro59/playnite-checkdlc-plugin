@@ -5,15 +5,22 @@
              xmlns:AttachedProperties="clr-namespace:CommonPluginsShared.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:CheckDlc="clr-namespace:CheckDlc"
+             xmlns:commonpluginsshared="clr-namespace:CommonPluginsShared.Converters"
              mc:Ignorable="d" d:DesignWidth="650"
              d:DataContext="{d:DesignInstance CheckDlc:CheckDlcSettingsViewModel}">
 
+    <UserControl.Resources>
+        <commonpluginsshared:IndexConverter x:Key="IndexConverter" />
+    </UserControl.Resources>
+    
     <Grid Margin="20">
         <TabControl Name="tcSettings">
             <TabItem Header="{DynamicResource LOCCheckDlc}">
                 <ScrollViewer  Margin="0,10,0,0">
                     <Grid Name="CheckDlcSettings">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="10" />
                             <RowDefinition Height="auto" />
@@ -49,6 +56,34 @@
 
                             <Button Content="&#xefca;" FontFamily="{DynamicResource FontIcoFont}" HorizontalAlignment="Right" Grid.Column="4"
                                     Click="Button_Click" Tag="https://www.gog.com/account/settings/personal" />
+                        </Grid>
+
+                        <Grid Grid.Row="6">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label Content="{DynamicResource LOCCommonIgnoredItems}" />
+                            <Button Content="{DynamicResource LOCAddTitle}" HorizontalAlignment="Right" Click="Button_Click_Add" />
+
+                            <ListBox Grid.Row="2" Height="200" ItemsSource="{Binding Settings.IgnoredList}" Name="PART_IgnoredList" Margin="50,0,0,0">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="100" />
+                                            </Grid.ColumnDefinitions>
+                                            
+                                            <TextBlock Text="{Binding}" VerticalAlignment="Center" />
+                                            <Button Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Mode=OneWay, Converter={StaticResource IndexConverter}}" 
+                                                    Grid.Column="1" Click="Button_Click_Remove" Content="{DynamicResource LOCRemoveTitle}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </Grid>
                     </Grid>
                 </ScrollViewer>

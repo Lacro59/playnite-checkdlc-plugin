@@ -5,6 +5,7 @@ using CommonPluginsShared.Collections;
 using Playnite.SDK;
 using Playnite.SDK.Models;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using static CommonPluginsShared.PlayniteTools;
@@ -97,6 +98,7 @@ namespace CheckDlc.Services
                         break;
                 }
 
+                dlcs = dlcs.Where(x => PluginSettings.Settings.IgnoredList.All(y => !x.Name.Contains(y, StringComparison.InvariantCultureIgnoreCase))).ToList();
                 gameDlc.Items = dlcs;
             }
             catch (Exception ex)
