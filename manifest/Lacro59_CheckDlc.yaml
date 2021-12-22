@@ -24,3 +24,12 @@ Packages:
       - Added view with free DLC no owned
       - Updated localizations
       - Fixed minors bugs
+  - Version: 0.3
+    RequiredApiVersion: 6.2.0
+    ReleaseDate: 2021-12-22
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v0.3/playnite-checkdlc-plugin_0_3.pext
+    Changelog:
+      - Added ignorable terms for importation
+      - Added control for custom theme (see wiki)
+      - Updated localizations
+      - Fixed minors bugs
