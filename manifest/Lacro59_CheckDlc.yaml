@@ -33,3 +33,13 @@ Packages:
       - Added control for custom theme (see wiki)
       - Updated localizations
       - Fixed minors bugs
+  - Version: 0.4
+    RequiredApiVersion: 6.2.0
+    ReleaseDate: 2021-12-31
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v0.4/playnite-checkdlc-plugin_0_4.pext
+    Changelog:
+      - UI tweaks
+      - Added new settings options
+      - Added filters in dlc view
+      - Updated localizations
+      - Fixed minors bugs
