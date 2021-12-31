@@ -26,6 +26,8 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="10" />
                             <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
                         
                         <CheckBox IsChecked="{Binding Settings.AutoImport}">
@@ -46,6 +48,24 @@
                         <Grid Grid.Row="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Content="{DynamicResource LOCCheckDlcFeatureDlc}" />
+                            <ComboBox Grid.Column="1" SelectedItem="{Binding Settings.DlcFeature}"
+                                          Width="250" HorizontalAlignment="Right"
+                                          Name="PART_FeatureDlc">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+
+                        <Grid Grid.Row="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="10" />
                                 <ColumnDefinition Width="50" />
                                 <ColumnDefinition Width="*" />
@@ -58,7 +78,7 @@
                                     Click="Button_Click" Tag="https://www.gog.com/account/settings/personal" />
                         </Grid>
 
-                        <Grid Grid.Row="6">
+                        <Grid Grid.Row="8">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="10" />

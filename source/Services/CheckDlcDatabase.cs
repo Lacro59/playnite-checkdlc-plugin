@@ -110,6 +110,24 @@ namespace CheckDlc.Services
         }
 
 
+        public override void ActionAfterRefresh(GameDlc item)
+        {
+            Game game = PlayniteApi.Database.Games.Get(item.Id);
+            if ((item?.HasData ?? false) && PluginSettings.Settings.DlcFeature != null)
+            {
+                if (game.FeatureIds != null)
+                {
+                    game.FeatureIds.AddMissing(PluginSettings.Settings.DlcFeature.Id);
+                }
+                else
+                {
+                    game.FeatureIds = new List<Guid> { PluginSettings.Settings.DlcFeature.Id };
+                }
+                PlayniteApi.Database.Games.Update(game);
+            }
+        }
+
+
         public override void Games_ItemUpdated(object sender, ItemUpdatedEventArgs<Game> e)
         {
             foreach (var GameUpdated in e.UpdatedItems)

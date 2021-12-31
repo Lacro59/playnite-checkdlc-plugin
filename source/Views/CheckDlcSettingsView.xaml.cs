@@ -20,6 +20,9 @@ namespace CheckDlc.Views
         public CheckDlcSettingsView()
         {
             InitializeComponent();
+
+            // List features
+            PART_FeatureDlc.ItemsSource = PluginDatabase.PlayniteApi.Database.Features.OrderBy(x => x.Name);
         }
 
 

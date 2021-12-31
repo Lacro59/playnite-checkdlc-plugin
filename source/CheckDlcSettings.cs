@@ -1,5 +1,6 @@
 ﻿using Playnite.SDK;
 using Playnite.SDK.Data;
+using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,8 @@ namespace CheckDlc
         public string GogCurrency { get; set; } = "USD";
 
         public ObservableCollection<string> IgnoredList { get; set; } = new ObservableCollection<string>();
+
+        public GameFeature DlcFeature { get; set; } = null;
 
         private bool _EnableIntegrationButton { get; set; } = true;
         public bool EnableIntegrationButton
