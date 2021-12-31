@@ -15,6 +15,12 @@
     </UserControl.Resources>
 
     <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
         <Grid Name="PART_GridContener">
             <ListBox Height="{Binding ElementName=PART_GridContener, Path=ActualHeight}" Name="PART_Dlcs">
                 <ListBox.ItemsPanel>
@@ -81,5 +87,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
+
+        <Button Content="{DynamicResource LOCCommonRefreshGameData}" Grid.Row="2" HorizontalAlignment="Right" Click="Button_Click_Refresh" />
     </Grid>
 </UserControl>
