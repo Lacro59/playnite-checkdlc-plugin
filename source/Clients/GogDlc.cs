@@ -172,15 +172,16 @@ namespace CheckDlc.Clients
                     {
                         try
                         {
+                            string priceCountry = CodeLang.GetOriginLangCountry(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
                             var ids = GameDlc.Select(x => x.DlcId);
                             string joined = string.Join(",", ids);
-                            string UrlPrice = string.Format(UrlGogPrice, joined, (LocalLang.IsEqual("en") ? "us" : LocalLang), PluginDatabase.PluginSettings.Settings.GogCurrency);
+                            string UrlPrice = string.Format(UrlGogPrice, joined, (priceCountry.IsEqual("en") ? "us" : priceCountry), PluginDatabase.PluginSettings.Settings.GogCurrency.ToUpper());
                             string DataPrice = Web.DownloadStringData(UrlPrice).GetAwaiter().GetResult();
                             dynamic dataObj = Serialization.FromJson<dynamic>(DataPrice);
 
                             if (dataObj["message"] != null)
                             {
-                                ShowNotificationPluginError(dataObj["Message"]);
+                                ShowNotificationPluginError((string)dataObj["Message"]);
                                 return GameDlc;
                             }
 
@@ -192,14 +193,14 @@ namespace CheckDlc.Clients
                                 int idx = GameDlc.FindIndex(x => x.DlcId.IsEqual(el._embedded.product.id.ToString()));
                                 if (idx > -1)
                                 {
-                                    double.TryParse(el._embedded.prices[0].finalPrice.Replace(PluginDatabase.PluginSettings.Settings.GogCurrency, string.Empty), out double Price);
-                                    double.TryParse(el._embedded.prices[0].basePrice.Replace(PluginDatabase.PluginSettings.Settings.GogCurrency, string.Empty), out double PriceBase);
+                                    double.TryParse(el._embedded.prices[0].finalPrice.Replace(PluginDatabase.PluginSettings.Settings.GogCurrency, string.Empty, StringComparison.InvariantCultureIgnoreCase), out double Price);
+                                    double.TryParse(el._embedded.prices[0].basePrice.Replace(PluginDatabase.PluginSettings.Settings.GogCurrency, string.Empty, StringComparison.InvariantCultureIgnoreCase), out double PriceBase);
 
                                     Price = Price * 0.01;
                                     PriceBase = PriceBase * 0.01;
 
-                                    GameDlc[idx].Price = Price + " " + PluginDatabase.PluginSettings.Settings.GogCurrency;
-                                    GameDlc[idx].PriceBase = PriceBase + " " + PluginDatabase.PluginSettings.Settings.GogCurrency;
+                                    GameDlc[idx].Price = Price + " " + PluginDatabase.PluginSettings.Settings.GogCurrency.ToUpper();
+                                    GameDlc[idx].PriceBase = PriceBase + " " + PluginDatabase.PluginSettings.Settings.GogCurrency.ToUpper();
                                 }
                             }
                         }
