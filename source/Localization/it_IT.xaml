@@ -9,6 +9,11 @@
     <sys:String x:Key="LOCCheckDlcOwned">Propriet</sys:String>
     <sys:String x:Key="LOCCheckDlcFree">Gratis</sys:String>
 
+    <!-- DlcView -->
+
+    <sys:String x:Key="LOCCheckDlcHideOwned">Nascondi &quot;Posseduto&quot;</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Prezzo inferiore</sys:String>
+
     <!-- FreeView -->
     
     <sys:String x:Key="LOCCheckDlcDlc">DLC</sys:String>
@@ -17,6 +22,7 @@
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Aggiungi tag a giochi con DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definisci la valuta GOG</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Funzionalità da aggiungere se il gioco ha dei dlc</sys:String>
 
     <!-- Notifications -->
     
