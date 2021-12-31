@@ -1,6 +1,8 @@
 ﻿using CheckDlc.Services;
+using CommonPluginsShared;
 using Playnite.SDK;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -42,8 +44,16 @@ namespace CheckDlc.Views
 
         private void Button_Click_Remove(object sender, RoutedEventArgs e)
         {
-            int index = int.Parse(((FrameworkElement)sender).Tag.ToString());
-            ((ObservableCollection<string>)PART_IgnoredList.ItemsSource).RemoveAt(index);
+            try
+            {
+                int index = int.Parse(((FrameworkElement)sender).Tag.ToString());
+                ((ObservableCollection<string>)PART_IgnoredList.ItemsSource).RemoveAt(index);
+                PART_IgnoredList.Items.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Common.LogError(ex, true);
+            }
         }
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)

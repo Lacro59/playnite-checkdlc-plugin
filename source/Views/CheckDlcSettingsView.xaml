@@ -78,7 +78,7 @@
                                             </Grid.ColumnDefinitions>
                                             
                                             <TextBlock Text="{Binding}" VerticalAlignment="Center" />
-                                            <Button Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Mode=OneWay, Converter={StaticResource IndexConverter}}" 
+                                            <Button Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Mode=OneWay, Converter={StaticResource IndexConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                                     Grid.Column="1" Click="Button_Click_Remove" Content="{DynamicResource LOCRemoveTitle}" />
                                         </Grid>
                                     </DataTemplate>
