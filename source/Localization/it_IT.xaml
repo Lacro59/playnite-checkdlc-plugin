@@ -6,7 +6,7 @@
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Visualizza DLC gratuiti non posseduti</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Mostra dlc gioco</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Proprietà</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">Propriet</sys:String>
     <sys:String x:Key="LOCCheckDlcFree">Gratis</sys:String>
 
     <!-- FreeView -->
