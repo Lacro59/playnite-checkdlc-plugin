@@ -2,9 +2,12 @@
 using CheckDlc.Services;
 using Playnite.SDK.Models;
 using System;
+using System.Linq;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Collections.Generic;
 
 namespace CheckDlc.Views
 {
@@ -19,14 +22,11 @@ namespace CheckDlc.Views
 
 
         public CheclDlcGameView(Game GameContext)
-        {
-            this.GameContext = GameContext;
-
+        {           
             InitializeComponent();
 
-            GameDlc gameDlc = PluginDatabase.Get(GameContext, true);
-            gameDlc.Items.Sort((x, y) => (y.Name).CompareTo(x.Name));
-            PART_Dlcs.ItemsSource = gameDlc.Items;
+            this.GameContext = GameContext;
+            Filter((bool)PART_TgHide.IsChecked, PART_LimitPrice.Text);
         }
 
 
@@ -48,5 +48,45 @@ namespace CheckDlc.Views
             gameDlc.Items.Sort((x, y) => (y.Name).CompareTo(x.Name));
             PART_Dlcs.ItemsSource = gameDlc.Items;
         }
+
+
+        #region Filter
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            Filter((bool)PART_TgHide.IsChecked, PART_LimitPrice.Text);
+        }
+
+        private void PART_LimitPrice_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Filter((bool)PART_TgHide.IsChecked, PART_LimitPrice.Text);
+        }
+
+
+        private void Filter(bool HideOwned, string Price)
+        {
+            PART_Dlcs.ItemsSource = null;
+
+            GameDlc gameDlc = PluginDatabase.Get(GameContext, true);
+            List<Dlc> data = new List<Dlc>();
+
+            double.TryParse(Price, out double PriceLimit);
+            if (PriceLimit == 0)
+            {
+                PriceLimit = 1000000000;
+            }
+
+            if (HideOwned)
+            {
+                data = gameDlc.Items.Where(x => !x.IsOwned && x.PriceBaseNumeric <= PriceLimit).OrderBy(x => x.Name).ToList();
+            }
+            else
+            {
+                data = gameDlc.Items.Where(x => x.PriceBaseNumeric <= PriceLimit).OrderBy(x => x.Name).ToList();
+            }
+
+            PART_Dlcs.ItemsSource = data;
+            PART_TotalFoundCount.Text = data.Count.ToString();
+        }
+        #endregion
     }
 }
