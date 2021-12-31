@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Voir les DLC gratuit non possédé</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Voir les DLC gratuit non posséd</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Voir les DLC du jeu</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">Possédé</sys:String>
