@@ -5,17 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CheckDlc.Views
 {
@@ -51,6 +42,30 @@ namespace CheckDlc.Views
             {
                 Process.Start((string)((FrameworkElement)sender).Tag);
             }
+        }
+
+
+        private void Button_Click_Refresh(object sender, RoutedEventArgs e)
+        {
+            var data = (List<lvDlc>)PART_ListviewDlc.ItemsSource;
+            if (data.Count > 0)
+            {
+                var dataId = data.Select(x => x.Id).ToList();
+                PluginDatabase.Refresh(dataId);
+            }
+
+            PART_ListviewDlc.ItemsSource = null;
+            var lvDlcs = PluginDatabase.Database.Items.SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned)
+                .Select(z => new lvDlc
+                {
+                    Icon = x.Value.Icon,
+                    Id = x.Key,
+                    Name = x.Value.Name,
+                    NameDlc = z.Name,
+                    Link = z.Link
+                })).ToList();
+
+            PART_ListviewDlc.ItemsSource = lvDlcs;
         }
     }
 

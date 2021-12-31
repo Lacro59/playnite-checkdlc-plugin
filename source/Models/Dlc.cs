@@ -34,7 +34,8 @@ namespace CheckDlc.Models
                         return false;
                     }
 
-                    string temp = Regex.Split(Price, @"\s+").Where(s => s != string.Empty).First();
+                    string temp = Price.Replace(",--", string.Empty).Replace(".--", string.Empty).Replace(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator + "--", string.Empty);
+                    temp = Regex.Split(temp, @"\s+").Where(s => s != string.Empty).First();
                     temp = Regex.Replace(temp, @"[^\d.-]", "");
                     temp = temp.Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
                     double dPrice = double.Parse(temp);
