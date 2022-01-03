@@ -11,8 +11,8 @@
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">Eigene ausblenden</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Niedrigerer Preis</sys:String>
 
     <!-- FreeView -->
     
@@ -22,7 +22,7 @@
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Tag zum DLC hinzufügen</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">GOG Währung festlegen</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Funktion hinzufügen, wenn das Spiel DLCs hat</sys:String>
 
     <!-- Notifications -->
     
