@@ -47,6 +47,7 @@ namespace CheckDlc.Views
             GameDlc gameDlc = PluginDatabase.Get(GameContext, true);
             gameDlc.Items.Sort((x, y) => (y.Name).CompareTo(x.Name));
             PART_Dlcs.ItemsSource = gameDlc.Items;
+            PART_TotalFoundCount.Text = gameDlc.Items.Count.ToString();
         }
 
 
