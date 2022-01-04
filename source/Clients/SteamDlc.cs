@@ -89,8 +89,9 @@ namespace CheckDlc.Clients
 
             try
             {
-                List<int> DlcsIdSteam = GetFromSteamWebApi(game.GameId);
-                List<int> DlcsIdSteamDb = GetFromSteamDb(game.GameId);
+                string GameId = game.GameId;
+                List<int> DlcsIdSteam = GetFromSteamWebApi(GameId);
+                List<int> DlcsIdSteamDb = GetFromSteamDb(GameId);
 
                 List<int> DlcsId = (DlcsIdSteam.Count >= DlcsIdSteamDb.Count) ? DlcsIdSteam : DlcsIdSteamDb;
                 foreach (var DlcId in DlcsId)
@@ -121,8 +122,8 @@ namespace CheckDlc.Clients
                             Image = storeAppDetailsResultDlc.data.header_image,
                             Link = string.Format(UrlSteamGame, DlcId, LocalLang),
                             IsOwned = IsOwned(DlcId),
-                            Price = storeAppDetailsResultDlc.data.price_overview?.final_formatted,
-                            PriceBase = storeAppDetailsResultDlc.data.price_overview?.initial_formatted
+                            Price = storeAppDetailsResultDlc.data.is_free ? "0" : storeAppDetailsResultDlc.data.price_overview?.final_formatted,
+                            PriceBase = storeAppDetailsResultDlc.data.is_free ? "0" : storeAppDetailsResultDlc.data.price_overview?.initial_formatted
                         };
 
                         GameDlc.Add(dlc);
