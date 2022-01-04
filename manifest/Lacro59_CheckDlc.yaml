@@ -46,7 +46,7 @@ Packages:
   - Version: 0.4.1
     RequiredApiVersion: 6.2.0
     ReleaseDate: 2021-01-04
-    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v0.4.1/playnite-checkdlc-plugin_0_4.1.pext
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v0.4.1/playnite-checkdlc-plugin_0_4_1.pext
     Changelog:
       - Fixed GOG currencies bug (added new settings options)
       - Fixed issue with price of free Steam DLC
