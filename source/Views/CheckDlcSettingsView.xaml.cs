@@ -3,11 +3,13 @@ using CommonPluginsShared;
 using Playnite.SDK;
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using CheckDlc.Clients;
+using CheckDlc.Models;
+using System.Collections.Generic;
 
 namespace CheckDlc.Views
 {
@@ -23,6 +25,18 @@ namespace CheckDlc.Views
 
             // List features
             PART_FeatureDlc.ItemsSource = PluginDatabase.PlayniteApi.Database.Features.OrderBy(x => x.Name);
+
+            // List GOG currencies
+            GogDlc gogDlc = new GogDlc();
+            var data = gogDlc.GetGogCurrencies();            
+            PART_GogCurrency.ItemsSource = data.OrderBy(x => x.code).ToList();
+
+            try
+            {
+                int idx = ((List<GogCurrency>)PART_GogCurrency.ItemsSource).FindIndex(x => x.code == PluginDatabase.PluginSettings.Settings.GogCurrencySelected.code);
+                PART_GogCurrency.SelectedIndex = idx;
+            }
+            catch { }
         }
 
 

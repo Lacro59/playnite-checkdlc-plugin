@@ -77,11 +77,11 @@ namespace CheckDlc.Views
 
             if (HideOwned)
             {
-                data = gameDlc.Items.Where(x => !x.IsOwned && x.PriceBaseNumeric <= PriceLimit).OrderBy(x => x.Name).ToList();
+                data = gameDlc.Items.Where(x => !x.IsOwned && x.PriceNumeric <= PriceLimit).OrderBy(x => x.Name).ToList();
             }
             else
             {
-                data = gameDlc.Items.Where(x => x.PriceBaseNumeric <= PriceLimit).OrderBy(x => x.Name).ToList();
+                data = gameDlc.Items.Where(x => x.PriceNumeric <= PriceLimit).OrderBy(x => x.Name).ToList();
             }
 
             PART_Dlcs.ItemsSource = data;

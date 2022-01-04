@@ -53,8 +53,8 @@
 
                             <Label Grid.Column="0" Content="{DynamicResource LOCCheckDlcFeatureDlc}" />
                             <ComboBox Grid.Column="1" SelectedItem="{Binding Settings.DlcFeature}"
-                                          Width="250" HorizontalAlignment="Right"
-                                          Name="PART_FeatureDlc">
+                                      Width="250" HorizontalAlignment="Right"
+                                      Name="PART_FeatureDlc">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Name}"/>
@@ -67,15 +67,22 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
                             <Label Content="{DynamicResource LOCCheckDlcDefineGogCurrency}" />
-                            <TextBox Grid.Column="2" Text="{Binding Settings.GogCurrency}" />
+                            <ComboBox Grid.Column="2" SelectedItem="{Binding Settings.GogCurrencySelected}"
+                                      Name="PART_GogCurrency">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding code}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
 
-                            <Button Content="&#xefca;" FontFamily="{DynamicResource FontIcoFont}" HorizontalAlignment="Right" Grid.Column="4"
-                                    Click="Button_Click" Tag="https://www.gog.com/account/settings/personal" />
+                            <!--Button Content="&#xefca;" FontFamily="{DynamicResource FontIcoFont}" HorizontalAlignment="Right" Grid.Column="4"
+                                    Click="Button_Click" Tag="https://www.gog.com/account/settings/personal" /-->
                         </Grid>
 
                         <Grid Grid.Row="8">

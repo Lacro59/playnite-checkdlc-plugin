@@ -96,6 +96,7 @@
     <Compile Include="Models\GameDlc.cs" />
     <Compile Include="Models\GogPriceResult.cs" />
     <Compile Include="Models\GogUserData.cs" />
+    <Compile Include="Models\GogUserDataOwned.cs" />
     <Compile Include="Models\ProductApiDetail.cs" />
     <Compile Include="Models\SteamUserData.cs" />
     <Compile Include="playnite-plugincommon\CommonPluginsControls\PlayniteControls\NumericBox.xaml.cs">

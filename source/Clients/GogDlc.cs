@@ -68,7 +68,7 @@ namespace CheckDlc.Clients
                     {
                         _IsConnected = GogAPI.GetIsUserLoggedIn();
                         SettingsOpen = false;
-                        _UserData = null;
+                        _UserDataOwned = null;
                     }
                     catch (Exception ex)
                     {
@@ -80,18 +80,20 @@ namespace CheckDlc.Clients
         }
 
         private string UrlGogLang = @"https://www.gog.com/user/changeLanguage/{0}";
+
         private static string UrlGogOwned = "https://embed.gog.com/user/data/games";
+        private static string UrlGogUserData = "https://www.gog.com/userData.json";
+
         private static string UrlGogAppDetails = "https://api.gog.com/products/{0}?expand=description";
         private static string UrlGogGame = "https://www.gog.com/game/{0}";
-
         private static string UrlGogPrice = "https://api.gog.com/products/prices?ids={0}&countryCode={1}&currency={2}";
 
-        private static GogUserData _UserData = null;
-        private static GogUserData UserData
+        private static GogUserDataOwned _UserDataOwned = null;
+        private static GogUserDataOwned UserDataOwned
         {
             get
             {
-                if (_UserData == null)
+                if (_UserDataOwned == null)
                 {
                     try
                     {
@@ -100,14 +102,14 @@ namespace CheckDlc.Clients
                         string UserName = AccountInfo.username;
 
                         string data = Web.DownloadStringData(UrlGogOwned, AccessToken).GetAwaiter().GetResult();
-                        _UserData = Serialization.FromJson<GogUserData>(data);
+                        _UserDataOwned = Serialization.FromJson<GogUserDataOwned>(data);
                     }
                     catch (Exception ex)
                     {
                         Common.LogError(ex, false, $"GOG", true, "CheckDlc");
                     }
                 }
-                return _UserData;
+                return _UserDataOwned;
             }
         }
 
@@ -175,13 +177,23 @@ namespace CheckDlc.Clients
                             string priceCountry = CodeLang.GetOriginLangCountry(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
                             var ids = GameDlc.Select(x => x.DlcId);
                             string joined = string.Join(",", ids);
-                            string UrlPrice = string.Format(UrlGogPrice, joined, (priceCountry.IsEqual("en") ? "us" : priceCountry), PluginDatabase.PluginSettings.Settings.GogCurrency.ToUpper());
-                            string DataPrice = Web.DownloadStringData(UrlPrice).GetAwaiter().GetResult();
-                            dynamic dataObj = Serialization.FromJson<dynamic>(DataPrice);
+                            string UrlPrice = string.Format(UrlGogPrice, joined, (priceCountry.IsEqual("en") ? "us" : priceCountry), PluginDatabase.PluginSettings.Settings.GogCurrencySelected.code.ToUpper());
+                            dynamic dataObj = GetPrice(UrlPrice);
+
+                            string CodeCurrency = PluginDatabase.PluginSettings.Settings.GogCurrencySelected.code;
+                            string SymbolCurrency = PluginDatabase.PluginSettings.Settings.GogCurrencySelected.symbol;
+
+                            if (dataObj["message"] != null && ((string)dataObj["message"]).Contains("is not supported in", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                UrlPrice = string.Format(UrlGogPrice, joined, (priceCountry.IsEqual("en") ? "us" : priceCountry), "USD");
+                                dataObj = GetPrice(UrlPrice);
+                                CodeCurrency = "USD";
+                                SymbolCurrency = "$";
+                            }
 
                             if (dataObj["message"] != null)
                             {
-                                ShowNotificationPluginError((string)dataObj["Message"]);
+                                logger.Info($"{ClientName}: {dataObj["message"]}");
                                 return GameDlc;
                             }
 
@@ -193,14 +205,14 @@ namespace CheckDlc.Clients
                                 int idx = GameDlc.FindIndex(x => x.DlcId.IsEqual(el._embedded.product.id.ToString()));
                                 if (idx > -1)
                                 {
-                                    double.TryParse(el._embedded.prices[0].finalPrice.Replace(PluginDatabase.PluginSettings.Settings.GogCurrency, string.Empty, StringComparison.InvariantCultureIgnoreCase), out double Price);
-                                    double.TryParse(el._embedded.prices[0].basePrice.Replace(PluginDatabase.PluginSettings.Settings.GogCurrency, string.Empty, StringComparison.InvariantCultureIgnoreCase), out double PriceBase);
+                                    double.TryParse(el._embedded.prices[0].finalPrice.Replace(CodeCurrency, string.Empty, StringComparison.InvariantCultureIgnoreCase), out double Price);
+                                    double.TryParse(el._embedded.prices[0].basePrice.Replace(CodeCurrency, string.Empty, StringComparison.InvariantCultureIgnoreCase), out double PriceBase);
 
                                     Price = Price * 0.01;
                                     PriceBase = PriceBase * 0.01;
 
-                                    GameDlc[idx].Price = Price + " " + PluginDatabase.PluginSettings.Settings.GogCurrency.ToUpper();
-                                    GameDlc[idx].PriceBase = PriceBase + " " + PluginDatabase.PluginSettings.Settings.GogCurrency.ToUpper();
+                                    GameDlc[idx].Price = Price + " " + SymbolCurrency;
+                                    GameDlc[idx].PriceBase = PriceBase + " " + SymbolCurrency;
                                 }
                             }
                         }
@@ -231,11 +243,18 @@ namespace CheckDlc.Clients
         }
 
 
+        private dynamic GetPrice(string UrlPrice)
+        {
+            string DataPrice = Web.DownloadStringData(UrlPrice).GetAwaiter().GetResult();
+            return Serialization.FromJson<dynamic>(DataPrice);
+        }
+
+
         private bool IsOwned(int GameId)
         {
-            if (UserData?.owned?.Count > 0)
+            if (UserDataOwned?.owned?.Count > 0)
             {
-                var finded = UserData?.owned?.Find(x => x == GameId);
+                var finded = UserDataOwned?.owned?.Find(x => x == GameId);
                 return (finded != null && finded != 0);
             }
             else
@@ -243,6 +262,29 @@ namespace CheckDlc.Clients
                 ShowNotificationPluginNoAuthenticate(string.Format(resources.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.GogLibrary);
                 return false;
             }
+        }
+
+
+        public List<GogCurrency> GetGogCurrencies()
+        {
+            try
+            {
+                if (IsConnected)
+                {
+                    string webData = Web.DownloadStringData(UrlGogUserData).GetAwaiter().GetResult();
+                    var userData = Serialization.FromJson<GogUserData>(webData);
+                    return userData.currencies;
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.LogError(ex, false, true, "CheckDlc");
+            }
+
+            return new List<GogCurrency>
+            {
+                new GogCurrency { code = "USD", symbol = "$" }
+            };
         }
     }
 }
