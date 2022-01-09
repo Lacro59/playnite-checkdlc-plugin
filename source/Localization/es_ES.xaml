@@ -3,30 +3,30 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">View free DLC no onwed</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Ver DLC gratis no poseído</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Ver dlc del juego</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">Poseído</sys:String>
-    <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Gratis</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">Ocultar poseídos</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Precio inferior</sys:String>
 
     <!-- FreeView -->
     
-    <sys:String x:Key="LOCCheckDlcDlc">DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcDlc">Contenido descargable</sys:String>
     
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Añadir etiqueta a juegos con DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definir la moneda de GOG</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Característica a añadir si el juego tiene dlcs</sys:String>
 
     <!-- Notifications -->
     
     <sys:String x:Key="LOCCheckDlcUseSavedUserData">Usar datos guardados para {0} [{1}]</sys:String>
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error al obtener los precios de DLC. Por favor, comprueba la configuración de tu moneda</sys:String>
     
 </ResourceDictionary>
