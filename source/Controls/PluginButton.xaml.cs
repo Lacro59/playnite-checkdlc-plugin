@@ -73,7 +73,7 @@ namespace CheckDlc.Controls
         public override void SetDefaultDataContext()
         {
             ControlDataContext.IsActivated = PluginDatabase.PluginSettings.Settings.EnableIntegrationButton;
-            ControlDataContext.Text = "\uea6b";
+            ControlDataContext.Text = "\ue91f";
         }
 
 
@@ -100,7 +100,7 @@ namespace CheckDlc.Controls
         private bool _IsActivated;
         public bool IsActivated { get => _IsActivated; set => SetValue(ref _IsActivated, value); }
 
-        private string _Text = "\uea6b";
+        private string _Text = "\ue91f";
         public string Text { get => _Text; set => SetValue(ref _Text, value); }
     }
 }
