@@ -12,7 +12,7 @@ using static CommonPluginsShared.PlayniteTools;
 
 namespace CheckDlc.Services
 {
-    public class CheckDlcDatabase : PluginDatabaseObject<CheckDlcSettingsViewModel, CheckDlcCollection, GameDlc>
+    public class CheckDlcDatabase : PluginDatabaseObject<CheckDlcSettingsViewModel, CheckDlcCollection, GameDlc, Dlc>
     {
         public bool SettingsOpen = false;
 
