@@ -45,7 +45,7 @@ Packages:
       - Fixed minors bugs
   - Version: 0.4.1
     RequiredApiVersion: 6.2.0
-    ReleaseDate: 2021-01-04
+    ReleaseDate: 2022-01-04
     PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v0.4.1/playnite-checkdlc-plugin_0_4_1.pext
     Changelog:
       - Fixed GOG currencies bug (added new settings options)
