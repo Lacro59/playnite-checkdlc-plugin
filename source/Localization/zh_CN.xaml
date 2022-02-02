@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
+    <sys:String x:Key="LOCCheckDlc">CheckDlc-检查 DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">View free DLC no onwed</sys:String>
-    <sys:String x:Key="LOCCheckDlcViewDlc">View game dlc</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">查看未拥有的免费 DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">查看游戏 DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">已拥有</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">免费</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">隐藏已拥有</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">较差的价格</sys:String>
 
     <!-- FreeView -->
     
@@ -20,13 +20,13 @@
     
     <!-- SettingsView -->
 
-    <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">为具有 DLC 的游戏添加标签</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定义 GOG 货币</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">若游戏有 DLC 则添加的功能特色</sys:String>
 
     <!-- Notifications -->
     
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData">Use saved data for {0} [{1}]</sys:String>
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData">为 {0} 使用已保存的数据 [{1}]</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">获取 DLC 价格出错。请检查您的货币设置</sys:String>
     
 </ResourceDictionary>

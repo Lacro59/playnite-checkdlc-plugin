@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Посмтотреть бесплтные DLC которыми я не владею</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Посмотреть бесплатные DLC, которыми я не владею</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Просмотр DLC для игры</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">В коллекции</sys:String>
@@ -11,8 +11,8 @@
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">Скрыть принадлежащие</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Цена ниже</sys:String>
 
     <!-- FreeView -->
     
@@ -22,7 +22,7 @@
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Добавить тег в игры с DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Определить валюту GOG</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Функция для добавления, если в игре есть DLC</sys:String>
 
     <!-- Notifications -->
     
