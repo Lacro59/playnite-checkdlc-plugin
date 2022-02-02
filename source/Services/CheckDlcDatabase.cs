@@ -126,14 +126,5 @@ namespace CheckDlc.Services
                 PlayniteApi.Database.Games.Update(game);
             }
         }
-
-
-        public override void Games_ItemUpdated(object sender, ItemUpdatedEventArgs<Game> e)
-        {
-            foreach (var GameUpdated in e.UpdatedItems)
-            {
-                Database.SetGameInfo<Dlc>(PlayniteApi, GameUpdated.NewData.Id);
-            }
-        }
     }
 }
