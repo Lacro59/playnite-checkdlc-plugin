@@ -7,7 +7,7 @@
     <sys:String x:Key="LOCCheckDlcViewDlc">Просмотр DLC для игры</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">В коллекции</sys:String>
-    <sys:String x:Key="LOCCheckDlcFree"> Бесплатно</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Бесплатно</sys:String>
 
     <!-- DlcView -->
 
@@ -27,6 +27,6 @@
     <!-- Notifications -->
     
     <sys:String x:Key="LOCCheckDlcUseSavedUserData">Использовать сохраненные данные для {0} [{1}]</sys:String>
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Ошибка получения цен DLC. Пожалуйста, проверьте настройки валют</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Ошибка получения цен DLC. Пожалуйста, проверьте настройки валю</sys:String>
     
 </ResourceDictionary>
