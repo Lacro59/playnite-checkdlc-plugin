@@ -141,7 +141,8 @@ namespace CheckDlc.Clients
                     // Serialize data 
                     EpicData epicData = Serialization.FromJson<EpicData>(JsonDataString);
                     var AppData = epicData.queries
-                        .Where(x => (Serialization.ToJson(x.queryHash)).Contains("PDP_PREFETCH_PRODUCT_DATA", StringComparison.InvariantCultureIgnoreCase))
+                        //.Where(x => (Serialization.ToJson(x.queryHash)).Contains("PDP_PREFETCH_PRODUCT_DATA", StringComparison.InvariantCultureIgnoreCase))
+                        .Where(x => (Serialization.ToJson(x.queryHash)).Contains("CMS", StringComparison.InvariantCultureIgnoreCase))
                         .FirstOrDefault();
 
                     if (AppData?.state?.data == null)
@@ -155,7 +156,15 @@ namespace CheckDlc.Clients
 
                     // Dlcs
                     List<EpicDlcData> epicDlcDatas = new List<EpicDlcData>();
-                    string epicDlcDataString = Serialization.ToJson(DataObject["pages"][0]["data"]["dlc"]["dlc"]);
+                    string epicDlcDataString = string.Empty;
+                    foreach (var el in DataObject["pages"])
+                    {
+                        if (Serialization.ToJson(el).Contains("\"dlc\":["))
+                        {
+                            epicDlcDataString = Serialization.ToJson(el["data"]["dlc"]["dlc"]);
+                        }
+                    }
+                    
                     if (!epicDlcDataString.IsNullOrEmpty() && !epicDlcDataString.IsEqual("null"))
                     {
                         epicDlcDatas = Serialization.FromJson<List<EpicDlcData>>(epicDlcDataString);
