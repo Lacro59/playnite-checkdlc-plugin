@@ -140,113 +140,38 @@ namespace CheckDlc.Clients
 
                     // Serialize data 
                     EpicData epicData = Serialization.FromJson<EpicData>(JsonDataString);
-                    var AppData = epicData.queries
-                        //.Where(x => (Serialization.ToJson(x.queryHash)).Contains("PDP_PREFETCH_PRODUCT_DATA", StringComparison.InvariantCultureIgnoreCase))
-                        .Where(x => (Serialization.ToJson(x.queryHash)).Contains("CMS", StringComparison.InvariantCultureIgnoreCase))
-                        .FirstOrDefault();
-
-                    if (AppData?.state?.data == null)
-                    {
-                        logger.Warn($"No product data for {game.Name}");
-                        return GameDlc;
-                    }
-
-                    string dataString = Serialization.ToJson(AppData.state.data);
-                    dynamic DataObject = Serialization.FromJson<dynamic>(dataString);
-
-                    // Dlcs
-                    List<EpicDlcData> epicDlcDatas = new List<EpicDlcData>();
-                    string epicDlcDataString = string.Empty;
-                    foreach (var el in DataObject["pages"])
-                    {
-                        if (Serialization.ToJson(el).Contains("\"dlc\":["))
-                        {
-                            epicDlcDataString = Serialization.ToJson(el["data"]["dlc"]["dlc"]);
-                        }
-                    }
-                    
-                    if (!epicDlcDataString.IsNullOrEmpty() && !epicDlcDataString.IsEqual("null"))
-                    {
-                        epicDlcDatas = Serialization.FromJson<List<EpicDlcData>>(epicDlcDataString);
-                    }
-                    
-                    foreach (var el in epicDlcDatas)
-                    {
-                        if (el.offerId.IsNullOrEmpty())
-                        {
-                            continue;
-                        }
-
-                        try
-                        {
-                            var DlcData = epicData.queries
-                                .Where(x => x.queryHash.Contains("getEntitledOfferItems", StringComparison.InvariantCultureIgnoreCase) && x.queryHash.Contains(el.offerId, StringComparison.InvariantCultureIgnoreCase))
-                                .FirstOrDefault();
-
-                            Dlc dlc = new Dlc
-                            {
-                                DlcId = el.offerId,
-                                Name = el.title,
-                                Description = el.description,
-                                Image = el.image.src,
-                                Link = UrlBase + "/" + el.slug,
-                                IsOwned = IsOwned(DlcData, el.offerId)
-                            };
-
-                            GameDlc.Add(dlc);
-                        }
-                        catch (Exception ex)
-                        {
-                            Common.LogError(ex, false);
-                        }
-                    }
-
-
-                    // Catalog data
-                    var CatalogData = epicData.queries
-                        .Where(x => (Serialization.ToJson(x.queryHash)).Contains("getCatalogOffer", StringComparison.InvariantCultureIgnoreCase))
+                    var getCatalogOffers = epicData.queries
+                        .Where(x => 
+                        (
+                            Serialization.ToJson(x.queryHash)).Contains("getCatalogOffer", StringComparison.InvariantCultureIgnoreCase)
+                            && !Serialization.ToJson(x.state.data).Contains("\"offerType\":\"BASE_GAME\"", StringComparison.InvariantCultureIgnoreCase)
+                        )
                         .ToList();
-                    foreach (var el in CatalogData)
+
+                    foreach(var el in getCatalogOffers)
                     {
+                        string epicCatalogOfferString = Serialization.ToJson(el.state.data);
+                        EpicCatalogOffer epicCatalogOffer = Serialization.FromJson<EpicCatalogOffer>(epicCatalogOfferString);
+
                         try
                         {
-                            string epicCatalogOfferString = Serialization.ToJson(el.state.data);
-                            EpicCatalogOffer epicCatalogOffer = Serialization.FromJson<EpicCatalogOffer>(epicCatalogOfferString);
-
                             var DlcData = epicData.queries
                                 .Where(x => x.queryHash.Contains("getEntitledOfferItems", StringComparison.InvariantCultureIgnoreCase) && x.queryHash.Contains(epicCatalogOffer.Catalog.catalogOffer.id, StringComparison.InvariantCultureIgnoreCase))
                                 .FirstOrDefault();
 
-                            // already exist? => replace beacause some dlc is incorrect (ex: Football Manager 2021
-                            int idx = GameDlc.FindIndex(x => x.DlcId.IsEqual(epicCatalogOffer.Catalog.catalogOffer.id));
-                            if (idx > -1)
+                            Dlc dlc = new Dlc
                             {
-                                GameDlc[idx] = new Dlc
-                                {
-                                    DlcId = epicCatalogOffer.Catalog.catalogOffer.id,
-                                    Name = epicCatalogOffer.Catalog.catalogOffer.title,
-                                    Description = epicCatalogOffer.Catalog.catalogOffer.description,
-                                    Image = epicCatalogOffer.Catalog.catalogOffer.keyImages.Find(x => x.type.IsEqual("OfferImageWide")).url.Replace("\u002F", "/"),
-                                    Link = string.Format(UrlStore, LocalLangFinal, epicCatalogOffer.Catalog.catalogOffer.urlSlug),
-                                    IsOwned = IsOwned(DlcData, epicCatalogOffer.Catalog.catalogOffer.id),
-                                    Price = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.discountPrice,
-                                    PriceBase = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.originalPrice
-                                };
-                            }
-                            else if (epicCatalogOffer.Catalog.catalogOffer.categories.Find(x => x.path.IsEqual("addons")) != null)
-                            {
-                                GameDlc.Add(new Dlc
-                                {
-                                    DlcId = epicCatalogOffer.Catalog.catalogOffer.id,
-                                    Name = epicCatalogOffer.Catalog.catalogOffer.title,
-                                    Description = epicCatalogOffer.Catalog.catalogOffer.description,
-                                    Image = epicCatalogOffer.Catalog.catalogOffer.keyImages.Find(x => x.type.IsEqual("OfferImageWide")).url.Replace("\u002F", "/"),
-                                    Link = string.Format(UrlStore, LocalLangFinal, epicCatalogOffer.Catalog.catalogOffer.urlSlug),
-                                    IsOwned = IsOwned(DlcData, epicCatalogOffer.Catalog.catalogOffer.id),
-                                    Price = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.discountPrice,
-                                    PriceBase = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.originalPrice
-                                });
-                            }
+                                DlcId = epicCatalogOffer.Catalog.catalogOffer.id,
+                                Name = epicCatalogOffer.Catalog.catalogOffer.title,
+                                Description = epicCatalogOffer.Catalog.catalogOffer.description,
+                                Image = epicCatalogOffer.Catalog.catalogOffer.keyImages.Find(x => x.type.IsEqual("OfferImageWide")).url.Replace("\u002F", "/"),
+                                Link = string.Format(UrlStore, LocalLangFinal, epicCatalogOffer.Catalog.catalogOffer.urlSlug),
+                                IsOwned = IsOwned(DlcData, epicCatalogOffer.Catalog.catalogOffer.id),
+                                Price = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.discountPrice,
+                                PriceBase = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.originalPrice
+                            };
+
+                            GameDlc.Add(dlc);
                         }
                         catch (Exception ex)
                         {
