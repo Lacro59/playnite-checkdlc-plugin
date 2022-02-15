@@ -6,12 +6,12 @@
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">查看未拥有的免费 DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">查看游戏 DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">已拥有</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">已拥</sys:String>
     <sys:String x:Key="LOCCheckDlcFree">免费</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">隐藏已拥有</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">隐藏已拥</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">较差的价格</sys:String>
 
     <!-- FreeView -->
@@ -21,7 +21,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">为具有 DLC 的游戏添加标签</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定义 GOG 货币</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定义 GOG 货</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">若游戏有 DLC 则添加的功能特色</sys:String>
 
     <!-- Notifications -->

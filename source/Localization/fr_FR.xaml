@@ -12,7 +12,7 @@
     <!-- DlcView -->
 
     <sys:String x:Key="LOCCheckDlcHideOwned">Cacher les possédés</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Prix inférieur à</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Prix inférieur </sys:String>
 
     <!-- FreeView -->
     
