@@ -1,0 +1,32 @@
+﻿<?xml version="1.0"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:String x:Key="LOCCheckDlc">التحقق من DLC</sys:String>
+
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">عرض DLCs المجانية غير المملوكة</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">عرض DLC اللعبة</sys:String>
+
+    <sys:String x:Key="LOCCheckDlcOwned">مملوك</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">مجانًا</sys:String>
+
+    <!-- DlcView -->
+
+    <sys:String x:Key="LOCCheckDlcHideOwned">إخفاء المملوك</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">السعر أقل من</sys:String>
+
+    <!-- FreeView -->
+    
+    <sys:String x:Key="LOCCheckDlcDlc">DLC</sys:String>
+    
+    <!-- SettingsView -->
+
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">إضافة علامة إلى الألعاب ذات DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">تحديد عملة GOG</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">ميزة لإضافة إذا كانت اللعبة تحتوي على DLC</sys:String>
+
+    <!-- Notifications -->
+    
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData">استخدام البيانات المحفوظة لـ {0} [{1}]</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">خطأ في الحصول على أسعار DLC. الرجاء التحقق من إعدادات العملة</sys:String>
+    
+</ResourceDictionary>
