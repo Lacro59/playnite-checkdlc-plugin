@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">View free DLC no onwed</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC not owned</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">View game dlc</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
