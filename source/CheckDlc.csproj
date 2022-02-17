@@ -88,6 +88,9 @@
     <Compile Include="Controls\PluginButton.xaml.cs">
       <DependentUpon>PluginButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PluginListDlc.xaml.cs">
+      <DependentUpon>PluginListDlc.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\CheckDlcCollection.cs" />
     <Compile Include="Models\Dlc.cs" />
     <Compile Include="Models\EpicCatalogOffer.cs" />
@@ -222,6 +225,10 @@
     <Page Include="Controls\PluginButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PluginListDlc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="playnite-plugincommon\CommonPluginsControls\PlayniteControls\NumericBox.xaml">
       <Generator>MSBuild:Compile</Generator>

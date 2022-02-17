@@ -34,7 +34,7 @@ namespace CheckDlc
             // Custom elements integration
             AddCustomElementSupport(new AddCustomElementSupportArgs
             {
-                ElementList = new List<string> { "PluginButton" },
+                ElementList = new List<string> { "PluginButton", "PluginListDlcAll", "PluginListDlcOwned", "PluginListDlcNotOwned" },
                 SourceName = "CheckDlc"
             });
 
@@ -97,6 +97,19 @@ namespace CheckDlc
             if (args.Name == "PluginButton")
             {
                 return new PluginButton();
+            }
+
+            if (args.Name == "PluginListDlcAll")
+            {
+                return new PluginListDlc();
+            }
+            if (args.Name == "PluginListDlcOwned")
+            {
+                return new PluginListDlc { ListType = ListDlcType.Owned };
+            }
+            if (args.Name == "PluginListDlcNotOwned")
+            {
+                return new PluginListDlc { ListType = ListDlcType.NotOwned };
             }
 
             return null;

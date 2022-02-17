@@ -23,6 +23,10 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only onwed DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only not onwed DLC</sys:String>
 
     <!-- Notifications -->
     

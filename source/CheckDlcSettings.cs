@@ -34,6 +34,39 @@ namespace CheckDlc
             }
         }
 
+        private bool _EnableIntegrationListDlcAll { get; set; } = true;
+        public bool EnableIntegrationListDlcAll
+        {
+            get => _EnableIntegrationListDlcAll;
+            set
+            {
+                _EnableIntegrationListDlcAll = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _EnableIntegrationListDlcOwned { get; set; } = true;
+        public bool EnableIntegrationListDlcOwned
+        {
+            get => _EnableIntegrationListDlcOwned;
+            set
+            {
+                _EnableIntegrationListDlcOwned = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _EnableIntegrationListDlcNotOwned { get; set; } = true;
+        public bool EnableIntegrationListDlcNotOwned
+        {
+            get => _EnableIntegrationListDlcNotOwned;
+            set
+            {
+                _EnableIntegrationListDlcNotOwned = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _EnableIntegrationButtonDetails { get; set; } = false;
         public bool EnableIntegrationButtonDetails
         {

@@ -1,0 +1,104 @@
+﻿<controls:PluginUserControlExtend
+        x:Class="CheckDlc.Controls.PluginListDlc"
+        xmlns:controls="clr-namespace:CommonPluginsShared.Controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:CheckDlc.Controls"
+        xmlns:controls1="clr-namespace:DescriptionEditor.PlayniteResources.Controls"
+        xmlns:converters="clr-namespace:CommonPlayniteShared.Converters"
+    xmlns:converters1="clr-namespace:CommonPluginsShared.Converters"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d" 
+        Height="{Binding RelativeSource={RelativeSource AncestorType=ContentControl}, Path=Height}"
+        d:DataContext="{d:DesignInstance local:PPluginListDlcDataContext, IsDesignTimeCreatable=True}">
+
+    <controls:PluginUserControlExtend.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:InvertedBoolenConverter x:Key="InvertedBoolenConverter" />
+        <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
+        <converters1:ValueOperationConverter x:Key="ValueOperationConverter" />
+    </controls:PluginUserControlExtend.Resources>
+
+    <Grid Name="PART_GridContener">
+        <ListBox Height="{Binding ElementName=PART_GridContener, Path=ActualHeight}" Name="PART_Dlcs" ItemsSource="{Binding ItemsSource}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel IsVirtualizing="True" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0, 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="150" />
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="UniformToFill" 
+                               Height="120" Width="250" IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" />
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Name, FallbackValue='Game name'}" 
+                               VerticalAlignment="Center" FontSize="20" FontWeight="Bold" />
+
+                        <Label Content="{DynamicResource LOCCheckDlcOwned}" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" 
+                               Visibility="{Binding IsOwned, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}" />
+
+                        <Grid Grid.Column="4" Grid.Row="0" IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}"
+                              Visibility="{Binding IsOwned, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}">
+
+                            <Label Content="{DynamicResource LOCCheckDlcFree}" VerticalAlignment="Center"
+                                   Visibility="{Binding IsFree, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=false}" />
+
+                            <Grid Visibility="{Binding IsFree, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{Binding Price, FallbackValue='10.0€'}" Grid.Column="0" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding PriceBase, FallbackValue='20.0€'}" Grid.Column="1" Margin="10,0,0,0" 
+                                           TextDecorations="Strikethrough" VerticalAlignment="Center"
+                                           Visibility="{Binding IsDiscount, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=True}" />
+                            </Grid>
+                        </Grid>
+
+                        <Button Tag="{Binding Link}" Click="Button_Click" Content="&#xf028;" FontFamily="{DynamicResource FontIcoFont}"
+                                Grid.Row="0" Grid.Column="6" />
+
+                        <ScrollViewer Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <controls1:HtmlTextView HtmlText="{Binding Description, FallbackValue='Description HTML'}" 
+                                                    HorizontalAlignment="left"
+                                                    HtmlFontFamily="{DynamicResource FontFamily}"
+                                                    HtmlForeground="{DynamicResource TextColor}"
+                                                    LinkForeground="{DynamicResource GlyphColor}"
+                                                    HtmlFontSize="{DynamicResource FontSize}">
+                                <controls1:HtmlTextView.Width>
+                                    <MultiBinding Converter="{StaticResource ValueOperationConverter}" ConverterParameter="-">
+                                        <Binding ElementName="PART_GridContener" Path="ActualWidth" />
+                                        <Binding>
+                                            <Binding.Source>
+                                                <sys:Double>350</sys:Double>
+                                            </Binding.Source>
+                                        </Binding>
+                                    </MultiBinding>
+                                </controls1:HtmlTextView.Width>
+                            </controls1:HtmlTextView>
+                        </ScrollViewer>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</controls:PluginUserControlExtend>
