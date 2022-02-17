@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">التحقق من DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">عرض DLCs المجانية غير المملوكة</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC not owned</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">عرض DLC اللعبة</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">مملوك</sys:String>
@@ -23,6 +23,10 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">إضافة علامة إلى الألعاب ذات DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">تحديد عملة GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">ميزة لإضافة إذا كانت اللعبة تحتوي على DLC</sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only onwed DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only not onwed DLC</sys:String>
 
     <!-- Notifications -->
     
