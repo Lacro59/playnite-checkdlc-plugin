@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Переглянути безкоштовні DLC, яких немає у власності</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC not owned</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Показати DLC гри</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">У власності</sys:String>
@@ -23,6 +23,10 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Додати тег до ігор з DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Визначити валюту GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Додати особливість, якщо гра має DLC</sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only onwed DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only not onwed DLC</sys:String>
 
     <!-- Notifications -->
     
