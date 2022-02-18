@@ -3,16 +3,16 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC not owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Sjekk gratis DLC du ikke eier</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Vis spill-DLC</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">Eid</sys:String>
-    <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Gratis</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">Skjul eide</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Dårligere pris</sys:String>
 
     <!-- FreeView -->
     
@@ -21,16 +21,16 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Legg til tag til spill med DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Velg GOG-valuta</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Funksjon som skal legges til hvis spillet har DLC</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only onwed DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only not onwed DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Vis liste med all DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Vis liste med kun DLC du eier</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Vis liste med kun DLC du ikke eier</sys:String>
 
     <!-- Notifications -->
     
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData">Use saved data for {0} [{1}]</sys:String>
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData">Bruk lagrede data for {0} [{1}]</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Feil ved henting av DLC priser. Vennligst sjekk valuta-innstillingene dine.</sys:String>
     
 </ResourceDictionary>
