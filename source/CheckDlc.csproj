@@ -93,9 +93,11 @@
     </Compile>
     <Compile Include="Models\CheckDlcCollection.cs" />
     <Compile Include="Models\Dlc.cs" />
+    <Compile Include="Models\EpicAddonsByNamespace.cs" />
     <Compile Include="Models\EpicCatalogOffer.cs" />
     <Compile Include="Models\EpicData.cs" />
     <Compile Include="Models\EpicDlcData.cs" />
+    <Compile Include="Models\EpicEntitledOfferItems.cs" />
     <Compile Include="Models\GameDlc.cs" />
     <Compile Include="Models\GogPriceResult.cs" />
     <Compile Include="Models\GogUserData.cs" />

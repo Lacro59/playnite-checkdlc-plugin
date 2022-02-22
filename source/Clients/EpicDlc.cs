@@ -9,6 +9,7 @@ using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using static CommonPluginsShared.PlayniteTools;
@@ -65,6 +66,7 @@ namespace CheckDlc.Clients
         private string UrlBase = "https://www.epicgames.com";
         private string UrlGameDetails = "https://store-content.ak.epicgames.com/api/{0}/content/products/{1}";
         private string UrlStore = "https://www.epicgames.com/store/{0}/p/{1}";
+        private string GraphQLEndpoint = @"https://graphql.epicgames.com/graphql";
 
 
         public EpicDlc() : base("Epic", CodeLang.GetEpicLang(PluginDatabase.PlayniteApi.ApplicationSettings.Language))
@@ -93,90 +95,29 @@ namespace CheckDlc.Clients
                         return GameDlc;
                     }
 
-                    // Game data 
-                    string Url = string.Format(UrlStore, LocalLangFinal, ProductSlug);
+                    // Game content
+                    string dataWeb = Web.DownloadStringData(string.Format(UrlGameDetails, LocalLangFinal, ProductSlug)).GetAwaiter().GetResult();
+                    dynamic GameDetails = Serialization.FromJson<dynamic>(dataWeb);
+                    string gameNamespace = GameDetails["namespace"];
 
-                    List<HttpCookie> Cookies = new List<HttpCookie>
+                    // List DLC
+                    var dataDLC = GetAddonsByNamespace(gameNamespace).GetAwaiter().GetResult();
+                    foreach(var el in dataDLC?.data?.Catalog?.catalogOffers?.elements)
                     {
-                        new Playnite.SDK.HttpCookie
+                        var ownedDLC = GetEntitledOfferItems(gameNamespace, el.id, tokens.access_token).GetAwaiter().GetResult();
+                        Dlc dlc = new Dlc
                         {
-                            Domain = ".www.epicgames.com",
-                            Name = "EPIC_LOCALE_COOKIE",
-                            Value = CodeLang.GetGogLang(PluginDatabase.PlayniteApi.ApplicationSettings.Language)
-                        },
-                        new Playnite.SDK.HttpCookie
-                        {
-                            Domain = ".www.epicgames.com",
-                            Name = "EPIC_EG1",
-                            Value = tokens.access_token
-                        }
-                    };
+                            DlcId = el.id,
+                            Name = el.title,
+                            Description = el.description,
+                            Image = el.keyImages.Find(x => x.type.IsEqual("OfferImageWide")).url.Replace("\u002F", "/"),
+                            Link = string.Format(UrlStore, LocalLangFinal, el.urlSlug),
+                            IsOwned = ownedDLC.data.Launcher.entitledOfferItems.entitledToAllItemsInOffer,
+                            Price = el.price.totalPrice.fmtPrice.discountPrice,
+                            PriceBase = el.price.totalPrice.fmtPrice.originalPrice,
+                        };
 
-                    string ResultWeb = Web.DownloadStringData(Url, Cookies).GetAwaiter().GetResult();
-                    if (!ResultWeb.Contains("lang=\"" + LocalLang + "\"", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        LocalLangFinal = CodeLang.GetGogLang(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
-                        Url = string.Format(UrlStore, LocalLangFinal, ProductSlug);
-                        ResultWeb = Web.DownloadStringData(Url, Cookies).GetAwaiter().GetResult();
-                    }
-
-                    // Extract data
-                    int indexStart = ResultWeb.IndexOf("window.__REACT_QUERY_INITIAL_QUERIES__ =");
-                    int indexEnd = ResultWeb.IndexOf("window.server_rendered");
-
-                    string stringStart = ResultWeb.Substring(0, indexStart + "window.__REACT_QUERY_INITIAL_QUERIES__ =".Length);
-                    string stringEnd = ResultWeb.Substring(indexEnd);
-
-                    int length = ResultWeb.Length - stringStart.Length - stringEnd.Length;
-
-                    string JsonDataString = ResultWeb.Substring(
-                        indexStart + "window.__REACT_QUERY_INITIAL_QUERIES__ =".Length,
-                        length
-                    );
-
-                    indexEnd = JsonDataString.IndexOf("}]};");
-                    length = JsonDataString.Length - (JsonDataString.Length - indexEnd - 3);
-                    JsonDataString = JsonDataString.Substring(0, length);
-
-                    // Serialize data 
-                    EpicData epicData = Serialization.FromJson<EpicData>(JsonDataString);
-                    var getCatalogOffers = epicData.queries
-                        .Where(x => 
-                        (
-                            Serialization.ToJson(x.queryHash)).Contains("getCatalogOffer", StringComparison.InvariantCultureIgnoreCase)
-                            && !Serialization.ToJson(x.state.data).Contains("\"offerType\":\"BASE_GAME\"", StringComparison.InvariantCultureIgnoreCase)
-                        )
-                        .ToList();
-
-                    foreach(var el in getCatalogOffers)
-                    {
-                        string epicCatalogOfferString = Serialization.ToJson(el.state.data);
-                        EpicCatalogOffer epicCatalogOffer = Serialization.FromJson<EpicCatalogOffer>(epicCatalogOfferString);
-
-                        try
-                        {
-                            var DlcData = epicData.queries
-                                .Where(x => x.queryHash.Contains("getEntitledOfferItems", StringComparison.InvariantCultureIgnoreCase) && x.queryHash.Contains(epicCatalogOffer.Catalog.catalogOffer.id, StringComparison.InvariantCultureIgnoreCase))
-                                .FirstOrDefault();
-
-                            Dlc dlc = new Dlc
-                            {
-                                DlcId = epicCatalogOffer.Catalog.catalogOffer.id,
-                                Name = epicCatalogOffer.Catalog.catalogOffer.title,
-                                Description = epicCatalogOffer.Catalog.catalogOffer.description,
-                                Image = epicCatalogOffer.Catalog.catalogOffer.keyImages.Find(x => x.type.IsEqual("OfferImageWide")).url.Replace("\u002F", "/"),
-                                Link = string.Format(UrlStore, LocalLangFinal, epicCatalogOffer.Catalog.catalogOffer.urlSlug),
-                                IsOwned = IsOwned(DlcData, epicCatalogOffer.Catalog.catalogOffer.id),
-                                Price = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.discountPrice,
-                                PriceBase = epicCatalogOffer.Catalog.catalogOffer.price.totalPrice.fmtPrice.originalPrice
-                            };
-
-                            GameDlc.Add(dlc);
-                        }
-                        catch (Exception ex)
-                        {
-                            Common.LogError(ex, false);
-                        }
+                        GameDlc.Add(dlc);
                     }
                 }
                 else
@@ -190,30 +131,6 @@ namespace CheckDlc.Clients
             }
 
             return GameDlc;
-        }
-
-
-        private bool IsOwned(Query dlcInfos, string Id)
-        {
-            if (dlcInfos == null)
-            {
-                logger.Warn("No dlc find");
-                return false;
-            }
-
-            try
-            {
-                string data = Serialization.ToJson(dlcInfos.state.data);
-                dynamic epicData = Serialization.FromJson<dynamic>(data);
-
-                return (bool)epicData["Launcher"]["entitledOfferItems"]["entitledToAllItemsInOffer"];
-            }
-            catch (Exception ex)
-            {
-                Common.LogError(ex, false, true, "CheckDlc");
-            }
-
-            return false;
         }
 
 
@@ -237,5 +154,62 @@ namespace CheckDlc.Clients
             }
             return ProductSlug;
         }
+
+
+        private async Task<EpicAddonsByNamespace> GetAddonsByNamespace(string epic_namespace)
+        {
+            var query = new QueryAddonsByNamespace();
+            query.variables.epic_namespace = epic_namespace;
+            query.variables.locale = LocalLang;
+            query.variables.country = CodeLang.GetOriginLangCountry(LocalLang);
+            var content = new StringContent(Serialization.ToJson(query), Encoding.UTF8, "application/json");
+            HttpClient httpClient = new HttpClient();
+            var response = await httpClient.PostAsync(GraphQLEndpoint, content);
+            var str = await response.Content.ReadAsStringAsync();
+            var data = Serialization.FromJson<EpicAddonsByNamespace>(str);
+            return data;
+        }
+
+        private async Task<EpicEntitledOfferItems> GetEntitledOfferItems(string productNameSpace, string offerId, string token)
+        {
+            var query = new QueryEntitledOfferItems();
+            query.variables.productNameSpace = productNameSpace;
+            query.variables.offerId = offerId;
+            var content = new StringContent(Serialization.ToJson(query), Encoding.UTF8, "application/json");
+            string str = await Web.PostStringData(GraphQLEndpoint, token, content);
+            var data = Serialization.FromJson<EpicEntitledOfferItems>(str);
+            return data;
+        }
+    }
+
+
+    public class QueryAddonsByNamespace
+    {
+        public class Variables
+        {
+            public string locale = "en-US";
+            public string country = "US";
+            public string epic_namespace = "";
+            public string sortBy = "releaseDate";
+            public string sortDir = "asc";
+            public string categories = "addons|digitalextras";
+            public int count = 50;
+        }
+
+        public Variables variables = new Variables();
+        public string query = @"query getAddonsByNamespace($categories: String!, $count: Int!, $country: String!, $locale: String!, $epic_namespace: String!, $sortBy: String!, $sortDir: String!) {    Catalog {        catalogOffers(namespace: $epic_namespace, locale: $locale, params: {            category: $categories,            count: $count,            country: $country,            sortBy: $sortBy,            sortDir: $sortDir        }) {            elements {                countriesBlacklist                customAttributes {                    key                    value                }                description                developer                effectiveDate                id                isFeatured                keyImages {                    type                    url                }                lastModifiedDate                longDescription                namespace                offerType                productSlug                releaseDate                status                technicalDetails                title                urlSlug                price(country: $country) {                    totalPrice {                        discountPrice                        originalPrice                        voucherDiscount                        discount                        currencyCode                        currencyInfo {                            decimals                        }                        fmtPrice(locale: $locale) {                            originalPrice                            discountPrice                            intermediatePrice                        }                    }                }            }        }    }}";
+    }
+
+
+    public class QueryEntitledOfferItems
+    {
+        public class Variables
+        {
+            public string productNameSpace = "";
+            public string offerId = "";
+        }
+
+        public Variables variables = new Variables();
+        public string query = @"query getEntitledOfferItems($productNameSpace: String!, $offerId: String!) {    Launcher {        entitledOfferItems(namespace: $productNameSpace, offerId: $offerId) {            namespace            offerId            entitledToAllItemsInOffer            entitledToAnyItemInOffer        }    }}";
     }
 }
