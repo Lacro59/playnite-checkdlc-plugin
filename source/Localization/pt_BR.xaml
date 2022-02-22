@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC not owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Checar DLC grátis não possuído</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Ver DLC do jogo</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">Possui</sys:String>
@@ -24,9 +24,9 @@
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definir moeda GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Recurso para adicionar se o jogo tiver dlcs</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only onwed DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only not onwed DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Mostrar lista com todos os DLCs</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Mostrar lista apenas com DLC possuído</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Mostrar lista apenas com DLC não-possuído</sys:String>
 
     <!-- Notifications -->
     
