@@ -52,3 +52,12 @@ Packages:
       - Fixed issue with price of free Steam DLC
       - Updated localizations
       - Fixed minors bugs
+  - Version: 0.5
+    RequiredApiVersion: 6.2.2
+    ReleaseDate: 2022-02-22
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v0.5/playnite-checkdlc-plugin_0_5.pext
+    Changelog:
+      - Improved Epic DLC
+      - UI tweaks
+      - Updated localizations
+      - Fixed minors bugs
