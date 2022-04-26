@@ -84,21 +84,9 @@ namespace CheckDlc.Models
         }
 
         [DontSerialize]
-        public bool IsDiscount
-        {
-            get
-            {
-                return !Price.IsEqual(PriceBase);
-            }
-        }
+        public bool IsDiscount => !Price.IsEqual(PriceBase);
 
         [DontSerialize]
-        public string ImagePath
-        {
-            get
-            {
-                return ImageSourceManager.GetImagePath(Image);
-            }
-        }
+        public string ImagePath => ImageSourceManager.GetImagePath(Image);
     }
 }

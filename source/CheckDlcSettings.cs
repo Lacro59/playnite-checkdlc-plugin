@@ -1,4 +1,5 @@
 ﻿using CheckDlc.Models;
+using CommonPluginsStores.Gog.Models;
 using Playnite.SDK;
 using Playnite.SDK.Data;
 using Playnite.SDK.Models;
@@ -17,7 +18,7 @@ namespace CheckDlc
         public bool EnableTag { get; set; } = false;
         public bool AutoImport { get; set; } = true;
 
-        public GogCurrency GogCurrencySelected { get; set; } = new GogCurrency { code = "USD", symbol = "$" };
+        public Currency GogCurrencySelected { get; set; } = new Currency { code = "USD", symbol = "$" };
 
         public ObservableCollection<string> IgnoredList { get; set; } = new ObservableCollection<string>();
 
