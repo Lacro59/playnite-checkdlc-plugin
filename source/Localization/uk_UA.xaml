@@ -22,6 +22,7 @@
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Додати тег до ігор з DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Визначити валюту GOG</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define Origin currency</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Додати особливість, якщо гра має DLC</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Показати список з усіма DLC</sys:String>
