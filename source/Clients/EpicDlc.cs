@@ -55,7 +55,7 @@ namespace CheckDlc.Clients
                     }
                     catch (Exception ex)
                     {
-                        Common.LogError(ex, false, $"Epic", true, "CheckDlc");
+                        Common.LogError(ex, false, $"Epic", true, PluginDatabase.PluginName);
                     }
                 }
                 return (bool)_IsConnected;

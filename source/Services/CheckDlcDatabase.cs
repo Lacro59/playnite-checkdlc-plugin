@@ -108,7 +108,7 @@ namespace CheckDlc.Services
             }
             catch (Exception ex)
             {
-                Common.LogError(ex, false, true, "CheckDlc");
+                Common.LogError(ex, false, true, PluginName);
             }
 
             return gameDlc;

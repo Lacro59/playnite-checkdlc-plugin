@@ -44,7 +44,7 @@ namespace CheckDlc.Clients
                         if (_UserData == null)
                         {
 
-                            using (var WebViewOffscreen = API.Instance.WebViews.CreateOffscreenView())
+                            using (IWebView WebViewOffscreen = API.Instance.WebViews.CreateOffscreenView())
                             {
                                 WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
                                 WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
@@ -58,8 +58,8 @@ namespace CheckDlc.Clients
                                 }
                                 else
                                 {
-                                    var loadedData = LoadUserData();
-                                    _UserData = loadedData != null ? loadedData : _UserData;
+                                    SteamUserData loadedData = LoadUserData();
+                                    _UserData = loadedData ?? _UserData;
                                 }
                             }
                         }
@@ -68,7 +68,7 @@ namespace CheckDlc.Clients
                     }
                     catch (Exception ex)
                     {
-                        Common.LogError(ex, false, $"Steam", true, "CheckDlc");
+                        Common.LogError(ex, false, $"Steam", true, PluginDatabase.PluginName);
                     }
                 }
                 return _UserData;
@@ -171,7 +171,7 @@ namespace CheckDlc.Clients
                     return Dlcs;
                 }
 
-                var parsedData = Serialization.FromJson<Dictionary<string, StoreAppDetailsResult>>(data);
+                Serialization.TryFromJson<Dictionary<string, StoreAppDetailsResult>>(data, out Dictionary<string, StoreAppDetailsResult>  parsedData);
                 StoreAppDetailsResult storeAppDetailsResult = parsedData[AppId];
 
                 if (storeAppDetailsResult?.data?.dlc == null)
@@ -179,14 +179,14 @@ namespace CheckDlc.Clients
                     return Dlcs;
                 }
 
-                foreach (var el in storeAppDetailsResult?.data?.dlc)
+                foreach (int el in storeAppDetailsResult.data.dlc)
                 {
                     Dlcs.Add(el);
                 }
             }
             catch (Exception ex)
             {
-                Common.LogError(ex, false, true, "CheckDlc");
+                Common.LogError(ex, false, true, PluginDatabase.PluginName);
             }
 
             return Dlcs;
@@ -223,7 +223,7 @@ namespace CheckDlc.Clients
             }
             catch (Exception ex)
             {
-                Common.LogError(ex, false, true, "CheckDlc");
+                Common.LogError(ex, false, true, PluginDatabase.PluginName);
             }
 
             return Dlcs;
@@ -248,8 +248,8 @@ namespace CheckDlc.Clients
                         string formatedDateLastWrite = localDateTimeConverter.Convert(DateLastWrite, null, null, CultureInfo.CurrentCulture).ToString();
                         logger.Warn($"Use saved UserData - {formatedDateLastWrite}");
                         API.Instance.Notifications.Add(new NotificationMessage(                        
-                            $"checkdlc-steam-saveddata",
-                            $"CheckDlc" + Environment.NewLine 
+                            $"{PluginDatabase.PluginName }-steam-saveddata",
+                            $"{PluginDatabase.PluginName}" + Environment.NewLine 
                                 + string.Format(resources.GetString("LOCCheckDlcUseSavedUserData"), "Steam", formatedDateLastWrite),
                             NotificationType.Info
                         ));
@@ -259,7 +259,7 @@ namespace CheckDlc.Clients
                 }
                 catch (Exception ex)
                 {
-                    Common.LogError(ex, false, true, "CheckDlc");
+                    Common.LogError(ex, false, true, PluginDatabase.PluginName);
                 }
             }
 

@@ -67,7 +67,7 @@ namespace CheckDlc
             }
             catch (Exception ex)
             {
-                Common.LogError(ex, false, $"Error on WindowBase_LoadedEvent for {WinIdProperty}", true, "CheckDlc");
+                Common.LogError(ex, false, $"Error on WindowBase_LoadedEvent for {WinIdProperty}", true, PluginDatabase.PluginName);
             }
         }
 
@@ -88,7 +88,7 @@ namespace CheckDlc
             }
             catch (Exception ex)
             {
-                Common.LogError(ex, false, true, "CheckDlc");
+                Common.LogError(ex, false, true, PluginDatabase.PluginName);
             }
         }
         #endregion
