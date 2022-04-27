@@ -96,6 +96,11 @@ namespace CheckDlc.Services
                         EpicDlc epicDlc = new EpicDlc();
                         dlcs = epicDlc.GetGameDlc(game);
                         break;
+
+                    case ExternalPlugin.OriginLibrary:
+                        OriginDlc originDlc = new OriginDlc();
+                        dlcs = originDlc.GetGameDlc(game);
+                        break;
                 }
 
                 dlcs = dlcs.Where(x => PluginSettings.Settings.IgnoredList.All(y => !x.Name.Contains(y, StringComparison.InvariantCultureIgnoreCase))).ToList();

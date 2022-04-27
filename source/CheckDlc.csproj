@@ -86,6 +86,7 @@
     <Compile Include="CheckDlcSettings.cs" />
     <Compile Include="Clients\EpicDlc.cs" />
     <Compile Include="Clients\GenericDlc.cs" />
+    <Compile Include="Clients\OriginDlc.cs" />
     <Compile Include="Clients\GogDlc.cs" />
     <Compile Include="Clients\SteamDlc.cs" />
     <Compile Include="Controls\PluginButton.xaml.cs">

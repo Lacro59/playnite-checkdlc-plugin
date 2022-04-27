@@ -12,6 +12,8 @@ using CheckDlc.Models;
 using System.Collections.Generic;
 using CommonPluginsStores.Gog;
 using CommonPluginsStores.Gog.Models;
+using CommonPluginsStores.Models;
+using CommonPluginsStores.Origin;
 
 namespace CheckDlc.Views
 {
@@ -29,14 +31,26 @@ namespace CheckDlc.Views
             PART_FeatureDlc.ItemsSource = PluginDatabase.PlayniteApi.Database.Features.OrderBy(x => x.Name);
 
             // List GOG currencies
-            GogApi gogDlc = new GogApi();
-            var data = gogDlc.GetGogCurrencies();            
-            PART_GogCurrency.ItemsSource = data.OrderBy(x => x.code).ToList();
+            GogApi gogApi = new GogApi();
+            List<StoreCurrency> dataGog = gogApi.GetCurrencies();            
+            PART_GogCurrency.ItemsSource = dataGog.OrderBy(x => x.currency).ToList();
 
             try
             {
-                int idx = ((List<Currency>)PART_GogCurrency.ItemsSource).FindIndex(x => x.code == PluginDatabase.PluginSettings.Settings.GogCurrencySelected.code);
+                int idx = ((List<StoreCurrency>)PART_GogCurrency.ItemsSource).FindIndex(x => x.currency == PluginDatabase.PluginSettings.Settings.GogCurrencySelected.currency);
                 PART_GogCurrency.SelectedIndex = idx;
+            }
+            catch { }
+
+            // List Origin currencies
+            OriginApi originApi = new OriginApi();
+            List<StoreCurrency> dataOrigin = originApi.GetCurrencies();            
+            PART_OriginCurrency.ItemsSource = dataOrigin.OrderBy(x => x.currency).ToList();
+
+            try
+            {
+                int idx = ((List<StoreCurrency>)PART_OriginCurrency.ItemsSource).FindIndex(x => x.country == PluginDatabase.PluginSettings.Settings.OriginCurrencySelected.country);
+                PART_OriginCurrency.SelectedIndex = idx;
             }
             catch { }
         }

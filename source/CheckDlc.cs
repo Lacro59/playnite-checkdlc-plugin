@@ -6,6 +6,7 @@ using CheckDlc.Views;
 using CommonPluginsShared;
 using CommonPluginsShared.PlayniteExtended;
 using CommonPluginsStores.Gog;
+using CommonPluginsStores.Origin;
 using Playnite.SDK;
 using Playnite.SDK.Events;
 using Playnite.SDK.Models;
@@ -61,6 +62,7 @@ namespace CheckDlc
                     GogDlc.SettingsOpen = true;
                     SteamDlc.SettingsOpen = true;
                     EpicDlc.SettingsOpen = true;
+                    OriginDlc.SettingsOpen = true;
                 }
             }
             catch (Exception ex)

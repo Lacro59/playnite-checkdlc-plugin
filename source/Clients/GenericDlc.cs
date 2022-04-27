@@ -39,13 +39,7 @@ namespace CheckDlc.Clients
         public List<Dlc> GetGameDlc (Guid Id)
         {
             Game game = PluginDatabase.PlayniteApi.Database.Games.Get(Id);
-
-            if (game == null)
-            {
-                return new List<Dlc>();
-            }
-
-            return GetGameDlc(game);
+            return game == null ? new List<Dlc>() : GetGameDlc(game);
         }
 
 

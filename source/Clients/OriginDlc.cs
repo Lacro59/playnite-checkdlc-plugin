@@ -9,10 +9,11 @@ using static CommonPluginsShared.PlayniteTools;
 using CommonPluginsStores.Gog;
 using System.Collections.ObjectModel;
 using CommonPluginsStores.Models;
+using CommonPluginsStores.Origin;
 
 namespace CheckDlc.Clients
 {
-    class GogDlc : GenericDlc
+    class OriginDlc : GenericDlc
     {
         private static bool _SettingsOpen = false;
         public static bool SettingsOpen
@@ -24,33 +25,33 @@ namespace CheckDlc.Clients
                 _SettingsOpen = value;
                 if (_SettingsOpen)
                 {
-                    GogAPI.ResetIsUserLoggedIn();
+                    OriginAPI.ResetIsUserLoggedIn();
                 }
             }
         }
 
-        private static GogApi _GogAPI;
-        private static GogApi GogAPI
+        private static OriginApi _OriginAPI;
+        private static OriginApi OriginAPI
         {
             get
             {
-                if (_GogAPI == null)
+                if (_OriginAPI == null)
                 {
-                    _GogAPI = new GogApi();
+                    _OriginAPI = new OriginApi();
                 }
-                return _GogAPI;
+                return _OriginAPI;
             }
 
             set
             {
-                _GogAPI = value;
+                _OriginAPI = value;
             }
         }
 
 
-        public GogDlc() : base("GOG", CodeLang.GetGogLang(PluginDatabase.PlayniteApi.ApplicationSettings.Language))
+        public OriginDlc() : base("Origin", CodeLang.GetOriginLang(PluginDatabase.PlayniteApi.ApplicationSettings.Language))
         {
-            GogAPI.SetLanguage(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
+            OriginAPI.SetLanguage(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
         }
 
 
@@ -61,12 +62,12 @@ namespace CheckDlc.Clients
 
             try
             {
-                if (GogAPI.IsUserLoggedIn)
+                if (OriginAPI.IsUserLoggedIn)
                 {
-                    GogAPI.SetCurrency(PluginDatabase.PluginSettings.Settings.GogCurrencySelected);
-                    GogAPI.SetLanguage(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
+                    OriginAPI.SetCurrency(PluginDatabase.PluginSettings.Settings.OriginCurrencySelected);
+                    OriginAPI.SetLanguage(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
 
-                    ObservableCollection<DlcInfos> dlcs = GogAPI.GetDlcInfos(game.GameId, GogAPI.CurrentAccountInfos);
+                    ObservableCollection<DlcInfos> dlcs = OriginAPI.GetDlcInfos(game.GameId, OriginAPI.CurrentAccountInfos);
                     dlcs?.ForEach(x => 
                     {
                         Dlc dlc = new Dlc

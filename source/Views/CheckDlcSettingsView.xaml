@@ -67,22 +67,38 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="200" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
 
                             <Label Content="{DynamicResource LOCCheckDlcDefineGogCurrency}" />
                             <ComboBox Grid.Column="2" SelectedItem="{Binding Settings.GogCurrencySelected}"
                                       Name="PART_GogCurrency">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding code}"/>
+                                        <TextBlock Text="{Binding text}"/>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
                             <!--Button Content="&#xefca;" FontFamily="{DynamicResource FontIcoFont}" HorizontalAlignment="Right" Grid.Column="4"
                                     Click="Button_Click" Tag="https://www.gog.com/account/settings/personal" /-->
+
+
+                            <Label Grid.Row="2" Content="{DynamicResource LOCCheckDlcDefineOriginCurrency}" />
+                            <ComboBox Grid.Column="2" SelectedItem="{Binding Settings.OriginCurrencySelected}"
+                                      Grid.Row="2" Name="PART_OriginCurrency">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding text}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </Grid>
 
                         <Grid Grid.Row="8">
