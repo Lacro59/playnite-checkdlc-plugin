@@ -22,6 +22,7 @@
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Aggiungi tag a giochi con DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definisci la valuta GOG</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define Origin currency</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Funzionalità da aggiungere se il gioco ha dei dlc</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Visualizza l'elenco con tutti i DLC</sys:String>
