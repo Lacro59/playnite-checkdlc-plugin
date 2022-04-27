@@ -43,14 +43,12 @@ namespace CheckDlc.Clients
                         _UserData = LoadUserData(true);
                         if (_UserData == null)
                         {
-
                             using (IWebView WebViewOffscreen = API.Instance.WebViews.CreateOffscreenView())
                             {
                                 WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
                                 WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
                                 string data = WebViewOffscreen.GetPageText();
                                 _UserData = Serialization.FromJson<SteamUserData>(data);
-
 
                                 if (_UserData?.rgOwnedApps?.Count > 0)
                                 {
@@ -94,7 +92,7 @@ namespace CheckDlc.Clients
                 List<int> DlcsIdSteamDb = GetFromSteamDb(GameId);
 
                 List<int> DlcsId = (DlcsIdSteam.Count >= DlcsIdSteamDb.Count) ? DlcsIdSteam : DlcsIdSteamDb;
-                foreach (var DlcId in DlcsId)
+                foreach (int DlcId in DlcsId)
                 {
                     try
                     {
@@ -147,8 +145,8 @@ namespace CheckDlc.Clients
         {
             if (UserData?.rgOwnedApps?.Count > 0)
             {
-                var finded = UserData?.rgOwnedApps?.Find(x => x == GameId);
-                return (finded != null && finded != 0);
+                int? finded = UserData?.rgOwnedApps?.Find(x => x == GameId);
+                return finded != null && finded != 0;
             }
             else
             {
@@ -236,7 +234,7 @@ namespace CheckDlc.Clients
             {
                 try
                 {
-                    var DateLastWrite = File.GetLastWriteTime(FileUserData);
+                    DateTime DateLastWrite = File.GetLastWriteTime(FileUserData);
                     if (OnlyNow && !(DateLastWrite.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd")))
                     {
                         return null;
@@ -251,7 +249,15 @@ namespace CheckDlc.Clients
                             $"{PluginDatabase.PluginName }-steam-saveddata",
                             $"{PluginDatabase.PluginName}" + Environment.NewLine 
                                 + string.Format(resources.GetString("LOCCheckDlcUseSavedUserData"), "Steam", formatedDateLastWrite),
-                            NotificationType.Info
+                            NotificationType.Info,
+                            () =>
+                            {
+                                GogDlc.SettingsOpen = true;
+                                SteamDlc.SettingsOpen = true;
+                                EpicDlc.SettingsOpen = true;
+                                OriginDlc.SettingsOpen = true;
+                                PlayniteTools.ShowPluginSettings(ExternalPlugin.SteamLibrary);
+                            }
                         ));
                     }
 

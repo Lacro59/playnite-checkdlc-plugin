@@ -92,6 +92,8 @@ namespace CheckDlc.Clients
                 {
                     GogDlc.SettingsOpen = true;
                     SteamDlc.SettingsOpen = true;
+                    EpicDlc.SettingsOpen = true;
+                    OriginDlc.SettingsOpen = true;
                     PlayniteTools.ShowPluginSettings(externalPlugin);
                 }
             ));
