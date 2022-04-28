@@ -30,8 +30,9 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Mostrar lista con sólo DLC no poseído</sys:String>
 
     <!-- Notifications -->
-    
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData">Usar datos guardados para {0} [{1}]</sys:String>
+
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
+You must authenticate.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error al obtener los precios de DLC. Por favor, comprueba la configuración de tu moneda</sys:String>
     
 </ResourceDictionary>
