@@ -22,6 +22,7 @@
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Додати тег до ігор з DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Визначити валюту GOG</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Визначити валюту Origin</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Додати особливість, якщо гра має DLC</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Показати список з усіма DLC</sys:String>
@@ -29,8 +30,9 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показати список з не придбаними DLC</sys:String>
 
     <!-- Notifications -->
-    
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData">Використовувати збережені дані для {0} [{1}]</sys:String>
+
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Використовувати збережені дані для {0} [{1}]
+Ви повинні автентифікуватися.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Помилка отримання цін на DLC. Будь ласка, перевірте ваші налаштування валюти.</sys:String>
     
 </ResourceDictionary>

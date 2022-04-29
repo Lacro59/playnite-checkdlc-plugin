@@ -22,6 +22,7 @@
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">为具有 DLC 的游戏添加标签</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定义 GOG 货币</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">定义 Origin 货币</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">若游戏有 DLC 则添加的功能特色</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">显示所有 DLC 列表</sys:String>
@@ -29,8 +30,9 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">只显示未拥有的 DLC 列表</sys:String>
 
     <!-- Notifications -->
-    
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData">为 {0} 使用已保存的数据 [{1}]</sys:String>
+
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">为 {0} 使用存档数据 [{1}]
+您必须进行验证。</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">获取 DLC 价格出错。请检查您的货币设置</sys:String>
     
 </ResourceDictionary>
