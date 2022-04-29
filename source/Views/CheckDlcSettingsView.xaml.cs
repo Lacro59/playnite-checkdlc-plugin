@@ -37,7 +37,7 @@ namespace CheckDlc.Views
 
             try
             {
-                int idx = ((List<StoreCurrency>)PART_GogCurrency.ItemsSource).FindIndex(x => x.currency == PluginDatabase.PluginSettings.Settings.GogCurrencySelected.currency);
+                int idx = ((List<StoreCurrency>)PART_GogCurrency.ItemsSource).FindIndex(x => x.currency == PluginDatabase.PluginSettings.Settings.GogCurrency.currency);
                 PART_GogCurrency.SelectedIndex = idx;
             }
             catch { }
@@ -49,7 +49,7 @@ namespace CheckDlc.Views
 
             try
             {
-                int idx = ((List<StoreCurrency>)PART_OriginCurrency.ItemsSource).FindIndex(x => x.country == PluginDatabase.PluginSettings.Settings.OriginCurrencySelected.country);
+                int idx = ((List<StoreCurrency>)PART_OriginCurrency.ItemsSource).FindIndex(x => x.country == PluginDatabase.PluginSettings.Settings.OriginCurrency.country);
                 PART_OriginCurrency.SelectedIndex = idx;
             }
             catch { }

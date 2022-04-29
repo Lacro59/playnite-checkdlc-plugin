@@ -63,7 +63,7 @@ namespace CheckDlc.Clients
             {
                 if (GogAPI.IsUserLoggedIn)
                 {
-                    GogAPI.SetCurrency(PluginDatabase.PluginSettings.Settings.GogCurrencySelected);
+                    GogAPI.SetCurrency(PluginDatabase.PluginSettings.Settings.GogCurrency);
                     GogAPI.SetLanguage(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
 
                     ObservableCollection<DlcInfos> dlcs = GogAPI.GetDlcInfos(game.GameId, GogAPI.CurrentAccountInfos);

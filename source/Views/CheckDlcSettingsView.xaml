@@ -77,7 +77,7 @@
                             </Grid.RowDefinitions>
 
                             <Label Content="{DynamicResource LOCCheckDlcDefineGogCurrency}" />
-                            <ComboBox Grid.Column="2" SelectedItem="{Binding Settings.GogCurrencySelected}"
+                            <ComboBox Grid.Column="2" SelectedItem="{Binding Settings.GogCurrency}"
                                       Name="PART_GogCurrency">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -91,7 +91,7 @@
 
 
                             <Label Grid.Row="2" Content="{DynamicResource LOCCheckDlcDefineOriginCurrency}" />
-                            <ComboBox Grid.Column="2" SelectedItem="{Binding Settings.OriginCurrencySelected}"
+                            <ComboBox Grid.Column="2" SelectedItem="{Binding Settings.OriginCurrency}"
                                       Grid.Row="2" Name="PART_OriginCurrency">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>

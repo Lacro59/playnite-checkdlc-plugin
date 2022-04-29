@@ -19,8 +19,8 @@ namespace CheckDlc
         public bool EnableTag { get; set; } = false;
         public bool AutoImport { get; set; } = true;
 
-        public StoreCurrency GogCurrencySelected { get; set; } = new StoreCurrency { currency = "USD", symbol = "$" };
-        public StoreCurrency OriginCurrencySelected { get; set; } = new StoreCurrency { country = "US", currency = "USD", symbol = "$" };
+        public StoreCurrency GogCurrency { get; set; } = new StoreCurrency { country = "US", currency = "USD", symbol = "$" };
+        public StoreCurrency OriginCurrency { get; set; } = new StoreCurrency { country = "US", currency = "USD", symbol = "$" };
 
         public ObservableCollection<string> IgnoredList { get; set; } = new ObservableCollection<string>();
 
