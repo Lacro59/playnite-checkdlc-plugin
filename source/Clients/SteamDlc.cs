@@ -16,6 +16,7 @@ using AngleSharp.Dom.Html;
 using CommonPlayniteShared.Common;
 using CommonPluginsShared.Converters;
 using System.Globalization;
+using AngleSharp.Dom;
 
 namespace CheckDlc.Clients
 {
@@ -48,7 +49,7 @@ namespace CheckDlc.Clients
                                 WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
                                 WebViewOffscreen.NavigateAndWait(UrlSteamUserData);
                                 string data = WebViewOffscreen.GetPageText();
-                                _UserData = Serialization.FromJson<SteamUserData>(data);
+                                Serialization.TryFromJson<SteamUserData>(data, out _UserData);
 
                                 if (_UserData?.rgOwnedApps?.Count > 0)
                                 {
@@ -82,7 +83,7 @@ namespace CheckDlc.Clients
 
         public override List<Dlc> GetGameDlc(Game game)
         {
-            logger.Info($"Get Dlc for {game.Name} with {ClientName}");
+            logger.Info($"Get dlc for {game.Name} with {ClientName}");
             List<Dlc> GameDlc = new List<Dlc>();
 
             try
@@ -103,12 +104,17 @@ namespace CheckDlc.Clients
                             continue;
                         }
 
-                        var parsedDataDlc = Serialization.FromJson<Dictionary<string, StoreAppDetailsResult>>(dataDlc);
-                        StoreAppDetailsResult storeAppDetailsResultDlc = parsedDataDlc[DlcId.ToString()];
+                        Serialization.TryFromJson<Dictionary<string, StoreAppDetailsResult>>(dataDlc, out Dictionary<string, StoreAppDetailsResult> parsedDataDlc);
+                        if (parsedDataDlc == null)
+                        {
+                            logger.Warn($"No parsed data for {game.Name} - {DlcId}");
+                            return GameDlc;
+                        }
 
+                        StoreAppDetailsResult storeAppDetailsResultDlc = parsedDataDlc[DlcId.ToString()];
                         if (storeAppDetailsResultDlc?.data == null)
                         {
-                            logger.Warn($"No data for {game.Name}");
+                            logger.Warn($"No data for {game.Name} - {DlcId}");
                             return GameDlc;
                         }
 
@@ -137,6 +143,7 @@ namespace CheckDlc.Clients
                 ShowNotificationPluginError(ex);
             }
 
+            logger.Info($"Find {GameDlc?.Count} dlc");
             return GameDlc;
         }
 
@@ -163,17 +170,23 @@ namespace CheckDlc.Clients
             try
             {
                 string data = Web.DownloadStringData(string.Format(UrlSteamAppDetails, AppId, LocalLang)).GetAwaiter().GetResult();
-                if (data == "\u001f�\b\0\0\0\0\0\0\u0003�+��\u0001\0O��%\u0004\0\0\0")
+                if (data.IsNullOrEmpty() || data == "\u001f�\b\0\0\0\0\0\0\u0003�+��\u0001\0O��%\u0004\0\0\0")
                 {
                     logger.Warn($"No data for {AppId}");
                     return Dlcs;
                 }
 
-                Serialization.TryFromJson<Dictionary<string, StoreAppDetailsResult>>(data, out Dictionary<string, StoreAppDetailsResult>  parsedData);
-                StoreAppDetailsResult storeAppDetailsResult = parsedData[AppId];
+                Serialization.TryFromJson<Dictionary<string, StoreAppDetailsResult>>(data, out Dictionary<string, StoreAppDetailsResult> parsedData);
+                if (parsedData == null)
+                {
+                    logger.Warn($"No parsed data for {AppId}");
+                    return Dlcs;
+                }
 
+                StoreAppDetailsResult storeAppDetailsResult = parsedData[AppId];
                 if (storeAppDetailsResult?.data?.dlc == null)
                 {
+                    logger.Info($"No dlc for {AppId}");
                     return Dlcs;
                 }
 
@@ -196,17 +209,17 @@ namespace CheckDlc.Clients
 
             try
             {
-                using (var WebViewOffScreen = API.Instance.WebViews.CreateOffscreenView())
+                using (IWebView WebViewOffScreen = API.Instance.WebViews.CreateOffscreenView())
                 {
                     //string data = Web.DownloadStringData(string.Format(SteamDbDlc, AppId)).GetAwaiter().GetResult();
                     WebViewOffScreen.NavigateAndWait(string.Format(SteamDbDlc, AppId));
                     string data = WebViewOffScreen.GetPageSource();
                     IHtmlDocument htmlDocument = new HtmlParser().Parse(data);
 
-                    var SectionDlcs = htmlDocument.QuerySelectorAll("#dlc tr.app");
+                    IHtmlCollection<IElement> SectionDlcs = htmlDocument.QuerySelectorAll("#dlc tr.app");
                     if (SectionDlcs != null)
                     {
-                        foreach (var el in SectionDlcs)
+                        foreach (IElement el in SectionDlcs)
                         {
                             string DlcIdString = el.QuerySelector("td a")?.InnerHtml;
                             int.TryParse(DlcIdString, out int DlcId);

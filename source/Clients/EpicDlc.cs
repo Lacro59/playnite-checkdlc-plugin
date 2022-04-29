@@ -77,7 +77,7 @@ namespace CheckDlc.Clients
 
         public override List<Dlc> GetGameDlc(Game game)
         {
-            logger.Info($"Get Dlc for {game.Name} with {ClientName}");
+            logger.Info($"Get dlc for {game.Name} with {ClientName}");
             List<Dlc> GameDlc = new List<Dlc>();
             string LocalLangFinal = LocalLang;
 
@@ -130,6 +130,7 @@ namespace CheckDlc.Clients
                 ShowNotificationPluginError(ex);
             }
 
+            logger.Info($"Find {GameDlc?.Count} dlc");
             return GameDlc;
         }
 
