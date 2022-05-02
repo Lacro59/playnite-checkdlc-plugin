@@ -50,7 +50,7 @@ namespace CheckDlc.Views
             var data = (List<lvDlc>)PART_ListviewDlc.ItemsSource;
             if (data.Count > 0)
             {
-                var dataId = data.Select(x => x.Id).ToList();
+                var dataId = data.Select(x => x.Id).Distinct().ToList();
                 PluginDatabase.Refresh(dataId);
             }
 
