@@ -22,7 +22,8 @@ namespace CheckDlc.Views
         {
             InitializeComponent();
 
-            var lvDlcs = PluginDatabase.Database.Items.SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned)
+            List<lvDlc> lvDlcs = PluginDatabase.Database.Items
+                .SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned)
                 .Select(z => new lvDlc
                 {
                     Icon = x.Value.Icon,
@@ -47,15 +48,16 @@ namespace CheckDlc.Views
 
         private void Button_Click_Refresh(object sender, RoutedEventArgs e)
         {
-            var data = (List<lvDlc>)PART_ListviewDlc.ItemsSource;
+            List<lvDlc> data = (List<lvDlc>)PART_ListviewDlc.ItemsSource;
             if (data.Count > 0)
             {
-                var dataId = data.Select(x => x.Id).Distinct().ToList();
+                List<Guid> dataId = data.Select(x => x.Id).Distinct().ToList();
                 PluginDatabase.Refresh(dataId);
             }
 
             PART_ListviewDlc.ItemsSource = null;
-            var lvDlcs = PluginDatabase.Database.Items.SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned)
+            List<lvDlc> lvDlcs = PluginDatabase.Database.Items
+                .SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned)
                 .Select(z => new lvDlc
                 {
                     Icon = x.Value.Icon,
@@ -81,36 +83,12 @@ namespace CheckDlc.Views
         public string NameDlc { get; set; }
         public string Link { get; set; }
 
-        public string SourceName
-        {
-            get
-            {
-                return PlayniteTools.GetSourceName(Id);
-            }
-        }
+        public string SourceName => PlayniteTools.GetSourceName(Id);
 
-        public string SourceIcon
-        {
-            get
-            {
-                return TransformIcon.Get(PlayniteTools.GetSourceName(Id));
-            }
-        }
+        public string SourceIcon => TransformIcon.Get(PlayniteTools.GetSourceName(Id));
 
-        public RelayCommand<Guid> GoToGame
-        {
-            get
-            {
-                return PluginDatabase.GoToGame;
-            }
-        }
+        public RelayCommand<Guid> GoToGame => PluginDatabase.GoToGame;
 
-        public bool GameExist
-        {
-            get
-            {
-                return PluginDatabase.PlayniteApi.Database.Games.Get(Id) != null;
-            }
-        }
+        public bool GameExist => PluginDatabase.PlayniteApi.Database.Games.Get(Id) != null;
     }
 }

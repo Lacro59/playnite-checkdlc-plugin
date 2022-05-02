@@ -91,7 +91,7 @@ namespace CheckDlc.Views
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-            var item = PluginDatabase.PlayniteApi.Dialogs.SelectString(resources.GetString("LOCCommonInputItemIgnore"), resources.GetString("LOCCheckDlc"), string.Empty);
+            StringSelectionDialogResult item = PluginDatabase.PlayniteApi.Dialogs.SelectString(resources.GetString("LOCCommonInputItemIgnore"), resources.GetString("LOCCheckDlc"), string.Empty);
             if (!item.SelectedString.IsNullOrEmpty())
             {
                 ((ObservableCollection<string>)PART_IgnoredList.ItemsSource).Add(item.SelectedString);
