@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:CheckDlc.Views"
              xmlns:controls="clr-namespace:DescriptionEditor.PlayniteResources.Controls"
              xmlns:converters="clr-namespace:CommonPlayniteShared.Converters"
-             xmlns:playnitecontrols="clr-namespace:CommonPluginsControls.PlayniteControls"
+             xmlns:playnitecontrols="clr-namespace:CommonPluginsControls.PlayniteControls" xmlns:controls1="clr-namespace:CommonPluginsShared.Controls"
              mc:Ignorable="d" 
              Height="800" Width="1000">
 
@@ -88,7 +88,7 @@
                                 <RowDefinition Height="150" />
                             </Grid.RowDefinitions>
 
-                            <Image Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="UniformToFill" 
+                            <controls1:ImageAsync Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="UniformToFill" 
                                    Height="120" Width="250" IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" />
                             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Name, FallbackValue='Game name'}" 
                                    IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" 
