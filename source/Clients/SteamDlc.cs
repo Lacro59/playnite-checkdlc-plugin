@@ -182,14 +182,13 @@ namespace CheckDlc.Clients
                     logger.Warn($"No parsed data for {AppId}");
                     return Dlcs;
                 }
-
-                StoreAppDetailsResult storeAppDetailsResult = parsedData[AppId];
-                if (storeAppDetailsResult?.data?.dlc == null)
+                if (!parsedData.ContainsKey(AppId))
                 {
                     logger.Info($"No dlc for {AppId}");
                     return Dlcs;
                 }
 
+                StoreAppDetailsResult storeAppDetailsResult = parsedData[AppId];
                 foreach (int el in storeAppDetailsResult.data.dlc)
                 {
                     Dlcs.Add(el);

@@ -1,5 +1,6 @@
 ﻿using CheckDlc.Models;
 using CommonPlayniteShared.PluginLibrary.EpicLibrary;
+using CommonPlayniteShared.PluginLibrary.EpicLibrary.Models;
 using CommonPlayniteShared.PluginLibrary.EpicLibrary.Services;
 using CommonPluginsShared;
 using CommonPluginsShared.Extensions;
@@ -85,26 +86,20 @@ namespace CheckDlc.Clients
             {
                 if (IsConnected)
                 {
-                    var tokens = EpicAPI.loadTokens();
-
-                    // Product code
-                    string ProductSlug = GetProductSlug(game.Name);
-                    if (ProductSlug.IsNullOrEmpty())
+                    OauthResponse tokens = EpicAPI.loadTokens();
+                    
+                    string gameNamespace = GetNameSpace(game.Name);
+                    if (gameNamespace.IsNullOrEmpty())
                     {
-                        logger.Warn($"ProductSlug not find for {game.Name}");
-                        return GameDlc;
+                        logger.Warn($"namespace is empty for {game.Name}");
+                        return null;
                     }
 
-                    // Game content
-                    string dataWeb = Web.DownloadStringData(string.Format(UrlGameDetails, LocalLangFinal, ProductSlug)).GetAwaiter().GetResult();
-                    dynamic GameDetails = Serialization.FromJson<dynamic>(dataWeb);
-                    string gameNamespace = GameDetails["namespace"];
-
                     // List DLC
-                    var dataDLC = GetAddonsByNamespace(gameNamespace).GetAwaiter().GetResult();
-                    foreach(var el in dataDLC?.data?.Catalog?.catalogOffers?.elements)
+                    EpicAddonsByNamespace dataDLC = GetAddonsByNamespace(gameNamespace).GetAwaiter().GetResult();
+                    foreach(Element el in dataDLC?.data?.Catalog?.catalogOffers?.elements)
                     {
-                        var ownedDLC = GetEntitledOfferItems(gameNamespace, el.id, tokens.access_token).GetAwaiter().GetResult();
+                        EpicEntitledOfferItems ownedDLC = GetEntitledOfferItems(gameNamespace, el.id, tokens.access_token).GetAwaiter().GetResult();
                         Dlc dlc = new Dlc
                         {
                             DlcId = el.id,
@@ -138,13 +133,13 @@ namespace CheckDlc.Clients
         private string GetProductSlug(string Name)
         {
             string ProductSlug = string.Empty;
-            using (var client = new WebStoreClient())
+            using (WebStoreClient client = new WebStoreClient())
             {
-                var catalogs = client.QuerySearch(Name).GetAwaiter().GetResult();
+                List<WebStoreModels.QuerySearchResponse.SearchStoreElement> catalogs = client.QuerySearch(Name).GetAwaiter().GetResult();
                 if (catalogs.HasItems())
                 {
                     catalogs = catalogs.OrderBy(x => x.title.Length).ToList();
-                    var catalog = catalogs.FirstOrDefault(a => a.title.Equals(Name, StringComparison.InvariantCultureIgnoreCase));
+                    WebStoreModels.QuerySearchResponse.SearchStoreElement catalog = catalogs.FirstOrDefault(a => a.title.Equals(Name, StringComparison.InvariantCultureIgnoreCase));
                     if (catalog == null)
                     {
                         catalog = catalogs[0];
@@ -154,6 +149,27 @@ namespace CheckDlc.Clients
                 }
             }
             return ProductSlug;
+        }
+
+        private string GetNameSpace(string Name)
+        {
+            string NameSpace = string.Empty;
+            using (WebStoreClient client = new WebStoreClient())
+            {
+                List<WebStoreModels.QuerySearchResponse.SearchStoreElement> catalogs = client.QuerySearch(Name).GetAwaiter().GetResult();
+                if (catalogs.HasItems())
+                {
+                    catalogs = catalogs.OrderBy(x => x.title.Length).ToList();
+                    WebStoreModels.QuerySearchResponse.SearchStoreElement catalog = catalogs.FirstOrDefault(a => a.title.Equals(Name, StringComparison.InvariantCultureIgnoreCase));
+                    if (catalog == null)
+                    {
+                        catalog = catalogs[0];
+                    }
+
+                    NameSpace = catalog?.epicNamespace;
+                }
+            }
+            return NameSpace;
         }
 
 

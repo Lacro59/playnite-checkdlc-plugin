@@ -103,7 +103,15 @@ namespace CheckDlc.Services
                         break;
                 }
 
-                dlcs = dlcs.Where(x => PluginSettings.Settings.IgnoredList.All(y => !x.Name.Contains(y, StringComparison.InvariantCultureIgnoreCase))).ToList();
+                if (dlcs?.Count > 0)
+                {
+                    dlcs = dlcs.Where(x => PluginSettings.Settings.IgnoredList.All(y => !x.Name.Contains(y, StringComparison.InvariantCultureIgnoreCase))).ToList();
+                }
+                else
+                {
+                    dlcs = new List<Dlc>();
+                }
+
                 gameDlc.Items = dlcs;
             }
             catch (Exception ex)
