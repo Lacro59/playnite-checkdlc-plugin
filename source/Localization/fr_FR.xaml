@@ -22,7 +22,7 @@
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Ajouter un tag aux jeux avec DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Définir une devise pour GOG</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define Origin currency</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Définir une devise pour Origin</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Fonctionnalité à ajouter si le jeu possède des dlcs</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Afficher la liste avec tous les DLC</sys:String>
@@ -31,8 +31,8 @@
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Utiliser les données sauvegardées pour {0} [{1}]
+Vous devez vous authentifier.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Erreur lors de l'obtention des prix du DLC. Veuillez vérifier vos paramètres de devise</sys:String>
     
 </ResourceDictionary>
