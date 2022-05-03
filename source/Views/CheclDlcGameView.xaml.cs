@@ -51,6 +51,15 @@ namespace CheckDlc.Views
         }
 
 
+        private void ToggleButtonPriceNotification_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleButton tb = sender as ToggleButton;
+            GameDlc data = PluginDatabase.GetOnlyCache(GameContext);
+            data.PriceNotification = (bool)tb.IsChecked;
+            PluginDatabase.Update(data);
+        }
+
+
         #region Filter
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
@@ -68,6 +77,7 @@ namespace CheckDlc.Views
             PART_Dlcs.ItemsSource = null;
 
             GameDlc gameDlc = PluginDatabase.Get(GameContext, true);
+            PART_PriceNotification.IsChecked = gameDlc.PriceNotification;
             List<Dlc> data = new List<Dlc>();
 
             double.TryParse(Price, out double PriceLimit);

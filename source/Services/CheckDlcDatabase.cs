@@ -123,6 +123,27 @@ namespace CheckDlc.Services
         }
 
 
+        public override void RefreshNoLoader(Guid Id)
+        {
+            Game game = PlayniteApi.Database.Games.Get(Id);
+            logger.Info($"RefreshNoLoader({game?.Name} - {game?.Id})");
+
+            GameDlc loadedItem = Get(Id, true);
+            GameDlc webItem = GetWeb(Id);
+            webItem.PriceNotification = loadedItem.PriceNotification;
+
+            if (webItem != null && !ReferenceEquals(loadedItem, webItem))
+            {
+                Update(webItem);
+            }
+            else
+            {
+                webItem = loadedItem;
+            }
+
+            ActionAfterRefresh(webItem);
+        }
+
         public override void ActionAfterRefresh(GameDlc item)
         {
             Game game = PlayniteApi.Database.Games.Get(item.Id);

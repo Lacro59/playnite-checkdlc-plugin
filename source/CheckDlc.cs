@@ -4,16 +4,19 @@ using CheckDlc.Models;
 using CheckDlc.Services;
 using CheckDlc.Views;
 using CommonPluginsShared;
+using CommonPluginsShared.Extensions;
 using CommonPluginsShared.PlayniteExtended;
 using CommonPluginsStores.Gog;
 using CommonPluginsStores.Origin;
 using Playnite.SDK;
+using Playnite.SDK.Data;
 using Playnite.SDK.Events;
 using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
@@ -328,7 +331,36 @@ namespace CheckDlc
         // Add code to be executed when Playnite is initialized.
         public override void OnApplicationStarted(OnApplicationStartedEventArgs args)
         {
+            if (PluginSettings.Settings.PriceNotification)
+            {
+                Task.Run(() => 
+                {
+                    PluginDatabase.Database.Where(x => x.PriceNotification).ForEach(x => 
+                    {
+                        PluginDatabase.RefreshNoLoader(x.Id);
+                        List<Dlc> newItems = PluginDatabase.GetOnlyCache(x.Id).Items;
 
+                        newItems.ForEach(y =>
+                        {
+                            if (y.PriceNumeric != x.Items.Find(z => z.DlcId.IsEqual(y.DlcId)).PriceNumeric)
+                            {
+                                PluginDatabase.PlayniteApi.Notifications.Add(new NotificationMessage(
+                                    $"{PluginDatabase.PluginName}-{x.Id.ToString()}",
+                                    $"{PluginDatabase.PluginName}" + Environment.NewLine + string.Format(resources.GetString("LOCCheckDlcNewPrice"), x.Name),
+                                    NotificationType.Info,
+                                    () => 
+                                    {
+                                        CheclDlcGameView ViewExtension = new CheclDlcGameView(x.Game);
+                                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
+                                        windowExtension.ShowDialog();
+                                    }
+                                ));
+                                return;
+                            }
+                        });
+                    });
+                });
+            }
         }
 
         // Add code to be executed when Playnite is shutting down.

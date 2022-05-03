@@ -13,6 +13,8 @@
 
     <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
 
     <!-- FreeView -->
     
@@ -21,6 +23,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define Origin currency</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
@@ -34,5 +37,6 @@
     <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
 You must authenticate.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
     
 </ResourceDictionary>

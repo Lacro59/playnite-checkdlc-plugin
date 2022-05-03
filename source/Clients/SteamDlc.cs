@@ -189,6 +189,12 @@ namespace CheckDlc.Clients
                 }
 
                 StoreAppDetailsResult storeAppDetailsResult = parsedData[AppId];
+                if (storeAppDetailsResult.data?.dlc == null)
+                {
+                    logger.Info($"No dlc for {AppId}");
+                    return Dlcs;
+                }
+
                 foreach (int el in storeAppDetailsResult.data.dlc)
                 {
                     Dlcs.Add(el);

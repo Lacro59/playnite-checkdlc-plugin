@@ -8,10 +8,7 @@ namespace CheckDlc.Models
         private List<Dlc> _Items = new List<Dlc>();
         public override List<Dlc> Items
         {
-            get
-            {
-                return _Items;
-            }
+            get => _Items;
 
             set
             {
@@ -19,5 +16,7 @@ namespace CheckDlc.Models
                 OnPropertyChanged();
             }
         }
+
+        public bool PriceNotification { get; set; }
     }
 }

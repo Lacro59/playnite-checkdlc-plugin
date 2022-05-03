@@ -1,6 +1,4 @@
-﻿using CheckDlc.Models;
-using CommonPluginsStores.Gog.Models;
-using CommonPluginsStores.Models;
+﻿using CommonPluginsStores.Models;
 using Playnite.SDK;
 using Playnite.SDK.Data;
 using Playnite.SDK.Models;
@@ -18,6 +16,8 @@ namespace CheckDlc
 
         public bool EnableTag { get; set; } = false;
         public bool AutoImport { get; set; } = true;
+
+        public bool PriceNotification { get; set; } = false;
 
         public StoreCurrency GogCurrency { get; set; } = new StoreCurrency { country = "US", currency = "USD", symbol = "$" };
         public StoreCurrency OriginCurrency { get; set; } = new StoreCurrency { country = "US", currency = "USD", symbol = "$" };

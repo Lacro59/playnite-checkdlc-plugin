@@ -133,6 +133,7 @@
             </ListBox>
         </Grid>
 
+        <ToggleButton Content="{DynamicResource LOCCheckDlcPriceNotification}" Grid.Row="4" HorizontalAlignment="Left" Name="PART_PriceNotification" Click="ToggleButtonPriceNotification_Click" />
         <Button Content="{DynamicResource LOCCommonRefreshGameData}" Grid.Row="4" HorizontalAlignment="Right" Click="Button_Click_Refresh" />
     </Grid>
 </UserControl>

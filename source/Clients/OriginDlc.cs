@@ -42,10 +42,7 @@ namespace CheckDlc.Clients
                 return _OriginAPI;
             }
 
-            set
-            {
-                _OriginAPI = value;
-            }
+            set => _OriginAPI = value;
         }
 
 
