@@ -87,7 +87,7 @@ namespace CheckDlc.Clients
                 if (IsConnected)
                 {
                     OauthResponse tokens = EpicAPI.loadTokens();
-                    
+
                     string gameNamespace = GetNameSpace(game.Name);
                     if (gameNamespace.IsNullOrEmpty())
                     {
@@ -139,7 +139,7 @@ namespace CheckDlc.Clients
                 if (catalogs.HasItems())
                 {
                     catalogs = catalogs.OrderBy(x => x.title.Length).ToList();
-                    WebStoreModels.QuerySearchResponse.SearchStoreElement catalog = catalogs.FirstOrDefault(a => a.title.Equals(Name, StringComparison.InvariantCultureIgnoreCase));
+                    WebStoreModels.QuerySearchResponse.SearchStoreElement catalog = catalogs.FirstOrDefault(a => a.title.IsEqual(Name, true));
                     if (catalog == null)
                     {
                         catalog = catalogs[0];
@@ -160,7 +160,7 @@ namespace CheckDlc.Clients
                 if (catalogs.HasItems())
                 {
                     catalogs = catalogs.OrderBy(x => x.title.Length).ToList();
-                    WebStoreModels.QuerySearchResponse.SearchStoreElement catalog = catalogs.FirstOrDefault(a => a.title.Equals(Name, StringComparison.InvariantCultureIgnoreCase));
+                    WebStoreModels.QuerySearchResponse.SearchStoreElement catalog = catalogs.FirstOrDefault(a => a.title.IsEqual(Name, true));
                     if (catalog == null)
                     {
                         catalog = catalogs[0];
