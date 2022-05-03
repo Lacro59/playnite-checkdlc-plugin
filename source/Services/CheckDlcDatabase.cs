@@ -159,6 +159,14 @@ namespace CheckDlc.Services
                 }
                 PlayniteApi.Database.Games.Update(game);
             }
+            else
+            {
+                if (game.FeatureIds?.Find(x => x == PluginSettings.Settings.DlcFeature?.Id) != null)
+                {
+                    game.FeatureIds.Remove(PluginSettings.Settings.DlcFeature.Id);
+                    PlayniteApi.Database.Games.Update(game);
+                }
+            }
         }
     }
 }
