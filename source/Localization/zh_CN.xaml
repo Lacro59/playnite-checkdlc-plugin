@@ -13,6 +13,8 @@
 
     <sys:String x:Key="LOCCheckDlcHideOwned">隐藏已拥有</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">价格降低</sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
 
     <!-- FreeView -->
     
@@ -21,6 +23,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">为具有 DLC 的游戏添加标签</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定义 GOG 货币</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">定义 Origin 货币</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">若游戏有 DLC 则添加的功能特色</sys:String>
@@ -34,5 +37,6 @@
     <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">为 {0} 使用存档数据 [{1}]
 您必须进行验证。</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">获取 DLC 价格出错。请检查您的货币设置</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
     
 </ResourceDictionary>
