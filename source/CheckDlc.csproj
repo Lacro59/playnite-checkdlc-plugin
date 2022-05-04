@@ -97,11 +97,6 @@
     </Compile>
     <Compile Include="Models\CheckDlcCollection.cs" />
     <Compile Include="Models\Dlc.cs" />
-    <Compile Include="Models\EpicAddonsByNamespace.cs" />
-    <Compile Include="Models\EpicCatalogOffer.cs" />
-    <Compile Include="Models\EpicData.cs" />
-    <Compile Include="Models\EpicDlcData.cs" />
-    <Compile Include="Models\EpicEntitledOfferItems.cs" />
     <Compile Include="Models\GameDlc.cs" />
     <Compile Include="Models\SteamUserData.cs" />
     <Compile Include="playnite-plugincommon\CommonPluginsControls\PlayniteControls\NumericBox.xaml.cs">

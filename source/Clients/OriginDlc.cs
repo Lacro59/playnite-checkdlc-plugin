@@ -62,7 +62,6 @@ namespace CheckDlc.Clients
                 if (OriginAPI.IsUserLoggedIn)
                 {
                     OriginAPI.SetCurrency(PluginDatabase.PluginSettings.Settings.OriginCurrency);
-                    OriginAPI.SetLanguage(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
 
                     ObservableCollection<DlcInfos> dlcs = OriginAPI.GetDlcInfos(game.GameId, OriginAPI.CurrentAccountInfos);
                     dlcs?.ForEach(x => 
