@@ -13,6 +13,8 @@
 
     <sys:String x:Key="LOCCheckDlcHideOwned">Скрыть принадлежащие</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Цена ниже</sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
 
     <!-- FreeView -->
     
@@ -21,6 +23,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Добавить тег в игры с DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Определить валюту GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define Origin currency</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Функция для добавления, если в игре есть DLC</sys:String>
@@ -34,5 +37,6 @@
     <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
 You must authenticate.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Ошибка получения цен DLC. Пожалуйста, проверьте настройки валю</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
     
 </ResourceDictionary>
