@@ -31,7 +31,7 @@ namespace CheckDlc.Views
             PART_FeatureDlc.ItemsSource = PluginDatabase.PlayniteApi.Database.Features.OrderBy(x => x.Name);
 
             // List GOG currencies
-            GogApi gogApi = new GogApi();
+            GogApi gogApi = new GogApi(PluginDatabase.PluginName);
             List<StoreCurrency> dataGog = gogApi.GetCurrencies();            
             PART_GogCurrency.ItemsSource = dataGog.OrderBy(x => x.currency).ToList();
 
@@ -43,7 +43,7 @@ namespace CheckDlc.Views
             catch { }
 
             // List Origin currencies
-            OriginApi originApi = new OriginApi();
+            OriginApi originApi = new OriginApi(PluginDatabase.PluginName);
             List<StoreCurrency> dataOrigin = originApi.GetCurrencies();            
             PART_OriginCurrency.ItemsSource = dataOrigin.OrderBy(x => x.currency).ToList();
 

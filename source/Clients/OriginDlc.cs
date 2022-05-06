@@ -37,7 +37,7 @@ namespace CheckDlc.Clients
             {
                 if (_OriginAPI == null)
                 {
-                    _OriginAPI = new OriginApi();
+                    _OriginAPI = new OriginApi(PluginDatabase.PluginName);
                 }
                 return _OriginAPI;
             }

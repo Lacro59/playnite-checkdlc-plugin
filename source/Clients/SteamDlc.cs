@@ -219,8 +219,8 @@ namespace CheckDlc.Clients
                     //string data = Web.DownloadStringData(string.Format(SteamDbDlc, AppId)).GetAwaiter().GetResult();
                     WebViewOffScreen.NavigateAndWait(string.Format(SteamDbDlc, AppId));
                     string data = WebViewOffScreen.GetPageSource();
-                    IHtmlDocument htmlDocument = new HtmlParser().Parse(data);
 
+                    IHtmlDocument htmlDocument = new HtmlParser().Parse(data);
                     IHtmlCollection<IElement> SectionDlcs = htmlDocument.QuerySelectorAll("#dlc tr.app");
                     if (SectionDlcs != null)
                     {

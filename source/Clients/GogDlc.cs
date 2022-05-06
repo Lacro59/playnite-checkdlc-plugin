@@ -36,15 +36,12 @@ namespace CheckDlc.Clients
             {
                 if (_GogAPI == null)
                 {
-                    _GogAPI = new GogApi();
+                    _GogAPI = new GogApi(PluginDatabase.PluginName);
                 }
                 return _GogAPI;
             }
 
-            set
-            {
-                _GogAPI = value;
-            }
+            set => _GogAPI = value;
         }
 
 

@@ -45,7 +45,7 @@ namespace CheckDlc.Clients
             {
                 if (_EpicAPI == null)
                 {
-                    _EpicAPI = new EpicApi();
+                    _EpicAPI = new EpicApi(PluginDatabase.PluginName);
                 }
                 return _EpicAPI;
             }
