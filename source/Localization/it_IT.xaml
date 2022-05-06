@@ -14,7 +14,7 @@
     <sys:String x:Key="LOCCheckDlcHideOwned">Nascondi &quot;Posseduto&quot;</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Prezzo inferiore</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Notifica variazione di prezzo</sys:String>
 
     <!-- FreeView -->
     
@@ -23,7 +23,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Aggiungi tag a giochi con DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Mostra una notifica quando il prezzo cambia per i giochi selezionati</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definisci la valuta GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Definisci la valuta di Origin</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Funzionalità da aggiungere se il gioco ha dei dlc</sys:String>
@@ -37,6 +37,6 @@
     <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Utilizzare i dati salvati per {0} [{1}]
 È necessario autenticare.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Errore nell'ottenere i prezzi DLC. Si prega di controllare le impostazioni della valuta</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Alcuni DLC per {0} hanno un nuovo prezzo.</sys:String>
     
 </ResourceDictionary>
