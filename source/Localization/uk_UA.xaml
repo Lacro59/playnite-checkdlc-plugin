@@ -14,7 +14,7 @@
     <sys:String x:Key="LOCCheckDlcHideOwned">Приховати придбані</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Ціна нижча</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Сповіщення про зміну ціни</sys:String>
 
     <!-- FreeView -->
     
@@ -23,7 +23,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Додати тег до ігор з DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Показувати сповіщення, коли ціна змінюється для вибраних ігор</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Визначити валюту GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Визначити валюту Origin</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Додати особливість, якщо гра має DLC</sys:String>
@@ -37,6 +37,6 @@
     <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Використовувати збережені дані для {0} [{1}]
 Ви повинні автентифікуватися.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Помилка отримання цін на DLC. Будь ласка, перевірте ваші налаштування валюти.</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Деякі DLC для {0} мають нову ціну.</sys:String>
     
 </ResourceDictionary>
