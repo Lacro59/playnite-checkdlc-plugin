@@ -61,3 +61,13 @@ Packages:
       - UI tweaks
       - Updated localizations
       - Fixed minors bugs
+  - Version: 0.6
+    RequiredApiVersion: 6.2.2
+    ReleaseDate: 2022-05-09
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v0.6/playnite-checkdlc-plugin_0_6.pext
+    Changelog:
+      - Added Origin DLC
+      - Added a notification system when DLC price changed
+      - Fixed currency issue
+      - Updated localizations
+      - Fixed minors bugs
