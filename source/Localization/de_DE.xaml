@@ -23,7 +23,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Tag zum DLC hinzufügen</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">Benachrichtigung anzeigen, wenn sich der Preis für die ausgewählten Spiele ändert</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Eine Benachrichtigung anzeigen, wenn sich der Preis für die ausgewählten Spiele ändert</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">GOG Währung festlegen</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Ursprungswährung festlegen</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Funktion hinzufügen, wenn das Spiel DLCs hat</sys:String>
