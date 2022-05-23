@@ -11,8 +11,8 @@
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Cacher les possédés</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Prix inférieur </sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">Masquer les DLC déjà possédés</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Prix maximum :</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Notification de changement de prix</sys:String>
 
