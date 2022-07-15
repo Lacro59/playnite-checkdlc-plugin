@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
+    <sys:String x:Key="LOCCheckDlc">Verifica Dlc</sys:String>
 
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Checar DLC grátis não possuído</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Ver DLC do jogo</sys:String>
@@ -25,7 +25,7 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Adicionar tag aos jogos com DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Mostrar uma notificação quando o preço mudar para os jogos selecionados</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definir moeda GOG</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define Origin currency</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Definir moeda de origem</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Recurso para adicionar se o jogo tiver dlcs</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Mostrar lista com todos os DLCs</sys:String>
@@ -34,8 +34,8 @@
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use dados salvos para {0} [{1}]
+Você deve autenticar.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Erro ao obter preços DLC. Por favor, verifique suas configurações de moeda</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Alguma DLC para {0} tem um novo preço.</sys:String>
     
