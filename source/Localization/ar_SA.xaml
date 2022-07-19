@@ -14,7 +14,7 @@
     <sys:String x:Key="LOCCheckDlcHideOwned">إخفاء المملوك</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">السعر أقل من</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceNotification">إشعار تغيير السعر</sys:String>
 
     <!-- FreeView -->
     
@@ -23,9 +23,9 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">إضافة علامة إلى الألعاب ذات DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">إظهار إشعار عندما يتغير سعر الألعاب المحددة</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">تحديد عملة GOG</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define Origin currency</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">تعريف العملة الأصلية</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">ميزة لإضافة إذا كانت اللعبة تحتوي على DLC</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">عرض قائمة مع جميع DLC</sys:String>
@@ -34,8 +34,8 @@
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">استخدم البيانات المحفوظة لـ {0} [{1}]
+يجب عليك المصادقة.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">خطأ في الحصول على أسعار DLC. الرجاء التحقق من إعدادات العملة</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
     
