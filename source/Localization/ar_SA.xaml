@@ -37,6 +37,6 @@
     <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">استخدم البيانات المحفوظة لـ {0} [{1}]
 يجب عليك المصادقة.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">خطأ في الحصول على أسعار DLC. الرجاء التحقق من إعدادات العملة</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">بعض DLC ل {0} لديه سعر جديد.</sys:String>
     
 </ResourceDictionary>
