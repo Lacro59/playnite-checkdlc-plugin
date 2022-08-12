@@ -25,18 +25,18 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Добавить тег в игры с DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Определить валюту GOG</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define Origin currency</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Определить валюту Origin</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Функция для добавления, если в игре есть DLC</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Отобразить список всех DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only onwed DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only not onwed DLC</sys:String>
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Использовать сохраненные данные для {0} [{1}]
+Вы должны авторизоваться.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Ошибка получения цен DLC. Пожалуйста, проверьте настройки валю</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Некоторые DLC для {0} имеют новую цену.</sys:String>
     
 </ResourceDictionary>
