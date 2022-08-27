@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
+    <sys:String x:Key="LOCCheckDlc">Проверить DlC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC not owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Проверьте бесплатное DLC, которое не принадлежит</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Просмотр DLC для игры</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">В коллекции</sys:String>
@@ -14,7 +14,7 @@
     <sys:String x:Key="LOCCheckDlcHideOwned">Скрыть принадлежащие</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Цена ниже</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Уведомить об изменении цены</sys:String>
 
     <!-- FreeView -->
     
@@ -23,14 +23,15 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Добавить тег в игры с DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Показывать уведомление при изменении цены на выбранные игры</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Определить валюту GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Определить валюту Origin</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Функция для добавления, если в игре есть DLC</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Отобразить список всех DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only onwed DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only not onwed DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">
+Показать список только с включенным DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показать список только с не включёнными DLC</sys:String>
 
     <!-- Notifications -->
 
