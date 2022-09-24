@@ -71,3 +71,12 @@ Packages:
       - Fixed currency issue
       - Updated localizations
       - Fixed minors bugs
+  - Version: 1.0
+    RequiredApiVersion: 6.4.0
+    ReleaseDate: 2022-09-24
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v1.0/playnite-checkdlc-plugin_1_0.pext
+    Changelog:
+      - Playnite 10 only
+      - Updated localizations
+      - Displayed the number of owned on dlc view
+      - Fixed bugs
