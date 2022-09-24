@@ -48,6 +48,7 @@ namespace CheckDlc.Views
             gameDlc.Items.Sort((x, y) => y.Name.CompareTo(x.Name));
             PART_Dlcs.ItemsSource = gameDlc.Items;
             PART_TotalFoundCount.Text = gameDlc.Items.Count.ToString();
+            PART_TotalOwnedCount.Text = gameDlc.Items.Where(x => x.IsOwned).Count().ToString();
         }
 
 
@@ -97,6 +98,7 @@ namespace CheckDlc.Views
 
             PART_Dlcs.ItemsSource = data;
             PART_TotalFoundCount.Text = data.Count.ToString();
+            PART_TotalOwnedCount.Text = data.Where(x => x.IsOwned).Count().ToString();
         }
         #endregion
     }

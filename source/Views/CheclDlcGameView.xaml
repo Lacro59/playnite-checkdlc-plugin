@@ -34,6 +34,8 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
                 <ToggleButton Grid.Column="0" Content="{DynamicResource LOCCheckDlcHideOwned}" FontSize="16" 
@@ -55,6 +57,12 @@
                 </Grid>
 
                 <StackPanel Grid.Column="4" Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Text="{DynamicResource LOCCheckDlcOwned}" VerticalAlignment="Center" />
+                    <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Name="PART_TotalOwnedCount" 
+                               VerticalAlignment="Center" Width="40" TextAlignment="Right" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="6" Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Text="{DynamicResource LOCCommonTotalFound}" VerticalAlignment="Center" />
                     <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Name="PART_TotalFoundCount" 
                                VerticalAlignment="Center" Width="40" TextAlignment="Right" />
