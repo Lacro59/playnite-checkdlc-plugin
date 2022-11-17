@@ -3,18 +3,18 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC not owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcViewDlc">View game dlc</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Ingyenes DLC-k, amik még nincsenek meg</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">Játék DLC-inek megtekintése</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">Meglévők</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Ingyenes</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">Meglévők elrejtése</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Alacsonyabb ár</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Értesítés az árváltozásról</sys:String>
 
     <!-- FreeView -->
     
@@ -22,21 +22,21 @@
     
     <!-- SettingsView -->
 
-    <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define Origin currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">Cimke hozzáadása a DLC-vel rendelkező játékokhoz</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Értesítés megjelenítése, ha a kiválasztott játékok ára megváltozik</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">GOG pénznem meghatározása</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Origin pénznem meghatározása</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Hozzáadható funkció, ha a játékhoz van DLC</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only onwed DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only not onwed DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Összes DLC-t tartalmazó lista megjelenítése</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Meglévő DLC-ket tartalmazó lista megjelenítése</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Hiányzó DLC-ket tartalmazó lista megjelenítése</sys:String>
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate.</sys:String>
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Mentett adatok használata a következőhöz: {0} [{1}]
+Hitelesítés szükséges.</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Hiba a DLC árak lekérésekor. Kérjük, ellenőrizd a pénznem beállításaidat.</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Néhány DLC-nek új ára van, a következő játékhoz: {0}</sys:String>
     
 </ResourceDictionary>
