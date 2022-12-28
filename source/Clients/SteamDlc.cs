@@ -24,13 +24,13 @@ namespace CheckDlc.Clients
     {
         public static bool SettingsOpen = false;
 
-        private string UrlSteamAppDetails = "https://store.steampowered.com/api/appdetails?appids={0}&l={1}";
-        private static string UrlSteamUserData = "https://store.steampowered.com/dynamicstore/userdata/";
-        private static string UrlSteamGame = "https://store.steampowered.com/app/{0}/?l={1}";
+        private string UrlSteamAppDetails => "https://store.steampowered.com/api/appdetails?appids={0}&l={1}";
+        private static string UrlSteamUserData => "https://store.steampowered.com/dynamicstore/userdata/";
+        private static string UrlSteamGame => "https://store.steampowered.com/app/{0}/?l={1}";
 
-        private string SteamDbDlc = "https://steamdb.info/app/{0}/dlc/";
+        private string SteamDbDlc => "https://steamdb.info/app/{0}/dlc/";
 
-        private static string FileUserData = Path.Combine(PluginDatabase.Paths.PluginUserDataPath, "SteamUserData.json");
+        private static string FileUserData => Path.Combine(PluginDatabase.Paths.PluginUserDataPath, "SteamUserData.json");
 
         private static SteamUserData _UserData = null;
         private static SteamUserData UserData
@@ -266,7 +266,7 @@ namespace CheckDlc.Clients
                         API.Instance.Notifications.Add(new NotificationMessage(                        
                             $"{PluginDatabase.PluginName }-steam-saveddata",
                             $"{PluginDatabase.PluginName}" + Environment.NewLine 
-                                + string.Format(resources.GetString("LOCCheckDlcUseSavedUserData"), "Steam", formatedDateLastWrite),
+                                + string.Format(resources.GetString("LOCCheckDlcUseSavedUserDataSteam"), "Steam", formatedDateLastWrite),
                             NotificationType.Info,
                             () =>
                             {
