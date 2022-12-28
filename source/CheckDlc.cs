@@ -16,6 +16,7 @@ using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation;
@@ -26,6 +27,8 @@ namespace CheckDlc
     public class CheckDlc : PluginExtended<CheckDlcSettingsViewModel, CheckDlcDatabase>
     {
         public override Guid Id { get; } = Guid.Parse("bf78d9af-6e79-4c73-aca6-c23a11a485ae");
+
+        private bool IsStarted { get; set; } = false;
 
 
         public CheckDlc(IPlayniteAPI api) : base(api)
@@ -331,6 +334,12 @@ namespace CheckDlc
         // Add code to be executed when Playnite is initialized.
         public override void OnApplicationStarted(OnApplicationStartedEventArgs args)
         {
+            Task.Run(() =>
+            {
+                Thread.Sleep(10000);
+                IsStarted = true;
+            });
+
             if (PluginSettings.Settings.PriceNotification)
             {
                 Task.Run(() => 
@@ -374,9 +383,9 @@ namespace CheckDlc
         // Add code to be executed when library is updated.
         public override void OnLibraryUpdated(OnLibraryUpdatedEventArgs args)
         {
-            if (PluginSettings.Settings.AutoImport)
+            if (IsStarted && PluginSettings.Settings.AutoImport)
             {
-                var PlayniteDb = PlayniteApi.Database.Games
+                List<Guid> PlayniteDb = PlayniteApi.Database.Games
                         .Where(x => x.Added != null && x.Added > PluginSettings.Settings.LastAutoLibUpdateAssetsDownload)
                         .Select(x => x.Id).ToList();
 

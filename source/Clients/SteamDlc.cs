@@ -216,7 +216,6 @@ namespace CheckDlc.Clients
             {
                 using (IWebView WebViewOffScreen = API.Instance.WebViews.CreateOffscreenView())
                 {
-                    //string data = Web.DownloadStringData(string.Format(SteamDbDlc, AppId)).GetAwaiter().GetResult();
                     WebViewOffScreen.NavigateAndWait(string.Format(SteamDbDlc, AppId));
                     string data = WebViewOffScreen.GetPageSource();
 
