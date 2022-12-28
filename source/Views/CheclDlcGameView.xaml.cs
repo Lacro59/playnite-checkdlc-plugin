@@ -16,9 +16,9 @@ namespace CheckDlc.Views
     /// </summary>
     public partial class CheclDlcGameView : UserControl
     {
-        private CheckDlcDatabase PluginDatabase = CheckDlc.PluginDatabase;
+        private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
 
-        private Game GameContext;
+        private Game GameContext { get; set; }
 
 
         public CheclDlcGameView(Game GameContext)

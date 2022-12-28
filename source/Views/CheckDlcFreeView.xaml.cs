@@ -15,7 +15,7 @@ namespace CheckDlc.Views
     /// </summary>
     public partial class CheckDlcFreeView : UserControl
     {
-        private CheckDlcDatabase PluginDatabase = CheckDlc.PluginDatabase;
+        private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
 
 
         public CheckDlcFreeView()
@@ -74,7 +74,7 @@ namespace CheckDlc.Views
 
     public class lvDlc
     {
-        private CheckDlcDatabase PluginDatabase = CheckDlc.PluginDatabase;
+        private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
 
 
         public Guid Id { get; set; }

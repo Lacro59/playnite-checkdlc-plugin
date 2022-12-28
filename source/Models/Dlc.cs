@@ -7,6 +7,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Windows.Media.Imaging;
+using System.Drawing.Imaging;
 
 namespace CheckDlc.Models
 {
@@ -87,6 +89,6 @@ namespace CheckDlc.Models
         public bool IsDiscount => !Price.IsEqual(PriceBase);
 
         [DontSerialize]
-        public string ImagePath => ImageSourceManagerPlugin.GetImagePath(Image);
+        public BitmapImage ImagePath => ImageSourceManagerPlugin.GetImage(Image, false, new BitmapLoadProperties(200, 200));
     }
 }

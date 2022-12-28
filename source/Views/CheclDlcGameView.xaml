@@ -96,7 +96,8 @@
                                 <RowDefinition Height="150" />
                             </Grid.RowDefinitions>
 
-                            <controls1:ImageAsync Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="UniformToFill" 
+                            <Image Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="UniformToFill" 
+                                   RenderOptions.BitmapScalingMode="Linear"
                                    Height="120" Width="250" IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" />
                             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Name, FallbackValue='Game name'}" 
                                    IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" 
@@ -127,7 +128,7 @@
                             <Button Tag="{Binding Link}" Click="Button_Click" Content="&#xf028;" FontFamily="{DynamicResource FontIcoFont}"
                                     ToolTip="{Binding Link}" Grid.Row="0" Grid.Column="6" />
 
-                            <ScrollViewer Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            <ScrollViewer Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto"
                                           IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}">
                                 <controls:HtmlTextView HtmlText="{Binding Description, FallbackValue='Description HTML'}" Width="620" HorizontalAlignment="left"
                                                        HtmlFontFamily="{DynamicResource FontFamily}"

@@ -29,7 +29,7 @@
                             <RowDefinition Height="10" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="10" />
-                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         
                         <CheckBox IsChecked="{Binding Settings.AutoImport}">
@@ -83,8 +83,7 @@
                             </Grid.RowDefinitions>
 
                             <Label Content="{DynamicResource LOCCheckDlcDefineGogCurrency}" />
-                            <ComboBox Grid.Column="2" SelectedItem="{Binding Settings.GogCurrency}"
-                                      Name="PART_GogCurrency">
+                            <ComboBox Grid.Column="2" SelectedItem="{Binding Settings.GogCurrency}" Name="PART_GogCurrency">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding text}"/>
@@ -97,8 +96,7 @@
 
 
                             <Label Grid.Row="2" Content="{DynamicResource LOCCheckDlcDefineOriginCurrency}" />
-                            <ComboBox Grid.Column="2" SelectedItem="{Binding Settings.OriginCurrency}"
-                                      Grid.Row="2" Name="PART_OriginCurrency">
+                            <ComboBox Grid.Column="2" SelectedItem="{Binding Settings.OriginCurrency}" Grid.Row="2" Name="PART_OriginCurrency">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding text}"/>
@@ -111,28 +109,30 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="10" />
-                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
                             <Label Content="{DynamicResource LOCCommonIgnoredItems}" />
                             <Button Content="{DynamicResource LOCAddTitle}" HorizontalAlignment="Right" Click="Button_Click_Add" />
 
-                            <ListBox Grid.Row="2" Height="200" ItemsSource="{Binding Settings.IgnoredList}" Name="PART_IgnoredList" Margin="50,0,0,0">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid Margin="0,2">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="100" />
-                                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Row="2" Name="PART_Grid">
+                                <ListBox Height="{Binding ElementName=PART_Grid, Path=ActualHeight}" ItemsSource="{Binding Settings.IgnoredList}" Name="PART_IgnoredList" Margin="50,0,0,0">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="100" />
+                                                </Grid.ColumnDefinitions>
                                             
-                                            <TextBlock Text="{Binding}" VerticalAlignment="Center" />
-                                            <Button Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Mode=OneWay, Converter={StaticResource IndexConverter}, UpdateSourceTrigger=PropertyChanged}" 
-                                                    Grid.Column="1" Click="Button_Click_Remove" Content="{DynamicResource LOCRemoveTitle}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                                                <TextBlock Text="{Binding}" VerticalAlignment="Center" />
+                                                <Button Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Mode=OneWay, Converter={StaticResource IndexConverter}, UpdateSourceTrigger=PropertyChanged}" 
+                                                        Grid.Column="1" Click="Button_Click_Remove" Content="{DynamicResource LOCRemoveTitle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </ScrollViewer>
