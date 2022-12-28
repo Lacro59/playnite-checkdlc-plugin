@@ -17,6 +17,8 @@ using CommonPlayniteShared.Common;
 using CommonPluginsShared.Converters;
 using System.Globalization;
 using AngleSharp.Dom;
+using System.Threading;
+using System.Windows;
 
 namespace CheckDlc.Clients
 {
@@ -91,8 +93,8 @@ namespace CheckDlc.Clients
                 string GameId = game.GameId;
                 List<int> DlcsIdSteam = GetFromSteamWebApi(GameId);
                 List<int> DlcsIdSteamDb = GetFromSteamDb(GameId);
+                List<int> DlcsId = DlcsIdSteam.Union(DlcsIdSteamDb).Distinct().OrderBy(x => x).ToList();
 
-                List<int> DlcsId = (DlcsIdSteam.Count >= DlcsIdSteamDb.Count) ? DlcsIdSteam : DlcsIdSteamDb;
                 foreach (int DlcId in DlcsId)
                 {
                     try
@@ -108,14 +110,14 @@ namespace CheckDlc.Clients
                         if (parsedDataDlc == null)
                         {
                             logger.Warn($"No parsed data for {game.Name} - {DlcId}");
-                            return GameDlc;
+                            continue;
                         }
 
                         StoreAppDetailsResult storeAppDetailsResultDlc = parsedDataDlc[DlcId.ToString()];
                         if (storeAppDetailsResultDlc?.data == null)
                         {
                             logger.Warn($"No data for {game.Name} - {DlcId}");
-                            return GameDlc;
+                            continue;
                         }
 
                         Dlc dlc = new Dlc
@@ -214,7 +216,12 @@ namespace CheckDlc.Clients
 
             try
             {
-                using (IWebView WebViewOffScreen = API.Instance.WebViews.CreateOffscreenView())
+                WebViewSettings settings = new WebViewSettings
+                {
+                    UserAgent = Web.UserAgent
+                };
+
+                using (IWebView WebViewOffScreen = API.Instance.WebViews.CreateOffscreenView(settings))
                 {
                     WebViewOffScreen.NavigateAndWait(string.Format(SteamDbDlc, AppId));
                     string data = WebViewOffScreen.GetPageSource();
