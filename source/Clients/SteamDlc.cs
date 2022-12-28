@@ -24,7 +24,7 @@ namespace CheckDlc.Clients
 {
     class SteamDlc : GenericDlc
     {
-        public static bool SettingsOpen = false;
+        public static bool SettingsOpen { get; set; } = false;
 
         private string UrlSteamAppDetails => "https://store.steampowered.com/api/appdetails?appids={0}&l={1}";
         private static string UrlSteamUserData => "https://store.steampowered.com/dynamicstore/userdata/";

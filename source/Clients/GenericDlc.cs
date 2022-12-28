@@ -15,10 +15,10 @@ namespace CheckDlc.Clients
 {
     abstract class GenericDlc
     {
-        internal static readonly ILogger logger = LogManager.GetLogger();
-        internal static readonly IResourceProvider resources = new ResourceProvider();
+        internal static ILogger logger => LogManager.GetLogger();
+        internal static IResourceProvider resources => new ResourceProvider();
 
-        internal static CheckDlcDatabase PluginDatabase = CheckDlc.PluginDatabase;
+        internal static CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
 
         protected string ClientName { get; }
         protected string LocalLang { get; }

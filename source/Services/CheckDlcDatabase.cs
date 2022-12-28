@@ -14,7 +14,7 @@ namespace CheckDlc.Services
 {
     public class CheckDlcDatabase : PluginDatabaseObject<CheckDlcSettingsViewModel, CheckDlcCollection, GameDlc, Dlc>
     {
-        public bool SettingsOpen = false;
+        public bool SettingsOpen { get; set; } = false;
 
 
         public CheckDlcDatabase(IPlayniteAPI PlayniteApi, CheckDlcSettingsViewModel PluginSettings, string PluginUserDataPath) : base(PlayniteApi, PluginSettings, "CheckDlc", PluginUserDataPath)

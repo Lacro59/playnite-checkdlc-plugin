@@ -95,15 +95,7 @@ namespace CheckDlc
         private CheckDlcSettings EditingClone { get; set; }
 
         private CheckDlcSettings settings;
-        public CheckDlcSettings Settings
-        {
-            get => settings;
-            set
-            {
-                settings = value;
-                OnPropertyChanged();
-            }
-        }
+        public CheckDlcSettings Settings { get => settings; set => SetValue(ref settings, value); }
 
         public CheckDlcSettingsViewModel(CheckDlc plugin)
         {
@@ -111,17 +103,10 @@ namespace CheckDlc
             Plugin = plugin;
 
             // Load saved settings.
-            var savedSettings = plugin.LoadPluginSettings<CheckDlcSettings>();
+            CheckDlcSettings savedSettings = plugin.LoadPluginSettings<CheckDlcSettings>();
 
             // LoadPluginSettings returns null if not saved data is available.
-            if (savedSettings != null)
-            {
-                Settings = savedSettings;
-            }
-            else
-            {
-                Settings = new CheckDlcSettings();
-            }
+            Settings = savedSettings ?? new CheckDlcSettings();
         }
 
         // Code executed when settings view is opened and user starts editing values.

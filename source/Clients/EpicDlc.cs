@@ -1,14 +1,7 @@
 ﻿using CheckDlc.Models;
-using CommonPlayniteShared.PluginLibrary.EpicLibrary;
-using CommonPlayniteShared.PluginLibrary.EpicLibrary.Models;
-using CommonPlayniteShared.PluginLibrary.EpicLibrary.Services;
 using CommonPluginsShared;
-using CommonPluginsShared.Extensions;
 using CommonPluginsStores.Epic;
-using CommonPluginsStores.Epic.Models;
 using CommonPluginsStores.Models;
-using Playnite.SDK;
-using Playnite.SDK.Data;
 using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using static CommonPluginsShared.PlayniteTools;
 
 namespace CheckDlc.Clients
@@ -52,7 +44,6 @@ namespace CheckDlc.Clients
 
             set => _EpicAPI = value;
         }
-
 
 
         public EpicDlc() : base("Epic", CodeLang.GetEpicLang(PluginDatabase.PlayniteApi.ApplicationSettings.Language))

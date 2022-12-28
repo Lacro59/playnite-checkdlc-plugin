@@ -23,27 +23,15 @@ namespace CheckDlc.Controls
         private CheckDlcDatabase PluginDatabase = CheckDlc.PluginDatabase;
         internal override IPluginDatabase _PluginDatabase
         {
-            get
-            {
-                return PluginDatabase;
-            }
-            set
-            {
-                PluginDatabase = (CheckDlcDatabase)_PluginDatabase;
-            }
+            get => PluginDatabase;
+            set => PluginDatabase = (CheckDlcDatabase)_PluginDatabase;
         }
 
         private PPluginListDlcDataContext ControlDataContext = new PPluginListDlcDataContext();
         internal override IDataContext _ControlDataContext
         {
-            get
-            {
-                return ControlDataContext;
-            }
-            set
-            {
-                ControlDataContext = (PPluginListDlcDataContext)_ControlDataContext;
-            }
+            get => ControlDataContext;
+            set => ControlDataContext = (PPluginListDlcDataContext)_ControlDataContext;
         }
 
 
