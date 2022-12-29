@@ -36,6 +36,8 @@
 
     <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Використовувати збережені дані для {0} [{1}]
 Ви повинні автентифікуватися.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Використовувати збережені дані для {0} [{1}]
+Ви повинні автентифікуватися за допомогою кнопки &quot;Автентифікація&quot;.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Помилка отримання цін на DLC. Будь ласка, перевірте ваші налаштування валюти.</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Деякі DLC для {0} мають нову ціну.</sys:String>
     
