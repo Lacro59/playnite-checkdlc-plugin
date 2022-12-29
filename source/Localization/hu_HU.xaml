@@ -36,6 +36,8 @@
 
     <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Mentett adatok használata a következőhöz: {0} [{1}]
 Hitelesítés szükséges.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Use saved data for {0} [{1}]
+You must authenticate with &quot;Authenticate&quot; button.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Hiba a DLC árak lekérésekor. Kérjük, ellenőrizd a pénznem beállításaidat.</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Néhány DLC-nek új ára van, a következő játékhoz: {0}</sys:String>
     
