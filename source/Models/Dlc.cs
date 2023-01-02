@@ -34,12 +34,25 @@ namespace CheckDlc.Models
                     return 0;
                 }
 
+                // Symbol is after
                 string temp = Price.Replace(",--", string.Empty).Replace(".--", string.Empty).Replace(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator + "--", string.Empty);
                 temp = Regex.Split(temp, @"\s+").Where(s => s != string.Empty).First();
                 temp = temp.Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
                 temp = Regex.Replace(temp, @"[^\d" + CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator + "-]", "");
 
                 double.TryParse(temp, out double dPrice);
+
+                // Try sign before
+                if (dPrice == 0)
+                {
+                    temp = Price.Replace(",--", string.Empty).Replace(".--", string.Empty).Replace(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator + "--", string.Empty);
+                    temp = Regex.Split(temp, @"\s+").Where(s => s != string.Empty).Last();
+                    temp = temp.Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+                    temp = Regex.Replace(temp, @"[^\d" + CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator + "-]", "");
+
+                    double.TryParse(temp, out dPrice);
+                }
+                
                 return dPrice;
             }
         }
