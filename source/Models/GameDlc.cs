@@ -6,16 +6,7 @@ namespace CheckDlc.Models
     public class GameDlc : PluginDataBaseGame<Dlc>
     {
         private List<Dlc> _Items = new List<Dlc>();
-        public override List<Dlc> Items
-        {
-            get => _Items;
-
-            set
-            {
-                _Items = value;
-                OnPropertyChanged();
-            }
-        }
+        public override List<Dlc> Items { get => _Items; set => SetValue(ref _Items, value); }
 
         public bool PriceNotification { get; set; }
     }

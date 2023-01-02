@@ -1,5 +1,4 @@
-﻿using CommonPlayniteShared;
-using CommonPluginsShared;
+﻿using CommonPluginsShared;
 using CommonPluginsShared.Extensions;
 using Playnite.SDK.Data;
 using System;
@@ -42,7 +41,7 @@ namespace CheckDlc.Models
 
                 double.TryParse(temp, out double dPrice);
 
-                // Try sign before
+                // Try symbol before
                 if (dPrice == 0)
                 {
                     temp = Price.Replace(",--", string.Empty).Replace(".--", string.Empty).Replace(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator + "--", string.Empty);
