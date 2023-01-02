@@ -25,7 +25,7 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">为具有 DLC 的游戏添加标签</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">当所选游戏的价格变动时显示通知</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定义 GOG 货币</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">定义 Origin 货币</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">若游戏有 DLC 则添加的功能特色</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">显示所有 DLC 列表</sys:String>

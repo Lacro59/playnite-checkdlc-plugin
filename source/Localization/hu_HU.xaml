@@ -25,7 +25,7 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Cimke hozzáadása a DLC-vel rendelkező játékokhoz</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Értesítés megjelenítése, ha a kiválasztott játékok ára megváltozik</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">GOG pénznem meghatározása</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Origin pénznem meghatározása</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Hozzáadható funkció, ha a játékhoz van DLC</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Összes DLC-t tartalmazó lista megjelenítése</sys:String>

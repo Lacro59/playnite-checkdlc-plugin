@@ -25,7 +25,7 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Aggiungi tag a giochi con DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Mostra una notifica quando il prezzo cambia per i giochi selezionati</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definisci la valuta GOG</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Definisci la valuta di Origin</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Funzionalità da aggiungere se il gioco ha dei dlc</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Visualizza l'elenco con tutti i DLC</sys:String>
@@ -36,8 +36,8 @@
 
     <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Utilizzare i dati salvati per {0} [{1}]
 È necessario autenticare.</sys:String>
-    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate with &quot;Authenticate&quot; button.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Usa i dati salvati per {0} [{1}]
+Devi autenticarti con il pulsante &quot;Authenticate&quot;.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Errore nell'ottenere i prezzi DLC. Si prega di controllare le impostazioni della valuta</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Alcuni DLC per {0} hanno un nuovo prezzo.</sys:String>
     

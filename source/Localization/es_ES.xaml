@@ -25,7 +25,7 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Añadir etiqueta a juegos con DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Mostrar una notificación cuando el precio cambie para los juegos seleccionados</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definir la moneda de GOG</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Definir la moneda de Origin</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Característica a añadir si el juego tiene dlcs</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Mostrar lista con todos los DLC</sys:String>
