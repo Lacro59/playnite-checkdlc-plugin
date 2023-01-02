@@ -80,3 +80,10 @@ Packages:
       - Updated localizations
       - Displayed the number of owned on dlc view
       - Fixed bugs
+  - Version: 1.0.1
+    RequiredApiVersion: 6.8.0
+    ReleaseDate: 2023-01-02
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v1.0.1/playnite-checkdlc-plugin_1_0_1.pext
+    Changelog:
+      - Updated localizations
+      - Fixed bugs
