@@ -1,0 +1,44 @@
+﻿<?xml version="1.0"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
+
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC unowned</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">View game dlc</sys:String>
+
+    <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
+
+    <!-- DlcView -->
+
+    <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
+
+    <!-- FreeView -->
+    
+    <sys:String x:Key="LOCCheckDlcDlc">DLC</sys:String>
+    
+    <!-- SettingsView -->
+
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only owned DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only unowned DLC</sys:String>
+
+    <!-- Notifications -->
+
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
+You must authenticate.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Use saved data for {0} [{1}]
+You must authenticate with &quot;Authenticate&quot; button.</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    
+</ResourceDictionary>
