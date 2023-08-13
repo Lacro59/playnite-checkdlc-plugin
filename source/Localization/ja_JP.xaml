@@ -3,18 +3,18 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC not owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcViewDlc">View game dlc</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC unowned</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">ゲームの DLC を表示</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">所有済み</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">無料</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">所有済みを隠す</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">値下げ中</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceNotification">価格の変更を通知</sys:String>
 
     <!-- FreeView -->
     
@@ -22,23 +22,23 @@
     
     <!-- SettingsView -->
 
-    <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">DLC があるゲームにタグを追加</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">選択したゲームの価格が変更されたときに通知を表示</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">GOG 通貨を定義する</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">EA App 通貨を定義する</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">ゲームに DLC がある場合に追加する特徴</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only onwed DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only not onwed DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">すべての DLC を含むリストを表示</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only owned DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only unowned DLC</sys:String>
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate.</sys:String>
-    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate with &quot;Authenticate&quot; button.</sys:String>
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">{0} [{1}] の保存データを使用します。
+認証が必要です。</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">{0} [{1}] の保存データを使用します。
+&quot;認証&quot;ボタンによる認証が必要です。</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">DLC 価格の取得に失敗しました。通貨設定を確認してください。</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">{0} の DLC の一部が新しい価格になりました。</sys:String>
     
 </ResourceDictionary>
