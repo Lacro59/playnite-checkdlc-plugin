@@ -14,7 +14,7 @@
     <sys:String x:Key="LOCCheckDlcHideOwned">Skjul eide</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Dårligere pris</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Varsel om prisendring</sys:String>
 
     <!-- FreeView -->
     
@@ -23,9 +23,9 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Legg til tag til spill med DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Vis et varsel når prisen endres for de valgte spillene</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Velg GOG-valuta</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Velg EA app-valuta</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Funksjon som skal legges til hvis spillet har DLC</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Vis liste med all DLC</sys:String>
@@ -34,11 +34,11 @@
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Bruk lagrede data for {0} [{1}]
+Du må autentisere.</sys:String>
     <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Bruk lagrede data for {0} [{1}]
 Du må godkjenne med &quot;Godkjenning&quot;-knappen.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Feil ved henting av DLC priser. Vennligst sjekk valuta-innstillingene dine.</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Noen DLC for {0} har en ny pris.</sys:String>
     
 </ResourceDictionary>

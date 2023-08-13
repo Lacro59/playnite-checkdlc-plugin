@@ -3,16 +3,16 @@
 
     <sys:String x:Key="LOCCheckDlc">التحقق من DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">عرض DLCs المجانية غير المملوكة</sys:String>
-    <sys:String x:Key="LOCCheckDlcViewDlc">عرض DLC اللعبة</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">عرض DLCs المجانية غير المملوك</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">عرض DLC اللعب</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">مملوك</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">مملو</sys:String>
     <sys:String x:Key="LOCCheckDlcFree">مجانًا</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">إخفاء المملوك</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">السعر أقل من</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">إخفاء المملو</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">السعر أقل م</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">إشعار تغيير السعر</sys:String>
 
@@ -23,9 +23,9 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">إضافة علامة إلى الألعاب ذات DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">إظهار إشعار عندما يتغير سعر الألعاب المحددة</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">إظهار إشعار عندما يتغير سعر الألعاب المحدد</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">تحديد عملة GOG</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">تحديد عملة تطبيق EA</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">ميزة لإضافة إذا كانت اللعبة تحتوي على DLC</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">عرض قائمة مع جميع DLC</sys:String>
@@ -38,7 +38,7 @@
 يجب عليك المصادقة.</sys:String>
     <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Use saved data for {0} [{1}]
 You must authenticate with &quot;Authenticate&quot; button.</sys:String>
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">خطأ في الحصول على أسعار DLC. الرجاء التحقق من إعدادات العملة</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">خطأ في الحصول على أسعار DLC. الرجاء التحقق من إعدادات العمل</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">بعض DLC ل {0} لديه سعر جديد.</sys:String>
     
 </ResourceDictionary>

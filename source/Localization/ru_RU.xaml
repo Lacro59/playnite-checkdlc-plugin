@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">Проверить DlC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Проверьте бесплатное DLC, которое не принадлежит</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Проверьте бесплатное DLC, которое не принадлежи</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Просмотр DLC для игры</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">В коллекции</sys:String>
@@ -25,20 +25,19 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Добавить тег в игры с DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Показывать уведомление при изменении цены на выбранные игры</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Определить валюту GOG</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Определить валюту приложения EA</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Функция для добавления, если в игре есть DLC</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Отобразить список всех DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">
-Показать список только с включенным DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Показать список только с включенным DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показать список только с не включёнными DLC</sys:String>
 
     <!-- Notifications -->
 
     <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Использовать сохраненные данные для {0} [{1}]
 Вы должны авторизоваться.</sys:String>
-    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate with &quot;Authenticate&quot; button.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Использовать сохраненные данные для {0} [{1}]
+Вы должны авторизоваться с помощью кнопки &quot;Authenticate&quot;.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Ошибка получения цен DLC. Пожалуйста, проверьте настройки валю</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Некоторые DLC для {0} имеют новую цену.</sys:String>
     

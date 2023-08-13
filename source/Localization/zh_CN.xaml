@@ -6,12 +6,12 @@
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">查看未拥有的免费 DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">查看游戏 DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">已拥有</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">已拥</sys:String>
     <sys:String x:Key="LOCCheckDlcFree">免费</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">隐藏已拥有</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">隐藏已拥</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">价格降低</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">价格变动通知</sys:String>
@@ -24,21 +24,21 @@
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">为具有 DLC 的游戏添加标签</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">当所选游戏的价格变动时显示通知</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定义 GOG 货币</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定义 GOG 货</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">若游戏有 DLC 则添加的功能特色</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">显示所有 DLC 列表</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">只显示已拥有的 DLC 列表</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">只显示未拥有的 DLC 列表</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">显示所有 DLC 列</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">只显示已拥有的 DLC 列</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">只显示未拥有的 DLC 列</sys:String>
 
     <!-- Notifications -->
 
     <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">为 {0} 使用存档数据 [{1}]
-您必须进行验证。</sys:String>
+您必须进行验</sys:String>
     <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Use saved data for {0} [{1}]
 You must authenticate with &quot;Authenticate&quot; button.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">获取 DLC 价格出错。请检查您的货币设置</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">{0} 的一些 DLC 有新的价格。</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">{0} 的一些 DLC 有新的价格</sys:String>
     
 </ResourceDictionary>
