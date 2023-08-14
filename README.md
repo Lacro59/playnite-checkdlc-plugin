@@ -10,7 +10,7 @@
 Extension for [Playnite](https://playnite.link).  
 
 ## Informations
-This plugin creates datas for your game activities and shows many statistics.
+The plugin gets and view the list of DLC and see which ones you own.
 
 <a href="https://github.com/Lacro59/playnite-checkdlc-plugin/blob/master/forum/main_01.jpg?raw=true">
   <picture>
