@@ -105,7 +105,11 @@ namespace CheckDlc.Services
 
                 if (dlcs?.Count > 0)
                 {
+                    // Without game name
                     dlcs = dlcs.Where(x => PluginSettings.Settings.IgnoredList.All(y => !x.Name.Contains(y, StringComparison.InvariantCultureIgnoreCase))).ToList();
+
+                    // With game name
+                    dlcs = dlcs.Where(x => PluginSettings.Settings.IgnoredList.All(y => !(game.Name + "##" + x.Name).Contains(y, StringComparison.InvariantCultureIgnoreCase))).ToList();
                 }
                 else
                 {
@@ -175,7 +179,7 @@ namespace CheckDlc.Services
             }
             else
             {
-                if (game.FeatureIds?.Find(x => x == PluginSettings.Settings.DlcFeature?.Id) != null)
+                if (PluginSettings.Settings.DlcFeature?.Id != null && game.FeatureIds?.Find(x => x == PluginSettings.Settings.DlcFeature?.Id) != null)
                 {
                     game.FeatureIds.Remove(PluginSettings.Settings.DlcFeature.Id);
                     PlayniteApi.Database.Games.Update(game);

@@ -89,6 +89,8 @@
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="10" />
                                 <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
@@ -129,6 +131,9 @@
                             
                             <Button Tag="{Binding Link}" Click="Button_Click" Content="&#xf028;" FontFamily="{DynamicResource FontIcoFont}"
                                     ToolTip="{Binding Link}" Grid.Row="0" Grid.Column="6" />
+
+                            <Button Tag="{Binding Name}" Name="Part_Ignore" Click="Part_Ignore_Click" Content="&#xe972;" FontFamily="{DynamicResource CommonFont}"
+                                    ToolTip="{DynamicResource LOCCommonIgnoredItems}" Grid.Row="0" Grid.Column="8" />
 
                             <ScrollViewer Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto"
                                           IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}">

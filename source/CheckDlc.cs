@@ -87,7 +87,7 @@ namespace CheckDlc
                 {
                     Common.LogDebug(true, $"OnCustomThemeButtonClick()");
 
-                    var ViewExtension = new CheclDlcGameView(PluginDatabase.GameContext);
+                    CheclDlcGameView ViewExtension = new CheclDlcGameView(this, PluginDatabase.GameContext);
                     Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
                     windowExtension.ShowDialog();
                 }
@@ -106,7 +106,7 @@ namespace CheckDlc
         {
             if (args.Name == "PluginButton")
             {
-                return new PluginButton();
+                return new PluginButton(this);
             }
 
             if (args.Name == "PluginListDlcAll")
@@ -145,7 +145,7 @@ namespace CheckDlc
                     Description = resources.GetString("LOCCheckDlcViewDlc"),
                     Action = (gameMenuItem) =>
                     {
-                        var ViewExtension = new CheclDlcGameView(GameMenu);
+                        var ViewExtension = new CheclDlcGameView(this, GameMenu);
                         Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
                         windowExtension.ShowDialog();
                     }
@@ -245,7 +245,7 @@ namespace CheckDlc
                     Description = resources.GetString("LOCCheckDlcViewFreeDlcNoOwned"),
                     Action = (mainMenuItem) =>
                     {
-                        var ViewExtension = new CheckDlcFreeView();
+                        CheckDlcFreeView ViewExtension = new CheckDlcFreeView(this);
                         Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
                         windowExtension.ShowDialog();
                     }
@@ -359,7 +359,7 @@ namespace CheckDlc
                                     NotificationType.Info,
                                     () => 
                                     {
-                                        CheclDlcGameView ViewExtension = new CheclDlcGameView(x.Game);
+                                        CheclDlcGameView ViewExtension = new CheclDlcGameView(this, x.Game);
                                         Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
                                         windowExtension.ShowDialog();
                                     }

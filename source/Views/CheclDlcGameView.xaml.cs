@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Collections.Generic;
+using CommonPluginsShared;
 
 namespace CheckDlc.Views
 {
@@ -16,15 +17,18 @@ namespace CheckDlc.Views
     /// </summary>
     public partial class CheclDlcGameView : UserControl
     {
+        private readonly CheckDlc Plugin;
         private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
 
         private Game GameContext { get; set; }
 
 
-        public CheclDlcGameView(Game GameContext)
-        {           
-            InitializeComponent();
+        public CheclDlcGameView(CheckDlc plugin, Game GameContext)
+        {
+            Plugin = plugin; 
 
+            InitializeComponent();
+            
             this.GameContext = GameContext;
             Filter((bool)PART_TgHide.IsChecked, PART_LimitPrice.Text);
         }
@@ -101,5 +105,21 @@ namespace CheckDlc.Views
             PART_TotalOwnedCount.Text = data.Where(x => x.IsOwned).Count().ToString();
         }
         #endregion
+
+
+        private void Part_Ignore_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string name = ((Button)sender).Tag.ToString();
+                PluginDatabase.PluginSettings.Settings.IgnoredList.Add(GameContext.Name + "##" + name);
+                Plugin.SavePluginSettings(PluginDatabase.PluginSettings.Settings);
+                Button_Click_Refresh(null, null);
+            }
+            catch (Exception ex)
+            {
+                Common.LogError(ex, false);
+            }
+        }
     }
 }

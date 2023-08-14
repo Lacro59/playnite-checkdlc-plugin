@@ -8,7 +8,7 @@
              xmlns:convertersshared="clr-namespace:CommonPluginsShared.Converters"
              xmlns:converters="clr-namespace:CommonPlayniteShared.Converters"
              mc:Ignorable="d" 
-             Height="600" Width="900">
+             Height="600" Width="1024">
 
     <UserControl.Resources>
         <convertersshared:DefaultIconConverter x:Key="DefaultIconConverter" />
@@ -67,21 +67,41 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Label Content="{Binding SourceIcon}" FontFamily="{DynamicResource CommonFont}" 
-                                       HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="30" />
+                                           HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="30" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="300" DisplayMemberBinding="{Binding NameDlc}" x:Name="lvGameDlc">
+                        <GridViewColumn Width="400" DisplayMemberBinding="{Binding NameDlc}" x:Name="lvGameDlc">
                             <GridViewColumnHeader Name="lvDlc" Content="{DynamicResource LOCCheckDlcDlc}" />
                         </GridViewColumn>
 
-                        <GridViewColumn Width="50" x:Name="lvDlcLink">
+                        <GridViewColumn Width="150" x:Name="lvDlcLink">
                             <GridViewColumnHeader Content="{DynamicResource LOCGameActionTypeLink}" Tag="noSort" />
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Tag="{Binding Link}" Click="Button_Click" Content="&#xf028;"
-                                        VerticalAlignment="Center" FontFamily="{DynamicResource FontIcoFont}" />
+                                    <Grid Tag="{Binding Id}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <Button Tag="{Binding Link}" Click="Button_Click" Content="&#xf028;" ToolTip="{Binding Link}"
+                                                VerticalAlignment="Center" FontFamily="{DynamicResource FontIcoFont}"
+                                                Grid.Column="0" />
+
+                                        <Button Tag="{Binding Id}" Name="Part_Refresh" Click="Part_Refresh_Click" 
+                                                Content="&#xec7f;" FontFamily="{DynamicResource FontIcoFont}"
+                                                ToolTip="{DynamicResource LOCCommonRefreshGameData}"
+                                                Grid.Column="2" />
+
+                                        <Button Tag="{Binding NameHide}" Name="Part_Ignore" Click="Part_Ignore_Click" Content="&#xe972;" FontFamily="{DynamicResource CommonFont}"
+                                                ToolTip="{DynamicResource LOCCommonIgnoredItems}"
+                                                Grid.Column="4" />
+                                    </Grid>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -90,6 +110,6 @@
             </controlsShared:ListViewExtend>
         </Grid>
 
-        <Button Content="{DynamicResource LOCCommonRefreshGameData}" Grid.Row="2" HorizontalAlignment="Right" Click="Button_Click_Refresh" />
+        <Button Content="{DynamicResource LOCCommonRefreshAllData}" Grid.Row="2" HorizontalAlignment="Right" Click="Button_Click_Refresh" />
     </Grid>
 </UserControl>

@@ -18,7 +18,9 @@ namespace CheckDlc.Controls
     /// </summary>
     public partial class PluginButton : PluginUserControlExtend
     {
-        private CheckDlcDatabase PluginDatabase = CheckDlc.PluginDatabase;
+        private readonly CheckDlc Plugin;
+
+        private CheckDlcDatabase PluginDatabase = CheckDlc.PluginDatabase; 
         internal override IPluginDatabase _PluginDatabase
         {
             get => PluginDatabase;
@@ -32,8 +34,9 @@ namespace CheckDlc.Controls
             set => ControlDataContext = (PluginButtonDataContext)_ControlDataContext;
         }
 
-        public PluginButton()
+        public PluginButton(CheckDlc plugin)
         {
+            Plugin = plugin;
             AlwaysShow = true;
 
             InitializeComponent();
@@ -75,7 +78,7 @@ namespace CheckDlc.Controls
         #region Events
         private void PART_PluginButton_Click(object sender, RoutedEventArgs e)
         {
-            var ViewExtension = new CheclDlcGameView(GameContext);
+            var ViewExtension = new CheclDlcGameView(Plugin, GameContext);
             Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PluginDatabase.PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
             windowExtension.ShowDialog();
         }
