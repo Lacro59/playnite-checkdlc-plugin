@@ -104,16 +104,18 @@
                                    VerticalAlignment="Center" FontSize="20" FontWeight="Bold" />
 
                             <Label Content="{DynamicResource LOCCheckDlcOwned}" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" 
+                                   HorizontalAlignment="Right"
                                    IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}"
                                    Visibility="{Binding IsOwned, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}" />
 
                             <Grid Grid.Column="4" Grid.Row="0" IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}"
                                   Visibility="{Binding IsOwned, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}">
 
-                                <Label Content="{DynamicResource LOCCheckDlcFree}" VerticalAlignment="Center"
+                                <Label Content="{DynamicResource LOCCheckDlcFree}" VerticalAlignment="Center" HorizontalAlignment="Right"
                                        Visibility="{Binding IsFree, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=false}" />
 
-                                <Grid Visibility="{Binding IsFree, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}">
+                                <Grid Visibility="{Binding IsFree, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}"
+                                      HorizontalAlignment="Right">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto" />
                                         <ColumnDefinition Width="auto" />
