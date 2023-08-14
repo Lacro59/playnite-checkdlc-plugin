@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:CheckDlc.Views"
              xmlns:controlsShared="clr-namespace:CommonPluginsShared.Controls"
              xmlns:convertersshared="clr-namespace:CommonPluginsShared.Converters"
-             xmlns:converters="clr-namespace:CommonPlayniteShared.Converters"
+             xmlns:converters="clr-namespace:CommonPlayniteShared.Converters" xmlns:controls="clr-namespace:CommonPluginsControls.Controls"
              mc:Ignorable="d" 
              Height="600" Width="1024">
 
@@ -47,13 +47,13 @@
                                 <DataTemplate>
                                     <StackPanel>
                                         <TextBlock Visibility="{Binding GameExist, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <Hyperlink Command="{Binding GoToGame}" CommandParameter="{Binding Id}">
-                                            <TextBlock Text="{Binding Name}" Style="{DynamicResource ListExtendStyleTextBlock}" />
-                                        </Hyperlink>
-                                    </TextBlock>
+                                            <Hyperlink Command="{Binding GoToGame}" CommandParameter="{Binding Id}">
+                                                <controls:TextBlockTrimmed Text="{Binding Name}" Style="{DynamicResource ListExtendStyleTextBlock}" />
+                                            </Hyperlink>
+                                        </TextBlock>
                                         <TextBlock Visibility="{Binding GameExist, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
-                                        <TextBlock Text="{Binding Name}" Style="{DynamicResource ListExtendStyleTextBlock}" />
-                                    </TextBlock>
+                                            <controls:TextBlockTrimmed Text="{Binding Name}" Style="{DynamicResource ListExtendStyleTextBlock}" />
+                                        </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -72,8 +72,13 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="400" DisplayMemberBinding="{Binding NameDlc}" x:Name="lvGameDlc">
+                        <GridViewColumn Width="400" x:Name="lvGameDlc">
                             <GridViewColumnHeader Name="lvDlc" Content="{DynamicResource LOCCheckDlcDlc}" />
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <controls:TextBlockTrimmed Text="{Binding NameDlc}" Style="{DynamicResource ListExtendStyleTextBlock}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
                         <GridViewColumn Width="150" x:Name="lvDlcLink">
