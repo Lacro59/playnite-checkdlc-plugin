@@ -123,6 +123,20 @@ namespace CheckDlc.Services
         }
 
 
+        public override void SetThemesResources(Game game)
+        {
+            GameDlc gameDlc = Get(game, true);
+
+            if (gameDlc == null)
+            {
+                PluginSettings.Settings.HasData = false;
+
+                return;
+            }
+
+            PluginSettings.Settings.HasData = gameDlc.HasData;
+        }
+
         public override void RefreshNoLoader(Guid Id)
         {
             Game game = PlayniteApi.Database.Games.Get(Id);
