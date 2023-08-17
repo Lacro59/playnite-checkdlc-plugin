@@ -29,8 +29,8 @@
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Oyunda dlc varsa eklenecek özellik</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Tüm DLC'lerin listesini görüntüle</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Sadece sahip olunan DLC'lerin listesini görüntüle</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Sadece sahip olunmayan DLC'lerin listesini görüntüle</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Sadece sahip olunan DLC listesini görüntüle</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Sadece sahip olunmayan DLC listesini görüntüle</sys:String>
 
     <!-- Notifications -->
 
