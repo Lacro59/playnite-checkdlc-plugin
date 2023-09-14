@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
+    <sys:String x:Key="LOCCheckDlc">Sprawdź DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC unowned</sys:String>
-    <sys:String x:Key="LOCCheckDlcViewDlc">View game dlc</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Sprawdź darmowe nieposiadane DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">Wyświetl DLC dla gry</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">Posiadane</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Za darmo</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">Ukryj posiadane</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Cena gorsza</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Powiadomienie o zmianie ceny</sys:String>
 
     <!-- FreeView -->
     
@@ -22,23 +22,23 @@
     
     <!-- SettingsView -->
 
-    <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">Dodaj tag do gier z DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Pokaż powiadomienie, gdy cena zmieni się dla wybranych gier</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Określ walutę na GOG</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Określ walutę w aplikacji EA</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Funkcja do dodania, jeśli gra posiada DLC</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only owned DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only unowned DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Wyświetl listę wszystkich DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Wyświetl listę z tylko posiadanymi DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Wyświetl listę tylko z nieposiadanymi DLC</sys:String>
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate.</sys:String>
-    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate with &quot;Authenticate&quot; button.</sys:String>
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Użyj zapisanych danych dla {0} [{1}]
+Musisz uwierzytelnić.</sys:String>
+    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Użyj zapisanych danych dla {0} [{1}]
+Musisz uwierzytelnić za pomocą przycisku &quot;Uwierzytelnij&quot;.</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Błąd podczas pobierania cen DLC. Proszę sprawdzić ustawienia waluty</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Niektóre DLC dla {0} mają nową cenę.</sys:String>
     
 </ResourceDictionary>

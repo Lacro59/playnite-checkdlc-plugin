@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">DLC Überprüfen</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Kostenloses DLC prüfen, die Sie nicht besitzen</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check verfügbare gratis DLCs</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Spiel DLC anzeigen</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">Im Besitz</sys:String>
@@ -29,8 +29,8 @@
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Funktion hinzufügen, wenn das Spiel DLCs hat</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Liste mit aller DLC anzeigen</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Zeige Liste mit nur aktivierter DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Liste mit nicht aktiviertem DLC anzeigen</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Zeige alle in Besitz befindlichen DLCs</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Zeige alle DLCs an welche nicht mit in Besitz sind</sys:String>
 
     <!-- Notifications -->
 

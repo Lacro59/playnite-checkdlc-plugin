@@ -3,15 +3,15 @@
 
     <sys:String x:Key="LOCCheckDlc">Verifica Dlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Checar DLC grátis não possuído</sys:String>
-    <sys:String x:Key="LOCCheckDlcViewDlc">Ver DLC do jogo</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Verificar DLCs gratuitas não adquiridas</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">Ver DLCs do jogo</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Possui</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">Adquirida</sys:String>
     <sys:String x:Key="LOCCheckDlcFree">Grátis</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Esconder Possuído</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">Esconder Adquirida</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Preço inferior</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Notificação de mudança de preço</sys:String>
@@ -29,8 +29,8 @@
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Recurso para adicionar se o jogo tiver dlcs</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Mostrar lista com todos os DLCs</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Mostrar lista apenas com DLC possuído</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Mostrar lista apenas com DLC não-possuído</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Mostrar lista apenas com DLCs adquiridas</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Mostrar lista apenas com DLCs não adquiridas</sys:String>
 
     <!-- Notifications -->
 
