@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:CheckDlc.Views"
              xmlns:controls="clr-namespace:DescriptionEditor.PlayniteResources.Controls"
              xmlns:converters="clr-namespace:CommonPlayniteShared.Converters"
-             xmlns:playnitecontrols="clr-namespace:CommonPluginsControls.PlayniteControls" xmlns:controls1="clr-namespace:CommonPluginsShared.Controls"
+             xmlns:playnitecontrols="clr-namespace:CommonPluginsControls.PlayniteControls" 
+             xmlns:controls1="clr-namespace:CommonPluginsShared.Controls"
              mc:Ignorable="d" 
              Height="800" Width="1000">
 
@@ -16,17 +17,9 @@
         <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
     </UserControl.Resources>
 
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="10" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="10" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-
+    <DockPanel Margin="10" LastChildFill="True">
         <!-- Filter options -->
-        <Border Grid.Row="0" BorderThickness="{DynamicResource PopupBorderThickness}" BorderBrush="{DynamicResource NormalBorderBrush}">
+        <Border DockPanel.Dock="Top" BorderThickness="{DynamicResource PopupBorderThickness}" BorderBrush="{DynamicResource NormalBorderBrush}">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
@@ -70,86 +63,86 @@
             </Grid>
         </Border>
 
-        <Grid Name="PART_GridContener" Grid.Row="2">
-            <ListBox Height="{Binding ElementName=PART_GridContener, Path=ActualHeight}" Name="PART_Dlcs">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel IsVirtualizing="True" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="0, 10" Width="900">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="10" />
-                                <RowDefinition Height="150" />
-                            </Grid.RowDefinitions>
-
-                            <Image Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="Fill" 
-                                   RenderOptions.BitmapScalingMode="Linear"
-                                   Height="120" Width="250" IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" />
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Name, FallbackValue='Game name'}" 
-                                   IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" 
-                                   VerticalAlignment="Center" FontSize="20" FontWeight="Bold" />
-
-                            <Label Content="{DynamicResource LOCCheckDlcOwned}" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" 
-                                   HorizontalAlignment="Right"
-                                   IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}"
-                                   Visibility="{Binding IsOwned, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}" />
-
-                            <Grid Grid.Column="4" Grid.Row="0" IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}"
-                                  Visibility="{Binding IsOwned, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}">
-
-                                <Label Content="{DynamicResource LOCCheckDlcFree}" VerticalAlignment="Center" HorizontalAlignment="Right"
-                                       Visibility="{Binding IsFree, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=false}" />
-
-                                <Grid Visibility="{Binding IsFree, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}"
-                                      HorizontalAlignment="Right">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto" />
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock Text="{Binding Price, FallbackValue='10.0€'}" Grid.Column="0" VerticalAlignment="Center" />
-                                    <TextBlock Text="{Binding PriceBase, FallbackValue='20.0€'}" Grid.Column="1" Margin="10,0,0,0" TextDecorations="Strikethrough" VerticalAlignment="Center"
-                                               Visibility="{Binding IsDiscount, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=True}" />
-                                </Grid>
-                            </Grid>
-                            
-                            <Button Tag="{Binding Link}" Click="Button_Click" Content="&#xf028;" FontFamily="{DynamicResource FontIcoFont}"
-                                    ToolTip="{Binding Link}" Grid.Row="0" Grid.Column="6" />
-
-                            <Button Tag="{Binding Name}" Name="Part_Ignore" Click="Part_Ignore_Click" Content="&#xe972;" FontFamily="{DynamicResource CommonFont}"
-                                    ToolTip="{DynamicResource LOCCommonIgnoredItems}" Grid.Row="0" Grid.Column="8" />
-
-                            <ScrollViewer Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                          IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}">
-                                <controls:HtmlTextView HtmlText="{Binding Description, FallbackValue='Description HTML'}" Width="620" HorizontalAlignment="left"
-                                                       HtmlFontFamily="{DynamicResource FontFamily}"
-                                                       HtmlForeground="{DynamicResource TextColor}"
-                                                       LinkForeground="{DynamicResource GlyphColor}"
-                                                       HtmlFontSize="{DynamicResource FontSize}"  />
-                            </ScrollViewer>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+        <Grid DockPanel.Dock="Bottom">
+            <ToggleButton Content="{DynamicResource LOCCheckDlcPriceNotification}" HorizontalAlignment="Left" Name="PART_PriceNotification" Click="ToggleButtonPriceNotification_Click" />
+            <Button Content="{DynamicResource LOCCommonRefreshGameData}" HorizontalAlignment="Right" Click="Button_Click_Refresh" />
         </Grid>
 
-        <ToggleButton Content="{DynamicResource LOCCheckDlcPriceNotification}" Grid.Row="4" HorizontalAlignment="Left" Name="PART_PriceNotification" Click="ToggleButtonPriceNotification_Click" />
-        <Button Content="{DynamicResource LOCCommonRefreshGameData}" Grid.Row="4" HorizontalAlignment="Right" Click="Button_Click_Refresh" />
-    </Grid>
+        <ListBox Name="PART_Dlcs" Margin="0,10,0,10">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel IsVirtualizing="True" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0, 10" Width="900">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="150" />
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="Fill" 
+                                RenderOptions.BitmapScalingMode="Linear"
+                                Height="120" Width="250" IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" />
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Name, FallbackValue='Game name'}" 
+                                IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" 
+                                VerticalAlignment="Center" FontSize="20" FontWeight="Bold" />
+
+                        <Label Content="{DynamicResource LOCCheckDlcOwned}" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" 
+                                HorizontalAlignment="Right"
+                                IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}"
+                                Visibility="{Binding IsOwned, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}" />
+
+                        <Grid Grid.Column="4" Grid.Row="0" IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}"
+                                Visibility="{Binding IsOwned, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}">
+
+                            <Label Content="{DynamicResource LOCCheckDlcFree}" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                    Visibility="{Binding IsFree, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=false}" />
+
+                            <Grid Visibility="{Binding IsFree, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}"
+                                    HorizontalAlignment="Right">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{Binding Price, FallbackValue='10.0€'}" Grid.Column="0" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding PriceBase, FallbackValue='20.0€'}" Grid.Column="1" Margin="10,0,0,0" TextDecorations="Strikethrough" VerticalAlignment="Center"
+                                            Visibility="{Binding IsDiscount, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=True}" />
+                            </Grid>
+                        </Grid>
+
+                        <Button Tag="{Binding Link}" Click="Button_Click" Content="&#xf028;" FontFamily="{DynamicResource FontIcoFont}"
+                                ToolTip="{Binding Link}" Grid.Row="0" Grid.Column="6" />
+
+                        <Button Tag="{Binding Name}" Name="Part_Ignore" Click="Part_Ignore_Click" Content="&#xe972;" FontFamily="{DynamicResource CommonFont}"
+                                ToolTip="{DynamicResource LOCCommonIgnoredItems}" Grid.Row="0" Grid.Column="8" />
+
+                        <ScrollViewer Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}">
+                            <controls:HtmlTextView HtmlText="{Binding Description, FallbackValue='Description HTML'}" Width="620" HorizontalAlignment="left"
+                                                    HtmlFontFamily="{DynamicResource FontFamily}"
+                                                    HtmlForeground="{DynamicResource TextColor}"
+                                                    LinkForeground="{DynamicResource GlyphColor}"
+                                                    HtmlFontSize="{DynamicResource FontSize}"  />
+                        </ScrollViewer>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
 </UserControl>
