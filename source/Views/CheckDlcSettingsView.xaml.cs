@@ -14,6 +14,7 @@ using CommonPluginsStores.Gog;
 using CommonPluginsStores.Gog.Models;
 using CommonPluginsStores.Models;
 using CommonPluginsStores.Origin;
+using CommonPluginsStores.Steam;
 
 namespace CheckDlc.Views
 {
@@ -23,7 +24,7 @@ namespace CheckDlc.Views
         private CheckDlcDatabase PluginDatabase = CheckDlc.PluginDatabase;
 
 
-        public CheckDlcSettingsView()
+        public CheckDlcSettingsView(SteamApi steamApi)
         {
             InitializeComponent();
 
@@ -53,6 +54,9 @@ namespace CheckDlc.Views
                 PART_OriginCurrency.SelectedIndex = idx;
             }
             catch { }
+
+
+            SteamPanel.SteamApi = steamApi;
         }
 
 

@@ -136,6 +136,8 @@ namespace CheckDlc
         // This method should save settings made to Option1 and Option2.
         public void EndEdit()
         {
+            CheckDlc.SteamApi.Save();
+
             Plugin.SavePluginSettings(Settings);
             CheckDlc.PluginDatabase.PluginSettings = this;
             this.OnPropertyChanged();

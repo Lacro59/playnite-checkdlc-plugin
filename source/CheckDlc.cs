@@ -3,11 +3,13 @@ using CheckDlc.Controls;
 using CheckDlc.Models;
 using CheckDlc.Services;
 using CheckDlc.Views;
+using CommonPlayniteShared.Common;
 using CommonPluginsShared;
 using CommonPluginsShared.Extensions;
 using CommonPluginsShared.PlayniteExtended;
 using CommonPluginsStores.Gog;
 using CommonPluginsStores.Origin;
+using CommonPluginsStores.Steam;
 using Playnite.SDK;
 using Playnite.SDK.Data;
 using Playnite.SDK.Events;
@@ -15,6 +17,7 @@ using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,6 +32,8 @@ namespace CheckDlc
         public override Guid Id { get; } = Guid.Parse("bf78d9af-6e79-4c73-aca6-c23a11a485ae");
 
         private bool IsStarted { get; set; } = false;
+
+        public static SteamApi SteamApi { get; set; }
 
 
         public CheckDlc(IPlayniteAPI api) : base(api)
@@ -52,6 +57,13 @@ namespace CheckDlc
                 SourceName = "CheckDlc",
                 SettingsRoot = $"{nameof(PluginSettings)}.{nameof(PluginSettings.Settings)}"
             });
+
+
+            SteamApi = new SteamApi(PluginDatabase.PluginName);
+            SteamApi.SetLanguage(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
+
+            // TODO TEMP
+            FileSystem.DeleteFile(Path.Combine(PluginDatabase.Paths.PluginUserDataPath, "SteamUserData.json"));
         }
 
 
@@ -405,7 +417,7 @@ namespace CheckDlc
 
         public override UserControl GetSettingsView(bool firstRunSettings)
         {
-            return new CheckDlcSettingsView();
+            return new CheckDlcSettingsView(SteamApi);
         }
         #endregion
     }

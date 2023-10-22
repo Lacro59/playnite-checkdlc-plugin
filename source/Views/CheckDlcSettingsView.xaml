@@ -5,6 +5,7 @@
              xmlns:AttachedProperties="clr-namespace:CommonPluginsShared.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:CheckDlc="clr-namespace:CheckDlc"
+             xmlns:Steam="clr-namespace:CommonPluginsControls.Stores.Steam"
              xmlns:commonpluginsshared="clr-namespace:CommonPluginsShared.Converters"
              mc:Ignorable="d" d:DesignWidth="650"
              d:DataContext="{d:DesignInstance CheckDlc:CheckDlcSettingsViewModel}">
@@ -214,6 +215,13 @@
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="{DynamicResource LOCLibraries}">
+                <Steam:PanelView x:Name="SteamPanel" UseApi="False" />
+
+
+
             </TabItem>
         </TabControl>
     </Grid>
