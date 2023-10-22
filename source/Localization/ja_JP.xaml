@@ -34,10 +34,6 @@
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">{0} [{1}] の保存データを使用します。
-認証が必要です</sys:String>
-    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">{0} [{1}] の保存データを使用します。
-&quot;認証&quot;ボタンによる認証が必要です</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">DLC 価格の取得に失敗しました。通貨設定を確認してくださ</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">{0} の DLC の一部が新しい価格になりまし</sys:String>
     
