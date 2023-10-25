@@ -24,8 +24,8 @@
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Ajouter un tag aux jeux avec DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Afficher une notification lorsque le prix change pour les jeux sélectionnés</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Définir une devise pour GOG</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Définir une devise pour EA app</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Définir une monnaie pour GOG</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Définir une monnaie pour EA app</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Fonctionnalité à ajouter si le jeu possède des dlcs</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Afficher la liste avec tous les DLC</sys:String>
@@ -34,7 +34,7 @@
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Erreur lors de l'obtention des prix du DLC. Veuillez vérifier vos paramètres de devise</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Certains DLC pour {0} ont un nouveau prix.</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Erreur lors de l'obtention des prix du DLC. Veuillez vérifier vos paramètres de monnaie</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Certains DLC pour {0} ont changé de prix.</sys:String>
     
 </ResourceDictionary>
