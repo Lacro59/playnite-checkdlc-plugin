@@ -2,6 +2,7 @@
 using CommonPluginsShared;
 using CommonPluginsStores.Epic;
 using CommonPluginsStores.Models;
+using Playnite.SDK;
 using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
@@ -15,54 +16,54 @@ namespace CheckDlc.Clients
 {
     class EpicDlc : GenericDlc
     {
-        private static bool _SettingsOpen = false;
+        private static bool settingsOpen = false;
         public static bool SettingsOpen
         {
-            get => _SettingsOpen;
+            get => settingsOpen;
 
             set
             {
-                _SettingsOpen = value;
-                if (_SettingsOpen)
+                settingsOpen = value;
+                if (settingsOpen)
                 {
-                    EpicAPI.ResetIsUserLoggedIn();
+                    EpicApi.ResetIsUserLoggedIn();
                 }
             }
         }
 
-        private static EpicApi _EpicAPI;
-        private static EpicApi EpicAPI
+        private static EpicApi epicApi;
+        private static EpicApi EpicApi
         {
             get
             {
-                if (_EpicAPI == null)
+                if (epicApi == null)
                 {
-                    _EpicAPI = new EpicApi(PluginDatabase.PluginName);
+                    epicApi = new EpicApi(PluginDatabase.PluginName);
                 }
-                return _EpicAPI;
+                return epicApi;
             }
 
-            set => _EpicAPI = value;
+            set => epicApi = value;
         }
 
 
-        public EpicDlc() : base("Epic", CodeLang.GetEpicLang(PluginDatabase.PlayniteApi.ApplicationSettings.Language))
+        public EpicDlc() : base("Epic", CodeLang.GetEpicLang(API.Instance.ApplicationSettings.Language))
         {
-            EpicAPI.SetLanguage(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
+            EpicApi.SetLanguage(API.Instance.ApplicationSettings.Language);
         }
 
 
         public override List<Dlc> GetGameDlc(Game game)
         {
-            logger.Info($"Get dlc for {game.Name} with {ClientName}");
+            Logger.Info($"Get dlc for {game.Name} with {ClientName}");
             List<Dlc> GameDlc = new List<Dlc>();
 
             try
             {
-                if (EpicAPI.IsUserLoggedIn)
+                if (EpicApi.IsUserLoggedIn)
                 {
-                    string productNameSpace = EpicAPI.GetNameSpace(PlayniteTools.NormalizeGameName(game.Name));
-                    ObservableCollection<DlcInfos> dlcs = EpicAPI.GetDlcInfos(productNameSpace, EpicAPI.CurrentAccountInfos);
+                    string productNameSpace = EpicApi.GetNameSpace(PlayniteTools.NormalizeGameName(game.Name));
+                    ObservableCollection<DlcInfos> dlcs = EpicApi.GetDlcInfos(productNameSpace, EpicApi.CurrentAccountInfos);
                     dlcs?.ForEach(x =>
                     {
                         Dlc dlc = new Dlc
@@ -80,12 +81,12 @@ namespace CheckDlc.Clients
                         GameDlc.Add(dlc);
                     });
 
-                    logger.Info($"Find {GameDlc?.Count} dlc");
+                    Logger.Info($"Find {GameDlc?.Count} dlc");
                     return GameDlc;
                 }
                 else
                 {
-                    ShowNotificationPluginNoAuthenticate(string.Format(resources.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.EpicLibrary);
+                    ShowNotificationPluginNoAuthenticate(string.Format(ResourceProvider.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.EpicLibrary);
                 }
             }
             catch (Exception ex)

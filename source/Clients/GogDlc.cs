@@ -9,60 +9,61 @@ using static CommonPluginsShared.PlayniteTools;
 using CommonPluginsStores.Gog;
 using System.Collections.ObjectModel;
 using CommonPluginsStores.Models;
+using Playnite.SDK;
 
 namespace CheckDlc.Clients
 {
     class GogDlc : GenericDlc
     {
-        private static bool _SettingsOpen = false;
+        private static bool settingsOpen = false;
         public static bool SettingsOpen
         {
-            get => _SettingsOpen;
+            get => settingsOpen;
 
             set
             {
-                _SettingsOpen = value;
-                if (_SettingsOpen)
+                settingsOpen = value;
+                if (settingsOpen)
                 {
-                    GogAPI.ResetIsUserLoggedIn();
+                    GogApi.ResetIsUserLoggedIn();
                 }
             }
         }
 
-        private static GogApi _GogAPI;
-        private static GogApi GogAPI
+        private static GogApi gogApi;
+        private static GogApi GogApi
         {
             get
             {
-                if (_GogAPI == null)
+                if (gogApi == null)
                 {
-                    _GogAPI = new GogApi(PluginDatabase.PluginName);
+                    gogApi = new GogApi(PluginDatabase.PluginName);
                 }
-                return _GogAPI;
+                return gogApi;
             }
 
-            set => _GogAPI = value;
+            set => gogApi = value;
         }
 
 
-        public GogDlc() : base("GOG", CodeLang.GetGogLang(PluginDatabase.PlayniteApi.ApplicationSettings.Language))
+        public GogDlc() : base("GOG", CodeLang.GetGogLang(API.Instance.ApplicationSettings.Language))
         {
-            GogAPI.SetLanguage(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
+            GogApi.SetLanguage(API.Instance.ApplicationSettings.Language);
         }
 
 
         public override List<Dlc> GetGameDlc(Game game)
         {
-            logger.Info($"Get dlc for {game.Name} with {ClientName}");
+            Logger.Info($"Get dlc for {game.Name} with {ClientName}");
             List<Dlc> GameDlc = new List<Dlc>();
 
             try
             {
-                if (GogAPI.IsUserLoggedIn)
+                if (GogApi.IsUserLoggedIn)
                 {
-                    GogAPI.SetCurrency(PluginDatabase.PluginSettings.Settings.GogCurrency);
+                    GogApi.SetCurrency(PluginDatabase.PluginSettings.Settings.GogCurrency);
 
-                    ObservableCollection<DlcInfos> dlcs = GogAPI.GetDlcInfos(game.GameId, GogAPI.CurrentAccountInfos);
+                    ObservableCollection<DlcInfos> dlcs = GogApi.GetDlcInfos(game.GameId, GogApi.CurrentAccountInfos);
                     dlcs?.ForEach(x => 
                     {
                         Dlc dlc = new Dlc
@@ -80,12 +81,12 @@ namespace CheckDlc.Clients
                         GameDlc.Add(dlc);
                     });
 
-                    logger.Info($"Find {GameDlc?.Count} dlc");
+                    Logger.Info($"Find {GameDlc?.Count} dlc");
                     return GameDlc;
                 }
                 else
                 {
-                    ShowNotificationPluginNoAuthenticate(string.Format(resources.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.GogLibrary);
+                    ShowNotificationPluginNoAuthenticate(string.Format(ResourceProvider.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.GogLibrary);
                 }
             }
             catch (Exception ex)

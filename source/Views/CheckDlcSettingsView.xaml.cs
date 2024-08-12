@@ -20,20 +20,23 @@ namespace CheckDlc.Views
 {
     public partial class CheckDlcSettingsView : UserControl
     {
-        private static IResourceProvider resources = new ResourceProvider();
-        private CheckDlcDatabase PluginDatabase = CheckDlc.PluginDatabase;
+        private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
 
 
-        public CheckDlcSettingsView(SteamApi steamApi)
+        public CheckDlcSettingsView()
         {
+
+            SteamPanel.StoreApi = CheckDlc.SteamApi;
+            EpicPanel.StoreApi = CheckDlc.EpicApi;
+
             InitializeComponent();
 
             // List features
-            PART_FeatureDlc.ItemsSource = PluginDatabase.PlayniteApi.Database.Features.OrderBy(x => x.Name);
+            PART_FeatureDlc.ItemsSource = API.Instance.Database.Features.OrderBy(x => x.Name);
 
             // List GOG currencies
             GogApi gogApi = new GogApi(PluginDatabase.PluginName);
-            List<StoreCurrency> dataGog = gogApi.GetCurrencies();            
+            List<StoreCurrency> dataGog = gogApi.GetCurrencies();   
             PART_GogCurrency.ItemsSource = dataGog.OrderBy(x => x.currency).ToList();
 
             try
@@ -54,9 +57,6 @@ namespace CheckDlc.Views
                 PART_OriginCurrency.SelectedIndex = idx;
             }
             catch { }
-
-
-            SteamPanel.SteamApi = steamApi;
         }
 
 
@@ -95,7 +95,7 @@ namespace CheckDlc.Views
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-            StringSelectionDialogResult item = PluginDatabase.PlayniteApi.Dialogs.SelectString(resources.GetString("LOCCommonInputItemIgnore"), resources.GetString("LOCCheckDlc"), string.Empty);
+            StringSelectionDialogResult item = API.Instance.Dialogs.SelectString(ResourceProvider.GetString("LOCCommonInputItemIgnore"), ResourceProvider.GetString("LOCCheckDlc"), string.Empty);
             if (!item.SelectedString.IsNullOrEmpty())
             {
                 ((ObservableCollection<string>)PART_IgnoredList.ItemsSource).Add(item.SelectedString);

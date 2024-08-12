@@ -15,7 +15,7 @@ namespace CheckDlc.Views
     /// </summary>
     public partial class CheckDlcFreeView : UserControl
     {
-        private readonly CheckDlc Plugin;
+        private CheckDlc Plugin { get; }
         private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
 
 
@@ -154,6 +154,6 @@ namespace CheckDlc.Views
 
         public RelayCommand<Guid> GoToGame => PluginDatabase.GoToGame;
 
-        public bool GameExist => PluginDatabase.PlayniteApi.Database.Games.Get(Id) != null;
+        public bool GameExist => API.Instance.Database.Games.Get(Id) != null;
     }
 }

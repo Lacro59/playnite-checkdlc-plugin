@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using Playnite.SDK;
 
 namespace CheckDlc.Controls
 {
@@ -20,18 +21,14 @@ namespace CheckDlc.Controls
     {
         private readonly CheckDlc Plugin;
 
-        private CheckDlcDatabase PluginDatabase = CheckDlc.PluginDatabase; 
-        internal override IPluginDatabase _PluginDatabase
-        {
-            get => PluginDatabase;
-            set => PluginDatabase = (CheckDlcDatabase)_PluginDatabase;
-        }
+        private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase; 
+        internal override IPluginDatabase pluginDatabase => PluginDatabase;
 
         private PluginButtonDataContext ControlDataContext =  new PluginButtonDataContext();
-        internal override IDataContext _ControlDataContext
+        internal override IDataContext controlDataContext
         {
             get => ControlDataContext;
-            set => ControlDataContext = (PluginButtonDataContext)_ControlDataContext;
+            set => ControlDataContext = (PluginButtonDataContext)controlDataContext;
         }
 
         public PluginButton(CheckDlc plugin)
@@ -52,7 +49,7 @@ namespace CheckDlc.Controls
                     PluginDatabase.PluginSettings.PropertyChanged += PluginSettings_PropertyChanged;
                     PluginDatabase.Database.ItemUpdated += Database_ItemUpdated;
                     PluginDatabase.Database.ItemCollectionChanged += Database_ItemCollectionChanged;
-                    PluginDatabase.PlayniteApi.Database.Games.ItemUpdated += Games_ItemUpdated;
+                    API.Instance.Database.Games.ItemUpdated += Games_ItemUpdated;
 
                     // Apply settings
                     PluginSettings_PropertyChanged(null, null);
@@ -79,7 +76,7 @@ namespace CheckDlc.Controls
         private void PART_PluginButton_Click(object sender, RoutedEventArgs e)
         {
             var ViewExtension = new CheclDlcGameView(Plugin, GameContext);
-            Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PluginDatabase.PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
+            Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension);
             windowExtension.ShowDialog();
         }
         #endregion
@@ -88,10 +85,10 @@ namespace CheckDlc.Controls
 
     public class PluginButtonDataContext : ObservableObject, IDataContext
     {
-        private bool _IsActivated;
-        public bool IsActivated { get => _IsActivated; set => SetValue(ref _IsActivated, value); }
+        private bool isActivated;
+        public bool IsActivated { get => isActivated; set => SetValue(ref isActivated, value); }
 
-        private string _Text = "\ue91f";
-        public string Text { get => _Text; set => SetValue(ref _Text, value); }
+        private string text = "\ue91f";
+        public string Text { get => text; set => SetValue(ref text, value); }
     }
 }

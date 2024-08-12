@@ -17,7 +17,7 @@ namespace CheckDlc.Services
         public bool SettingsOpen { get; set; } = false;
 
 
-        public CheckDlcDatabase(IPlayniteAPI PlayniteApi, CheckDlcSettingsViewModel PluginSettings, string PluginUserDataPath) : base(PlayniteApi, PluginSettings, "CheckDlc", PluginUserDataPath)
+        public CheckDlcDatabase(CheckDlcSettingsViewModel PluginSettings, string PluginUserDataPath) : base(PluginSettings, "CheckDlc", PluginUserDataPath)
         {
             TagBefore = "[DLC]";
         }
@@ -31,11 +31,11 @@ namespace CheckDlc.Services
                 stopWatch.Start();
 
                 Database = new CheckDlcCollection(Paths.PluginDatabasePath);
-                Database.SetGameInfo<Dlc>(PlayniteApi);
+                Database.SetGameInfo<Dlc>();
 
                 stopWatch.Stop();
                 TimeSpan ts = stopWatch.Elapsed;
-                logger.Info($"LoadDatabase with {Database.Count} items - {string.Format("{0:00}:{1:00}.{2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds / 10)}");
+                Logger.Info($"LoadDatabase with {Database.Count} items - {string.Format("{0:00}:{1:00}.{2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds / 10)}");
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace CheckDlc.Services
 
             if (gameDlc == null)
             {
-                Game game = PlayniteApi.Database.Games.Get(Id);
+                Game game = API.Instance.Database.Games.Get(Id);
                 if (game != null)
                 {
                     gameDlc = GetDefault(game);
@@ -73,7 +73,7 @@ namespace CheckDlc.Services
 
         public override GameDlc GetWeb(Guid Id)
         {
-            Game game = PlayniteApi.Database.Games.Get(Id);
+            Game game = API.Instance.Database.Games.Get(Id);
             GameDlc gameDlc = GetDefault(game);
             try
             {
@@ -143,8 +143,8 @@ namespace CheckDlc.Services
 
         public override void RefreshNoLoader(Guid Id)
         {
-            Game game = PlayniteApi.Database.Games.Get(Id);
-            logger.Info($"RefreshNoLoader({game?.Name} - {game?.Id})");
+            Game game = API.Instance.Database.Games.Get(Id);
+            Logger.Info($"RefreshNoLoader({game?.Name} - {game?.Id})");
 
             GameDlc loadedItem = Get(Id, true);
             GameDlc webItem = GetWeb(Id);
@@ -164,7 +164,7 @@ namespace CheckDlc.Services
 
         public override void ActionAfterRefresh(GameDlc item)
         {
-            Game game = PlayniteApi.Database.Games.Get(item.Id);
+            Game game = API.Instance.Database.Games.Get(item.Id);
             if ((item?.HasData ?? false) && PluginSettings.Settings.DlcFeature != null)
             {
                 if (game.FeatureIds != null)
@@ -175,14 +175,14 @@ namespace CheckDlc.Services
                 {
                     game.FeatureIds = new List<Guid> { PluginSettings.Settings.DlcFeature.Id };
                 }
-                PlayniteApi.Database.Games.Update(game);
+                API.Instance.Database.Games.Update(game);
             }
             else
             {
                 if (PluginSettings.Settings.DlcFeature?.Id != null && game.FeatureIds?.Find(x => x == PluginSettings.Settings.DlcFeature?.Id) != null)
                 {
                     game.FeatureIds.Remove(PluginSettings.Settings.DlcFeature.Id);
-                    PlayniteApi.Database.Games.Update(game);
+                    API.Instance.Database.Games.Update(game);
                 }
             }
         }

@@ -15,8 +15,7 @@ namespace CheckDlc.Clients
 {
     abstract class GenericDlc
     {
-        internal static ILogger logger => LogManager.GetLogger();
-        internal static IResourceProvider resources => new ResourceProvider();
+        internal static ILogger Logger => LogManager.GetLogger();
 
         internal static CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
 
@@ -38,7 +37,7 @@ namespace CheckDlc.Clients
 
         public List<Dlc> GetGameDlc (Guid Id)
         {
-            Game game = PluginDatabase.PlayniteApi.Database.Games.Get(Id);
+            Game game = API.Instance.Database.Games.Get(Id);
             return game == null ? new List<Dlc>() : GetGameDlc(game);
         }
 
@@ -51,9 +50,9 @@ namespace CheckDlc.Clients
 
         public virtual void ShowNotificationPluginError(string message)
         {
-            logger.Error($"{ClientName}: {message}");
+            Logger.Error($"{ClientName}: {message}");
 
-            PluginDatabase.PlayniteApi.Notifications.Add(new NotificationMessage(
+            API.Instance.Notifications.Add(new NotificationMessage(
                 $"{PluginDatabase.PluginName}-{ClientName.RemoveWhiteSpace().ToLower()}-noconfig",
                 $"{PluginDatabase.PluginName}" + Environment.NewLine + $"{ClientName}: {message}",
                 NotificationType.Error
@@ -64,9 +63,9 @@ namespace CheckDlc.Clients
         {
             LastErrorId = $"checkdlc-{ClientName.RemoveWhiteSpace().ToLower()}-noconfig";
             LastErrorMessage = Message;
-            logger.Warn($"{ClientName} is not configured");
+            Logger.Warn($"{ClientName} is not configured");
 
-            PluginDatabase.PlayniteApi.Notifications.Add(new NotificationMessage(
+            API.Instance.Notifications.Add(new NotificationMessage(
                 $"{PluginDatabase.PluginName }-{ClientName.RemoveWhiteSpace().ToLower()}-noconfig",
                 $"{PluginDatabase.PluginName}" + Environment.NewLine + $"{Message}",
                 NotificationType.Error
@@ -82,9 +81,9 @@ namespace CheckDlc.Clients
         {
             LastErrorId = $"{PluginDatabase.PluginName }-{ClientName.RemoveWhiteSpace().ToLower()}-noauthenticate";
             LastErrorMessage = Message;
-            logger.Warn($"{ClientName} user is not authenticated");
+            Logger.Warn($"{ClientName} user is not authenticated");
 
-            PluginDatabase.PlayniteApi.Notifications.Add(new NotificationMessage(
+            API.Instance.Notifications.Add(new NotificationMessage(
                 $"{PluginDatabase.PluginName }-{ClientName.RemoveWhiteSpace().ToLower()}-noauthenticate",
                 $"{PluginDatabase.PluginName}" + Environment.NewLine + $"{Message}",
                 NotificationType.Error,

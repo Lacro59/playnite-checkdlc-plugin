@@ -26,60 +26,62 @@ namespace CheckDlc
 
         public GameFeature DlcFeature { get; set; } = null;
 
-        private bool _EnableIntegrationButton { get; set; } = true;
+        private bool enableIntegrationButton { get; set; } = true;
         public bool EnableIntegrationButton
         {
-            get => _EnableIntegrationButton;
+            get => enableIntegrationButton;
             set
             {
-                _EnableIntegrationButton = value;
+                enableIntegrationButton = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool _EnableIntegrationListDlcAll { get; set; } = true;
+        private bool enableIntegrationListDlcAll { get; set; } = true;
         public bool EnableIntegrationListDlcAll
         {
-            get => _EnableIntegrationListDlcAll;
+            get => enableIntegrationListDlcAll;
             set
             {
-                _EnableIntegrationListDlcAll = value;
+                enableIntegrationListDlcAll = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool _EnableIntegrationListDlcOwned { get; set; } = true;
+        private bool enableIntegrationListDlcOwned { get; set; } = true;
         public bool EnableIntegrationListDlcOwned
         {
-            get => _EnableIntegrationListDlcOwned;
+            get => enableIntegrationListDlcOwned;
             set
             {
-                _EnableIntegrationListDlcOwned = value;
+                enableIntegrationListDlcOwned = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool _EnableIntegrationListDlcNotOwned { get; set; } = true;
+        private bool enableIntegrationListDlcNotOwned { get; set; } = true;
         public bool EnableIntegrationListDlcNotOwned
         {
-            get => _EnableIntegrationListDlcNotOwned;
+            get => enableIntegrationListDlcNotOwned;
             set
             {
-                _EnableIntegrationListDlcNotOwned = value;
+                enableIntegrationListDlcNotOwned = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool _EnableIntegrationButtonDetails { get; set; } = false;
+        private bool enableIntegrationButtonDetails { get; set; } = false;
         public bool EnableIntegrationButtonDetails
         {
-            get => _EnableIntegrationButtonDetails;
+            get => enableIntegrationButtonDetails;
             set
             {
-                _EnableIntegrationButtonDetails = value;
+                enableIntegrationButtonDetails = value;
                 OnPropertyChanged();
             }
         }
+
+        public SteamApiSettings SteamApiSettings { get; set; } = new SteamApiSettings();
         #endregion
 
         // Playnite serializes settings object to a JSON object and saves it as text file.
@@ -136,7 +138,10 @@ namespace CheckDlc
         // This method should save settings made to Option1 and Option2.
         public void EndEdit()
         {
-            CheckDlc.SteamApi.Save();
+            // StoreAPI intialization
+            CheckDlc.SteamApi.SaveCurrentUser();
+            CheckDlc.SteamApi.CurrentAccountInfos = null;
+            _ = CheckDlc.SteamApi.CurrentAccountInfos;
 
             Plugin.SavePluginSettings(Settings);
             CheckDlc.PluginDatabase.PluginSettings = this;
@@ -151,5 +156,11 @@ namespace CheckDlc
             errors = new List<string>();
             return true;
         }
+    }
+
+    public class SteamApiSettings
+    {
+        public bool UseApi { get; set; } = false;
+        public bool UseAuth { get; set; } = false;
     }
 }

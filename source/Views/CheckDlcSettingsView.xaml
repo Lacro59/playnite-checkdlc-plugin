@@ -218,10 +218,14 @@
             </TabItem>
 
             <TabItem Header="{DynamicResource LOCLibraries}">
-                <Steam:PanelView x:Name="SteamPanel" UseApi="False" />
+                <StackPanel Margin="10">
+                    <Steam:PanelView x:Name="SteamPanel" Margin="0,0,0,10"
+                                     UseApi="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Settings.SteamApiSettings.UseApi, Mode=TwoWay}" 
+                                     UseAuth="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Settings.SteamApiSettings.UseAuth, Mode=TwoWay}" />
 
-
-
+                    <Steam:PanelView x:Name="EpicPanel" 
+                                    Visibility="{Binding ElementName=PART_Epic, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
             </TabItem>
         </TabControl>
     </Grid>

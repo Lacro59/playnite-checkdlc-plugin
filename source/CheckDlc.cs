@@ -7,6 +7,7 @@ using CommonPlayniteShared.Common;
 using CommonPluginsShared;
 using CommonPluginsShared.Extensions;
 using CommonPluginsShared.PlayniteExtended;
+using CommonPluginsStores.Epic;
 using CommonPluginsStores.Gog;
 using CommonPluginsStores.Origin;
 using CommonPluginsStores.Steam;
@@ -29,11 +30,12 @@ namespace CheckDlc
 {
     public class CheckDlc : PluginExtended<CheckDlcSettingsViewModel, CheckDlcDatabase>
     {
-        public override Guid Id { get; } = Guid.Parse("bf78d9af-6e79-4c73-aca6-c23a11a485ae");
+        public override Guid Id => Guid.Parse("bf78d9af-6e79-4c73-aca6-c23a11a485ae");
 
-        private bool IsStarted { get; set; } = false;
+        private bool PreventLibraryUpdatedOnStart { get; set; } = false;
 
         public static SteamApi SteamApi { get; set; }
+        public static EpicApi EpicApi { get; set; }
 
 
         public CheckDlc(IPlayniteAPI api) : base(api)
@@ -57,10 +59,6 @@ namespace CheckDlc
                 SourceName = "CheckDlc",
                 SettingsRoot = $"{nameof(PluginSettings)}.{nameof(PluginSettings.Settings)}"
             });
-
-
-            SteamApi = new SteamApi(PluginDatabase.PluginName);
-            SteamApi.SetLanguage(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
 
             // TODO TEMP
             FileSystem.DeleteFile(Path.Combine(PluginDatabase.Paths.PluginUserDataPath, "SteamUserData.json"));
@@ -91,16 +89,15 @@ namespace CheckDlc
 
         public void OnCustomThemeButtonClick(object sender, RoutedEventArgs e)
         {
-            string ButtonName = string.Empty;
             try
             {
-                ButtonName = ((Button)sender).Name;
+                string ButtonName = ((Button)sender).Name;
                 if (ButtonName == "PART_CustomHowLongToBeatButton")
                 {
                     Common.LogDebug(true, $"OnCustomThemeButtonClick()");
 
                     CheclDlcGameView ViewExtension = new CheclDlcGameView(this, PluginDatabase.GameContext);
-                    Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
+                    Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension);
                     windowExtension.ShowDialog();
                 }
             }
@@ -153,19 +150,19 @@ namespace CheckDlc
             {
                 gameMenuItems.Add(new GameMenuItem
                 {
-                    MenuSection = resources.GetString("LOCCheckDlc"),
-                    Description = resources.GetString("LOCCheckDlcViewDlc"),
+                    MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
+                    Description = ResourceProvider.GetString("LOCCheckDlcViewDlc"),
                     Action = (gameMenuItem) =>
                     {
-                        var ViewExtension = new CheclDlcGameView(this, GameMenu);
-                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
+                        CheclDlcGameView ViewExtension = new CheclDlcGameView(this, GameMenu);
+                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension);
                         windowExtension.ShowDialog();
                     }
                 });
 
                 gameMenuItems.Add(new GameMenuItem
                 {
-                    MenuSection = resources.GetString("LOCCheckDlc"),
+                    MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
                     Description = "-"
                 });
             }
@@ -173,8 +170,8 @@ namespace CheckDlc
 
             gameMenuItems.Add(new GameMenuItem
             {
-                MenuSection = resources.GetString("LOCCheckDlc"),
-                Description = resources.GetString("LOCCommonRefreshGameData"),
+                MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
+                Description = ResourceProvider.GetString("LOCCommonRefreshGameData"),
                 Action = (gameMenuItem) =>
                 {
                     if (Ids.Count == 1)
@@ -193,8 +190,8 @@ namespace CheckDlc
             {
                 gameMenuItems.Add(new GameMenuItem
                 {
-                    MenuSection = resources.GetString("LOCCheckDlc"),
-                    Description = resources.GetString("LOCCommonDeleteGameData"),
+                    MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
+                    Description = ResourceProvider.GetString("LOCCommonDeleteGameData"),
                     Action = (gameMenuItem) =>
                     {
                         if (Ids.Count == 1)
@@ -212,12 +209,12 @@ namespace CheckDlc
 #if DEBUG
             gameMenuItems.Add(new GameMenuItem
             {
-                MenuSection = resources.GetString("LOCCheckDlc"),
+                MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
                 Description = "-"
             });
             gameMenuItems.Add(new GameMenuItem
             {
-                MenuSection = resources.GetString("LOCCheckDlc"),
+                MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
                 Description = "Test",
                 Action = (gameMenuItem) =>
                 {
@@ -243,8 +240,8 @@ namespace CheckDlc
                 // Download missing data for all game in database
                 new MainMenuItem
                 {
-                    MenuSection = MenuInExtensions + resources.GetString("LOCCheckDlc"),
-                    Description = resources.GetString("LOCCommonDownloadPluginData"),
+                    MenuSection = MenuInExtensions + ResourceProvider.GetString("LOCCheckDlc"),
+                    Description = ResourceProvider.GetString("LOCCommonDownloadPluginData"),
                     Action = (mainMenuItem) =>
                     {
                         PluginDatabase.GetSelectData();
@@ -253,12 +250,12 @@ namespace CheckDlc
 
                 new MainMenuItem
                 {
-                    MenuSection = MenuInExtensions + resources.GetString("LOCCheckDlc"),
-                    Description = resources.GetString("LOCCheckDlcViewFreeDlcNoOwned"),
+                    MenuSection = MenuInExtensions + ResourceProvider.GetString("LOCCheckDlc"),
+                    Description = ResourceProvider.GetString("LOCCheckDlcViewFreeDlcNoOwned"),
                     Action = (mainMenuItem) =>
                     {
                         CheckDlcFreeView ViewExtension = new CheckDlcFreeView(this);
-                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
+                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension);
                         windowExtension.ShowDialog();
                     }
                 }
@@ -266,7 +263,7 @@ namespace CheckDlc
 
             mainMenuItems.Add(new MainMenuItem
             {
-                MenuSection = MenuInExtensions + resources.GetString("LOCCheckDlc"),
+                MenuSection = MenuInExtensions + ResourceProvider.GetString("LOCCheckDlc"),
                 Description = "-"
             });
 
@@ -274,8 +271,8 @@ namespace CheckDlc
             // Delete database
             mainMenuItems.Add(new MainMenuItem
             {
-                MenuSection = MenuInExtensions + resources.GetString("LOCCheckDlc"),
-                Description = resources.GetString("LOCCommonDeletePluginData"),
+                MenuSection = MenuInExtensions + ResourceProvider.GetString("LOCCheckDlc"),
+                Description = ResourceProvider.GetString("LOCCommonDeletePluginData"),
                 Action = (mainMenuItem) =>
                 {
                     PluginDatabase.ClearDatabase();
@@ -285,14 +282,14 @@ namespace CheckDlc
 #if DEBUG
             mainMenuItems.Add(new MainMenuItem
             {
-                MenuSection = MenuInExtensions + resources.GetString("LOCCheckDlc"),
+                MenuSection = MenuInExtensions + ResourceProvider.GetString("LOCCheckDlc"),
                 Description = "-"
             });
             mainMenuItems.Add(new MainMenuItem
             {
-                MenuSection = MenuInExtensions + resources.GetString("LOCCheckDlc"),
+                MenuSection = MenuInExtensions + ResourceProvider.GetString("LOCCheckDlc"),
                 Description = "Test",
-                Action = (mainMenuItem) => 
+                Action = (mainMenuItem) =>
                 {
 
                 }
@@ -346,15 +343,23 @@ namespace CheckDlc
         // Add code to be executed when Playnite is initialized.
         public override void OnApplicationStarted(OnApplicationStartedEventArgs args)
         {
-            Task.Run(() =>
+            // StoreAPI intialization
+            SteamApi = new SteamApi(PluginDatabase.PluginName);
+            SteamApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+            _ = SteamApi.CurrentAccountInfos;
+
+            EpicApi = new EpicApi(PluginDatabase.PluginName);
+            EpicApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+
+            _ = Task.Run(() =>
             {
-                Thread.Sleep(10000);
-                IsStarted = true;
+                Thread.Sleep(30000);
+                PreventLibraryUpdatedOnStart = true;
             });
 
             if (PluginSettings.Settings.PriceNotification)
             {
-                Task.Run(() => 
+                _ = Task.Run(() =>
                 {
                     PluginDatabase.Database.Where(x => x.PriceNotification).ForEach(x => 
                     {
@@ -365,15 +370,15 @@ namespace CheckDlc
                         {
                             if (y.PriceNumeric != x.Items.Find(z => z.DlcId.IsEqual(y.DlcId)).PriceNumeric)
                             {
-                                PluginDatabase.PlayniteApi.Notifications.Add(new NotificationMessage(
+                                API.Instance.Notifications.Add(new NotificationMessage(
                                     $"{PluginDatabase.PluginName}-{x.Id.ToString()}",
-                                    $"{PluginDatabase.PluginName}" + Environment.NewLine + string.Format(resources.GetString("LOCCheckDlcNewPrice"), x.Name),
+                                    $"{PluginDatabase.PluginName}" + Environment.NewLine + string.Format(ResourceProvider.GetString("LOCCheckDlcNewPrice"), x.Name),
                                     NotificationType.Info,
-                                    () => 
+                                    () =>
                                     {
                                         CheclDlcGameView ViewExtension = new CheclDlcGameView(this, x.Game);
-                                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(PlayniteApi, resources.GetString("LOCCheckDlc"), ViewExtension);
-                                        windowExtension.ShowDialog();
+                                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension);
+                                        _ = windowExtension.ShowDialog();
                                     }
                                 ));
                                 return;
@@ -395,7 +400,7 @@ namespace CheckDlc
         // Add code to be executed when library is updated.
         public override void OnLibraryUpdated(OnLibraryUpdatedEventArgs args)
         {
-            if (IsStarted && PluginSettings.Settings.AutoImport)
+            if (PreventLibraryUpdatedOnStart && PluginSettings.Settings.AutoImport)
             {
                 List<Guid> PlayniteDb = PlayniteApi.Database.Games
                         .Where(x => x.Added != null && x.Added > PluginSettings.Settings.LastAutoLibUpdateAssetsDownload)
@@ -417,7 +422,7 @@ namespace CheckDlc
 
         public override UserControl GetSettingsView(bool firstRunSettings)
         {
-            return new CheckDlcSettingsView(SteamApi);
+            return new CheckDlcSettingsView();
         }
         #endregion
     }

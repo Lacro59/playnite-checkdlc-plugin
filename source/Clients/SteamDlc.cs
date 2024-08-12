@@ -7,16 +7,17 @@ using static CommonPluginsShared.PlayniteTools;
 using CommonPluginsStores.Steam;
 using System.Collections.ObjectModel;
 using CommonPluginsStores.Models;
+using Playnite.SDK;
 
 namespace CheckDlc.Clients
 {
     class SteamDlc : GenericDlc
     {
-        private readonly SteamApi SteamApi = CheckDlc.SteamApi;
+        private SteamApi SteamApi => CheckDlc.SteamApi;
         public static bool SettingsOpen { get; set; } = false;
 
 
-        public SteamDlc() : base("Steam", CodeLang.GetSteamLang(PluginDatabase.PlayniteApi.ApplicationSettings.Language))
+        public SteamDlc() : base("Steam", CodeLang.GetSteamLang(API.Instance.ApplicationSettings.Language))
         {
 
         }
@@ -24,7 +25,7 @@ namespace CheckDlc.Clients
 
         public override List<Dlc> GetGameDlc(Game game)
         {
-            logger.Info($"Get dlc for {game.Name} with {ClientName}");
+            Logger.Info($"Get dlc for {game.Name} with {ClientName}");
             List<Dlc> GameDlc = new List<Dlc>();
 
             try
@@ -49,12 +50,12 @@ namespace CheckDlc.Clients
                         GameDlc.Add(dlc);
                     });
 
-                    logger.Info($"Find {GameDlc?.Count} dlc");
+                    Logger.Info($"Find {GameDlc?.Count} dlc");
                     return GameDlc;
                 }
                 else
                 {
-                    ShowNotificationPluginNoAuthenticate(string.Format(resources.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.CheckDlc);
+                    ShowNotificationPluginNoAuthenticate(string.Format(ResourceProvider.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.CheckDlc);
                 }
             }
             catch(Exception ex)
@@ -62,7 +63,7 @@ namespace CheckDlc.Clients
                 ShowNotificationPluginError(ex);
             }
 
-            logger.Info($"Find {GameDlc?.Count} dlc");
+            Logger.Info($"Find {GameDlc?.Count} dlc");
             return GameDlc;
         }
     }

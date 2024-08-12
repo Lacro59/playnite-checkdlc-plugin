@@ -10,60 +10,61 @@ using CommonPluginsStores.Gog;
 using System.Collections.ObjectModel;
 using CommonPluginsStores.Models;
 using CommonPluginsStores.Origin;
+using Playnite.SDK;
 
 namespace CheckDlc.Clients
 {
     class OriginDlc : GenericDlc
     {
-        private static bool _SettingsOpen = false;
+        private static bool settingsOpen = false;
         public static bool SettingsOpen
         {
-            get => _SettingsOpen;
+            get => settingsOpen;
 
             set
             {
-                _SettingsOpen = value;
-                if (_SettingsOpen)
+                settingsOpen = value;
+                if (settingsOpen)
                 {
-                    OriginAPI.ResetIsUserLoggedIn();
+                    OriginApi.ResetIsUserLoggedIn();
                 }
             }
         }
 
-        private static OriginApi _OriginAPI;
-        private static OriginApi OriginAPI
+        private static OriginApi originApi;
+        private static OriginApi OriginApi
         {
             get
             {
-                if (_OriginAPI == null)
+                if (originApi == null)
                 {
-                    _OriginAPI = new OriginApi(PluginDatabase.PluginName);
+                    originApi = new OriginApi(PluginDatabase.PluginName);
                 }
-                return _OriginAPI;
+                return originApi;
             }
 
-            set => _OriginAPI = value;
+            set => originApi = value;
         }
 
 
-        public OriginDlc() : base("Origin", CodeLang.GetOriginLang(PluginDatabase.PlayniteApi.ApplicationSettings.Language))
+        public OriginDlc() : base("Origin", CodeLang.GetOriginLang(API.Instance.ApplicationSettings.Language))
         {
-            OriginAPI.SetLanguage(PluginDatabase.PlayniteApi.ApplicationSettings.Language);
+            OriginApi.SetLanguage(API.Instance.ApplicationSettings.Language);
         }
 
 
         public override List<Dlc> GetGameDlc(Game game)
         {
-            logger.Info($"Get dlc for {game.Name} with {ClientName}");
+            Logger.Info($"Get dlc for {game.Name} with {ClientName}");
             List<Dlc> GameDlc = new List<Dlc>();
 
             try
             {
-                if (OriginAPI.IsUserLoggedIn)
+                if (OriginApi.IsUserLoggedIn)
                 {
-                    OriginAPI.SetCurrency(PluginDatabase.PluginSettings.Settings.OriginCurrency);
+                    OriginApi.SetCurrency(PluginDatabase.PluginSettings.Settings.OriginCurrency);
 
-                    ObservableCollection<DlcInfos> dlcs = OriginAPI.GetDlcInfos(game.GameId, OriginAPI.CurrentAccountInfos);
+                    ObservableCollection<DlcInfos> dlcs = OriginApi.GetDlcInfos(game.GameId, OriginApi.CurrentAccountInfos);
                     dlcs?.ForEach(x => 
                     {
                         Dlc dlc = new Dlc
@@ -81,12 +82,12 @@ namespace CheckDlc.Clients
                         GameDlc.Add(dlc);
                     });
 
-                    logger.Info($"Find {GameDlc?.Count} dlc");
+                    Logger.Info($"Find {GameDlc?.Count} dlc");
                     return GameDlc;
                 }
                 else
                 {
-                    ShowNotificationPluginNoAuthenticate(string.Format(resources.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.GogLibrary);
+                    ShowNotificationPluginNoAuthenticate(string.Format(ResourceProvider.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.GogLibrary);
                 }
             }
             catch (Exception ex)
