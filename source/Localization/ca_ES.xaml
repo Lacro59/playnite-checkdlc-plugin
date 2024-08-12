@@ -3,38 +3,38 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC unowned</sys:String>
-    <sys:String x:Key="LOCCheckDlcViewDlc">View game dlc</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Comprovar contingut DLC gratuït ja adquirit</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">Veure contingut DLC del joc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">Adquirit</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Gratuït</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">Amagar Adquirits</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Preu inferior</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Notificació de canvi de preu</sys:String>
 
     <!-- FreeView -->
     
-    <sys:String x:Key="LOCCheckDlcDlc">DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcDlc">Contingut DLC</sys:String>
     
     <!-- SettingsView -->
 
-    <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">Afegir una etiqueta a jocs amb contingut DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Mostra una notificació quan el preu canvia per els jocs seleccionats</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definir moneda de GOG</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Definir moneda de l'aplicació EA</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Característica que s'afegirà si el joc té continguts DLC</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only owned DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only unowned DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Mostrar llista amb tot el contingut DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Mostrar llista amb el contingut DLC adquirit</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Mostrar llista amb el contingut DLC no adquirit</sys:String>
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error detectat en comprova els preus de contingut DLC. Si us plau, consulta la configuració de moneda</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Alguns continguts DLC de {0} han canviat de preu.</sys:String>
     
 </ResourceDictionary>
