@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:CheckDlc.Views"
              xmlns:controlsShared="clr-namespace:CommonPluginsShared.Controls"
              xmlns:convertersshared="clr-namespace:CommonPluginsShared.Converters"
-             xmlns:converters="clr-namespace:CommonPlayniteShared.Converters" xmlns:controls="clr-namespace:CommonPluginsControls.Controls"
+             xmlns:converters="clr-namespace:CommonPlayniteShared.Converters" 
+             xmlns:controls="clr-namespace:CommonPluginsControls.Controls"
              mc:Ignorable="d" 
              Height="600" Width="1024">
 
@@ -16,105 +17,96 @@
         <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
     </UserControl.Resources>
 
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="10" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
+    <DockPanel LastChildFill="True" Margin="10">
+        <Button DockPanel.Dock="Bottom" Content="{DynamicResource LOCCommonRefreshAllData}" HorizontalAlignment="Right" Click="Button_Click_Refresh" />
 
-        <Grid Name="PART_Grid">
-            <controlsShared:ListViewExtend x:Name="PART_ListviewDlc" Height="{Binding ElementName=PART_Grid, Path=ActualHeight}"
-                                       FontSize="24" Style="{StaticResource {x:Type ListView}}" SortingEnable="True">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Width="50" x:Name="lvGameIcon">
-                            <GridViewColumnHeader Content="{DynamicResource LOCGameIconTitle}" Tag="noSort" />
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="32" 
+        <controlsShared:ListViewExtend x:Name="PART_ListviewDlc" FontSize="24" Style="{StaticResource {x:Type ListView}}" SortingEnable="True" Margin="0,0,0,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="50" x:Name="lvGameIcon">
+                        <GridViewColumnHeader Content="{DynamicResource LOCGameIconTitle}" Tag="noSort" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="32" 
                                                    Source="{Binding Icon, Converter={StaticResource DefaultIconConverter}}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
-                        <GridViewColumn Width="0" DisplayMemberBinding="{Binding Name}">
-                            <controlsShared:GridViewColumnHeaderExtend Style="{StaticResource {x:Type GridViewColumnHeader}}" IsHitTestVisible="False" />
-                        </GridViewColumn>
-                        <GridViewColumn Width="300" x:Name="lvGameName">
-                            <GridViewColumnHeader Name="lvName" Content="{DynamicResource LOCGameNameTitle}" Tag="Name" />
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Visibility="{Binding GameExist, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <GridViewColumn Width="0" DisplayMemberBinding="{Binding Name}">
+                        <controlsShared:GridViewColumnHeaderExtend Style="{StaticResource {x:Type GridViewColumnHeader}}" IsHitTestVisible="False" />
+                    </GridViewColumn>
+                    <GridViewColumn Width="300" x:Name="lvGameName">
+                        <GridViewColumnHeader Name="lvName" Content="{DynamicResource LOCGameNameTitle}" Tag="Name" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Visibility="{Binding GameExist, Converter={StaticResource BooleanToVisibilityConverter}}">
                                             <Hyperlink Command="{Binding GoToGame}" CommandParameter="{Binding Id}">
                                                 <controls:TextBlockTrimmed Text="{Binding Name}" Style="{DynamicResource ListExtendStyleTextBlock}" />
                                             </Hyperlink>
-                                        </TextBlock>
-                                        <TextBlock Visibility="{Binding GameExist, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                                    </TextBlock>
+                                    <TextBlock Visibility="{Binding GameExist, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
                                             <controls:TextBlockTrimmed Text="{Binding Name}" Style="{DynamicResource ListExtendStyleTextBlock}" />
-                                        </TextBlock>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
-                        <GridViewColumn Width="0" DisplayMemberBinding="{Binding SourceName}">
-                            <controlsShared:GridViewColumnHeaderExtend Style="{StaticResource {x:Type GridViewColumnHeader}}" IsHitTestVisible="False" />
-                        </GridViewColumn>
-                        <GridViewColumn Width="75" x:Name="lvGamesSource">
-                            <GridViewColumnHeader Name="lvSourceIcon" Content="{DynamicResource LOCSourceLabel}" Tag="SourceName" />
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Label Content="{Binding SourceIcon}" FontFamily="{DynamicResource CommonFont}" 
+                    <GridViewColumn Width="0" DisplayMemberBinding="{Binding SourceName}">
+                        <controlsShared:GridViewColumnHeaderExtend Style="{StaticResource {x:Type GridViewColumnHeader}}" IsHitTestVisible="False" />
+                    </GridViewColumn>
+                    <GridViewColumn Width="75" x:Name="lvGamesSource">
+                        <GridViewColumnHeader Name="lvSourceIcon" Content="{DynamicResource LOCSourceLabel}" Tag="SourceName" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding SourceIcon}" FontFamily="{DynamicResource CommonFont}" 
                                            HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="30" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
-                        <GridViewColumn Width="400" x:Name="lvGameDlc">
-                            <GridViewColumnHeader Name="lvDlc" Content="{DynamicResource LOCCheckDlcDlc}" />
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <controls:TextBlockTrimmed Text="{Binding NameDlc}" Style="{DynamicResource ListExtendStyleTextBlock}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                    <GridViewColumn Width="400" x:Name="lvGameDlc">
+                        <GridViewColumnHeader Name="lvDlc" Content="{DynamicResource LOCCheckDlcDlc}" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <controls:TextBlockTrimmed Text="{Binding NameDlc}" Style="{DynamicResource ListExtendStyleTextBlock}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
-                        <GridViewColumn Width="150" x:Name="lvDlcLink">
-                            <GridViewColumnHeader Content="{DynamicResource LOCGameActionTypeLink}" Tag="noSort" />
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid Tag="{Binding Id}">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="auto" />
-                                        </Grid.ColumnDefinitions>
-                                        
-                                        <Button Tag="{Binding Link}" Click="Button_Click" Content="&#xf028;" ToolTip="{Binding Link}"
+                    <GridViewColumn Width="150" x:Name="lvDlcLink">
+                        <GridViewColumnHeader Content="{DynamicResource LOCGameActionTypeLink}" Tag="noSort" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Tag="{Binding Id}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Tag="{Binding Link}" Click="Button_Click" Content="&#xf028;" ToolTip="{Binding Link}"
                                                 VerticalAlignment="Center" FontFamily="{DynamicResource FontIcoFont}"
                                                 Grid.Column="0" />
 
-                                        <Button Tag="{Binding Id}" Name="Part_Refresh" Click="Part_Refresh_Click" 
+                                    <Button Tag="{Binding Id}" Name="Part_Refresh" Click="Part_Refresh_Click" 
                                                 Content="&#xec7f;" FontFamily="{DynamicResource FontIcoFont}"
                                                 ToolTip="{DynamicResource LOCCommonRefreshGameData}"
                                                 Grid.Column="2" />
 
-                                        <Button Tag="{Binding NameHide}" Name="Part_Ignore" Click="Part_Ignore_Click" Content="&#xe972;" FontFamily="{DynamicResource CommonFont}"
+                                    <Button Tag="{Binding NameHide}" Name="Part_Ignore" Click="Part_Ignore_Click" Content="&#xe972;" FontFamily="{DynamicResource CommonFont}"
                                                 ToolTip="{DynamicResource LOCCommonIgnoredItems}"
                                                 Grid.Column="4" />
-                                    </Grid>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </controlsShared:ListViewExtend>
-        </Grid>
-
-        <Button Content="{DynamicResource LOCCommonRefreshAllData}" Grid.Row="2" HorizontalAlignment="Right" Click="Button_Click_Refresh" />
-    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </controlsShared:ListViewExtend>
+    </DockPanel>
 </UserControl>
