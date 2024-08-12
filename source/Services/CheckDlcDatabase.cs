@@ -169,7 +169,7 @@ namespace CheckDlc.Services
             {
                 if (game.FeatureIds != null)
                 {
-                    game.FeatureIds.AddMissing(PluginSettings.Settings.DlcFeature.Id);
+                    _ = game.FeatureIds.AddMissing(PluginSettings.Settings.DlcFeature.Id);
                 }
                 else
                 {
@@ -181,7 +181,7 @@ namespace CheckDlc.Services
             {
                 if (PluginSettings.Settings.DlcFeature?.Id != null && game.FeatureIds?.Find(x => x == PluginSettings.Settings.DlcFeature?.Id) != null)
                 {
-                    game.FeatureIds.Remove(PluginSettings.Settings.DlcFeature.Id);
+                    _ = game.FeatureIds.Remove(PluginSettings.Settings.DlcFeature.Id);
                     API.Instance.Database.Games.Update(game);
                 }
             }

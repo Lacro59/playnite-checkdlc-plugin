@@ -9,7 +9,7 @@
              xmlns:playnitecontrols="clr-namespace:CommonPluginsControls.PlayniteControls" 
              xmlns:controls1="clr-namespace:CommonPluginsShared.Controls"
              mc:Ignorable="d" 
-             Height="800" Width="1000">
+             Height="720" Width="1000">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />

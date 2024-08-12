@@ -304,7 +304,33 @@ namespace CheckDlc
         #region Game event
         public override void OnGameSelected(OnGameSelectedEventArgs args)
         {
-
+            try
+            {
+                if (args.NewValue?.Count == 1 && PluginDatabase.IsLoaded)
+                {
+                    PluginDatabase.GameContext = args.NewValue[0];
+                    PluginDatabase.SetThemesResources(PluginDatabase.GameContext);
+                }
+                else
+                {
+                    _ = Task.Run(() =>
+                    {
+                        _ = SpinWait.SpinUntil(() => PluginDatabase.IsLoaded, -1);
+                        _ = Application.Current.Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            if (args.NewValue?.Count == 1)
+                            {
+                                PluginDatabase.GameContext = args.NewValue[0];
+                                PluginDatabase.SetThemesResources(PluginDatabase.GameContext);
+                            }
+                        });
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.LogError(ex, false, true, PluginDatabase.PluginName);
+            }
         }
 
         // Add code to be executed when game is finished installing.
