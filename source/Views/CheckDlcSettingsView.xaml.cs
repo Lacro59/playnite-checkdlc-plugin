@@ -25,11 +25,10 @@ namespace CheckDlc.Views
 
         public CheckDlcSettingsView()
         {
+            InitializeComponent();
 
             SteamPanel.StoreApi = CheckDlc.SteamApi;
             EpicPanel.StoreApi = CheckDlc.EpicApi;
-
-            InitializeComponent();
 
             // List features
             PART_FeatureDlc.ItemsSource = API.Instance.Database.Features.OrderBy(x => x.Name);
@@ -75,7 +74,7 @@ namespace CheckDlc.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start((string)((FrameworkElement)sender).Tag);
+            _ = Process.Start((string)((FrameworkElement)sender).Tag);
         }
 
 

@@ -6,12 +6,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:CheckDlc="clr-namespace:CheckDlc"
              xmlns:Steam="clr-namespace:CommonPluginsControls.Stores.Steam"
+             xmlns:Epic="clr-namespace:CommonPluginsControls.Stores.Epic"
              xmlns:commonpluginsshared="clr-namespace:CommonPluginsShared.Converters"
              mc:Ignorable="d" d:DesignWidth="650"
              d:DataContext="{d:DesignInstance CheckDlc:CheckDlcSettingsViewModel}">
 
     <UserControl.Resources>
         <commonpluginsshared:IndexConverter x:Key="IndexConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
     
     <Grid Margin="20">
@@ -223,7 +225,7 @@
                                      UseApi="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Settings.SteamApiSettings.UseApi, Mode=TwoWay}" 
                                      UseAuth="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Settings.SteamApiSettings.UseAuth, Mode=TwoWay}" />
 
-                    <Steam:PanelView x:Name="EpicPanel" 
+                    <Epic:PanelView x:Name="EpicPanel" 
                                     Visibility="{Binding ElementName=PART_Epic, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </TabItem>
