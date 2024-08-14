@@ -14,7 +14,7 @@ using Playnite.SDK;
 
 namespace CheckDlc.Clients
 {
-    class OriginDlc : GenericDlc
+    public class OriginDlc : GenericDlc
     {
         private static bool settingsOpen = false;
         public static bool SettingsOpen
@@ -78,7 +78,7 @@ namespace CheckDlc.Clients
                             Price = x.Price,
                             PriceBase = x.PriceBase
                         };
-                        
+
                         GameDlc.Add(dlc);
                     });
 

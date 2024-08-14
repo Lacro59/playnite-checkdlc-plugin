@@ -101,6 +101,27 @@ namespace CheckDlc.Services
                         OriginDlc originDlc = new OriginDlc();
                         dlcs = originDlc.GetGameDlc(game);
                         break;
+
+                    case ExternalPlugin.None:
+                    case ExternalPlugin.BattleNetLibrary:
+                    case ExternalPlugin.PSNLibrary:
+                    case ExternalPlugin.XboxLibrary:
+                    case ExternalPlugin.IndiegalaLibrary:
+                    case ExternalPlugin.AmazonGamesLibrary:
+                    case ExternalPlugin.BethesdaLibrary:
+                    case ExternalPlugin.HumbleLibrary:
+                    case ExternalPlugin.ItchioLibrary:
+                    case ExternalPlugin.RockstarLibrary:
+                    case ExternalPlugin.TwitchLibrary:
+                    case ExternalPlugin.OculusLibrary:
+                    case ExternalPlugin.RiotLibrary:
+                    case ExternalPlugin.UplayLibrary:
+                    case ExternalPlugin.SuccessStory:
+                    case ExternalPlugin.CheckDlc:
+                    case ExternalPlugin.EmuLibrary:
+                    case ExternalPlugin.LegendaryLibrary:
+                    default:
+                        break;
                 }
 
                 if (dlcs?.Count > 0)
@@ -130,15 +151,7 @@ namespace CheckDlc.Services
         public override void SetThemesResources(Game game)
         {
             GameDlc gameDlc = Get(game, true);
-
-            if (gameDlc == null)
-            {
-                PluginSettings.Settings.HasData = false;
-
-                return;
-            }
-
-            PluginSettings.Settings.HasData = gameDlc.HasData;
+            PluginSettings.Settings.HasData = gameDlc?.HasData ?? false;
         }
 
         public override void RefreshNoLoader(Guid Id)

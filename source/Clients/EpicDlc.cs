@@ -14,7 +14,7 @@ using static CommonPluginsShared.PlayniteTools;
 
 namespace CheckDlc.Clients
 {
-    class EpicDlc : GenericDlc
+    public class EpicDlc : GenericDlc
     {
         private static bool settingsOpen = false;
         public static bool SettingsOpen

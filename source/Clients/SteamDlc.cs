@@ -11,7 +11,7 @@ using Playnite.SDK;
 
 namespace CheckDlc.Clients
 {
-    class SteamDlc : GenericDlc
+    public class SteamDlc : GenericDlc
     {
         private SteamApi SteamApi => CheckDlc.SteamApi;
         public static bool SettingsOpen { get; set; } = false;

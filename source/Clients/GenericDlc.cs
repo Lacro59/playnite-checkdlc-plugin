@@ -13,7 +13,7 @@ using static CommonPluginsShared.PlayniteTools;
 
 namespace CheckDlc.Clients
 {
-    abstract class GenericDlc
+    public abstract class GenericDlc
     {
         internal static ILogger Logger => LogManager.GetLogger();
 
