@@ -4,7 +4,7 @@
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC unowned</sys:String>
-    <sys:String x:Key="LOCCheckDlcViewDlc"></sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">ゲームの DLC を表示</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">所有済み</sys:String>
     <sys:String x:Key="LOCCheckDlcFree">無料</sys:String>
@@ -22,19 +22,19 @@
     
     <!-- SettingsView -->
 
-    <sys:String x:Key="LOCCheckDlcAddTagDescription">DLC があるゲームにタグを追</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">DLC があるゲームにタグを追加</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">選択したゲームの価格が変更されたときに通知を表示</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">GOG 通貨を定義する</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">EA App 通貨を定義する</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc"></sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">ゲームに DLC がある場合に追加する特徴</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll"></sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">すべての DLC を含むリストを表示</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only owned DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only unowned DLC</sys:String>
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">DLC 価格の取得に失敗しました。通貨設定を確認してくださ</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">{0} の DLC の一部が新しい価格になりまし</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">DLC 価格の取得に失敗しました。通貨設定を確認してください。</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">{0} の DLC の一部が新しい価格になりました。</sys:String>
     
 </ResourceDictionary>
