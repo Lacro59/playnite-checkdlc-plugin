@@ -13,8 +13,22 @@ namespace CheckDlc.Clients
 {
     public class SteamDlc : GenericDlc
     {
-        private SteamApi SteamApi => CheckDlc.SteamApi;
-        public static bool SettingsOpen { get; set; } = false;
+        private static SteamApi SteamApi => CheckDlc.SteamApi;
+
+        private static bool settingsOpen = false;
+        public static bool SettingsOpen
+        {
+            get => settingsOpen;
+
+            set
+            {
+                settingsOpen = value;
+                if (settingsOpen)
+                {
+                    SteamApi.ResetIsUserLoggedIn();
+                }
+            }
+        }
 
 
         public SteamDlc() : base("Steam", CodeLang.GetSteamLang(API.Instance.ApplicationSettings.Language))

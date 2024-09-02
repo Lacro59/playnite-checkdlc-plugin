@@ -16,6 +16,9 @@ namespace CheckDlc.Clients
 {
     public class OriginDlc : GenericDlc
     {
+        protected static readonly Lazy<OriginApi> originApi = new Lazy<OriginApi>(() => new OriginApi(PluginDatabase.PluginName));
+        internal static OriginApi OriginApi => originApi.Value;
+
         private static bool settingsOpen = false;
         public static bool SettingsOpen
         {
@@ -29,21 +32,6 @@ namespace CheckDlc.Clients
                     OriginApi.ResetIsUserLoggedIn();
                 }
             }
-        }
-
-        private static OriginApi originApi;
-        private static OriginApi OriginApi
-        {
-            get
-            {
-                if (originApi == null)
-                {
-                    originApi = new OriginApi(PluginDatabase.PluginName);
-                }
-                return originApi;
-            }
-
-            set => originApi = value;
         }
 
 

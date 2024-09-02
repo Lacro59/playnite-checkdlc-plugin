@@ -15,6 +15,10 @@ namespace CheckDlc.Clients
 {
     public class GogDlc : GenericDlc
     {
+
+        private static readonly Lazy<GogApi> gogApi = new Lazy<GogApi>(() => new GogApi(PluginDatabase.PluginName));
+        private static GogApi GogApi => gogApi.Value;
+
         private static bool settingsOpen = false;
         public static bool SettingsOpen
         {
@@ -28,21 +32,6 @@ namespace CheckDlc.Clients
                     GogApi.ResetIsUserLoggedIn();
                 }
             }
-        }
-
-        private static GogApi gogApi;
-        private static GogApi GogApi
-        {
-            get
-            {
-                if (gogApi == null)
-                {
-                    gogApi = new GogApi(PluginDatabase.PluginName);
-                }
-                return gogApi;
-            }
-
-            set => gogApi = value;
         }
 
 
