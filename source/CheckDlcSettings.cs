@@ -1,4 +1,5 @@
-﻿using CommonPluginsStores.Models;
+﻿using CommonPluginsShared;
+using CommonPluginsStores.Models;
 using Playnite.SDK;
 using Playnite.SDK.Data;
 using Playnite.SDK.Models;
@@ -81,7 +82,9 @@ namespace CheckDlc
             }
         }
 
-        public SteamApiSettings SteamApiSettings { get; set; } = new SteamApiSettings();
+        public SteamSettings SteamApiSettings { get; set; } = new SteamSettings();
+        [DontSerialize]
+        public EpicSettings EpicSettings { get; set; } = new EpicSettings();
         #endregion
 
         // Playnite serializes settings object to a JSON object and saves it as text file.
@@ -141,11 +144,25 @@ namespace CheckDlc
             // StoreAPI intialization
             CheckDlc.SteamApi.SaveCurrentUser();
             CheckDlc.SteamApi.CurrentAccountInfos = null;
-            _ = CheckDlc.SteamApi.CurrentAccountInfos;
+            if (!PlayniteTools.IsDisabledPlaynitePlugins("SteamLibrary"))
+            {
+                _ = CheckDlc.SteamApi.CurrentAccountInfos;
+                if (Settings.SteamApiSettings.UseAuth)
+                {
+                    CheckDlc.SteamApi.CurrentAccountInfos.IsPrivate = true;
+                }
+            }
 
-            Plugin.SavePluginSettings(Settings);
-            CheckDlc.PluginDatabase.PluginSettings = this;
-            this.OnPropertyChanged();
+            CheckDlc.EpicApi.SaveCurrentUser();
+            CheckDlc.EpicApi.CurrentAccountInfos = null;
+            if (!PlayniteTools.IsDisabledPlaynitePlugins("EpicLibrary"))
+            {
+                _ = CheckDlc.EpicApi.CurrentAccountInfos;
+                if (Settings.EpicSettings.UseAuth)
+                {
+                    CheckDlc.EpicApi.CurrentAccountInfos.IsPrivate = true;
+                }
+            }
         }
 
         // Code execute when user decides to confirm changes made since BeginEdit was called.
@@ -158,9 +175,14 @@ namespace CheckDlc
         }
     }
 
-    public class SteamApiSettings
+    public class SteamSettings
     {
         public bool UseApi { get; set; } = false;
         public bool UseAuth { get; set; } = false;
+    }
+
+    public class EpicSettings
+    {
+        public bool UseAuth { get; set; } = true;
     }
 }

@@ -98,7 +98,7 @@ namespace CheckDlc
 
                     CheclDlcGameView ViewExtension = new CheclDlcGameView(this, PluginDatabase.GameContext);
                     Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension);
-                    windowExtension.ShowDialog();
+                    _ = windowExtension.ShowDialog();
                 }
             }
             catch (Exception ex)
@@ -372,10 +372,26 @@ namespace CheckDlc
             // StoreAPI intialization
             SteamApi = new SteamApi(PluginDatabase.PluginName);
             SteamApi.SetLanguage(API.Instance.ApplicationSettings.Language);
-            _ = SteamApi.CurrentAccountInfos;
+            if (!PlayniteTools.IsDisabledPlaynitePlugins("SteamLibrary"))
+            {
+                _ = SteamApi.CurrentAccountInfos;
+                if (PluginDatabase.PluginSettings.Settings.SteamApiSettings.UseAuth)
+                {
+                    SteamApi.CurrentAccountInfos.IsPrivate = true;
+                }
+            }
 
             EpicApi = new EpicApi(PluginDatabase.PluginName);
             EpicApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+            EpicApi.SetForceAuth(true);
+            if (!PlayniteTools.IsDisabledPlaynitePlugins("EpicLibrary"))
+            {
+                _ = EpicApi.CurrentAccountInfos;
+                if (PluginDatabase.PluginSettings.Settings.EpicSettings.UseAuth)
+                {
+                    EpicApi.CurrentAccountInfos.IsPrivate = true;
+                }
+            }
 
             _ = Task.Run(() =>
             {

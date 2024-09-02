@@ -31,20 +31,7 @@ namespace CheckDlc.Clients
             }
         }
 
-        private static EpicApi epicApi;
-        private static EpicApi EpicApi
-        {
-            get
-            {
-                if (epicApi == null)
-                {
-                    epicApi = new EpicApi(PluginDatabase.PluginName);
-                }
-                return epicApi;
-            }
-
-            set => epicApi = value;
-        }
+        private static EpicApi EpicApi => CheckDlc.EpicApi;
 
 
         public EpicDlc() : base("Epic", CodeLang.GetEpicLang(API.Instance.ApplicationSettings.Language))
