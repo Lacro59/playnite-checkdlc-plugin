@@ -37,14 +37,13 @@ namespace CheckDlc.Controls
             AlwaysShow = true;
 
             InitializeComponent();
-            this.DataContext = ControlDataContext;
+            DataContext = ControlDataContext;
 
-            Task.Run(() =>
+            _ = Task.Run(() =>
             {
                 // Wait extension database are loaded
-                System.Threading.SpinWait.SpinUntil(() => PluginDatabase.IsLoaded, -1);
-
-                this.Dispatcher.BeginInvoke((Action)delegate
+                _ = System.Threading.SpinWait.SpinUntil(() => PluginDatabase.IsLoaded, -1);
+                _ = Dispatcher.BeginInvoke((Action)delegate
                 {
                     PluginDatabase.PluginSettings.PropertyChanged += PluginSettings_PropertyChanged;
                     PluginDatabase.Database.ItemUpdated += Database_ItemUpdated;
@@ -84,7 +83,7 @@ namespace CheckDlc.Controls
             };
             CheclDlcGameView ViewExtension = new CheclDlcGameView(Plugin, GameContext);
             Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension, windowOptions);
-            windowExtension.ShowDialog();
+            _ = windowExtension.ShowDialog();
         }
         #endregion
     }

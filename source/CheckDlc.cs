@@ -66,13 +66,12 @@ namespace CheckDlc
 
 
         #region Custom event
-        private void WindowBase_LoadedEvent(object sender, System.EventArgs e)
+        private void WindowBase_LoadedEvent(object sender, EventArgs e)
         {
             string WinIdProperty = string.Empty;
             try
             {
                 WinIdProperty = ((Window)sender).GetValue(AutomationProperties.AutomationIdProperty).ToString();
-
                 if (WinIdProperty == "WindowSettings" || WinIdProperty == "WindowExtensions" || WinIdProperty == "WindowLibraryIntegrations")
                 {
                     GogDlc.SettingsOpen = true;
@@ -409,7 +408,7 @@ namespace CheckDlc
 
             _ = Task.Run(() =>
             {
-                Thread.Sleep(30000);
+                Thread.Sleep(10000);
                 PreventLibraryUpdatedOnStart = true;
             });
 
@@ -417,7 +416,7 @@ namespace CheckDlc
             {
                 _ = Task.Run(() =>
                 {
-                    PluginDatabase.Database.Where(x => x.PriceNotification).ForEach(x => 
+                    PluginDatabase.Database.Where(x => x.PriceNotification).ForEach(x =>
                     {
                         PluginDatabase.RefreshNoLoader(x.Id);
                         List<Dlc> newItems = PluginDatabase.GetOnlyCache(x.Id).Items;

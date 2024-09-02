@@ -39,7 +39,7 @@ namespace CheckDlc.Models
                 temp = temp.Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
                 temp = Regex.Replace(temp, @"[^\d" + CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator + "-]", "");
 
-                double.TryParse(temp, out double dPrice);
+                _ = double.TryParse(temp, out double dPrice);
 
                 // Try symbol before
                 if (dPrice == 0)
@@ -49,7 +49,7 @@ namespace CheckDlc.Models
                     temp = temp.Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
                     temp = Regex.Replace(temp, @"[^\d" + CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator + "-]", "");
 
-                    double.TryParse(temp, out dPrice);
+                    _ = double.TryParse(temp, out dPrice);
                 }
                 
                 return dPrice;
@@ -71,7 +71,7 @@ namespace CheckDlc.Models
                 temp = temp.Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
                 temp = Regex.Replace(temp, @"[^\d" + CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator  + "-]", "");
 
-                double.TryParse(temp, out double dPrice);
+                _ = double.TryParse(temp, out double dPrice);
                 return dPrice;
             }
         }

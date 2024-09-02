@@ -41,14 +41,13 @@ namespace CheckDlc.Controls
         public PluginListDlc()
         {
             InitializeComponent();
-            this.DataContext = ControlDataContext;
+            DataContext = ControlDataContext;
 
-            Task.Run(() =>
+            _ = Task.Run(() =>
             {
                 // Wait extension database are loaded
-                System.Threading.SpinWait.SpinUntil(() => PluginDatabase.IsLoaded, -1);
-
-                this.Dispatcher.BeginInvoke((Action)delegate
+                _ = System.Threading.SpinWait.SpinUntil(() => PluginDatabase.IsLoaded, -1);
+                _ = Dispatcher.BeginInvoke((Action)delegate
                 {
                     PluginDatabase.PluginSettings.PropertyChanged += PluginSettings_PropertyChanged;
                     PluginDatabase.Database.ItemUpdated += Database_ItemUpdated;
@@ -78,7 +77,7 @@ namespace CheckDlc.Controls
                     ControlDataContext.IsActivated = PluginDatabase.PluginSettings.Settings.EnableIntegrationListDlcNotOwned;
                     break;
             }
-            
+
             ControlDataContext.ItemsSource = new ObservableCollection<Dlc>();
         }
 
@@ -86,7 +85,6 @@ namespace CheckDlc.Controls
         public override void SetData(Game newContext, PluginDataBaseGameBase PluginGameData)
         {
             GameDlc gameDlc = (GameDlc)PluginGameData;
-
             switch (ListType)
             {
                 case ListDlcType.All:
@@ -100,6 +98,9 @@ namespace CheckDlc.Controls
                 case ListDlcType.NotOwned:
                     ControlDataContext.ItemsSource = gameDlc.Items.Where(x => !x.IsOwned).ToObservable();
                     break;
+
+                default:
+                    break;
             }
         }
 
@@ -109,7 +110,7 @@ namespace CheckDlc.Controls
         {
             if (!((string)((FrameworkElement)sender).Tag).IsNullOrEmpty())
             {
-                Process.Start((string)((FrameworkElement)sender).Tag);
+                _ = Process.Start((string)((FrameworkElement)sender).Tag);
             }
         }
         #endregion  
