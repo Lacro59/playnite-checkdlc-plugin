@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Collections.Generic;
 using CommonPluginsShared;
+using CommonPluginsShared.Converters;
+using System.Globalization;
 
 namespace CheckDlc.Views
 {
@@ -38,7 +40,7 @@ namespace CheckDlc.Views
         {
             if (!((string)((FrameworkElement)sender).Tag).IsNullOrEmpty())
             {
-                Process.Start((string)((FrameworkElement)sender).Tag);
+                _ = Process.Start((string)((FrameworkElement)sender).Tag);
             }
         }
 
@@ -53,6 +55,7 @@ namespace CheckDlc.Views
             PART_Dlcs.ItemsSource = gameDlc.Items;
             PART_TotalFoundCount.Text = gameDlc.Items.Count.ToString();
             PART_TotalOwnedCount.Text = gameDlc.Items.Where(x => x.IsOwned).Count().ToString();
+            PART_DataDate.Text = new LocalDateTimeConverter().Convert(gameDlc.DateLastRefresh, null, null, CultureInfo.CurrentCulture).ToString();
         }
 
 
@@ -85,24 +88,20 @@ namespace CheckDlc.Views
             PART_PriceNotification.IsChecked = gameDlc.PriceNotification;
             List<Dlc> data = new List<Dlc>();
 
-            double.TryParse(Price, out double PriceLimit);
+            _ = double.TryParse(Price, out double PriceLimit);
             if (PriceLimit == 0)
             {
                 PriceLimit = 1000000000;
             }
 
-            if (HideOwned)
-            {
-                data = gameDlc.Items.Where(x => !x.IsOwned && x.PriceNumeric <= PriceLimit).OrderBy(x => x.Name).ToList();
-            }
-            else
-            {
-                data = gameDlc.Items.Where(x => x.PriceNumeric <= PriceLimit).OrderBy(x => x.Name).ToList();
-            }
+            data = HideOwned
+                ? gameDlc.Items.Where(x => !x.IsOwned && x.PriceNumeric <= PriceLimit).OrderBy(x => x.Name).ToList()
+                : gameDlc.Items.Where(x => x.PriceNumeric <= PriceLimit).OrderBy(x => x.Name).ToList();
 
             PART_Dlcs.ItemsSource = data;
             PART_TotalFoundCount.Text = data.Count.ToString();
             PART_TotalOwnedCount.Text = data.Where(x => x.IsOwned).Count().ToString();
+            PART_DataDate.Text = new LocalDateTimeConverter().Convert(gameDlc.DateLastRefresh, null, null, CultureInfo.CurrentCulture).ToString();
         }
         #endregion
 

@@ -65,7 +65,11 @@
 
         <Grid DockPanel.Dock="Bottom">
             <ToggleButton Content="{DynamicResource LOCCheckDlcPriceNotification}" HorizontalAlignment="Left" Name="PART_PriceNotification" Click="ToggleButtonPriceNotification_Click" />
-            <Button Content="{DynamicResource LOCCommonRefreshGameData}" HorizontalAlignment="Right" Click="Button_Click_Refresh" />
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock Name="PART_DataDate" Text="DateTime" Margin="0,0,10,0" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}" />
+                <Button Content="{DynamicResource LOCCommonRefreshGameData}" Click="Button_Click_Refresh" />
+            </StackPanel>
         </Grid>
 
         <ListBox Name="PART_Dlcs" Margin="0,10,0,10">
