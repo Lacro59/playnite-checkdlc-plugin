@@ -25,9 +25,9 @@ namespace CheckDlc.Views
 
             InitializeComponent();
 
-            List<lvDlc> lvDlcs = PluginDatabase.Database.Items
+            List<LvDlc> lvDlcs = PluginDatabase.Database.Items
                 .SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned)
-                .Select(z => new lvDlc
+                .Select(z => new LvDlc
                 {
                     Icon = x.Value.Icon,
                     Id = x.Key,
@@ -52,7 +52,7 @@ namespace CheckDlc.Views
 
         private void Button_Click_Refresh(object sender, RoutedEventArgs e)
         {
-            List<lvDlc> data = (List<lvDlc>)PART_ListviewDlc.ItemsSource;
+            List<LvDlc> data = (List<LvDlc>)PART_ListviewDlc.ItemsSource;
             if (data.Count > 0)
             {
                 List<Guid> dataId = data.Select(x => x.Id).Distinct().ToList();
@@ -60,9 +60,9 @@ namespace CheckDlc.Views
             }
 
             PART_ListviewDlc.ItemsSource = null;
-            List<lvDlc> lvDlcs = PluginDatabase.Database.Items
+            List<LvDlc> lvDlcs = PluginDatabase.Database.Items
                 .SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned)
-                .Select(z => new lvDlc
+                .Select(z => new LvDlc
                 {
                     Icon = x.Value.Icon,
                     Id = x.Key,
@@ -86,9 +86,9 @@ namespace CheckDlc.Views
                 PluginDatabase.Refresh(Id);
 
                 PART_ListviewDlc.ItemsSource = null;
-                List<lvDlc> lvDlcs = PluginDatabase.Database.Items
+                List<LvDlc> lvDlcs = PluginDatabase.Database.Items
                     .SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned)
-                    .Select(z => new lvDlc
+                    .Select(z => new LvDlc
                     {
                         Icon = x.Value.Icon,
                         Id = x.Key,
@@ -114,9 +114,9 @@ namespace CheckDlc.Views
                 PluginDatabase.Refresh(Id);
 
                 PART_ListviewDlc.ItemsSource = null;
-                List<lvDlc> lvDlcs = PluginDatabase.Database.Items
+                List<LvDlc> lvDlcs = PluginDatabase.Database.Items
                     .SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned)
-                    .Select(z => new lvDlc
+                    .Select(z => new LvDlc
                     {
                         Icon = x.Value.Icon,
                         Id = x.Key,
@@ -136,11 +136,8 @@ namespace CheckDlc.Views
     }
 
 
-    public class lvDlc
+    public class LvDlc
     {
-        private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
-
-
         public Guid Id { get; set; }
         public string Icon { get; set; }
         public string Name { get; set; }
@@ -151,8 +148,6 @@ namespace CheckDlc.Views
         public string SourceName => PlayniteTools.GetSourceName(Id);
 
         public string SourceIcon => TransformIcon.Get(PlayniteTools.GetSourceName(Id));
-
-        public RelayCommand<Guid> GoToGame => PluginDatabase.GoToGame;
 
         public bool GameExist => API.Instance.Database.Games.Get(Id) != null;
     }
