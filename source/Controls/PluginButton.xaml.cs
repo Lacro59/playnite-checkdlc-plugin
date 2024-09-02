@@ -75,8 +75,15 @@ namespace CheckDlc.Controls
         #region Events
         private void PART_PluginButton_Click(object sender, RoutedEventArgs e)
         {
-            var ViewExtension = new CheclDlcGameView(Plugin, GameContext);
-            Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension);
+            WindowOptions windowOptions = new WindowOptions
+            {
+                CanBeResizable = false,
+                Height = 720,
+                Width = 1000,
+                ShowMaximizeButton = false
+            };
+            CheclDlcGameView ViewExtension = new CheclDlcGameView(Plugin, GameContext);
+            Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension, windowOptions);
             windowExtension.ShowDialog();
         }
         #endregion

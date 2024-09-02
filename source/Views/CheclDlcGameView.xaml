@@ -8,8 +8,7 @@
              xmlns:converters="clr-namespace:CommonPlayniteShared.Converters"
              xmlns:playnitecontrols="clr-namespace:CommonPluginsControls.PlayniteControls" 
              xmlns:controls1="clr-namespace:CommonPluginsShared.Controls"
-             mc:Ignorable="d" 
-             Height="720" Width="1000">
+             mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1000">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -81,7 +80,7 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0, 10" Width="900">
+                    <Grid Margin="10" Width="900">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="10" />

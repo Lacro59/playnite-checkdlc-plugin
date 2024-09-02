@@ -96,8 +96,15 @@ namespace CheckDlc
                 {
                     Common.LogDebug(true, $"OnCustomThemeButtonClick()");
 
+                    WindowOptions windowOptions = new WindowOptions
+                    {
+                        CanBeResizable = false,
+                        Height = 720,
+                        Width = 1000,
+                        ShowMaximizeButton = false
+                    };
                     CheclDlcGameView ViewExtension = new CheclDlcGameView(this, PluginDatabase.GameContext);
-                    Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension);
+                    Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension, windowOptions);
                     _ = windowExtension.ShowDialog();
                 }
             }
@@ -154,8 +161,15 @@ namespace CheckDlc
                     Description = ResourceProvider.GetString("LOCCheckDlcViewDlc"),
                     Action = (gameMenuItem) =>
                     {
+                        WindowOptions windowOptions = new WindowOptions
+                        {
+                            CanBeResizable = false,
+                            Height = 720,
+                            Width = 1000,
+                            ShowMaximizeButton = false
+                        };
                         CheclDlcGameView ViewExtension = new CheclDlcGameView(this, GameMenu);
-                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension);
+                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension, windowOptions);
                         windowExtension.ShowDialog();
                     }
                 });
@@ -413,13 +427,20 @@ namespace CheckDlc
                             if (y.PriceNumeric != x.Items.Find(z => z.DlcId.IsEqual(y.DlcId)).PriceNumeric)
                             {
                                 API.Instance.Notifications.Add(new NotificationMessage(
-                                    $"{PluginDatabase.PluginName}-{x.Id.ToString()}",
+                                    $"{PluginDatabase.PluginName}-{x.Id}",
                                     $"{PluginDatabase.PluginName}" + Environment.NewLine + string.Format(ResourceProvider.GetString("LOCCheckDlcNewPrice"), x.Name),
                                     NotificationType.Info,
                                     () =>
                                     {
+                                        WindowOptions windowOptions = new WindowOptions
+                                        {
+                                            CanBeResizable = false,
+                                            Height = 720,
+                                            Width = 1000,
+                                            ShowMaximizeButton = false
+                                        };
                                         CheclDlcGameView ViewExtension = new CheclDlcGameView(this, x.Game);
-                                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension);
+                                        Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension, windowOptions);
                                         _ = windowExtension.ShowDialog();
                                     }
                                 ));
