@@ -155,9 +155,9 @@ namespace CheckDlc
         // To add new game menu items override GetGameMenuItems
         public override IEnumerable<GameMenuItem> GetGameMenuItems(GetGameMenuItemsArgs args)
         {
-            Game GameMenu = args.Games.First();
-            List<Guid> Ids = args.Games.Select(x => x.Id).ToList();
-            GameDlc gameDlc = PluginDatabase.Get(GameMenu, true);
+            Game gameMenu = args.Games.First();
+            List<Guid> ids = args.Games.Select(x => x.Id).ToList();
+            GameDlc gameDlc = PluginDatabase.Get(gameMenu, true);
 
             List<GameMenuItem> gameMenuItems = new List<GameMenuItem>();
 
@@ -176,7 +176,7 @@ namespace CheckDlc
                             Width = 1000,
                             ShowMaximizeButton = false
                         };
-                        CheclDlcGameView ViewExtension = new CheclDlcGameView(this, GameMenu);
+                        CheclDlcGameView ViewExtension = new CheclDlcGameView(this, gameMenu);
                         Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension, windowOptions);
                         windowExtension.ShowDialog();
                     }
@@ -189,7 +189,7 @@ namespace CheckDlc
                 });
             }
 
-            if (SupportedLibrary.Contains(GameMenu.PluginId) || Ids.Count > 1)
+            if ((SupportedLibrary.Contains(gameMenu.PluginId) && PlayniteTools.IsEnabledPlaynitePlugin(gameMenu.PluginId)) || ids.Count > 1)
             {
                 gameMenuItems.Add(new GameMenuItem
                 {
@@ -197,13 +197,13 @@ namespace CheckDlc
                     Description = ResourceProvider.GetString("LOCCommonRefreshGameData"),
                     Action = (gameMenuItem) =>
                     {
-                        if (Ids.Count == 1)
+                        if (ids.Count == 1)
                         {
-                            PluginDatabase.Refresh(GameMenu.Id);
+                            PluginDatabase.Refresh(gameMenu.Id);
                         }
                         else
                         {
-                            PluginDatabase.Refresh(Ids);
+                            PluginDatabase.Refresh(ids);
                         }
                     }
                 });
@@ -218,13 +218,13 @@ namespace CheckDlc
                     Description = ResourceProvider.GetString("LOCCommonDeleteGameData"),
                     Action = (gameMenuItem) =>
                     {
-                        if (Ids.Count == 1)
+                        if (ids.Count == 1)
                         {
-                            PluginDatabase.Remove(GameMenu);
+                            PluginDatabase.Remove(gameMenu);
                         }
                         else
                         {
-                            PluginDatabase.Remove(Ids);
+                            PluginDatabase.Remove(ids);
                         }
                     }
                 });
@@ -394,23 +394,25 @@ namespace CheckDlc
         public override void OnApplicationStarted(OnApplicationStartedEventArgs args)
         {
             // StoreAPI intialization
-            SteamApi = new SteamApi(PluginDatabase.PluginName);
-            SteamApi.SetLanguage(API.Instance.ApplicationSettings.Language);
-            if (!PlayniteTools.IsDisabledPlaynitePlugins("SteamLibrary"))
+            if (PluginDatabase.PluginSettings.Settings.SteamIsEnabled)
             {
+                SteamApi = new SteamApi(PluginDatabase.PluginName);
+                SteamApi.SetLanguage(API.Instance.ApplicationSettings.Language);
                 _ = SteamApi.CurrentAccountInfos;
+
                 if (PluginDatabase.PluginSettings.Settings.SteamApiSettings.UseAuth)
                 {
                     SteamApi.CurrentAccountInfos.IsPrivate = true;
                 }
             }
 
-            EpicApi = new EpicApi(PluginDatabase.PluginName);
-            EpicApi.SetLanguage(API.Instance.ApplicationSettings.Language);
-            EpicApi.SetForceAuth(true);
-            if (!PlayniteTools.IsDisabledPlaynitePlugins("EpicLibrary"))
+            if (PluginDatabase.PluginSettings.Settings.EpicIsEnabled)
             {
+                EpicApi = new EpicApi(PluginDatabase.PluginName);
+                EpicApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+                EpicApi.SetForceAuth(true);
                 _ = EpicApi.CurrentAccountInfos;
+
                 if (PluginDatabase.PluginSettings.Settings.EpicSettings.UseAuth)
                 {
                     EpicApi.CurrentAccountInfos.IsPrivate = true;

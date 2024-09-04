@@ -25,7 +25,7 @@ namespace CheckDlc.Clients
                 settingsOpen = value;
                 if (settingsOpen)
                 {
-                    SteamApi.ResetIsUserLoggedIn();
+                    SteamApi?.ResetIsUserLoggedIn();
                 }
             }
         }

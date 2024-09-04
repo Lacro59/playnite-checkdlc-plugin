@@ -26,7 +26,7 @@ namespace CheckDlc.Clients
                 settingsOpen = value;
                 if (settingsOpen)
                 {
-                    EpicApi.ResetIsUserLoggedIn();
+                    EpicApi?.ResetIsUserLoggedIn();
                 }
             }
         }

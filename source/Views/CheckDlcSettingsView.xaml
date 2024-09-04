@@ -7,13 +7,14 @@
              xmlns:CheckDlc="clr-namespace:CheckDlc"
              xmlns:Steam="clr-namespace:CommonPluginsControls.Stores.Steam"
              xmlns:Epic="clr-namespace:CommonPluginsControls.Stores.Epic"
-             xmlns:commonpluginsshared="clr-namespace:CommonPluginsShared.Converters"
+             xmlns:commonpluginsshared="clr-namespace:CommonPluginsShared.Converters" xmlns:converters="clr-namespace:CommonPlayniteShared.Converters"
              mc:Ignorable="d" d:DesignWidth="650"
              d:DataContext="{d:DesignInstance CheckDlc:CheckDlcSettingsViewModel}">
 
     <UserControl.Resources>
         <commonpluginsshared:IndexConverter x:Key="IndexConverter" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
     </UserControl.Resources>
     
     <Grid Margin="20">

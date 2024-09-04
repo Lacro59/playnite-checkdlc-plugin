@@ -56,6 +56,9 @@ namespace CheckDlc.Views
                 PART_OriginCurrency.SelectedIndex = idx;
             }
             catch { }
+
+            SteamPanel.Visibility = PluginDatabase.PluginSettings.Settings.SteamIsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            EpicPanel.Visibility = PluginDatabase.PluginSettings.Settings.EpicIsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
 

@@ -15,6 +15,15 @@ namespace CheckDlc
         public bool MenuInExtensions { get; set; } = true;
         public DateTime LastAutoLibUpdateAssetsDownload { get; set; } = DateTime.Now;
 
+        [DontSerialize]
+        public bool SteamIsEnabled => PlayniteTools.IsEnabledPlaynitePlugin(PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.SteamLibrary));
+        [DontSerialize]
+        public bool EpicIsEnabled => PlayniteTools.IsEnabledPlaynitePlugin(PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.EpicLibrary)) || PlayniteTools.IsEnabledPlaynitePlugin(PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.LegendaryLibrary));
+        [DontSerialize]
+        public bool GogIsEnabled => PlayniteTools.IsEnabledPlaynitePlugin(PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.GogLibrary));
+        [DontSerialize]
+        public bool OriginIsEnabled => PlayniteTools.IsEnabledPlaynitePlugin(PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.OriginLibrary));
+
         public bool EnableTag { get; set; } = false;
         public bool AutoImport { get; set; } = true;
 
@@ -142,10 +151,10 @@ namespace CheckDlc
         public void EndEdit()
         {
             // StoreAPI intialization
-            CheckDlc.SteamApi.SaveCurrentUser();
-            CheckDlc.SteamApi.CurrentAccountInfos = null;
-            if (!PlayniteTools.IsDisabledPlaynitePlugins("SteamLibrary"))
+            if (settings.SteamIsEnabled)
             {
+                CheckDlc.SteamApi.SaveCurrentUser();
+                CheckDlc.SteamApi.CurrentAccountInfos = null;
                 _ = CheckDlc.SteamApi.CurrentAccountInfos;
                 if (Settings.SteamApiSettings.UseAuth)
                 {
@@ -153,16 +162,20 @@ namespace CheckDlc
                 }
             }
 
-            CheckDlc.EpicApi.SaveCurrentUser();
-            CheckDlc.EpicApi.CurrentAccountInfos = null;
-            if (!PlayniteTools.IsDisabledPlaynitePlugins("EpicLibrary"))
+            if (settings.EpicIsEnabled)
             {
+                CheckDlc.EpicApi.SaveCurrentUser();
+                CheckDlc.EpicApi.CurrentAccountInfos = null;
                 _ = CheckDlc.EpicApi.CurrentAccountInfos;
                 if (Settings.EpicSettings.UseAuth)
                 {
                     CheckDlc.EpicApi.CurrentAccountInfos.IsPrivate = true;
                 }
             }
+
+            Plugin.SavePluginSettings(Settings);
+            CheckDlc.PluginDatabase.PluginSettings = this;
+            OnPropertyChanged();
         }
 
         // Code execute when user decides to confirm changes made since BeginEdit was called.

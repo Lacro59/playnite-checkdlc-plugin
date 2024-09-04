@@ -83,24 +83,38 @@ namespace CheckDlc.Services
                 switch (pluginType)
                 {
                     case ExternalPlugin.SteamLibrary:
-                        SteamDlc steamDlc = new SteamDlc();
-                        dlcs = steamDlc.GetGameDlc(game);
+                        if (PluginSettings.Settings.SteamIsEnabled)
+                        {
+                            SteamDlc steamDlc = new SteamDlc();
+                            dlcs = steamDlc.GetGameDlc(game);
+                        }
                         break;
 
                     case ExternalPlugin.GogLibrary:
-                        GogDlc gogDlc = new GogDlc();
-                        dlcs = gogDlc.GetGameDlc(game);
+                        if (PluginSettings.Settings.GogIsEnabled)
+                        {
+                            GogDlc gogDlc = new GogDlc();
+                            dlcs = gogDlc.GetGameDlc(game);
+                        }
                         break;
 
                     case ExternalPlugin.LegendaryLibrary:
                     case ExternalPlugin.EpicLibrary:
-                        EpicDlc epicDlc = new EpicDlc();
-                        dlcs = epicDlc.GetGameDlc(game);
+                        if (PluginSettings.Settings.EpicIsEnabled)
+                        {
+                            EpicDlc epicDlc = new EpicDlc();
+                            dlcs = epicDlc.GetGameDlc(game);
+                        }
                         break;
 
+
                     case ExternalPlugin.OriginLibrary:
-                        OriginDlc originDlc = new OriginDlc();
-                        dlcs = originDlc.GetGameDlc(game);
+
+                        if (PluginSettings.Settings.OriginIsEnabled)
+                        {
+                            OriginDlc originDlc = new OriginDlc();
+                            dlcs = originDlc.GetGameDlc(game);
+                        }
                         break;
 
                     case ExternalPlugin.None:
@@ -120,7 +134,7 @@ namespace CheckDlc.Services
                     case ExternalPlugin.SuccessStory:
                     case ExternalPlugin.CheckDlc:
                     case ExternalPlugin.EmuLibrary:
-                    case ExternalPlugin.LegendaryLibrary:
+
                     default:
                         break;
                 }
