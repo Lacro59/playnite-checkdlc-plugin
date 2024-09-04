@@ -49,7 +49,7 @@ namespace CheckDlc.Clients
             {
                 if (EpicApi.IsUserLoggedIn)
                 {
-                    string productNameSpace = EpicApi.GetNameSpace(PlayniteTools.NormalizeGameName(game.Name));
+                    string productNameSpace = EpicApi.GetNameSpace(game);
                     ObservableCollection<DlcInfos> dlcs = EpicApi.GetDlcInfos(productNameSpace, EpicApi.CurrentAccountInfos);
                     dlcs?.ForEach(x =>
                     {
