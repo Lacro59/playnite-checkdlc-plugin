@@ -167,6 +167,12 @@ namespace CheckDlc.Services
         {
             GameDlc gameDlc = Get(game, true);
             PluginSettings.Settings.HasData = gameDlc?.HasData ?? false;
+            PluginSettings.Settings.ListDlcs = new List<Dlc>();
+
+            if (PluginSettings.Settings.HasData)
+            {
+                PluginSettings.Settings.ListDlcs = gameDlc.Items;
+            }
         }
 
         public override void RefreshNoLoader(Guid Id)

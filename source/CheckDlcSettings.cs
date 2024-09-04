@@ -1,4 +1,5 @@
-﻿using CommonPluginsShared;
+﻿using CheckDlc.Models;
+using CommonPluginsShared;
 using CommonPluginsStores.Models;
 using Playnite.SDK;
 using Playnite.SDK.Data;
@@ -62,6 +63,10 @@ namespace CheckDlc
         private bool hasData = false;
         [DontSerialize]
         public bool HasData { get => hasData; set => SetValue(ref hasData, value); }
+
+        private List<Dlc> listDlcs = new List<Dlc>();
+        [DontSerialize]
+        public List<Dlc> ListDlcs { get => listDlcs; set => SetValue(ref listDlcs, value); }
         #endregion  
     }
 
