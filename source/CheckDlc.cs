@@ -37,6 +37,14 @@ namespace CheckDlc
         public static SteamApi SteamApi { get; set; }
         public static EpicApi EpicApi { get; set; }
 
+        public static List<Guid> SupportedLibrary => new List<Guid>
+        {
+            PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.EpicLibrary),
+            PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.GogLibrary),
+            PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.OriginLibrary),
+            PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.SteamLibrary)
+        };
+
 
         public CheckDlc(IPlayniteAPI api) : base(api)
         {
@@ -180,23 +188,25 @@ namespace CheckDlc
                 });
             }
 
-
-            gameMenuItems.Add(new GameMenuItem
+            if (SupportedLibrary.Contains(GameMenu.PluginId) || Ids.Count > 1)
             {
-                MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
-                Description = ResourceProvider.GetString("LOCCommonRefreshGameData"),
-                Action = (gameMenuItem) =>
+                gameMenuItems.Add(new GameMenuItem
                 {
-                    if (Ids.Count == 1)
+                    MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
+                    Description = ResourceProvider.GetString("LOCCommonRefreshGameData"),
+                    Action = (gameMenuItem) =>
                     {
-                        PluginDatabase.Refresh(GameMenu.Id);
+                        if (Ids.Count == 1)
+                        {
+                            PluginDatabase.Refresh(GameMenu.Id);
+                        }
+                        else
+                        {
+                            PluginDatabase.Refresh(Ids);
+                        }
                     }
-                    else
-                    {
-                        PluginDatabase.Refresh(Ids);
-                    }
-                }
-            });
+                });
+            }
 
 
             if (gameDlc.HasData)

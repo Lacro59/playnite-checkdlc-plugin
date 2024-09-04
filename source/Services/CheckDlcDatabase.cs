@@ -159,20 +159,27 @@ namespace CheckDlc.Services
             Game game = API.Instance.Database.Games.Get(Id);
             Logger.Info($"RefreshNoLoader({game?.Name} - {game?.Id})");
 
-            GameDlc loadedItem = Get(Id, true);
-            GameDlc webItem = GetWeb(Id);
-            webItem.PriceNotification = loadedItem.PriceNotification;
-
-            if (webItem != null && !ReferenceEquals(loadedItem, webItem))
+            if (CheckDlc.SupportedLibrary.Contains(game.PluginId))
             {
-                Update(webItem);
+                GameDlc loadedItem = Get(Id, true);
+                GameDlc webItem = GetWeb(Id);
+                webItem.PriceNotification = loadedItem.PriceNotification;
+
+                if (webItem != null && !ReferenceEquals(loadedItem, webItem))
+                {
+                    Update(webItem);
+                }
+                else
+                {
+                    webItem = loadedItem;
+                }
+
+                ActionAfterRefresh(webItem);
             }
             else
             {
-                webItem = loadedItem;
+                Logger.Warn($"The plugin does not support the library {PlayniteTools.GetSourceByPluginId(game.PluginId)}");
             }
-
-            ActionAfterRefresh(webItem);
         }
 
         public override void ActionAfterRefresh(GameDlc item)
