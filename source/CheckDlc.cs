@@ -40,6 +40,7 @@ namespace CheckDlc
         public static List<Guid> SupportedLibrary => new List<Guid>
         {
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.EpicLibrary),
+            PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.LegendaryLibrary),
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.GogLibrary),
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.OriginLibrary),
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.SteamLibrary)
