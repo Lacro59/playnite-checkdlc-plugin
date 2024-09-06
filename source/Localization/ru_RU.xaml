@@ -34,10 +34,6 @@
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Использовать сохраненные данные для {0} [{1}]
-Вы должны авторизоваться.</sys:String>
-    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Использовать сохраненные данные для {0} [{1}]
-Вы должны авторизоваться с помощью кнопки &quot;Authenticate&quot;.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Ошибка получения цен DLC. Пожалуйста, проверьте настройки валю</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Некоторые DLC для {0} имеют новую цену.</sys:String>
     
