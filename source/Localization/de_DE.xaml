@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">DLC Überprüfen</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check verfügbare gratis DLCs</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Nur Kostenlose DLCs anzeigen, die ich nicht Besitze</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Spiel DLC anzeigen</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">Im Besitz</sys:String>
@@ -29,15 +29,11 @@
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Funktion hinzufügen, wenn das Spiel DLCs hat</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Liste mit aller DLC anzeigen</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Zeige alle in Besitz befindlichen DLCs</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Zeige alle DLCs an welche nicht mit in Besitz sind</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Nur DLCs anzeigen, die ich Besitze</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Nur DLCs anzeigen, die ich nicht Besitze</sys:String>
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Gespeicherte Daten für {0} [{1}]
-Sie müssen sich authentifizieren.</sys:String>
-    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Verwende gespeicherte Daten für {0} [{1}]
-Du musst dich mit dem &quot;Authentifizieren&quot; Button authentifizieren.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Fehler beim Abrufen der DLC Preise. Bitte überprüfen Sie Ihre Währungseinstellungen</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Einige DLCs für {0} haben einen neuen Preis.</sys:String>
     

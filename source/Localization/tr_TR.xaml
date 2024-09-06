@@ -34,10 +34,6 @@
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">{0} [{1}] için kayıtlı veriyi kullan
-Kimlik doğrulamanız gerekir.</sys:String>
-    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">{0} [{1}] için kayıtlı veriyi kullan
-&quot;Kimlik Doğrula&quot; düğmesini kullanarak kimliğinizi doğrulamanız gerekir.</sys:String>
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">DLC fiyatları alınamıyor. Lütfen para birimi ayarlarınızı kontrol edin</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">{0} için bazı DLC fiyatı yenilendi.</sys:String>
     

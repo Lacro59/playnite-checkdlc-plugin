@@ -3,18 +3,18 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC unowned</sys:String>
-    <sys:String x:Key="LOCCheckDlcViewDlc">View game dlc</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Kontrollera gratis DLC oägt</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewDlc">Visa dlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">Ägda</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Kostnadsfritt</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Hide Owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
+    <sys:String x:Key="LOCCheckDlcHideOwned">Dölj ägda</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceInferior">Bästa priset</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcPriceNotification">Price change notification</sys:String>
+    <sys:String x:Key="LOCCheckDlcPriceNotification">Meddelande om prisförändring</sys:String>
 
     <!-- FreeView -->
     
@@ -22,23 +22,19 @@
     
     <!-- SettingsView -->
 
-    <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagDescription">Lägg till tagg till spel med DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowNotification">Visa en avisering när priset ändras för de valda spelen</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definiera GOG valuta</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Definiera EA app valuta</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Funktion att lägga till om spelet har dlcs</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only owned DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only unowned DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Visa lista med alla DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Visa lista med endast ägda DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Visa lista med endast oägda DLC</sys:String>
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcUseSavedUserData" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate.</sys:String>
-    <sys:String x:Key="LOCCheckDlcUseSavedUserDataSteam" xml:space="preserve">Use saved data for {0} [{1}]
-You must authenticate with &quot;Authenticate&quot; button.</sys:String>
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Fel vid hämtning av DLC priser. Vänligen kontrollera dina valutainställningar</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Några DLC för {0} har ett nytt pris.</sys:String>
     
 </ResourceDictionary>
