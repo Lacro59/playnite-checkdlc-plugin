@@ -57,8 +57,8 @@ namespace CheckDlc.Views
             }
             catch { }
 
-            SteamPanel.Visibility = PluginDatabase.PluginSettings.Settings.SteamIsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            EpicPanel.Visibility = PluginDatabase.PluginSettings.Settings.EpicIsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            SteamPanel.Visibility = PluginDatabase.PluginSettings.Settings.PluginState.SteamIsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            EpicPanel.Visibility = PluginDatabase.PluginSettings.Settings.PluginState.EpicIsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
 

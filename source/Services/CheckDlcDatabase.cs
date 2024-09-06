@@ -83,7 +83,7 @@ namespace CheckDlc.Services
                 switch (pluginType)
                 {
                     case ExternalPlugin.SteamLibrary:
-                        if (PluginSettings.Settings.SteamIsEnabled)
+                        if (PluginSettings.Settings.PluginState.SteamIsEnabled)
                         {
                             SteamDlc steamDlc = new SteamDlc();
                             dlcs = steamDlc.GetGameDlc(game);
@@ -91,7 +91,7 @@ namespace CheckDlc.Services
                         break;
 
                     case ExternalPlugin.GogLibrary:
-                        if (PluginSettings.Settings.GogIsEnabled)
+                        if (PluginSettings.Settings.PluginState.GogIsEnabled)
                         {
                             GogDlc gogDlc = new GogDlc();
                             dlcs = gogDlc.GetGameDlc(game);
@@ -100,7 +100,7 @@ namespace CheckDlc.Services
 
                     case ExternalPlugin.LegendaryLibrary:
                     case ExternalPlugin.EpicLibrary:
-                        if (PluginSettings.Settings.EpicIsEnabled)
+                        if (PluginSettings.Settings.PluginState.EpicIsEnabled)
                         {
                             EpicDlc epicDlc = new EpicDlc();
                             dlcs = epicDlc.GetGameDlc(game);
@@ -110,7 +110,7 @@ namespace CheckDlc.Services
 
                     case ExternalPlugin.OriginLibrary:
 
-                        if (PluginSettings.Settings.OriginIsEnabled)
+                        if (PluginSettings.Settings.PluginState.OriginIsEnabled)
                         {
                             OriginDlc originDlc = new OriginDlc();
                             dlcs = originDlc.GetGameDlc(game);

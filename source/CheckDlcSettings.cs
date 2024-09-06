@@ -1,5 +1,6 @@
 ﻿using CheckDlc.Models;
 using CommonPluginsShared;
+using CommonPluginsShared.Plugins;
 using CommonPluginsStores.Models;
 using Playnite.SDK;
 using Playnite.SDK.Data;
@@ -10,24 +11,9 @@ using System.Collections.ObjectModel;
 
 namespace CheckDlc
 {
-    public class CheckDlcSettings : ObservableObject
+    public class CheckDlcSettings : PluginSettings
     {
         #region Settings variables
-        public bool MenuInExtensions { get; set; } = true;
-        public DateTime LastAutoLibUpdateAssetsDownload { get; set; } = DateTime.Now;
-
-        [DontSerialize]
-        public bool SteamIsEnabled => PlayniteTools.IsEnabledPlaynitePlugin(PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.SteamLibrary));
-        [DontSerialize]
-        public bool EpicIsEnabled => PlayniteTools.IsEnabledPlaynitePlugin(PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.EpicLibrary)) || PlayniteTools.IsEnabledPlaynitePlugin(PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.LegendaryLibrary));
-        [DontSerialize]
-        public bool GogIsEnabled => PlayniteTools.IsEnabledPlaynitePlugin(PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.GogLibrary));
-        [DontSerialize]
-        public bool OriginIsEnabled => PlayniteTools.IsEnabledPlaynitePlugin(PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.OriginLibrary));
-
-        public bool EnableTag { get; set; } = false;
-        public bool AutoImport { get; set; } = true;
-
         public bool PriceNotification { get; set; } = false;
 
         public StoreCurrency GogCurrency { get; set; } = new StoreCurrency { country = "US", currency = "USD", symbol = "$" };
@@ -59,11 +45,7 @@ namespace CheckDlc
 
         // Playnite serializes settings object to a JSON object and saves it as text file.
         // If you want to exclude some property from being saved then use `JsonDontSerialize` ignore attribute.
-        #region Variables exposed
-        private bool hasData = false;
-        [DontSerialize]
-        public bool HasData { get => hasData; set => SetValue(ref hasData, value); }
-
+        #region Variables exposed for custom themes
         private List<Dlc> listDlcs = new List<Dlc>();
         [DontSerialize]
         public List<Dlc> ListDlcs { get => listDlcs; set => SetValue(ref listDlcs, value); }
@@ -108,7 +90,7 @@ namespace CheckDlc
         public void EndEdit()
         {
             // StoreAPI intialization
-            if (settings.SteamIsEnabled)
+            if (settings.PluginState.SteamIsEnabled)
             {
                 CheckDlc.SteamApi.SaveCurrentUser();
                 CheckDlc.SteamApi.CurrentAccountInfos = null;
@@ -119,7 +101,7 @@ namespace CheckDlc
                 }
             }
 
-            if (settings.EpicIsEnabled)
+            if (settings.PluginState.EpicIsEnabled)
             {
                 CheckDlc.EpicApi.SaveCurrentUser();
                 CheckDlc.EpicApi.CurrentAccountInfos = null;

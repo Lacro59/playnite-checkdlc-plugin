@@ -394,7 +394,7 @@ namespace CheckDlc
         public override void OnApplicationStarted(OnApplicationStartedEventArgs args)
         {
             // StoreAPI intialization
-            if (PluginDatabase.PluginSettings.Settings.SteamIsEnabled)
+            if (PluginDatabase.PluginSettings.Settings.PluginState.SteamIsEnabled)
             {
                 SteamApi = new SteamApi(PluginDatabase.PluginName);
                 SteamApi.SetLanguage(API.Instance.ApplicationSettings.Language);
@@ -406,7 +406,7 @@ namespace CheckDlc
                 }
             }
 
-            if (PluginDatabase.PluginSettings.Settings.EpicIsEnabled)
+            if (PluginDatabase.PluginSettings.Settings.PluginState.EpicIsEnabled)
             {
                 EpicApi = new EpicApi(PluginDatabase.PluginName);
                 EpicApi.SetLanguage(API.Instance.ApplicationSettings.Language);
