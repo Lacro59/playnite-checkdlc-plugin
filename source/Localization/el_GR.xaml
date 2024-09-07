@@ -25,16 +25,16 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Προσθήκη ετικέτας σε παιχνίδια με DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Ειδοποίηση για αλλαγή τιμής σε επιλεγμένα παιχνίδια</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Καθορισμός νομίσματος GOG</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Καθορισμός νομίσματος  EA</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Προσθήκη χαρακτηριστικού σε παιχνίδια με DLC</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only owned DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only unowned DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Εμφάνιση λίστας όλων των DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Εμφάνιση λίστας των αποκτηθέντων DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Εμφάνιση λίστας των μη αποκτηθέντων DLC</sys:String>
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Error to get DLC prices. Please to check your currency settings</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">Some DLC for {0} has a new price.</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Σφάλμα κατά τη λήψη τιμών DLC. Παρακαλώ ελέγξτε τις ρυθμίσεις συναλλάγματος</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">Κάποιο DLC για {0} έχει μια νέα τιμή.</sys:String>
     
 </ResourceDictionary>
