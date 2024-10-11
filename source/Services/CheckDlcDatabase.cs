@@ -139,19 +139,6 @@ namespace CheckDlc.Services
                         break;
                 }
 
-                if (dlcs?.Count > 0)
-                {
-                    // Without game name
-                    dlcs = dlcs.Where(x => PluginSettings.Settings.IgnoredList.All(y => !x.Name.Contains(y, StringComparison.InvariantCultureIgnoreCase))).ToList();
-
-                    // With game name
-                    dlcs = dlcs.Where(x => PluginSettings.Settings.IgnoredList.All(y => !(game.Name + "##" + x.Name).Contains(y, StringComparison.InvariantCultureIgnoreCase))).ToList();
-                }
-                else
-                {
-                    dlcs = new List<Dlc>();
-                }
-
                 gameDlc.Items = dlcs;
             }
             catch (Exception ex)
@@ -179,6 +166,11 @@ namespace CheckDlc.Services
         {
             Game game = API.Instance.Database.Games.Get(Id);
             Logger.Info($"RefreshNoLoader({game?.Name} - {game?.Id})");
+            
+            if (game == null)
+            {
+                return;
+            }
 
             if (CheckDlc.SupportedLibrary.Contains(game.PluginId))
             {

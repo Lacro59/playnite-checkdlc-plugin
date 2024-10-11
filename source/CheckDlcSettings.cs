@@ -20,6 +20,7 @@ namespace CheckDlc
         public StoreCurrency OriginCurrency { get; set; } = new StoreCurrency { country = "US", currency = "USD", symbol = "$" };
 
         public ObservableCollection<string> IgnoredList { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> ManuallyOwneds { get; set; } = new ObservableCollection<string>();
 
         public GameFeature DlcFeature { get; set; } = null;
 
@@ -41,6 +42,10 @@ namespace CheckDlc
         public SteamSettings SteamApiSettings { get; set; } = new SteamSettings();
         [DontSerialize]
         public EpicSettings EpicSettings { get; set; } = new EpicSettings();
+
+
+        // TODO TEMP
+        public bool IsConverted { get; set; } = false;
         #endregion
 
         // Playnite serializes settings object to a JSON object and saves it as text file.

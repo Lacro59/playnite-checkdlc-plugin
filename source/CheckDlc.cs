@@ -462,6 +462,48 @@ namespace CheckDlc
                     });
                 });
             }
+
+            // TODO TEMP
+            if (!PluginDatabase.PluginSettings.Settings.IsConverted)
+            {
+                Logger.Info("Convert settings");
+
+                GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(
+                    $"{PluginDatabase.PluginName} - {ResourceProvider.GetString("LOCCommonConverting")}",
+                    false
+                );
+                globalProgressOptions.IsIndeterminate = true;
+
+                _ = API.Instance.Dialogs.ActivateGlobalProgress((activateGlobalProgress) =>
+                {
+                    _ = SpinWait.SpinUntil(() => PluginDatabase.IsLoaded, -1);
+                    PluginSettings.Settings.IgnoredList = PluginSettings.Settings.IgnoredList.Distinct().ToObservable();
+                    PluginDatabase.Database.ForEach(x =>
+                    {
+                        x.Items.ForEach(y =>
+                        {
+                            // With game name
+                            int found = PluginSettings.Settings.IgnoredList.IndexOf(x.Name + "##" + y.Name);
+                            if (found != -1)
+                            {
+                                PluginSettings.Settings.IgnoredList[found] = y.Id;
+                            }
+                            // Without game name
+                            found = PluginSettings.Settings.IgnoredList.IndexOf(x.Name);
+                            if (found != -1)
+                            {
+                                PluginSettings.Settings.IgnoredList[found] = y.Id;
+                            }
+                        });
+                    });
+
+                    _ = Application.Current.Dispatcher?.BeginInvoke((Action)delegate
+                    {
+                        PluginSettings.Settings.IsConverted = true;
+                        SavePluginSettings(PluginSettings.Settings);
+                    });
+                }, globalProgressOptions);
+            }
         }
 
         // Add code to be executed when Playnite is shutting down.

@@ -27,12 +27,12 @@ namespace CheckDlc.Views
 
         public CheclDlcGameView(CheckDlc plugin, Game GameContext)
         {
-            Plugin = plugin; 
+            Plugin = plugin;
 
             InitializeComponent();
-            
+   
             this.GameContext = GameContext;
-            Filter((bool)PART_TgHide.IsChecked, PART_LimitPrice.Text);
+            Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
         }
 
 
@@ -49,13 +49,7 @@ namespace CheckDlc.Views
         {
             PART_Dlcs.ItemsSource = null;
             PluginDatabase.Refresh(GameContext.Id);
-
-            GameDlc gameDlc = PluginDatabase.Get(GameContext, true);
-            gameDlc.Items.Sort((x, y) => y.Name.CompareTo(x.Name));
-            PART_Dlcs.ItemsSource = gameDlc.Items;
-            PART_TotalFoundCount.Text = gameDlc.Items.Count.ToString();
-            PART_TotalOwnedCount.Text = gameDlc.Items.Where(x => x.IsOwned).Count().ToString();
-            PART_DataDate.Text = new LocalDateTimeConverter().Convert(gameDlc.DateLastRefresh, null, null, CultureInfo.CurrentCulture).ToString();
+            Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
         }
 
 
@@ -69,38 +63,64 @@ namespace CheckDlc.Views
 
 
         #region Filter
-        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        private void PART_TgHide_Click(object sender, RoutedEventArgs e)
         {
-            Filter((bool)PART_TgHide.IsChecked, PART_LimitPrice.Text);
+            Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
+        }
+
+        private void PART_TgFree_Click(object sender, RoutedEventArgs e)
+        {
+            PART_TgHide.IsChecked = false;
+            PART_TgHidden.IsChecked = false;
+            Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
+        }
+
+        private void PART_TgHidden_Click(object sender, RoutedEventArgs e)
+        {
+            PART_TgFree.IsChecked = false;
+            PART_TgHide.IsChecked = false;
+            Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
         }
 
         private void PART_LimitPrice_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Filter((bool)PART_TgHide.IsChecked, PART_LimitPrice.Text);
+            Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
         }
 
 
-        private void Filter(bool HideOwned, string Price)
+        private void Filter(bool hiddenOwned, bool onlyFree, bool showHidden, string price)
         {
             PART_Dlcs.ItemsSource = null;
 
             GameDlc gameDlc = PluginDatabase.Get(GameContext, true);
+            if (gameDlc?.Count == 0)
+            {
+                return;
+            }
+
             PART_PriceNotification.IsChecked = gameDlc.PriceNotification;
             List<Dlc> data = new List<Dlc>();
 
-            _ = double.TryParse(Price, out double PriceLimit);
+            _ = double.TryParse(price, out double PriceLimit);
             if (PriceLimit == 0)
             {
                 PriceLimit = 1000000000;
             }
 
-            data = HideOwned
-                ? gameDlc.Items.Where(x => !x.IsOwned && x.PriceNumeric <= PriceLimit).OrderBy(x => x.Name).ToList()
-                : gameDlc.Items.Where(x => x.PriceNumeric <= PriceLimit).OrderBy(x => x.Name).ToList();
+            data = gameDlc.Items.Where(x => (!hiddenOwned || !x.IsOwned) && (showHidden || !x.IsHidden) && x.PriceNumeric <= PriceLimit).OrderBy(x => x.Name).ToList();
+            if (onlyFree)
+            {
+                data = data.Where(x => x.IsFree).ToList();
+            }
+            if (showHidden)
+            {
+                data = data.Where(x => x.IsHidden).ToList();
+            }
 
             PART_Dlcs.ItemsSource = data;
             PART_TotalFoundCount.Text = data.Count.ToString();
-            PART_TotalOwnedCount.Text = data.Where(x => x.IsOwned).Count().ToString();
+            PART_TotalOwnedCount.Text = gameDlc.Items.Where(x => x.IsOwned).Count().ToString();
+            PART_TotalHiddenCount.Text = gameDlc.Items.Where(x => x.IsHidden).Count().ToString();
             PART_DataDate.Text = new LocalDateTimeConverter().Convert(gameDlc.DateLastRefresh, null, null, CultureInfo.CurrentCulture).ToString();
         }
         #endregion
@@ -110,10 +130,39 @@ namespace CheckDlc.Views
         {
             try
             {
-                string name = ((Button)sender).Tag.ToString();
-                PluginDatabase.PluginSettings.Settings.IgnoredList.Add(GameContext.Name + "##" + name);
+                string id = ((Button)sender).Tag.ToString();
+                if (PluginDatabase.PluginSettings.Settings.IgnoredList.Contains(id))
+                {
+                    _ = PluginDatabase.PluginSettings.Settings.IgnoredList.Remove(id);
+                }
+                else
+                {
+                    PluginDatabase.PluginSettings.Settings.IgnoredList.Add(id);
+                }
                 Plugin.SavePluginSettings(PluginDatabase.PluginSettings.Settings);
-                Button_Click_Refresh(null, null);
+                Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
+            }
+            catch (Exception ex)
+            {
+                Common.LogError(ex, false);
+            }
+        }
+
+        private void Part_Owned_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string id = ((Button)sender).Tag.ToString();
+                if (PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Contains(id))
+                {
+                    _ = PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Remove(id);
+                }
+                else
+                {
+                    PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Add(id);
+                }
+                Plugin.SavePluginSettings(PluginDatabase.PluginSettings.Settings);
+                Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
             }
             catch (Exception ex)
             {

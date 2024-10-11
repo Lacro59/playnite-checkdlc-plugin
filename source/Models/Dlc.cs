@@ -8,17 +8,35 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
 using System.Drawing.Imaging;
+using CheckDlc.Services;
 
 namespace CheckDlc.Models
 {
     public class Dlc : ObservableObject
     {
+        private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
+        
+        [DontSerialize]
+        public string Id => DlcId + "##" + Name;
+
         public string DlcId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
         public string Link { get; set; }
-        public bool IsOwned { get; set; }
+
+        private bool _isOwned;
+        public bool IsOwned
+        {
+            get => IsManualOwned || _isOwned;
+            set => _isOwned = value;
+        }
+
+        [DontSerialize]
+        public bool IsHidden => PluginDatabase.PluginSettings.Settings.IgnoredList.Contains(Id);
+
+        [DontSerialize]
+        public bool IsManualOwned => PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Contains(Id);
 
         public string Price { get; set; }
         public string PriceBase { get; set; }
@@ -77,25 +95,7 @@ namespace CheckDlc.Models
         }
 
         [DontSerialize]
-        public bool IsFree
-        {
-            get
-            {
-                try
-                {
-                    if (Price.IsNullOrEmpty())
-                    {
-                        return false;
-                    }
-                    return PriceNumeric == 0;
-                }
-                catch (Exception ex)
-                {
-                    Common.LogError(ex, false);
-                    return false;
-                }
-            }
-        }
+        public bool IsFree => Price.IsNullOrEmpty() ? false : PriceNumeric == 0;
 
         [DontSerialize]
         public bool IsDiscount => !Price.IsEqual(PriceBase);

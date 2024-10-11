@@ -36,7 +36,7 @@
                     <GridViewColumn Width="0" DisplayMemberBinding="{Binding Name}">
                         <controlsShared:GridViewColumnHeaderExtend Style="{StaticResource {x:Type GridViewColumnHeader}}" IsHitTestVisible="False" />
                     </GridViewColumn>
-                    <GridViewColumn Width="300" x:Name="lvGameName">
+                    <GridViewColumn Width="270" x:Name="lvGameName">
                         <GridViewColumnHeader Name="lvName" Content="{DynamicResource LOCGameNameTitle}" Tag="Name" />
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -66,7 +66,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Width="400" x:Name="lvGameDlc">
+                    <GridViewColumn Width="380" x:Name="lvGameDlc">
                         <GridViewColumnHeader Name="lvDlc" Content="{DynamicResource LOCCheckDlcDlc}" />
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -75,7 +75,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Width="150" x:Name="lvDlcLink">
+                    <GridViewColumn Width="200" x:Name="lvDlcLink">
                         <GridViewColumnHeader Content="{DynamicResource LOCGameActionTypeLink}" Tag="noSort" />
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -89,7 +89,25 @@
                                             ToolTip="{DynamicResource LOCCommonRefreshGameData}"
                                             Margin="0,0,10,0" />
 
-                                    <Button Tag="{Binding NameHide}" Name="Part_Ignore" Click="Part_Ignore_Click" Content="&#xe972;" 
+                                    <Button Tag="{Binding DlcId}" Name="Part_Owned" Click="Part_Owned_Click" Content="&#xEC4B;" FontFamily="{DynamicResource FontIcoFont}"
+                                            ToolTip="{DynamicResource LOCCheckDlcIsOwned}" Margin="0,0,10,0">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                                <Setter Property="IsEnabled" Value="True" />
+                                                <Style.Triggers>
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding IsManualOwned}" Value="False" />
+                                                            <Condition Binding="{Binding IsOwned}" Value="True" />
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="IsEnabled" Value="False" />
+                                                    </MultiDataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+
+                                    <Button Tag="{Binding DlcId}" Name="Part_Ignore" Click="Part_Ignore_Click" Content="&#xe972;" 
                                             FontFamily="{DynamicResource CommonFont}"
                                             ToolTip="{DynamicResource LOCCommonIgnoredItems}" />
                                 </StackPanel>

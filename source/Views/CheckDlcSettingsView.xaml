@@ -7,7 +7,9 @@
              xmlns:CheckDlc="clr-namespace:CheckDlc"
              xmlns:Steam="clr-namespace:CommonPluginsControls.Stores.Steam"
              xmlns:Epic="clr-namespace:CommonPluginsControls.Stores.Epic"
-             xmlns:commonpluginsshared="clr-namespace:CommonPluginsShared.Converters" xmlns:converters="clr-namespace:CommonPlayniteShared.Converters"
+             xmlns:commonpluginsshared="clr-namespace:CommonPluginsShared.Converters" 
+             xmlns:converters="clr-namespace:CommonPlayniteShared.Converters" 
+             xmlns:controls="clr-namespace:CommonPluginsControls.Controls"
              mc:Ignorable="d" d:DesignWidth="650"
              d:DataContext="{d:DesignInstance CheckDlc:CheckDlcSettingsViewModel}">
 
@@ -32,8 +34,6 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="10" />
                             <RowDefinition Height="auto" />
-                            <RowDefinition Height="10" />
-                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         
                         <CheckBox IsChecked="{Binding Settings.AutoImport}">
@@ -115,28 +115,6 @@
                                 <RowDefinition Height="10" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-
-                            <Label Content="{DynamicResource LOCCommonIgnoredItems}" />
-                            <Button Content="{DynamicResource LOCAddTitle}" HorizontalAlignment="Right" Click="Button_Click_Add" />
-
-                            <Grid Grid.Row="2" Name="PART_Grid">
-                                <ListBox Height="{Binding ElementName=PART_Grid, Path=ActualHeight}" ItemsSource="{Binding Settings.IgnoredList}" Name="PART_IgnoredList" Margin="50,0,0,0">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Margin="0,2">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="100" />
-                                                </Grid.ColumnDefinitions>
-                                            
-                                                <TextBlock Text="{Binding}" VerticalAlignment="Center" />
-                                                <Button Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Mode=OneWay, Converter={StaticResource IndexConverter}, UpdateSourceTrigger=PropertyChanged}" 
-                                                        Grid.Column="1" Click="Button_Click_Remove" Content="{DynamicResource LOCRemoveTitle}" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </Grid>
                         </Grid>
                     </Grid>
                 </ScrollViewer>
@@ -218,6 +196,50 @@
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="{DynamicResource LOCCommonIgnoredItems}">
+                <DockPanel LastChildFill="True" Margin="10">
+                    <ListBox ItemsSource="{Binding Settings.IgnoredList}" Name="PART_IgnoredList">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <controls:TextBlockTrimmed Text="{Binding}" VerticalAlignment="Center" />
+                                    <Button Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Mode=OneWay, Converter={StaticResource IndexConverter}, UpdateSourceTrigger=PropertyChanged}" 
+                                            Grid.Column="1" Click="Button_Click_Remove" ToolTip="{DynamicResource LOCRemoveTitle}"
+                                            Content="&#xEC53;" FontFamily="{DynamicResource FontIcoFont}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header="{DynamicResource LOCCheckDlcManuallyOwned}">
+                <DockPanel LastChildFill="True" Margin="10">
+                    <ListBox ItemsSource="{Binding Settings.ManuallyOwneds}" Name="PART_ManuallyOwnedList">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <controls:TextBlockTrimmed Text="{Binding}" VerticalAlignment="Center" />
+                                    <Button Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Mode=OneWay, Converter={StaticResource IndexConverter}, UpdateSourceTrigger=PropertyChanged}" 
+                                            Grid.Column="1" Click="Button_Click_Remove2" ToolTip="{DynamicResource LOCRemoveTitle}"
+                                            Content="&#xEC53;" FontFamily="{DynamicResource FontIcoFont}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
             </TabItem>
 
             <TabItem Header="{DynamicResource LOCLibraries}">

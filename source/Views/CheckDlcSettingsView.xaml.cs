@@ -81,6 +81,8 @@ namespace CheckDlc.Views
         }
 
 
+
+
         private void Button_Click_Remove(object sender, RoutedEventArgs e)
         {
             try
@@ -95,12 +97,17 @@ namespace CheckDlc.Views
             }
         }
 
-        private void Button_Click_Add(object sender, RoutedEventArgs e)
+        private void Button_Click_Remove2(object sender, RoutedEventArgs e)
         {
-            StringSelectionDialogResult item = API.Instance.Dialogs.SelectString(ResourceProvider.GetString("LOCCommonInputItemIgnore"), ResourceProvider.GetString("LOCCheckDlc"), string.Empty);
-            if (!item.SelectedString.IsNullOrEmpty())
+            try
             {
-                ((ObservableCollection<string>)PART_IgnoredList.ItemsSource).Add(item.SelectedString);
+                int index = int.Parse(((FrameworkElement)sender).Tag.ToString());
+                ((ObservableCollection<string>)PART_ManuallyOwnedList.ItemsSource).RemoveAt(index);
+                PART_ManuallyOwnedList.Items.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Common.LogError(ex, true);
             }
         }
     }
