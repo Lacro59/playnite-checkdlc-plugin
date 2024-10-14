@@ -398,7 +398,12 @@ namespace CheckDlc
             {
                 SteamApi = new SteamApi(PluginDatabase.PluginName);
                 SteamApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+                SteamApi.SetForceAuth(true);
                 _ = SteamApi.CurrentAccountInfos;
+
+                // TODO TEMP
+                PluginDatabase.PluginSettings.Settings.SteamApiSettings.UseAuth = true;
+                PluginDatabase.PluginSettings.Settings.SteamApiSettings.UseApi = false;
 
                 if (PluginDatabase.PluginSettings.Settings.SteamApiSettings.UseAuth)
                 {

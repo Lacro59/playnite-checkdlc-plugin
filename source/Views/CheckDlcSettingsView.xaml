@@ -18,7 +18,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
     </UserControl.Resources>
-    
+
     <Grid Margin="20">
         <TabControl Name="tcSettings">
             <TabItem Header="{DynamicResource LOCCheckDlc}">
@@ -35,7 +35,7 @@
                             <RowDefinition Height="10" />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-                        
+
                         <CheckBox IsChecked="{Binding Settings.AutoImport}">
                             <Label Content="{DynamicResource LOCCommonAutoImport}" />
                         </CheckBox>
@@ -244,13 +244,15 @@
 
             <TabItem Header="{DynamicResource LOCLibraries}">
                 <StackPanel Margin="10">
-                    <Steam:PanelView x:Name="SteamPanel" Margin="0,0,0,10"
-                                     UseApi="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Settings.SteamApiSettings.UseApi, Mode=TwoWay}" 
-                                     UseAuth="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Settings.SteamApiSettings.UseAuth, Mode=TwoWay}" />
+
+                    <Steam:PanelView x:Name="SteamPanel"
+                                     UseApi="{Binding DataContext.Settings.SteamApiSettings.UseApi, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
+                                     UseAuth="{Binding DataContext.Settings.SteamApiSettings.UseAuth, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                     ForceAuth="True" />
 
                     <Epic:PanelView x:Name="EpicPanel" 
                                     ForceAuth="True"
-                                    UseAuth="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Settings.EpicSettings.UseAuth, Mode=TwoWay}" />
+                                    UseAuth="{Binding DataContext.Settings.EpicSettings.UseAuth, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
                 </StackPanel>
             </TabItem>
         </TabControl>

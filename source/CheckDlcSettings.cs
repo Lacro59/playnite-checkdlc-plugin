@@ -135,7 +135,7 @@ namespace CheckDlc
     public class SteamSettings
     {
         public bool UseApi { get; set; } = false;
-        public bool UseAuth { get; set; } = false;
+        public bool UseAuth { get; set; } = true;
     }
 
     public class EpicSettings
