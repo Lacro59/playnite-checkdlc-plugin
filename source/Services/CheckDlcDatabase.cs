@@ -219,5 +219,60 @@ namespace CheckDlc.Services
                 }
             }
         }
+
+
+        public override void AddTag(Game game)
+        {
+            GameDlc item = Get(game, true);
+            if (item.HasData)
+            {
+                try
+                {
+                    Guid? TagId = FindGoodPluginTags(string.Empty);
+                    if (TagId != null)
+                    {
+                        if (game.TagIds != null)
+                        {
+                            game.TagIds.Add((Guid)TagId);
+                        }
+                        else
+                        {
+                            game.TagIds = new List<Guid> { (Guid)TagId };
+                        }
+                    }
+
+                    if (PluginSettings.Settings.EnableTagAllDlc && item.HasAllDlc)
+                    {
+                        TagId = FindGoodPluginTags("100%");
+                        if (TagId != null)
+                        {
+                            game.TagIds.Add((Guid)TagId);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Common.LogError(ex, false, $"Tag insert error with {game.Name}", true, PluginName, string.Format(ResourceProvider.GetString("LOCCommonNotificationTagError"), game.Name));
+                    return;
+                }
+            }
+            else if (TagMissing)
+            {
+                if (game.TagIds != null)
+                {
+                    game.TagIds.Add((Guid)AddNoDataTag());
+                }
+                else
+                {
+                    game.TagIds = new List<Guid> { (Guid)AddNoDataTag() };
+                }
+            }
+
+            API.Instance.MainView.UIDispatcher?.Invoke(() =>
+            {
+                API.Instance.Database.Games.Update(game);
+                game.OnPropertyChanged();
+            });
+        }
     }
 }

@@ -8,11 +8,8 @@ using CommonPluginsShared;
 using CommonPluginsShared.Extensions;
 using CommonPluginsShared.PlayniteExtended;
 using CommonPluginsStores.Epic;
-using CommonPluginsStores.Gog;
-using CommonPluginsStores.Origin;
 using CommonPluginsStores.Steam;
 using Playnite.SDK;
-using Playnite.SDK.Data;
 using Playnite.SDK.Events;
 using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
@@ -284,6 +281,46 @@ namespace CheckDlc
                     }
                 }
             };
+
+            if (PluginDatabase.PluginSettings.Settings.EnableTag)
+            {
+                mainMenuItems.Add(new MainMenuItem
+                {
+                    MenuSection = MenuInExtensions + ResourceProvider.GetString("LOCCheckDlc"),
+                    Description = "-"
+                });
+
+                // Add tag for selected game in database if data exists
+                mainMenuItems.Add(new MainMenuItem
+                {
+                    MenuSection = MenuInExtensions + ResourceProvider.GetString("LOCCheckDlc"),
+                    Description = ResourceProvider.GetString("LOCCommonAddTPlugin"),
+                    Action = (mainMenuItem) =>
+                    {
+                        PluginDatabase.AddTagSelectData();
+                    }
+                });
+                // Add tag for all games
+                mainMenuItems.Add(new MainMenuItem
+                {
+                    MenuSection = MenuInExtensions + ResourceProvider.GetString("LOCCheckDlc"),
+                    Description = ResourceProvider.GetString("LOCCommonAddAllTags"),
+                    Action = (mainMenuItem) =>
+                    {
+                        PluginDatabase.AddTagAllGame();
+                    }
+                });
+                // Remove tag for all game in database
+                mainMenuItems.Add(new MainMenuItem
+                {
+                    MenuSection = MenuInExtensions + ResourceProvider.GetString("LOCCheckDlc"),
+                    Description = ResourceProvider.GetString("LOCCommonRemoveAllTags"),
+                    Action = (mainMenuItem) =>
+                    {
+                        PluginDatabase.RemoveTagAllGame();
+                    }
+                });
+            }
 
             mainMenuItems.Add(new MainMenuItem
             {

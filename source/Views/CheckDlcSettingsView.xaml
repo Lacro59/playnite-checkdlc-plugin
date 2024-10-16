@@ -40,16 +40,23 @@
                             <Label Content="{DynamicResource LOCCommonAutoImport}" />
                         </CheckBox>
 
-                        <Grid Grid.Row="2">
-                            <CheckBox Name="cbEnableTag" IsChecked="{Binding Settings.EnableTag}" VerticalAlignment="Center">
-                                <Label Content="{DynamicResource LOCCheckDlcAddTagDescription}" />
-                            </CheckBox>
+                        <StackPanel Grid.Row="2">
+                            <Grid>
+                                <CheckBox Name="cbEnableTag" IsChecked="{Binding Settings.EnableTag}" VerticalAlignment="Center">
+                                    <Label Content="{DynamicResource LOCCheckDlcAddTagDescription}" />
+                                </CheckBox>
 
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Content="{DynamicResource LOCAddTitle}" Margin="0,0,10,0" VerticalAlignment="Center" Click="ButtonAddTag_Click" />
-                                <Button Content="{DynamicResource LOCRemoveTitle}" VerticalAlignment="Bottom" Click="ButtonRemoveTag_Click" Margin="0,0,0,1" />
-                            </StackPanel>
-                        </Grid>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Content="{DynamicResource LOCAddTitle}" Margin="0,0,10,0" Click="ButtonAddTag_Click" IsEnabled="{Binding ElementName=cbEnableTag, Path=IsChecked}" />
+                                    <Button Content="{DynamicResource LOCRemoveTitle}" Click="ButtonRemoveTag_Click" Margin="0,0,0,1" />
+                                </StackPanel>
+                            </Grid>
+
+                            <CheckBox IsChecked="{Binding Settings.EnableTagAllDlc}" Margin="50,10,0,0"
+                                      IsEnabled="{Binding ElementName=cbEnableTag, Path=IsChecked}">
+                                <Label Content="{DynamicResource LOCCheckDlcAddTagAllDlc}" />
+                            </CheckBox>
+                        </StackPanel>
 
                         <Grid Grid.Row="4">
                             <Grid.ColumnDefinitions>

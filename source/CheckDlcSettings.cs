@@ -14,6 +14,8 @@ namespace CheckDlc
     public class CheckDlcSettings : PluginSettings
     {
         #region Settings variables
+        public bool EnableTagAllDlc { get; set; } = true;
+
         public bool PriceNotification { get; set; } = false;
 
         public StoreCurrency GogCurrency { get; set; } = new StoreCurrency { country = "US", currency = "USD", symbol = "$" };
