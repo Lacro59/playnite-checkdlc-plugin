@@ -69,7 +69,7 @@ namespace CheckDlc.Models
 
                     _ = double.TryParse(temp, out dPrice);
                 }
-                
+
                 return dPrice;
             }
         }
@@ -95,7 +95,7 @@ namespace CheckDlc.Models
         }
 
         [DontSerialize]
-        public bool IsFree => Price.IsNullOrEmpty() ? false : PriceNumeric == 0;
+        public bool IsFree => !Price.IsNullOrEmpty() && PriceNumeric == 0;
 
         [DontSerialize]
         public bool IsDiscount => !Price.IsEqual(PriceBase);

@@ -274,5 +274,27 @@ namespace CheckDlc.Services
                 game.OnPropertyChanged();
             });
         }
+
+
+
+        internal override string GetCsvData()
+        {
+            string csvData = string.Empty;
+            Database.Items?.ForEach(x =>
+            {
+                // Header
+                if (csvData.IsNullOrEmpty())
+                {
+                    csvData = "\"Game name\";\"Platform\";\"Dlc name\";\"Price\";\"Is owned\";\"Is hidden\";\"Dlc link\";";
+                }
+
+                x.Value.Items.ForEach(y =>
+                {
+                    csvData += Environment.NewLine;
+                    csvData += $"\"{x.Value.Name}\";\"{x.Value.Source?.Name ?? "Playnite"}\";\"{y.Name}\";\"{y.Price}\";\"{(y.IsOwned ? "X" : string.Empty)}\";\"{(y.IsHidden ? "X" : string.Empty)}\";\"{y.Link}\";";
+                });
+            });
+            return csvData;
+        }
     }
 }

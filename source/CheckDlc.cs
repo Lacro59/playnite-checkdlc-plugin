@@ -329,6 +329,17 @@ namespace CheckDlc
             });
 
 
+            mainMenuItems.Add(new MainMenuItem
+            {
+                MenuSection = MenuInExtensions + ResourceProvider.GetString("LOCCheckDlc"),
+                Description = ResourceProvider.GetString("LOCCommonExtractToCsv"),
+                Action = (mainMenuItem) =>
+                {
+                    string path = API.Instance.Dialogs.SelectFolder();
+                    PluginDatabase.ExtractToCsv(path);
+                }
+            });
+
             // Delete database
             mainMenuItems.Add(new MainMenuItem
             {
