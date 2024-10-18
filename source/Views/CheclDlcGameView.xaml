@@ -99,11 +99,11 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="10" />
-                            <RowDefinition Height="150" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
-                        <Image Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="Fill" 
-                                RenderOptions.BitmapScalingMode="Linear"
+                        <Image Grid.Row="2" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="Fill" 
+                                RenderOptions.BitmapScalingMode="Linear" VerticalAlignment="Top"
                                 Height="120" Width="250" IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" />
                         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Name, FallbackValue='Game name'}"
                                VerticalAlignment="Center" FontSize="20" FontWeight="Bold">
@@ -197,27 +197,35 @@
                             </Button>
                         </StackPanel>
 
-                        <ScrollViewer Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            <ScrollViewer.Style>
-                                <Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource {x:Type ScrollViewer}}">
-                                    <Setter Property="IsEnabled" Value="True" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsHidden}" Value="True">
-                                            <Setter Property="IsEnabled" Value="False" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsOwned}" Value="True">
-                                            <Setter Property="IsEnabled" Value="False" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
+                        <Expander VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="2" Header="{DynamicResource LOCGameDescriptionTitle}">
+                            <Expander.Style>
+                                <Style TargetType="{x:Type Expander}" BasedOn="{StaticResource {x:Type Expander}}">
+                                    <Setter Property="Background" Value="Transparent" />
                                 </Style>
-                            </ScrollViewer.Style>
+                            </Expander.Style>
+                            
+                            <ScrollViewer Height="350" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ScrollViewer.Style>
+                                    <Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource {x:Type ScrollViewer}}">
+                                        <Setter Property="IsEnabled" Value="True" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsHidden}" Value="True">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsOwned}" Value="True">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ScrollViewer.Style>
 
-                            <controls:HtmlTextView HtmlText="{Binding Description, FallbackValue='Description HTML'}" Width="620" HorizontalAlignment="left"
+                                <controls:HtmlTextView HtmlText="{Binding Description, FallbackValue='Description HTML'}" Width="620" HorizontalAlignment="left"
                                                    HtmlFontFamily="{DynamicResource FontFamily}"
                                                    HtmlForeground="{DynamicResource TextColor}"
                                                    LinkForeground="{DynamicResource GlyphColor}"
                                                    HtmlFontSize="{DynamicResource FontSize}" />
-                        </ScrollViewer>
+                            </ScrollViewer>
+                        </Expander>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
