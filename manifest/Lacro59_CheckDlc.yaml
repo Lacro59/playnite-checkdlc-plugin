@@ -96,3 +96,14 @@ Packages:
       - 'Added: New elements for custom theme (see wiki)'
       - 'Updated: UI'
       - 'Fixed: Issue with authentification'
+  - Version: 1.2
+    RequiredApiVersion: 6.11.0
+    ReleaseDate: 2024-10-19
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v1.2/playnite-checkdlc-plugin_1_2.pext
+    Changelog:
+      - 'Updated: Localizations'
+      - 'Added: Allow certain DLC to be manually flagged as owned'
+      - 'Added: Option to add tag when all dlc'
+      - 'Added: Ability to extract all owned DLC to a list/excel document for easy arching'
+      - 'Updated: UI'
+      - 'Fixed: Owned DLC Detection and Incorrect Links in CheckDLC Plugin'
