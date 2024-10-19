@@ -11,8 +11,14 @@
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">隐藏已拥</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">Hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">价格降低</sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsNotOwned">Is not owned</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">价格变动通知</sys:String>
 
@@ -23,6 +29,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">为具有 DLC 的游戏添加标签</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Add tag to games with all DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">当所选游戏的价格变动时显示通知</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定义 GOG 货</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">定义 GOG 货</sys:String>
@@ -31,6 +38,8 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">显示所有 DLC 列</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">只显示已拥有的 DLC 列</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">只显示未拥有的 DLC 列</sys:String>
+
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually onwed</sys:String>
 
     <!-- Notifications -->
 
