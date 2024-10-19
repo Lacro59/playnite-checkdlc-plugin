@@ -11,8 +11,14 @@
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">إخفاء الممل</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">Hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">السعر أقل </sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsNotOwned">Is not owned</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">إشعار تغيير السعر</sys:String>
 
@@ -23,6 +29,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">إضافة علامة إلى الألعاب ذات DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Add tag to games with all DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">إظهار إشعار عندما يتغير سعر الألعاب المحد</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">تحديد عملة GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">تحديد عملة تطبيق EA</sys:String>
@@ -31,6 +38,8 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">عرض قائمة مع جميع DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">عرض القائمة مع DLC المملوك فقط</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">عرض القائمة مع DLC غير المملوك فقط</sys:String>
+
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually onwed</sys:String>
 
     <!-- Notifications -->
 

@@ -11,8 +11,14 @@
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Meglévők elrejtése</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">Hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Alacsonyabb ár</sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsNotOwned">Is not owned</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Értesítés az árváltozásról</sys:String>
 
@@ -23,6 +29,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Cimke hozzáadása a DLC-vel rendelkező játékokhoz</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Add tag to games with all DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Értesítés megjelenítése, ha a kiválasztott játékok ára megváltozik</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">GOG pénznem meghatározása</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
@@ -31,6 +38,8 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Összes DLC-t tartalmazó lista megjelenítése</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Meglévő DLC-ket tartalmazó lista megjelenítése</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Hiányzó DLC-ket tartalmazó lista megjelenítése</sys:String>
+
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually onwed</sys:String>
 
     <!-- Notifications -->
 

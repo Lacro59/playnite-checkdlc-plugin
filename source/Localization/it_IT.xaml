@@ -11,8 +11,14 @@
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHideOwned">Nascondi &quot;Posseduto&quot;</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">Hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Prezzo inferiore</sys:String>
+    
+    <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsNotOwned">Is not owned</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Notifica variazione di prezzo</sys:String>
 
@@ -23,6 +29,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Aggiungi tag a giochi con DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Add tag to games with all DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Mostra una notifica quando il prezzo cambia per i giochi selezionati</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definisci la valuta GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Definisci la valuta dell'app EA</sys:String>
@@ -31,6 +38,8 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Visualizza l'elenco con tutti i DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Visualizza l'elenco con solo i DLC posseduti</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Visualizza l'elenco con solo i DLC non posseduti</sys:String>
+
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually onwed</sys:String>
 
     <!-- Notifications -->
 
