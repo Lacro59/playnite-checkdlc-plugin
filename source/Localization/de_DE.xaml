@@ -14,7 +14,7 @@
     <sys:String x:Key="LOCCheckDlcHidden">Ausgeblendet</sys:String>
     <sys:String x:Key="LOCCheckDlcHiddenOwned">Ausgeblendet (gekauft)</sys:String>
     <sys:String x:Key="LOCCheckDlcOnlyFree">Ausgeblendet (frei)</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Versteckte anzeigen</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Niedrigerer Preis</sys:String>
     
     <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
