@@ -7,6 +7,7 @@
              xmlns:CheckDlc="clr-namespace:CheckDlc"
              xmlns:Steam="clr-namespace:CommonPluginsControls.Stores.Steam"
              xmlns:Epic="clr-namespace:CommonPluginsControls.Stores.Epic"
+             xmlns:Gog="clr-namespace:CommonPluginsControls.Stores.Gog"
              xmlns:commonpluginsshared="clr-namespace:CommonPluginsShared.Converters" 
              xmlns:converters="clr-namespace:CommonPlayniteShared.Converters" 
              xmlns:controls="clr-namespace:CommonPluginsControls.Controls"
@@ -252,14 +253,15 @@
             <TabItem Header="{DynamicResource LOCLibraries}">
                 <StackPanel Margin="10">
 
-                    <Steam:PanelView x:Name="SteamPanel"
-                                     UseApi="{Binding DataContext.Settings.SteamApiSettings.UseApi, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
-                                     UseAuth="{Binding DataContext.Settings.SteamApiSettings.UseAuth, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                                     ForceAuth="True" />
+                    <Steam:PanelView x:Name="SteamPanel" Margin="0,0,0,10" ForceAuth="True"
+                                     UseApi="{Binding DataContext.Settings.SteamStoreSettings.UseApi, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
+                                     UseAuth="{Binding DataContext.Settings.SteamStoreSettings.UseAuth, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
 
-                    <Epic:PanelView x:Name="EpicPanel" 
-                                    ForceAuth="True"
-                                    UseAuth="{Binding DataContext.Settings.EpicSettings.UseAuth, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
+                    <Epic:PanelView x:Name="EpicPanel" Margin="0,0,0,10" ForceAuth="True"
+                                    UseAuth="{Binding DataContext.Settings.EpicStoreSettings.UseAuth, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
+
+                    <Gog:PanelView x:Name="GogPanel" ForceAuth="True"
+                                   UseAuth="{Binding DataContext.Settings.GogStoreSettings.UseAuth, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
                 </StackPanel>
             </TabItem>
         </TabControl>

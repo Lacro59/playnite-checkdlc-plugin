@@ -35,6 +35,9 @@
       <HintPath>packages\AngleSharp.0.9.9\lib\net45\AngleSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="FuzzySharp, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\FuzzySharp.2.0.2\lib\net461\FuzzySharp.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlRenderer, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Resources\PlayniteResources\HtmlRenderer.dll</HintPath>
@@ -108,6 +111,10 @@
       <DependentUpon>PanelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\Epic\PanelViewModel.cs" />
+    <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\Gog\PanelView.xaml.cs">
+      <DependentUpon>PanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\Gog\PanelViewModel.cs" />
     <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\Steam\PanelView.xaml.cs">
       <DependentUpon>PanelView.xaml</DependentUpon>
     </Compile>
@@ -341,6 +348,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="playnite-plugincommon\CommonPluginsControls\Stores\Epic\PanelView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="playnite-plugincommon\CommonPluginsControls\Stores\Gog\PanelView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

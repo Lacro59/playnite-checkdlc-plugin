@@ -277,7 +277,7 @@ namespace CheckDlc.Services
 
 
 
-        internal override string GetCsvData()
+        internal override string GetCsvData(GlobalProgressActionArgs a, bool minimum)
         {
             string csvData = string.Empty;
             Database.Items?.ForEach(x =>
@@ -290,8 +290,17 @@ namespace CheckDlc.Services
 
                 x.Value.Items.ForEach(y =>
                 {
+                    if (a.CancelToken.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
+                    a.Text = $"{PluginName} - {ResourceProvider.GetString("LOCCommonExtracting")}"
+                        + "\n\n" + $"{a.CurrentProgressValue}/{a.ProgressMaxValue}"
+                        + "\n" + x.Value.Game?.Name + (x.Value.Game?.Source == null ? string.Empty : $" ({x.Value.Game?.Source.Name})");
+
                     csvData += Environment.NewLine;
-                    csvData += $"\"{x.Value.Name}\";\"{x.Value.Source?.Name ?? "Playnite"}\";\"{y.Name}\";\"{y.Price}\";\"{(y.IsOwned ? "X" : string.Empty)}\";\"{(y.IsHidden ? "X" : string.Empty)}\";\"{y.Link}\";";
+                    csvData += $"\"{x.Value.Name}\";\"{x.Value.Source?.Name ?? x.Value.Platforms?.First()?.Name ?? "Playnite"}\";\"{y.Name}\";\"{y.Price}\";\"{(y.IsOwned ? "X" : string.Empty)}\";\"{(y.IsHidden ? "X" : string.Empty)}\";\"{y.Link}\";";
                 });
             });
             return csvData;

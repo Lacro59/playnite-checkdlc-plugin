@@ -8,6 +8,7 @@ using CommonPluginsShared;
 using CommonPluginsShared.Extensions;
 using CommonPluginsShared.PlayniteExtended;
 using CommonPluginsStores.Epic;
+using CommonPluginsStores.Gog;
 using CommonPluginsStores.Steam;
 using Playnite.SDK;
 using Playnite.SDK.Events;
@@ -33,6 +34,7 @@ namespace CheckDlc
 
         public static SteamApi SteamApi { get; set; }
         public static EpicApi EpicApi { get; set; }
+        public static GogApi GogApi { get; set; }
 
         public static List<Guid> SupportedLibrary => new List<Guid>
         {
@@ -336,7 +338,7 @@ namespace CheckDlc
                 Action = (mainMenuItem) =>
                 {
                     string path = API.Instance.Dialogs.SelectFolder();
-                    PluginDatabase.ExtractToCsv(path);
+                    PluginDatabase.ExtractToCsv(path, false);
                 }
             });
 
@@ -444,32 +446,28 @@ namespace CheckDlc
             // StoreAPI intialization
             if (PluginDatabase.PluginSettings.Settings.PluginState.SteamIsEnabled)
             {
-                SteamApi = new SteamApi(PluginDatabase.PluginName);
+                SteamApi = new SteamApi(PluginDatabase.PluginName, PlayniteTools.ExternalPlugin.CheckDlc);
                 SteamApi.SetLanguage(API.Instance.ApplicationSettings.Language);
-                SteamApi.SetForceAuth(true);
+                SteamApi.StoreSettings = PluginDatabase.PluginSettings.Settings.SteamStoreSettings;
                 _ = SteamApi.CurrentAccountInfos;
-
-                // TODO TEMP
-                PluginDatabase.PluginSettings.Settings.SteamApiSettings.UseAuth = true;
-                PluginDatabase.PluginSettings.Settings.SteamApiSettings.UseApi = false;
-
-                if (PluginDatabase.PluginSettings.Settings.SteamApiSettings.UseAuth)
-                {
-                    SteamApi.CurrentAccountInfos.IsPrivate = true;
-                }
             }
 
             if (PluginDatabase.PluginSettings.Settings.PluginState.EpicIsEnabled)
             {
-                EpicApi = new EpicApi(PluginDatabase.PluginName);
+                EpicApi = new EpicApi(PluginDatabase.PluginName, PlayniteTools.ExternalPlugin.CheckDlc);
                 EpicApi.SetLanguage(API.Instance.ApplicationSettings.Language);
                 EpicApi.SetForceAuth(true);
+                EpicApi.StoreSettings = PluginDatabase.PluginSettings.Settings.EpicStoreSettings;
                 _ = EpicApi.CurrentAccountInfos;
+            }
 
-                if (PluginDatabase.PluginSettings.Settings.EpicSettings.UseAuth)
-                {
-                    EpicApi.CurrentAccountInfos.IsPrivate = true;
-                }
+            if (PluginDatabase.PluginSettings.Settings.PluginState.GogIsEnabled)
+            {
+                GogApi = new GogApi(PluginDatabase.PluginName, PlayniteTools.ExternalPlugin.CheckDlc);
+                GogApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+                GogApi.SetForceAuth(true);
+                GogApi.StoreSettings = PluginDatabase.PluginSettings.Settings.GogStoreSettings;
+                _ = GogApi.CurrentAccountInfos;
             }
 
             _ = Task.Run(() =>

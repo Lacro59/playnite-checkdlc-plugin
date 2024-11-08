@@ -29,13 +29,13 @@ namespace CheckDlc.Views
 
             SteamPanel.StoreApi = CheckDlc.SteamApi;
             EpicPanel.StoreApi = CheckDlc.EpicApi;
+            GogPanel.StoreApi = CheckDlc.GogApi;
 
             // List features
             PART_FeatureDlc.ItemsSource = API.Instance.Database.Features.OrderBy(x => x.Name);
 
             // List GOG currencies
-            GogApi gogApi = new GogApi(PluginDatabase.PluginName);
-            List<StoreCurrency> dataGog = gogApi.GetCurrencies();   
+            List<StoreCurrency> dataGog = CheckDlc.GogApi.GetCurrencies();
             PART_GogCurrency.ItemsSource = dataGog.OrderBy(x => x.currency).ToList();
 
             try
@@ -47,7 +47,7 @@ namespace CheckDlc.Views
 
             // List Origin currencies
             OriginApi originApi = new OriginApi(PluginDatabase.PluginName);
-            List<StoreCurrency> dataOrigin = originApi.GetCurrencies();            
+            List<StoreCurrency> dataOrigin = originApi.GetCurrencies();
             PART_OriginCurrency.ItemsSource = dataOrigin.OrderBy(x => x.currency).ToList();
 
             try

@@ -15,10 +15,6 @@ namespace CheckDlc.Clients
 {
     public class GogDlc : GenericDlc
     {
-
-        private static readonly Lazy<GogApi> gogApi = new Lazy<GogApi>(() => new GogApi(PluginDatabase.PluginName));
-        private static GogApi GogApi => gogApi.Value;
-
         private static bool settingsOpen = false;
         public static bool SettingsOpen
         {
@@ -33,6 +29,8 @@ namespace CheckDlc.Clients
                 }
             }
         }
+
+        private static GogApi GogApi => CheckDlc.GogApi;
 
 
         public GogDlc() : base("GOG", CodeLang.GetGogLang(API.Instance.ApplicationSettings.Language))
@@ -53,7 +51,7 @@ namespace CheckDlc.Clients
                     GogApi.SetCurrency(PluginDatabase.PluginSettings.Settings.GogCurrency);
 
                     ObservableCollection<DlcInfos> dlcs = GogApi.GetDlcInfos(game.GameId, GogApi.CurrentAccountInfos);
-                    dlcs?.ForEach(x => 
+                    dlcs?.ForEach(x =>
                     {
                         Dlc dlc = new Dlc
                         {
@@ -66,7 +64,7 @@ namespace CheckDlc.Clients
                             Price = x.Price,
                             PriceBase = x.PriceBase
                         };
-         
+
                         GameDlc.Add(dlc);
                     });
 

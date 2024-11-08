@@ -1,6 +1,7 @@
 ﻿using CheckDlc.Models;
 using CommonPluginsShared;
 using CommonPluginsShared.Plugins;
+using CommonPluginsStores;
 using CommonPluginsStores.Models;
 using Playnite.SDK;
 using Playnite.SDK.Data;
@@ -41,9 +42,14 @@ namespace CheckDlc
         private bool enableIntegrationButtonDetails = false;
         public bool EnableIntegrationButtonDetails { get => enableIntegrationButtonDetails; set => SetValue(ref enableIntegrationButtonDetails, value); }
 
+        // TODO TEMP
         public SteamSettings SteamApiSettings { get; set; } = new SteamSettings();
         [DontSerialize]
         public EpicSettings EpicSettings { get; set; } = new EpicSettings();
+
+        public StoreSettings SteamStoreSettings { get; set; } = new StoreSettings { ForceAuth = true, UseAuth = true, UseApi = false };
+        public StoreSettings EpicStoreSettings { get; set; } = new StoreSettings { ForceAuth = true, UseAuth = true };
+        public StoreSettings GogStoreSettings { get; set; } = new StoreSettings { ForceAuth = true, UseAuth = true };
 
 
         // TODO TEMP
@@ -61,11 +67,11 @@ namespace CheckDlc
 
     public class CheckDlcSettingsViewModel : ObservableObject, ISettings
     {
-        private readonly CheckDlc Plugin;
+        private CheckDlc Plugin { get; }
         private CheckDlcSettings EditingClone { get; set; }
 
-        private CheckDlcSettings settings;
-        public CheckDlcSettings Settings { get => settings; set => SetValue(ref settings, value); }
+        private CheckDlcSettings _settings;
+        public CheckDlcSettings Settings { get => _settings; set => SetValue(ref _settings, value); }
 
         public CheckDlcSettingsViewModel(CheckDlc plugin)
         {
@@ -77,6 +83,23 @@ namespace CheckDlc
 
             // LoadPluginSettings returns null if not saved data is available.
             Settings = savedSettings ?? new CheckDlcSettings();
+
+            // TODO temp
+            if (Settings.SteamStoreSettings == null)
+            {
+                Settings.SteamStoreSettings = new StoreSettings
+                {
+                    UseApi = Settings.SteamApiSettings.UseApi,
+                    UseAuth = Settings.SteamApiSettings.UseAuth
+                };
+            }
+            if (Settings.EpicStoreSettings == null)
+            {
+                Settings.EpicStoreSettings = new StoreSettings
+                {
+                    UseAuth = Settings.EpicSettings.UseAuth
+                };
+            }
         }
 
         // Code executed when settings view is opened and user starts editing values.
@@ -97,26 +120,28 @@ namespace CheckDlc
         public void EndEdit()
         {
             // StoreAPI intialization
-            if (settings.PluginState.SteamIsEnabled)
+            CheckDlc.SteamApi.StoreSettings = Settings.SteamStoreSettings;
+            if (Settings.PluginState.SteamIsEnabled)
             {
                 CheckDlc.SteamApi.SaveCurrentUser();
                 CheckDlc.SteamApi.CurrentAccountInfos = null;
                 _ = CheckDlc.SteamApi.CurrentAccountInfos;
-                if (Settings.SteamApiSettings.UseAuth)
-                {
-                    CheckDlc.SteamApi.CurrentAccountInfos.IsPrivate = true;
-                }
             }
 
-            if (settings.PluginState.EpicIsEnabled)
+            CheckDlc.EpicApi.StoreSettings = Settings.SteamStoreSettings;
+            if (Settings.PluginState.EpicIsEnabled)
             {
                 CheckDlc.EpicApi.SaveCurrentUser();
                 CheckDlc.EpicApi.CurrentAccountInfos = null;
                 _ = CheckDlc.EpicApi.CurrentAccountInfos;
-                if (Settings.EpicSettings.UseAuth)
-                {
-                    CheckDlc.EpicApi.CurrentAccountInfos.IsPrivate = true;
-                }
+            }
+
+            CheckDlc.GogApi.StoreSettings = Settings.GogStoreSettings;
+            if (Settings.PluginState.GogIsEnabled)
+            {
+                CheckDlc.GogApi.SaveCurrentUser();
+                CheckDlc.GogApi.CurrentAccountInfos = null;
+                _ = CheckDlc.GogApi.CurrentAccountInfos;
             }
 
             Plugin.SavePluginSettings(Settings);
@@ -134,6 +159,7 @@ namespace CheckDlc
         }
     }
 
+    // TODO TEMP
     public class SteamSettings
     {
         public bool UseApi { get; set; } = false;
