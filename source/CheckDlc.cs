@@ -41,6 +41,7 @@ namespace CheckDlc
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.EpicLibrary),
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.LegendaryLibrary),
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.GogLibrary),
+            PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.GogOssLibrary),
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.OriginLibrary),
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.SteamLibrary)
         };

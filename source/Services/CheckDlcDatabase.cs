@@ -91,6 +91,7 @@ namespace CheckDlc.Services
                         break;
 
                     case ExternalPlugin.GogLibrary:
+                    case ExternalPlugin.GogOssLibrary:
                         if (PluginSettings.Settings.PluginState.GogIsEnabled)
                         {
                             GogDlc gogDlc = new GogDlc();
@@ -98,8 +99,8 @@ namespace CheckDlc.Services
                         }
                         break;
 
-                    case ExternalPlugin.LegendaryLibrary:
                     case ExternalPlugin.EpicLibrary:
+                    case ExternalPlugin.LegendaryLibrary:
                         if (PluginSettings.Settings.PluginState.EpicIsEnabled)
                         {
                             EpicDlc epicDlc = new EpicDlc();
