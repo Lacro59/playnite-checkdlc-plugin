@@ -6,16 +6,19 @@
              xmlns:local="clr-namespace:CheckDlc.Views"
              xmlns:controls="clr-namespace:DescriptionEditor.PlayniteResources.Controls"
              xmlns:converters="clr-namespace:CommonPlayniteShared.Converters"
-             xmlns:playnitecontrols="clr-namespace:CommonPluginsControls.PlayniteControls"
+             xmlns:playnitecontrols="clr-namespace:CommonPluginsControls.PlayniteControls" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+             xmlns:converters1="clr-namespace:CommonPluginsShared.Converters"
              mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1000">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:InvertedBoolenConverter x:Key="InvertedBoolenConverter" />
         <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
+        <converters1:ValueOperationConverter x:Key="ValueOperationConverter" />
     </UserControl.Resources>
 
-    <DockPanel Margin="10" LastChildFill="True">
+    <DockPanel Margin="10" LastChildFill="True" Name="PART">
         <!-- Filter options -->
         <Border DockPanel.Dock="Top" BorderThickness="{DynamicResource PopupBorderThickness}" BorderBrush="{DynamicResource NormalBorderBrush}">
             <Grid Margin="10">
@@ -86,7 +89,7 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="10" Width="900">
+                    <Grid Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="10" />
@@ -132,7 +135,7 @@
                             <Label Content="{DynamicResource LOCCheckDlcHidden}" VerticalAlignment="Center" Visibility="{Binding IsHidden, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=false}" />
                         </StackPanel>
 
-                        <StackPanel Grid.Column="4" Grid.Row="0"  Orientation="Horizontal"
+                        <StackPanel Grid.Column="4" Grid.Row="0" Orientation="Horizontal"
                                     IsEnabled="{Binding IsHidden, Converter={StaticResource InvertedBoolenConverter}}"
                                     Visibility="{Binding IsOwned, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}">
                             <Label Content="{DynamicResource LOCCheckDlcFree}" VerticalAlignment="Center" HorizontalAlignment="Right"
@@ -197,14 +200,14 @@
                             </Button>
                         </StackPanel>
 
-                        <Expander VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="2" Header="{DynamicResource LOCGameDescriptionTitle}">
+                        <Expander VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="10" Grid.Row="2" Margin="10,0,0,0" Header="{DynamicResource LOCGameDescriptionTitle}">
                             <Expander.Style>
                                 <Style TargetType="{x:Type Expander}" BasedOn="{StaticResource {x:Type Expander}}">
                                     <Setter Property="Background" Value="Transparent" />
                                 </Style>
                             </Expander.Style>
-                            
-                            <ScrollViewer Height="350" ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+                            <ScrollViewer MaxHeight="350" ScrollViewer.VerticalScrollBarVisibility="Auto">
                                 <ScrollViewer.Style>
                                     <Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource {x:Type ScrollViewer}}">
                                         <Setter Property="IsEnabled" Value="True" />
@@ -219,11 +222,24 @@
                                     </Style>
                                 </ScrollViewer.Style>
 
-                                <controls:HtmlTextView HtmlText="{Binding Description, FallbackValue='Description HTML'}" Width="620" HorizontalAlignment="left"
+                                <controls:HtmlTextView HtmlText="{Binding Description, FallbackValue='Description HTML'}" 
+                                                   HorizontalAlignment="Center"
                                                    HtmlFontFamily="{DynamicResource FontFamily}"
                                                    HtmlForeground="{DynamicResource TextColor}"
                                                    LinkForeground="{DynamicResource GlyphColor}"
-                                                   HtmlFontSize="{DynamicResource FontSize}" />
+                                                   HtmlFontSize="{DynamicResource FontSize}">
+
+                                    <controls:HtmlTextView.Width>
+                                        <MultiBinding Converter="{StaticResource ValueOperationConverter}" ConverterParameter="-">
+                                            <Binding ElementName="PART" Path="ActualWidth" />
+                                            <Binding>
+                                                <Binding.Source>
+                                                    <sys:Double>400</sys:Double>
+                                                </Binding.Source>
+                                            </Binding>
+                                        </MultiBinding>
+                                    </controls:HtmlTextView.Width>
+                                </controls:HtmlTextView>
                             </ScrollViewer>
                         </Expander>
                     </Grid>
