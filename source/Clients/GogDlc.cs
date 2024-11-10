@@ -15,15 +15,15 @@ namespace CheckDlc.Clients
 {
     public class GogDlc : GenericDlc
     {
-        private static bool settingsOpen = false;
+        private static bool _settingsOpen = false;
         public static bool SettingsOpen
         {
-            get => settingsOpen;
+            get => _settingsOpen;
 
             set
             {
-                settingsOpen = value;
-                if (settingsOpen)
+                _settingsOpen = value;
+                if (_settingsOpen)
                 {
                     GogApi.ResetIsUserLoggedIn();
                 }
@@ -42,7 +42,7 @@ namespace CheckDlc.Clients
         public override List<Dlc> GetGameDlc(Game game)
         {
             Logger.Info($"Get dlc for {game.Name} with {ClientName}");
-            List<Dlc> GameDlc = new List<Dlc>();
+            List<Dlc> GameDlc = PluginDatabase.Get(game)?.Items ?? new List<Dlc>();
 
             try
             {
