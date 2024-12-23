@@ -7,7 +7,7 @@
     <sys:String x:Key="LOCCheckDlcViewDlc">Wyświetl DLC dla gry</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">Posiadane</sys:String>
-    <sys:String x:Key="LOCCheckDlcFree">Za darmo</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Darmowe</sys:String>
 
     <!-- DlcView -->
 
@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Wyświetl listę z tylko posiadanymi DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Wyświetl listę tylko z nieposiadanymi DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manualnie dodane</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Ręcznie dodane</sys:String>
 
     <!-- Notifications -->
 
