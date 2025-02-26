@@ -25,7 +25,7 @@ namespace CheckDlc.Clients
                 _settingsOpen = value;
                 if (_settingsOpen)
                 {
-                    GogApi.ResetIsUserLoggedIn();
+                    GogApi?.ResetIsUserLoggedIn();
                 }
             }
         }

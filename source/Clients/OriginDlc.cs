@@ -29,7 +29,7 @@ namespace CheckDlc.Clients
                 _settingsOpen = value;
                 if (_settingsOpen)
                 {
-                    OriginApi.ResetIsUserLoggedIn();
+                    OriginApi?.ResetIsUserLoggedIn();
                 }
             }
         }
