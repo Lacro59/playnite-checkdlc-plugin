@@ -193,7 +193,7 @@ namespace CheckDlc
             gameMenuItems.Add(new GameMenuItem
             {
                 MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
-                Description = ResourceProvider.GetString("LOCAddTitle"),
+                Description = ResourceProvider.GetString("LOCCommonAddManually"),
                 Action = (gameMenuItem) =>
                 {
                     GenericItemOption selectedGame = API.Instance.Dialogs.ChooseItemWithSearch(
