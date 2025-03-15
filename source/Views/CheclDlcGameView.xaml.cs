@@ -19,19 +19,19 @@ namespace CheckDlc.Views
     /// </summary>
     public partial class CheclDlcGameView : UserControl
     {
-        private readonly CheckDlc Plugin;
+        private CheckDlc Plugin { get; }
         private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
 
         private Game GameContext { get; set; }
 
 
-        public CheclDlcGameView(CheckDlc plugin, Game GameContext)
+        public CheclDlcGameView(CheckDlc plugin, Game gameContext)
         {
             Plugin = plugin;
 
             InitializeComponent();
-   
-            this.GameContext = GameContext;
+
+            GameContext = gameContext;
             Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
         }
 

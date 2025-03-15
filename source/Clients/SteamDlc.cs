@@ -79,5 +79,42 @@ namespace CheckDlc.Clients
 
             return GameDlc;
         }
+
+
+        public List<Dlc> GetGameDlc(uint appId)
+        {
+            Logger.Info($"Get dlc for {appId} with {ClientName}");
+            List<Dlc> GameDlc = new List<Dlc>();
+
+            try
+            {
+                ObservableCollection<DlcInfos> dlcs = SteamApi.GetDlcInfos(appId.ToString(), SteamApi.CurrentAccountInfos);
+                dlcs?.ForEach(x =>
+                {
+                    Dlc dlc = new Dlc
+                    {
+                        DlcId = x.Id,
+                        Name = x.Name,
+                        Description = x.Description,
+                        Image = x.Image,
+                        Link = x.Link,
+                        IsOwned = x.IsOwned,
+                        Price = x.Price,
+                        PriceBase = x.PriceBase
+                    };
+
+                    GameDlc.Add(dlc);
+                });
+
+                Logger.Info($"Find {GameDlc?.Count} dlc");
+                return GameDlc;
+            }
+            catch(Exception ex)
+            {
+                ShowNotificationPluginError(ex);
+            }
+
+            return GameDlc;
+        }
     }
 }

@@ -4,6 +4,7 @@ using CheckDlc.Models;
 using CheckDlc.Services;
 using CheckDlc.Views;
 using CommonPlayniteShared.Common;
+using CommonPlayniteShared.PluginLibrary.SteamLibrary.SteamShared;
 using CommonPluginsShared;
 using CommonPluginsShared.Extensions;
 using CommonPluginsShared.PlayniteExtended;
@@ -188,6 +189,30 @@ namespace CheckDlc
                     Description = "-"
                 });
             }
+
+            gameMenuItems.Add(new GameMenuItem
+            {
+                MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
+                Description = ResourceProvider.GetString("LOCAddTitle"),
+                Action = (gameMenuItem) =>
+                {
+                    GenericItemOption selectedGame = API.Instance.Dialogs.ChooseItemWithSearch(
+                        new List<GenericItemOption>(),
+                        (x) => SteamApi.GetSearchGame(x),
+                        gameMenu.Name.NormalizeGameName(),
+                        ResourceProvider.GetString("LOCCommonSelectGames")
+                    );
+
+                    if (selectedGame != null)
+                    {
+                        uint appId = uint.Parse(selectedGame.Description.Split('-')[0].Trim());
+                        gameDlc.IsManual = true;
+                        gameDlc.AppId = appId;
+                        PluginDatabase.AddOrUpdate(gameDlc);
+                        PluginDatabase.Refresh(gameMenu.Id);
+                    }
+                }
+            });
 
             if ((SupportedLibrary.Contains(gameMenu.PluginId) && PlayniteTools.IsEnabledPlaynitePlugin(gameMenu.PluginId)) || ids.Count > 1)
             {
@@ -481,7 +506,7 @@ namespace CheckDlc
             {
                 _ = Task.Run(() =>
                 {
-                    PluginDatabase.Database.Where(x => x.PriceNotification).ForEach(x =>
+                    PluginDatabase.Database.Where(x => x.PriceNotification && !x.IsManual).ForEach(x =>
                     {
                         PluginDatabase.RefreshNoLoader(x.Id);
                         List<Dlc> newItems = PluginDatabase.GetOnlyCache(x.Id).Items;

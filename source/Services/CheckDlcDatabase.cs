@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using static CommonPluginsShared.PlayniteTools;
+using System.Threading;
 
 namespace CheckDlc.Services
 {
@@ -47,20 +48,20 @@ namespace CheckDlc.Services
         }
 
 
-        public override GameDlc Get(Guid Id, bool OnlyCache = false, bool Force = false)
+        public override GameDlc Get(Guid id, bool onlyCache = false, bool force = false)
         {
-            GameDlc gameDlc = base.GetOnlyCache(Id);
+            GameDlc gameDlc = base.GetOnlyCache(id);
 
             // Get from web
-            if ((gameDlc == null && !OnlyCache) || Force)
+            if ((gameDlc == null && !onlyCache) || force)
             {
-                gameDlc = GetWeb(Id);
+                gameDlc = GetWeb(id);
                 AddOrUpdate(gameDlc);
             }
 
             if (gameDlc == null)
             {
-                Game game = API.Instance.Database.Games.Get(Id);
+                Game game = API.Instance.Database.Games.Get(id);
                 if (game != null)
                 {
                     gameDlc = GetDefault(game);
@@ -71,9 +72,9 @@ namespace CheckDlc.Services
             return gameDlc;
         }
 
-        public override GameDlc GetWeb(Guid Id)
+        public override GameDlc GetWeb(Guid id)
         {
-            Game game = API.Instance.Database.Games.Get(Id);
+            Game game = API.Instance.Database.Games.Get(id);
             GameDlc gameDlc = GetDefault(game);
             try
             {
@@ -150,6 +151,26 @@ namespace CheckDlc.Services
             return gameDlc;
         }
 
+        private GameDlc GetManual(Guid id, uint appId)
+        {
+            Game game = API.Instance.Database.Games.Get(id);
+            GameDlc gameDlc = GetDefault(game);
+
+            try
+            {
+                SteamDlc steamDlc = new SteamDlc();
+                gameDlc.IsManual = true;
+                gameDlc.AppId = appId;
+                gameDlc.Items = steamDlc.GetGameDlc(appId);
+            }
+            catch (Exception ex)
+            {
+                Common.LogError(ex, false, false, PluginName);
+            }
+
+            return gameDlc;
+        }
+
 
         public override void SetThemesResources(Game game)
         {
@@ -163,21 +184,36 @@ namespace CheckDlc.Services
             }
         }
 
-        public override void RefreshNoLoader(Guid Id)
+        public override void RefreshNoLoader(Guid id)
         {
-            Game game = API.Instance.Database.Games.Get(Id);
+            Game game = API.Instance.Database.Games.Get(id);
             Logger.Info($"RefreshNoLoader({game?.Name} - {game?.Id})");
-            
+
             if (game == null)
             {
                 return;
             }
 
-            if (CheckDlc.SupportedLibrary.Contains(game.PluginId))
+            GameDlc loadedItem = Get(id, true);
+            if (CheckDlc.SupportedLibrary.Contains(game.PluginId) && !loadedItem.IsManual)
             {
-                GameDlc loadedItem = Get(Id, true);
-                GameDlc webItem = GetWeb(Id);
+                GameDlc webItem = GetWeb(id);
                 webItem.PriceNotification = loadedItem.PriceNotification;
+
+                if (webItem != null && !ReferenceEquals(loadedItem, webItem))
+                {
+                    Update(webItem);
+                }
+                else
+                {
+                    webItem = loadedItem;
+                }
+
+                ActionAfterRefresh(webItem);
+            }
+            else if (loadedItem.IsManual)
+            {
+                GameDlc webItem = GetManual(id, loadedItem.AppId);
 
                 if (webItem != null && !ReferenceEquals(loadedItem, webItem))
                 {
