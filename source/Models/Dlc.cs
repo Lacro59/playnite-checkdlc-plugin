@@ -101,6 +101,9 @@ namespace CheckDlc.Models
         public bool IsDiscount => !Price.IsEqual(PriceBase);
 
         [DontSerialize]
-        public BitmapImage ImagePath => ImageSourceManagerPlugin.GetImage(Image, false, new BitmapLoadProperties(200, 200));
+        public BitmapImage ImageBitmap => ImageSourceManagerPlugin.GetImage(Image, false, new BitmapLoadProperties(200, 200));
+
+        [DontSerialize]
+        public string ImagePath => ImageSourceManagerPlugin.GetImagePath(Image);
     }
 }
