@@ -322,7 +322,7 @@ namespace CheckDlc.Services
                 // Header
                 if (csvData.IsNullOrEmpty())
                 {
-                    csvData = "\"Game name\";\"Platform\";\"Dlc name\";\"Price\";\"Is owned\";\"Is hidden\";\"Dlc link\";";
+                    csvData = "\"Game name\";\"Platform\";\"Dlc name\";\"Price\";\"Is owned\";\"Is owned manually\";\"Is hidden\";\"Dlc link\";\"Is manual added\";";
                 }
 
                 x.Value.Items.ForEach(y =>
@@ -337,7 +337,9 @@ namespace CheckDlc.Services
                         + "\n" + x.Value.Game?.Name + (x.Value.Game?.Source == null ? string.Empty : $" ({x.Value.Game?.Source.Name})");
 
                     csvData += Environment.NewLine;
-                    csvData += $"\"{x.Value.Name}\";\"{x.Value.Source?.Name ?? x.Value.Platforms?.First()?.Name ?? "Playnite"}\";\"{y.Name}\";\"{y.Price}\";\"{(y.IsOwned ? "X" : string.Empty)}\";\"{(y.IsHidden ? "X" : string.Empty)}\";\"{y.Link}\";";
+                    csvData += $"\"{x.Value.Name}\";\"{x.Value.Source?.Name ?? x.Value.Platforms?.First()?.Name ?? "Playnite"}\";\"{y.Name}\";\"{y.Price}\";\"{(y.IsOwned ? "X" : string.Empty)}\";\"{(y.IsManualOwned ? "X" : string.Empty)}\";\"{(y.IsHidden ? "X" : string.Empty)}\";\"{y.Link}\";\"{(x.Value.IsManual ? "X" : string.Empty)}\";";
+
+                    a.CurrentProgressValue++;
                 });
             });
             return csvData;
