@@ -33,6 +33,8 @@ namespace CheckDlc.Views
 
             GameContext = gameContext;
             Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
+
+            PART_PriceNotification.Visibility = (PluginDatabase.Get(gameContext, true)?.IsManual ?? false) ? Visibility.Collapsed : Visibility.Visible;
         }
 
 
