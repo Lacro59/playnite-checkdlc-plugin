@@ -27,20 +27,20 @@ namespace CheckDlc
 
         public GameFeature DlcFeature { get; set; } = null;
 
-        private bool enableIntegrationButton = true;
-        public bool EnableIntegrationButton { get => enableIntegrationButton; set => SetValue(ref enableIntegrationButton, value); }
+        private bool _enableIntegrationButton = true;
+        public bool EnableIntegrationButton { get => _enableIntegrationButton; set => SetValue(ref _enableIntegrationButton, value); }
 
-        private bool enableIntegrationListDlcAll = true;
-        public bool EnableIntegrationListDlcAll { get => enableIntegrationListDlcAll; set => SetValue(ref enableIntegrationListDlcAll, value); }
+        private bool _enableIntegrationListDlcAll = true;
+        public bool EnableIntegrationListDlcAll { get => _enableIntegrationListDlcAll; set => SetValue(ref _enableIntegrationListDlcAll, value); }
 
-        private bool enableIntegrationListDlcOwned = true;
-        public bool EnableIntegrationListDlcOwned { get => enableIntegrationListDlcOwned; set => SetValue(ref enableIntegrationListDlcOwned, value); }
+        private bool _enableIntegrationListDlcOwned = true;
+        public bool EnableIntegrationListDlcOwned { get => _enableIntegrationListDlcOwned; set => SetValue(ref _enableIntegrationListDlcOwned, value); }
 
-        private bool enableIntegrationListDlcNotOwned = true;
-        public bool EnableIntegrationListDlcNotOwned { get => enableIntegrationListDlcNotOwned; set => SetValue(ref enableIntegrationListDlcNotOwned, value); }
+        private bool _enableIntegrationListDlcNotOwned = true;
+        public bool EnableIntegrationListDlcNotOwned { get => _enableIntegrationListDlcNotOwned; set => SetValue(ref _enableIntegrationListDlcNotOwned, value); }
 
-        private bool enableIntegrationButtonDetails = false;
-        public bool EnableIntegrationButtonDetails { get => enableIntegrationButtonDetails; set => SetValue(ref enableIntegrationButtonDetails, value); }
+        private bool _enableIntegrationButtonDetails = false;
+        public bool EnableIntegrationButtonDetails { get => _enableIntegrationButtonDetails; set => SetValue(ref _enableIntegrationButtonDetails, value); }
 
         // TODO TEMP
         public SteamSettings SteamApiSettings { get; set; } = new SteamSettings();
@@ -59,9 +59,9 @@ namespace CheckDlc
         // Playnite serializes settings object to a JSON object and saves it as text file.
         // If you want to exclude some property from being saved then use `JsonDontSerialize` ignore attribute.
         #region Variables exposed for custom themes
-        private List<Dlc> listDlcs = new List<Dlc>();
+        private List<Dlc> _listDlcs = new List<Dlc>();
         [DontSerialize]
-        public List<Dlc> ListDlcs { get => listDlcs; set => SetValue(ref listDlcs, value); }
+        public List<Dlc> ListDlcs { get => _listDlcs; set => SetValue(ref _listDlcs, value); }
         #endregion  
     }
 

@@ -26,18 +26,18 @@ namespace CheckDlc.Clients
         protected string LastErrorMessage { get; set; }
 
 
-        public GenericDlc(string ClientName, string LocalLang = "")
+        public GenericDlc(string clientName, string localLang = "")
         {
-            this.ClientName = ClientName;
-            this.LocalLang = LocalLang;
+            ClientName = clientName;
+            LocalLang = localLang;
         }
 
 
         public abstract List<Dlc> GetGameDlc(Game game);
 
-        public List<Dlc> GetGameDlc (Guid Id)
+        public List<Dlc> GetGameDlc (Guid id)
         {
-            Game game = API.Instance.Database.Games.Get(Id);
+            Game game = API.Instance.Database.Games.Get(id);
             return game == null ? new List<Dlc>() : GetGameDlc(game);
         }
 
@@ -59,33 +59,33 @@ namespace CheckDlc.Clients
             ));
         }
 
-        public virtual void ShowNotificationPluginNoConfiguration(string Message)
+        public virtual void ShowNotificationPluginNoConfiguration(string message)
         {
             LastErrorId = $"checkdlc-{ClientName.RemoveWhiteSpace().ToLower()}-noconfig";
-            LastErrorMessage = Message;
+            LastErrorMessage = message;
             Logger.Warn($"{ClientName} is not configured");
 
             API.Instance.Notifications.Add(new NotificationMessage(
                 $"{PluginDatabase.PluginName }-{ClientName.RemoveWhiteSpace().ToLower()}-noconfig",
-                $"{PluginDatabase.PluginName}" + Environment.NewLine + $"{Message}",
+                $"{PluginDatabase.PluginName}" + Environment.NewLine + $"{message}",
                 NotificationType.Error
             ));
         }
 
-        public virtual void ShowNotificationPluginNoAuthenticate(string Message)
+        public virtual void ShowNotificationPluginNoAuthenticate(string message)
         {
-            ShowNotificationPluginNoAuthenticate(Message, ExternalPlugin.None);
+            ShowNotificationPluginNoAuthenticate(message, ExternalPlugin.None);
         }
 
-        public virtual void ShowNotificationPluginNoAuthenticate(string Message, ExternalPlugin externalPlugin)
+        public virtual void ShowNotificationPluginNoAuthenticate(string message, ExternalPlugin externalPlugin)
         {
             LastErrorId = $"{PluginDatabase.PluginName }-{ClientName.RemoveWhiteSpace().ToLower()}-noauthenticate";
-            LastErrorMessage = Message;
+            LastErrorMessage = message;
             Logger.Warn($"{ClientName} user is not authenticated");
 
             API.Instance.Notifications.Add(new NotificationMessage(
                 $"{PluginDatabase.PluginName }-{ClientName.RemoveWhiteSpace().ToLower()}-noauthenticate",
-                $"{PluginDatabase.PluginName}" + Environment.NewLine + $"{Message}",
+                $"{PluginDatabase.PluginName}" + Environment.NewLine + $"{message}",
                 NotificationType.Error,
                 () =>
                 {
