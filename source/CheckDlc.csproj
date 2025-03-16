@@ -100,6 +100,7 @@
     <Compile Include="Clients\GenericDlc.cs" />
     <Compile Include="Clients\OriginDlc.cs" />
     <Compile Include="Clients\GogDlc.cs" />
+    <Compile Include="Clients\PsnDlc.cs" />
     <Compile Include="Clients\SteamDlc.cs" />
     <Compile Include="Controls\PluginButton.xaml.cs">
       <DependentUpon>PluginButton.xaml</DependentUpon>

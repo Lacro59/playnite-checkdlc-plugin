@@ -111,7 +111,6 @@ namespace CheckDlc.Services
 
 
                     case ExternalPlugin.OriginLibrary:
-
                         if (PluginSettings.Settings.PluginState.OriginIsEnabled)
                         {
                             OriginDlc originDlc = new OriginDlc();
@@ -119,9 +118,16 @@ namespace CheckDlc.Services
                         }
                         break;
 
+                    case ExternalPlugin.PSNLibrary:
+                        if (PluginSettings.Settings.PluginState.PsnIsEnabled)
+                        {
+                            PsnDlc psnDlc = new PsnDlc();
+                            dlcs = psnDlc.GetGameDlc(game);
+                        }
+                        break;
+
                     case ExternalPlugin.None:
                     case ExternalPlugin.BattleNetLibrary:
-                    case ExternalPlugin.PSNLibrary:
                     case ExternalPlugin.XboxLibrary:
                     case ExternalPlugin.IndiegalaLibrary:
                     case ExternalPlugin.AmazonGamesLibrary:
