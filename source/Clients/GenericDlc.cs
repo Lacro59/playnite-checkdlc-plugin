@@ -93,6 +93,9 @@ namespace CheckDlc.Clients
                     SteamDlc.SettingsOpen = true;
                     EpicDlc.SettingsOpen = true;
                     OriginDlc.SettingsOpen = true;
+                    PsnDlc.SettingsOpen = true;
+                    NintendoDlc.SettingsOpen = true;
+
                     PlayniteTools.ShowPluginSettings(externalPlugin);
                 }
             ));

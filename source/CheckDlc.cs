@@ -45,7 +45,8 @@ namespace CheckDlc
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.GogOssLibrary),
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.OriginLibrary),
             PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.SteamLibrary),
-            PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.PSNLibrary)
+            PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.PSNLibrary),
+            PlayniteTools.GetPluginId(PlayniteTools.ExternalPlugin.NintendoLibrary)
         };
 
 

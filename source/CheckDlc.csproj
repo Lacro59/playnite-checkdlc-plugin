@@ -98,6 +98,7 @@
     <Compile Include="CheckDlcSettings.cs" />
     <Compile Include="Clients\EpicDlc.cs" />
     <Compile Include="Clients\GenericDlc.cs" />
+    <Compile Include="Clients\NintendoDlc.cs" />
     <Compile Include="Clients\OriginDlc.cs" />
     <Compile Include="Clients\GogDlc.cs" />
     <Compile Include="Clients\PsnDlc.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Models\CheckDlcCollection.cs" />
     <Compile Include="Models\Dlc.cs" />
     <Compile Include="Models\GameDlc.cs" />
+    <Compile Include="Models\Nintendo\SearchResult.cs" />
     <Compile Include="playnite-plugincommon\CommonPluginsControls\Controls\TextBlockTrimmed.xaml.cs">
       <DependentUpon>TextBlockTrimmed.xaml</DependentUpon>
     </Compile>

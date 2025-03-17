@@ -75,7 +75,7 @@ namespace CheckDlc.Clients
                 }
                 else
                 {
-                    ShowNotificationPluginNoAuthenticate(string.Format(ResourceProvider.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.GogLibrary);
+                    ShowNotificationPluginNoAuthenticate(string.Format(ResourceProvider.GetString("LOCCommonStoresNoAuthenticate"), ClientName), ExternalPlugin.OriginLibrary);
                 }
             }
             catch (Exception ex)

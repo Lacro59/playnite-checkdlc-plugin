@@ -126,6 +126,14 @@ namespace CheckDlc.Services
                         }
                         break;
 
+                    case ExternalPlugin.NintendoLibrary:
+                        if (PluginSettings.Settings.PluginState.NintendosEnabled)
+                        {
+                            NintendoDlc nintendoDlc = new NintendoDlc();
+                            dlcs = nintendoDlc.GetGameDlc(game);
+                        }
+                        break;
+
                     case ExternalPlugin.None:
                     case ExternalPlugin.BattleNetLibrary:
                     case ExternalPlugin.XboxLibrary:
