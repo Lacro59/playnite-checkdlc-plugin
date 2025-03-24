@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Meglévő DLC-ket tartalmazó lista megjelenítése</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Hiányzó DLC-ket tartalmazó lista megjelenítése</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually onwed</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
     <!-- Notifications -->
 

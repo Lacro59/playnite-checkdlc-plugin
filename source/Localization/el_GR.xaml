@@ -11,14 +11,14 @@
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHidden">Hidden</sys:String>
-    <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">Σε απόκρυψη</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">Αγορασμένα σε απόκρυψη</sys:String>
+    <sys:String x:Key="LOCCheckDlcOnlyFree">Μόνο δωρεάν</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Εμφάνιση κρυμμένων</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Χαμηλότερη τιμή</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcIsNotOwned">Is not owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsOwned">Αγορασμένα</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsNotOwned">Μη αγορασμένα</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Ειδοποίηση για αλλαγή τιμής</sys:String>
 
@@ -29,7 +29,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Προσθήκη ετικέτας σε παιχνίδια με DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Add tag to games with all DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Προσθήκη ετικέτας σε παιχνίδια με όλα τα DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Ειδοποίηση για αλλαγή τιμής σε επιλεγμένα παιχνίδια</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Καθορισμός νομίσματος GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Καθορισμός νομίσματος  EA</sys:String>
@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Εμφάνιση λίστας των αποκτηθέντων DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Εμφάνιση λίστας των μη αποκτηθέντων DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually onwed</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
     <!-- Notifications -->
 

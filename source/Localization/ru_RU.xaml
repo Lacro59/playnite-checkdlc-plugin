@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <sys:String x:Key="LOCCheckDlc">Проверить DlC</sys:String>
+    <sys:String x:Key="LOCCheckDlc">Проверить DLC</sys:String>
 
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Проверьте бесплатное DLC, которое не принадлежи</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Просмотр DLC для игры</sys:String>
@@ -11,7 +11,7 @@
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHidden">Hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">Скрытый</sys:String>
     <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
     <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
     <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
@@ -29,7 +29,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Добавить тег в игры с DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Add tag to games with all DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Добавить тег в игры со всеми DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Показывать уведомление при изменении цены на выбранные игры</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Определить валюту GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Определить валюту приложения EA</sys:String>
@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Показать список только с включенным DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показать список только с не включёнными DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually onwed</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
     <!-- Notifications -->
 

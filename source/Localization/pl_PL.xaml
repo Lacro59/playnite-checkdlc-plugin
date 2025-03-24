@@ -7,18 +7,18 @@
     <sys:String x:Key="LOCCheckDlcViewDlc">Wyświetl DLC dla gry</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">Posiadane</sys:String>
-    <sys:String x:Key="LOCCheckDlcFree">Za darmo</sys:String>
+    <sys:String x:Key="LOCCheckDlcFree">Darmowe</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHidden">Hidden</sys:String>
-    <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">Ukryte</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">Posiadane ukryte</sys:String>
+    <sys:String x:Key="LOCCheckDlcOnlyFree">Tylko darmowe</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Pokaż ukryte</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Cena gorsza</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcIsNotOwned">Is not owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsOwned">Posiadane</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsNotOwned">Nie posiadane</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Powiadomienie o zmianie ceny</sys:String>
 
@@ -29,7 +29,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Dodaj tag do gier z DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Add tag to games with all DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Dodaj tag do gier ze wszystkimi DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Pokaż powiadomienie, gdy cena zmieni się dla wybranych gier</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Określ walutę na GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Określ walutę w aplikacji EA</sys:String>
@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Wyświetl listę z tylko posiadanymi DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Wyświetl listę tylko z nieposiadanymi DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually onwed</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
     <!-- Notifications -->
 
