@@ -11,7 +11,7 @@
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHidden">Hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">Скрытый</sys:String>
     <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
     <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
     <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Показать список только с включенным DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показать список только с не включёнными DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually onwed</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
     <!-- Notifications -->
 
