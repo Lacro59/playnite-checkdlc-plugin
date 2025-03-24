@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Afficher la liste avec uniquement les DLC possédés</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Afficher la liste avec uniquement les DLC non possédés</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manuellement possédés</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
     <!-- Notifications -->
 
