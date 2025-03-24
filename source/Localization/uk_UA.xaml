@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Показати список з придбаними DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показати список з не придбаними DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">&quot;Придбано&quot; вручну</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
     <!-- Notifications -->
 
