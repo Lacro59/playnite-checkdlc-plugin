@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">عرض القائمة مع DLC المملوك فقط</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">عرض القائمة مع DLC غير المملوك فقط</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually onwed</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
     <!-- Notifications -->
 
