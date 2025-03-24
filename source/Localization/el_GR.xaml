@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Εμφάνιση λίστας των αποκτηθέντων DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Εμφάνιση λίστας των μη αποκτηθέντων DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Αγορασμένα χειροκίνητα</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
     <!-- Notifications -->
 
