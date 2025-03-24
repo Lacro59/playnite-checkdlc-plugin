@@ -107,3 +107,15 @@ Packages:
       - 'Added: Ability to extract all owned DLC to a list/excel document for easy arching'
       - 'Updated: UI'
       - 'Fixed: Owned DLC Detection and Incorrect Links in CheckDLC Plugin'
+  - Version: 1.3
+    RequiredApiVersion: 6.11.0
+    ReleaseDate: 2025-03-24
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v1.3/playnite-checkdlc-plugin_1_3.pext
+    Changelog:
+      - 'Updated: Localizations'
+      - 'Added: GOG OSS Library support'
+      - 'Fixed: DLC covers are bugged'
+      - 'Added: Being able to include DLC manually'
+      - 'Updated: UI'
+      - 'Updated: CSV data export'
+      - 'Added: PlayStation Store & Nintendo Eshop (only Europoe) DLC Support (experimental)'
