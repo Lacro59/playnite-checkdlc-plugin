@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">只显示已拥有的 DLC 列</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">只显示未拥有的 DLC 列</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually onwed</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
     <!-- Notifications -->
 
