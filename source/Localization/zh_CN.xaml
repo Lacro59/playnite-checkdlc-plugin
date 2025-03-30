@@ -6,12 +6,12 @@
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">查看未拥有的免费 DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">查看游戏 DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">已拥</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">已拥有</sys:String>
     <sys:String x:Key="LOCCheckDlcFree">免费</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHidden">Hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">隐藏</sys:String>
     <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
     <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
     <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
@@ -31,13 +31,13 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">为具有 DLC 的游戏添加标签</sys:String>
     <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Add tag to games with all DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">当所选游戏的价格变动时显示通知</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定义 GOG 货</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">定义 GOG 货</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定义 GOG 货币</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">定义 EA 应用货币</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">若游戏有 DLC 则添加的功能特色</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">显示所有 DLC 列</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">只显示已拥有的 DLC 列</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">只显示未拥有的 DLC 列</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">只显示已拥有的 DLC 列表</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">只显示未拥有的 DLC 列表</sys:String>
 
     <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
