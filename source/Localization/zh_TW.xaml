@@ -6,13 +6,13 @@
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC unowned</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">View game dlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">已擁有</sys:String>
     <sys:String x:Key="LOCCheckDlcFree">Free</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHidden">Hidden</sys:String>
-    <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">隱藏</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">隱藏已擁有</sys:String>
     <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
     <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Price inferior</sys:String>
@@ -31,8 +31,8 @@
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Add tag to games with DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Add tag to games with all DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Show a notification when the price changes for the selected games</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Define GOG currency</sys:String>
-    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Define EA app currency</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineGogCurrency">定義 GOG 貨幣</sys:String>
+    <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">定義 EA 貨幣</sys:String>
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Feature to add if the game has dlcs</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Display list with all DLC</sys:String>

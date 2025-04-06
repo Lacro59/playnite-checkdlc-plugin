@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Sadece sahip olunan DLC listesini görüntüle</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Sadece sahip olunmayan DLC listesini görüntüle</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Sonradan sahip olunan</sys:String>
 
     <!-- Notifications -->
 
