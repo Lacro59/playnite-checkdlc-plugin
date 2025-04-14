@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">Проверить DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Проверьте бесплатное DLC, которое не принадлежи</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Проверять наличие свободных DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Просмотр DLC для игры</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">В коллекции</sys:String>
@@ -18,7 +18,7 @@
     <sys:String x:Key="LOCCheckDlcPriceInferior">Цена ниже</sys:String>
     
     <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcIsNotOwned">Is not owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsNotOwned">Не принадлежит мне</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Уведомить об изменении цены</sys:String>
 
