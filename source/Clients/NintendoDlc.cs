@@ -75,12 +75,13 @@ namespace CheckDlc.Clients
         public override List<Dlc> GetGameDlc(Game game)
         {
             Logger.Info($"Get dlc for {game.Name} with {ClientName}");
-            List<Dlc> GameDlc = PluginDatabase.Get(game)?.Items ?? new List<Dlc>();
+            List<Dlc> gameDlcs = PluginDatabase.Get(game)?.Items ?? new List<Dlc>();
 
             try
             {
                 if (IsUserLoggedIn)
                 {
+                    List<Dlc> newDlcs = new List<Dlc>();
                     List<PurchasedList.Transaction> purchasedList = NintendoAccountClient.GetPurchasedList().GetAwaiter().GetResult();
                     List<Doc> search = Search(game.Name);
 
@@ -98,11 +99,11 @@ namespace CheckDlc.Clients
                             PriceBase = "",//x.PriceRegularF.ToString()
                         };
 
-                        GameDlc.Add(dlc);
+                        newDlcs.Add(dlc);
                     });
 
-                    Logger.Info($"Find {GameDlc?.Count} dlc");
-                    return GameDlc;
+                    Logger.Info($"Find {newDlcs?.Count} dlc(s)");
+                    return newDlcs?.Count > 0 ? newDlcs : gameDlcs;
                 }
                 else
                 {

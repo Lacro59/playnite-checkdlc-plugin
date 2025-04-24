@@ -43,12 +43,13 @@ namespace CheckDlc.Clients
         public override List<Dlc> GetGameDlc(Game game)
         {
             Logger.Info($"Get dlc for {game.Name} with {ClientName}");
-            List<Dlc> GameDlc = PluginDatabase.Get(game)?.Items ?? new List<Dlc>();
+            List<Dlc> gameDlcs = PluginDatabase.Get(game)?.Items ?? new List<Dlc>();
 
             try
             {
                 if (EpicApi.IsUserLoggedIn)
                 {
+                    List<Dlc> newDlcs = new List<Dlc>();
                     string productNameSpace = EpicApi.GetNameSpace(game);
                     ObservableCollection<DlcInfos> dlcs = EpicApi.GetDlcInfos(productNameSpace, EpicApi.CurrentAccountInfos);
                     dlcs?.ForEach(x =>
@@ -65,11 +66,11 @@ namespace CheckDlc.Clients
                             PriceBase = x.PriceBase
                         };
 
-                        GameDlc.Add(dlc);
+                        newDlcs.Add(dlc);
                     });
 
-                    Logger.Info($"Find {GameDlc?.Count} dlc");
-                    return GameDlc;
+                    Logger.Info($"Find {newDlcs?.Count} dlc(s)");
+                    return newDlcs?.Count > 0 ? newDlcs : gameDlcs;
                 }
                 else
                 {
