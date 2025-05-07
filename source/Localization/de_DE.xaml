@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Nur DLCs anzeigen, die ich Besitze</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Nur DLCs anzeigen, die ich nicht Besitze</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manuell eintragen</sys:String>
 
     <!-- Notifications -->
 
