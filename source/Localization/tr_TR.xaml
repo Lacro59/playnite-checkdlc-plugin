@@ -33,9 +33,9 @@
     <sys:String x:Key="LOCCheckDlcShowNotification">Seçili oyunlarda fiyat değişikliği olduğunda bir bildirim göster</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">GOG parası tanımla</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">EA app parası tanımla</sys:String>
-    <sys:String x:Key="LOCCheckDlcFeatureDlc">Oyunda dlc varsa eklenecek özellik</sys:String>
+    <sys:String x:Key="LOCCheckDlcFeatureDlc">Oyun eklere sahipse eklenecek özellik</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Tüm DLC'lerin listesini görüntüle</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Bütün DLC'lerin listesini görüntüle</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Sadece sahip olunan DLC listesini görüntüle</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Sadece sahip olunmayan DLC listesini görüntüle</sys:String>
 
