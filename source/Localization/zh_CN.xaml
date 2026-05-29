@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">检查 DLC-CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">查看未拥有的免费 DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC unowned</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">查看游戏 DLC</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">已拥有</sys:String>
@@ -44,6 +44,6 @@
     <!-- Notifications -->
 
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">获取 DLC 价格出错。请检查您的货币设置</sys:String>
-    <sys:String x:Key="LOCCheckDlcNewPrice">{0} 的一些 DLC 有新的价格</sys:String>
+    <sys:String x:Key="LOCCheckDlcNewPrice">{0} 的一些 DLC 有新的价格。</sys:String>
     
 </ResourceDictionary>
