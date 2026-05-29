@@ -12,12 +12,12 @@
     <!-- DlcView -->
 
     <sys:String x:Key="LOCCheckDlcHidden">Скрытый</sys:String>
-    <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">Скрыть приобретённые</sys:String>
+    <sys:String x:Key="LOCCheckDlcOnlyFree">Только бесплатные</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Показывать скрытые</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Цена ниже</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsOwned">Приобретённые</sys:String>
     <sys:String x:Key="LOCCheckDlcIsNotOwned">Не принадлежит мне</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Уведомить об изменении цены</sys:String>
@@ -36,14 +36,14 @@
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Функция для добавления, если в игре есть DLC</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Отобразить список всех DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Показать список только с включенным DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показать список только с не включёнными DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Показать список только с имеющимися DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показать список только с не имеющимися DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Указать приобретённые вручную</sys:String>
 
     <!-- Notifications -->
 
-    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Ошибка получения цен DLC. Пожалуйста, проверьте настройки валю</sys:String>
+    <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Ошибка получения цен DLC. Пожалуйста, проверьте настройки валют</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Некоторые DLC для {0} имеют новую цену.</sys:String>
     
 </ResourceDictionary>
