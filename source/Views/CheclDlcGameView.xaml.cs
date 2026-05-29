@@ -133,15 +133,15 @@ namespace CheckDlc.Views
             try
             {
                 string id = ((Button)sender).Tag.ToString();
-                if (PluginDatabase.PluginSettings.Settings.IgnoredList.Contains(id))
+                if (PluginDatabase.PluginSettings.IgnoredList.Contains(id))
                 {
-                    _ = PluginDatabase.PluginSettings.Settings.IgnoredList.Remove(id);
+                    _ = PluginDatabase.PluginSettings.IgnoredList.Remove(id);
                 }
                 else
                 {
-                    PluginDatabase.PluginSettings.Settings.IgnoredList.Add(id);
+                    PluginDatabase.PluginSettings.IgnoredList.Add(id);
                 }
-                Plugin.SavePluginSettings(PluginDatabase.PluginSettings.Settings);
+                Plugin.SavePluginSettings(PluginDatabase.PluginSettings);
                 Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
             }
             catch (Exception ex)
@@ -155,15 +155,15 @@ namespace CheckDlc.Views
             try
             {
                 string id = ((Button)sender).Tag.ToString();
-                if (PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Contains(id))
+                if (PluginDatabase.PluginSettings.ManuallyOwneds.Contains(id))
                 {
-                    _ = PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Remove(id);
+                    _ = PluginDatabase.PluginSettings.ManuallyOwneds.Remove(id);
                 }
                 else
                 {
-                    PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Add(id);
+                    PluginDatabase.PluginSettings.ManuallyOwneds.Add(id);
                 }
-                Plugin.SavePluginSettings(PluginDatabase.PluginSettings.Settings);
+                Plugin.SavePluginSettings(PluginDatabase.PluginSettings);
                 Filter((bool)PART_TgHide.IsChecked, (bool)PART_TgFree.IsChecked, (bool)PART_TgHidden.IsChecked, PART_LimitPrice.Text);
             }
             catch (Exception ex)

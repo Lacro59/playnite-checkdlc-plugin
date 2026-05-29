@@ -48,7 +48,7 @@ namespace CheckDlc.Clients
             {
                 if (GogApi.IsUserLoggedIn)
                 {
-                    GogApi.SetCurrency(PluginDatabase.PluginSettings.Settings.GogCurrency);
+                    GogApi.SetCurrency(PluginDatabase.PluginSettings.GogCurrency);
 
                     List<Dlc> newDlcs = new List<Dlc>();
                     ObservableCollection<DlcInfos> dlcs = GogApi.GetDlcInfos(game.GameId, GogApi.CurrentAccountInfos);

@@ -30,16 +30,16 @@ namespace CheckDlc.Views
         private void InitData()
         {
             PART_ListviewDlc.ItemsSource = null;
-            List<LvDlc> lvDlcs = PluginDatabase.Database.Items
-                .SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned && !y.IsHidden)
+            List<LvDlc> lvDlcs = PluginDatabase.GetAllCache()
+                .SelectMany(x => x.Items.Where(y => y.IsFree && !y.IsOwned && !y.IsHidden)
                 .Select(z => new LvDlc
                 {
-                    Icon = x.Value.Icon,
-                    Id = x.Key,
+                    Icon = x.Icon,
+                    Id = x.Id,
                     DlcId = z.Id,
-                    Name = x.Value.Name,
+                    Name = x.Name,
                     NameDlc = z.Name,
-                    NameHide = x.Value.Name + "##" + z.Name,
+                    NameHide = x.Name + "##" + z.Name,
                     Link = z.Link
                 })).ToList();
             PART_ListviewDlc.ItemsSource = lvDlcs;
@@ -71,15 +71,15 @@ namespace CheckDlc.Views
             try
             {
                 string id = ((Button)sender).Tag.ToString();
-                if (PluginDatabase.PluginSettings.Settings.IgnoredList.Contains(id))
+                if (PluginDatabase.PluginSettings.IgnoredList.Contains(id))
                 {
-                    _ = PluginDatabase.PluginSettings.Settings.IgnoredList.Remove(id);
+                    _ = PluginDatabase.PluginSettings.IgnoredList.Remove(id);
                 }
                 else
                 {
-                    PluginDatabase.PluginSettings.Settings.IgnoredList.Add(id);
+                    PluginDatabase.PluginSettings.IgnoredList.Add(id);
                 }
-                Plugin.SavePluginSettings(PluginDatabase.PluginSettings.Settings);
+                Plugin.SavePluginSettings(PluginDatabase.PluginSettings);
                 InitData();
             }
             catch (Exception ex)
@@ -93,15 +93,15 @@ namespace CheckDlc.Views
             try
             {
                 string id = ((Button)sender).Tag.ToString();
-                if (PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Contains(id))
+                if (PluginDatabase.PluginSettings.ManuallyOwneds.Contains(id))
                 {
-                    _ = PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Remove(id);
+                    _ = PluginDatabase.PluginSettings.ManuallyOwneds.Remove(id);
                 }
                 else
                 {
-                    PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Add(id);
+                    PluginDatabase.PluginSettings.ManuallyOwneds.Add(id);
                 }
-                Plugin.SavePluginSettings(PluginDatabase.PluginSettings.Settings);
+                Plugin.SavePluginSettings(PluginDatabase.PluginSettings);
                 InitData();
             }
             catch (Exception ex)
@@ -118,16 +118,16 @@ namespace CheckDlc.Views
                 PluginDatabase.Refresh(Id);
 
                 PART_ListviewDlc.ItemsSource = null;
-                List<LvDlc> lvDlcs = PluginDatabase.Database.Items
-                    .SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned)
+                List<LvDlc> lvDlcs = PluginDatabase.GetAllCache()
+                    .SelectMany(x => x.Items.Where(y => y.IsFree && !y.IsOwned)
                     .Select(z => new LvDlc
                     {
-                        Icon = x.Value.Icon,
-                        Id = x.Key,
+                        Icon = x.Icon,
+                        Id = x.Id,
                         DlcId = z.Id,
-                        Name = x.Value.Name,
+                        Name = x.Name,
                         NameDlc = z.Name,
-                        NameHide = x.Value.Name + "##" + z.Name,
+                        NameHide = x.Name + "##" + z.Name,
                         Link = z.Link
                     })).ToList();
 

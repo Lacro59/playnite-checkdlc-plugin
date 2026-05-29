@@ -1,5 +1,6 @@
 ﻿using CheckDlc.Models;
 using CommonPluginsShared;
+using CommonPluginsShared.Interfaces;
 using CommonPluginsShared.Plugins;
 using CommonPluginsStores;
 using CommonPluginsStores.Models;
@@ -65,13 +66,14 @@ namespace CheckDlc
         #endregion  
     }
 
-    public class CheckDlcSettingsViewModel : ObservableObject, ISettings
+    public class CheckDlcSettingsViewModel : PluginSettingsViewModel, IPluginSettingsViewModel
     {
-        private CheckDlc Plugin { get; }
+        private readonly CheckDlc Plugin;
         private CheckDlcSettings EditingClone { get; set; }
 
         private CheckDlcSettings _settings;
         public CheckDlcSettings Settings { get => _settings; set => SetValue(ref _settings, value); }
+        IPluginSettings IPluginSettingsViewModel.Settings => Settings;
 
         public CheckDlcSettingsViewModel(CheckDlc plugin)
         {
@@ -123,15 +125,13 @@ namespace CheckDlc
             CheckDlc.SteamApi.StoreSettings = Settings.SteamStoreSettings;
             if (Settings.PluginState.SteamIsEnabled)
             {
-                CheckDlc.SteamApi.SaveCurrentUser();
                 CheckDlc.SteamApi.CurrentAccountInfos = null;
                 _ = CheckDlc.SteamApi.CurrentAccountInfos;
             }
 
-            CheckDlc.EpicApi.StoreSettings = Settings.SteamStoreSettings;
+            CheckDlc.EpicApi.StoreSettings = Settings.EpicStoreSettings;
             if (Settings.PluginState.EpicIsEnabled)
             {
-                CheckDlc.EpicApi.SaveCurrentUser();
                 CheckDlc.EpicApi.CurrentAccountInfos = null;
                 _ = CheckDlc.EpicApi.CurrentAccountInfos;
             }
@@ -139,13 +139,12 @@ namespace CheckDlc
             CheckDlc.GogApi.StoreSettings = Settings.GogStoreSettings;
             if (Settings.PluginState.GogIsEnabled)
             {
-                CheckDlc.GogApi.SaveCurrentUser();
                 CheckDlc.GogApi.CurrentAccountInfos = null;
                 _ = CheckDlc.GogApi.CurrentAccountInfos;
             }
 
             Plugin.SavePluginSettings(Settings);
-            CheckDlc.PluginDatabase.PluginSettings = this;
+            CheckDlc.PluginDatabase.PluginSettings = Settings;
             OnPropertyChanged();
         }
 

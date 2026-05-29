@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using CommonPluginsStores.Gog;
 using CommonPluginsStores.Gog.Models;
 using CommonPluginsStores.Models;
-using CommonPluginsStores.Origin;
 using CommonPluginsStores.Steam;
 
 namespace CheckDlc.Views
@@ -40,38 +39,43 @@ namespace CheckDlc.Views
 
             try
             {
-                int idx = ((List<StoreCurrency>)PART_GogCurrency.ItemsSource).FindIndex(x => x.currency == PluginDatabase.PluginSettings.Settings.GogCurrency.currency);
+                int idx = ((List<StoreCurrency>)PART_GogCurrency.ItemsSource).FindIndex(x => x.currency == PluginDatabase.PluginSettings.GogCurrency.currency);
                 PART_GogCurrency.SelectedIndex = idx;
             }
             catch { }
 
             // List Origin currencies
-            OriginApi originApi = new OriginApi(PluginDatabase.PluginName);
-            List<StoreCurrency> dataOrigin = originApi.GetCurrencies();
+            List<StoreCurrency> dataOrigin = new List<StoreCurrency>
+            {
+                new StoreCurrency { country = "US", currency = "USD", symbol = "$" },
+                new StoreCurrency { country = "GB", currency = "GBP", symbol = "£" },
+                new StoreCurrency { country = "FR", currency = "EUR", symbol = "€" },
+                new StoreCurrency { country = "DE", currency = "EUR", symbol = "€" }
+            };
             PART_OriginCurrency.ItemsSource = dataOrigin.OrderBy(x => x.currency).ToList();
 
             try
             {
-                int idx = ((List<StoreCurrency>)PART_OriginCurrency.ItemsSource).FindIndex(x => x.country == PluginDatabase.PluginSettings.Settings.OriginCurrency.country);
+                int idx = ((List<StoreCurrency>)PART_OriginCurrency.ItemsSource).FindIndex(x => x.country == PluginDatabase.PluginSettings.OriginCurrency.country);
                 PART_OriginCurrency.SelectedIndex = idx;
             }
             catch { }
 
-            SteamPanel.Visibility = PluginDatabase.PluginSettings.Settings.PluginState.SteamIsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            EpicPanel.Visibility = PluginDatabase.PluginSettings.Settings.PluginState.EpicIsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            GogPanel.Visibility = PluginDatabase.PluginSettings.Settings.PluginState.GogIsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            SteamPanel.Visibility = PluginDatabase.PluginSettings.PluginState.SteamIsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            EpicPanel.Visibility = PluginDatabase.PluginSettings.PluginState.EpicIsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            GogPanel.Visibility = PluginDatabase.PluginSettings.PluginState.GogIsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
 
         #region Tag
         private void ButtonAddTag_Click(object sender, RoutedEventArgs e)
         {
-            PluginDatabase.AddTagAllGame();
+            PluginDatabase.AddTagAllGames();
         }
 
         private void ButtonRemoveTag_Click(object sender, RoutedEventArgs e)
         {
-            PluginDatabase.RemoveTagAllGame();
+            PluginDatabase.RemoveTagAllGames();
         }
         #endregion
 

@@ -50,7 +50,7 @@ namespace CheckDlc.Clients
                 if (EpicApi.IsUserLoggedIn)
                 {
                     List<Dlc> newDlcs = new List<Dlc>();
-                    string productNameSpace = EpicApi.GetNameSpace(game);
+                    string productNameSpace = EpicApi.GetNamespaceFromGame(game);
                     ObservableCollection<DlcInfos> dlcs = EpicApi.GetDlcInfos(productNameSpace, EpicApi.CurrentAccountInfos);
                     dlcs?.ForEach(x =>
                     {

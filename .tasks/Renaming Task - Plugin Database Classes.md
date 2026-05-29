@@ -7,7 +7,7 @@
 | `PluginDataBaseGameBase`            | `PluginGameEntry`                                |
 | `PluginDataBaseGame<T>`             | `PluginGameCollection<T>`                        |
 | `PluginDataBaseGameDetails<T, Y>`   | `PluginGameCollectionWithDetails<T, TDetails>`   |
-| Paramètre de type`Y`                | `TDetails`                                       |
+| Paramètre de type `Y`               | `TDetails`                                       |
 
 ---
 
@@ -26,9 +26,16 @@ Replace : PluginGameCollectionWithDetails<
 
 ---
 
-## Checklist
+## Checklist — `playnite-plugincommon`
 
-- [ ] `PluginGameEntry.cs`
-- [ ] `PluginGameCollection.cs`
-- [ ] `PluginGameCollectionWithDetails.cs`
-- [ ] Build solution
+- [x] `PluginGameEntry.cs`
+- [x] `PluginGameCollection.cs`
+- [x] `PluginGameCollectionWithDetails.cs`
+
+## Checklist — CheckDlc plugin
+
+- [x] `source/Models/GameDlc.cs`
+- [x] `source/Controls/PluginButton.xaml.cs`
+- [x] `source/Controls/PluginListDlc.xaml.cs`
+- [x] No remaining `PluginDataBaseGame*` in `source/` (excluding `playnite-plugincommon`)
+- [x] Build solution (`Release`)

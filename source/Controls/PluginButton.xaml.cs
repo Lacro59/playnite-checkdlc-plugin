@@ -1,91 +1,68 @@
-﻿using CommonPluginsShared;
+﻿using CheckDlc.Models;
+using CheckDlc.Services;
+using CommonPluginsShared;
 using CommonPluginsShared.Collections;
 using CommonPluginsShared.Controls;
 using CommonPluginsShared.Interfaces;
-using CheckDlc.Models;
-using CheckDlc.Services;
-using CheckDlc.Views;
-using Playnite.SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows;
 using Playnite.SDK;
+using Playnite.SDK.Models;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace CheckDlc.Controls
 {
     /// <summary>
-    /// Logique d'interaction pour PluginButton.xaml
+    /// Interaction logic for PluginButton.xaml
     /// </summary>
     public partial class PluginButton : PluginUserControlExtend
     {
-        private readonly CheckDlc Plugin;
+        private static CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
+        protected override IPluginDatabase pluginDatabase => PluginDatabase;
 
-        private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase; 
-        internal override IPluginDatabase pluginDatabase => PluginDatabase;
-
-        private PluginButtonDataContext ControlDataContext =  new PluginButtonDataContext();
-        internal override IDataContext controlDataContext
+        private PluginButtonDataContext ControlDataContext = new PluginButtonDataContext();
+        protected override IDataContext controlDataContext
         {
             get => ControlDataContext;
-            set => ControlDataContext = (PluginButtonDataContext)controlDataContext;
+            set => ControlDataContext = (PluginButtonDataContext)value;
         }
 
-        public PluginButton(CheckDlc plugin)
+        public PluginButton()
         {
-            Plugin = plugin;
             AlwaysShow = true;
 
             InitializeComponent();
             DataContext = ControlDataContext;
+            Loaded += OnLoaded;
+        }
 
-            _ = Task.Run(() =>
+        protected override void AttachStaticEvents()
+        {
+            base.AttachStaticEvents();
+
+            AttachPluginEvents(PluginDatabase.PluginName, () =>
             {
-                // Wait extension database are loaded
-                _ = System.Threading.SpinWait.SpinUntil(() => PluginDatabase.IsLoaded, -1);
-                _ = Dispatcher.BeginInvoke((Action)delegate
-                {
-                    PluginDatabase.PluginSettings.PropertyChanged += PluginSettings_PropertyChanged;
-                    PluginDatabase.Database.ItemUpdated += Database_ItemUpdated;
-                    PluginDatabase.Database.ItemCollectionChanged += Database_ItemCollectionChanged;
-                    API.Instance.Database.Games.ItemUpdated += Games_ItemUpdated;
-
-                    // Apply settings
-                    PluginSettings_PropertyChanged(null, null);
-                });
+                PluginDatabase.PluginSettings.PropertyChanged += CreatePluginSettingsHandler();
+                PluginDatabase.DatabaseItemUpdated += CreateDatabaseItemUpdatedHandler<GameDlc>();
+                PluginDatabase.DatabaseItemCollectionChanged += CreateDatabaseCollectionChangedHandler<GameDlc>();
             });
         }
 
-
         public override void SetDefaultDataContext()
         {
-            ControlDataContext.IsActivated = PluginDatabase.PluginSettings.Settings.EnableIntegrationButton;
+            ControlDataContext.IsActivated = PluginDatabase.PluginSettings.EnableIntegrationButton;
             ControlDataContext.Text = "\ue91f";
         }
 
-
-        public override void SetData(Game newContext, PluginDataBaseGameBase PluginGameData)
+        public override void SetData(Game newContext, PluginGameEntry pluginGameData)
         {
-            GameDlc gameDlc = (GameDlc)PluginGameData;
+            GameDlc gameDlc = (GameDlc)pluginGameData;
             MustDisplay = gameDlc.HasData;
         }
 
-
-        #region Events
         private void PART_PluginButton_Click(object sender, RoutedEventArgs e)
         {
-            WindowOptions windowOptions = new WindowOptions
-            {
-                CanBeResizable = false,
-                Height = 720,
-                Width = 1000,
-                ShowMaximizeButton = false
-            };
-            CheclDlcGameView ViewExtension = new CheclDlcGameView(Plugin, GameContext);
-            Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), ViewExtension, windowOptions);
-            _ = windowExtension.ShowDialog();
+            PluginDatabase.PluginWindows.ShowPluginGameDataWindow(CurrentGame);
         }
-        #endregion
     }
 
 

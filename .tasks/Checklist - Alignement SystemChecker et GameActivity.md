@@ -1,47 +1,74 @@
-# Checklist - SystemChecker and GameActivity Alignment
+# Checklist - CheckDlc alignment (PluginCommon / HowLongToBeat pattern)
 
 > Scope: apply in this repository the same evolutions already made in  
-> `playnite-systemchecker-plugin/source` and `playnite-gameactivity-plugin/source`,  
-> without handling internal `playnite-plugincommon` changes.
+> `playnite-howlongtobeat-plugin/source` (and SystemChecker / GameActivity where relevant),  
+> including required wiring in `playnite-plugincommon` when the build depends on it.
 
 ## 1) Database class renaming (legacy -> new base)
 
-- [ ] Replace `PluginDataBaseGameBase` with `PluginGameEntry` in:
-  - [ ] `source/Controls/PluginButton.xaml.cs`
-  - [ ] `source/Controls/PluginProgressBar.xaml.cs`
-  - [ ] `source/Controls/PluginViewItem.xaml.cs`
-- [ ] Replace `PluginDataBaseGame<...>` with `PluginGameCollection<...>` in:
-  - [ ] `source/Models/GameHowLongToBeat.cs`
-- [ ] Check whether any `PluginDataBaseGameDetails<..., ...>` references remain and migrate them to `PluginGameCollectionWithDetails<..., ...>` if present
-- [ ] Ensure there are no remaining `PluginDataBaseGame*` occurrences in `source` (excluding `playnite-plugincommon`)
+- [x] Replace `PluginDataBaseGameBase` with `PluginGameEntry` in:
+  - [x] `source/Controls/PluginButton.xaml.cs`
+  - [x] `source/Controls/PluginListDlc.xaml.cs`
+  - [N/A] `source/Controls/PluginProgressBar.xaml.cs` (control not used by CheckDlc)
+  - [N/A] `source/Controls/PluginViewItem.xaml.cs` (control not used by CheckDlc)
+- [x] Replace `PluginDataBaseGame<...>` with `PluginGameCollection<...>` in:
+  - [x] `source/Models/GameDlc.cs`
+- [x] Check whether any `PluginDataBaseGameDetails<..., ...>` references remain and migrate them to `PluginGameCollectionWithDetails<..., ...>` if present (none in CheckDlc plugin code)
+- [x] Ensure there are no remaining `PluginDataBaseGame*` occurrences in `source` (excluding `playnite-plugincommon`)
+- [x] Remove legacy custom collection `source/Models/CheckDlcCollection.cs` (handled by `PluginDatabaseObject` / `PluginItemCollection`)
 
-## 2) Core architecture alignment (pattern already applied elsewhere)
+## 2) Core architecture alignment
 
-- [ ] Fix `SettingsRoot` to point to `PluginSettingsViewModel.Settings` (as in SystemChecker/GameActivity)
-  - [ ] File: `source/HowLongToBeat.cs`
-- [ ] Extract menu logic from `HowLongToBeat.cs` into a dedicated `HowLongToBeatMenus` service
-  - [ ] `GetGameMenuItems(...)`
-  - [ ] `GetMainMenuItems(...)`
-  - [ ] Initialize `_menus` in the plugin constructor
-- [ ] Introduce a `HowLongToBeatWindows` service and centralize plugin window opening
-  - [ ] Call from the custom button (`OnCustomThemeButtonClick`)
-  - [ ] Calls from menus where relevant
-- [ ] Verify alignment with shared interfaces (`IPluginWindows`, etc.) without modifying `playnite-plugincommon`
+- [x] Fix `SettingsRoot` to point to `PluginSettingsViewModel.Settings`
+  - [x] File: `source/CheckDlc.cs`
+- [x] Migrate `CheckDlcSettingsViewModel` to `PluginSettingsViewModel` + `IPluginSettingsViewModel`
+  - [x] File: `source/CheckDlcSettings.cs`
+- [x] Pass plugin name to base constructor: `base(api, "CheckDlc")`
+  - [x] File: `source/CheckDlc.cs`
+- [x] Migrate database base signature: `PluginDatabaseObject<CheckDlcSettings, GameDlc, Dlc>`
+  - [x] File: `source/Services/CheckDlcDatabase.cs`
+- [x] Replace `PluginDatabase.PluginSettings.Settings` with `PluginDatabase.PluginSettings` (settings model directly on database)
+  - [x] Views, clients, models, controls
+- [x] Extract menu logic from `CheckDlc.cs` into `CheckDlcMenus`
+  - [x] `GetGameMenuItems(...)`
+  - [x] `GetMainMenuItems(...)`
+  - [x] Initialize `_menus` in the plugin constructor
+- [x] Introduce `CheckDlcWindows` and centralize plugin window opening
+  - [x] Custom theme button (`OnCustomThemeButtonClick` → `PluginWindows.ShowPluginGameDataWindow`)
+  - [x] Game menu “View DLC”
+  - [x] Main menu “Free unowned DLC” (`ShowFreeDlcWindow`)
+- [x] Align theme controls with shared control pattern (`OnLoaded`, `AttachStaticEvents`, `DatabaseItemUpdated`)
+  - [x] `source/Controls/PluginButton.xaml.cs`
+  - [x] `source/Controls/PluginListDlc.xaml.cs`
 
 ## 3) Export / shared tools
 
-- [ ] Verify `PluginExportCsv` integration in main menus (similar pattern to other plugins)
-- [ ] Add/adapt menu entries if CSV export is not yet exposed
+- [x] Add `CheckDlcExport` (`PluginExportCsv<GameDlc>`)
+  - [x] File: `source/Services/CheckDlcExport.cs`
+- [x] Wire `PluginExportCsv` in `CheckDlcDatabase` constructor
+- [x] Expose CSV export in main menu via `Database.ExtractToCsv()` (shared dialog)
+- [x] Add shared UI dependencies in `CheckDlc.csproj` (`ExportCsvView`, `DatabaseMaintenanceView`, `ListWithNoData`, `TransfertData`, …)
 
 ## 4) Technical migration cleanup
 
-- [ ] Check whether any legacy LiteDB/NuGet migration leftovers exist in this plugin (excluding `playnite-plugincommon`)
-  - [ ] `packages.config` is still referenced in `source/HowLongToBeat.csproj`
-  - [ ] Confirm whether removal is needed to stay consistent with other plugins
+- [x] Migrate `OriginDlc` from removed `OriginApi` to `EaApi` (`CommonPluginsStores.Ea`)
+- [x] Update Epic client: `GetNameSpace` → `GetNamespaceFromGame`
+- [x] Replace `PluginDatabase.Database` usages with `GetAllCache()` where applicable
+  - [x] `source/CheckDlc.cs`
+  - [x] `source/Views/CheckDlcFreeView.xaml.cs`
+- [x] Override `AppendPluginTag` instead of legacy `AddTag(Game)` override
+- [x] Update `RefreshNoLoader(Guid, CancellationToken)` signature
+- [x] Fix XAML command references (`Commands` → `CommandsNavigation` / `GlobalCommands`)
+- [x] Add NuGet `Ardalis.GuardClauses` (required by updated `playnite-plugincommon`)
+- [ ] Review `packages.config` vs SDK references (SteamKit2, protobuf-net, etc.) for consistency with other plugins — optional cleanup
 
 ## 5) Validation
 
-- [ ] Build the solution
-- [ ] Verify compilation without errors on modified files
+- [x] Build the solution (`Release` — OK)
 - [ ] Verify plugin menus and windows load correctly in Playnite runtime
-- [ ] Verify quick non-regression: plugin view display, data refresh, main menu actions
+- [ ] Verify quick non-regression:
+  - [ ] Game view: `PluginButton`, `PluginListDlc*` controls
+  - [ ] Game / main menus (refresh, tags, CSV export, clear data)
+  - [ ] Settings + store panels (Steam, Epic, GOG)
+  - [ ] Free unowned DLC view
+  - [ ] Price change notifications (if enabled)
