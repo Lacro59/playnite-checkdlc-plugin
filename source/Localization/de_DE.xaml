@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">DLC Überprüfen</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Nur Kostenlose DLCs anzeigen, die ich nicht Besitze</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Nur kostenlose DLCs anzeigen, die ich nicht besitze</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Spiel DLC anzeigen</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">Im Besitz</sys:String>
@@ -14,10 +14,10 @@
     <sys:String x:Key="LOCCheckDlcHidden">Ausgeblendet</sys:String>
     <sys:String x:Key="LOCCheckDlcHiddenOwned">Ausgeblendet (gekauft)</sys:String>
     <sys:String x:Key="LOCCheckDlcOnlyFree">Nur kostenlose</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowHidden">Versteckte anzeigen</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Zeige ausgeblendete</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Preis gesenkt</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcIsOwned">Ist im Besitz</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsOwned">Im Besitzt</sys:String>
     <sys:String x:Key="LOCCheckDlcIsNotOwned">Nicht im Besitz</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Benachrichtigungen über Preisänderungen</sys:String>
@@ -29,7 +29,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Tag zum DLC hinzufügen</sys:String>
-    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Tag zu Spielen mit allen DLCs hinzufügen</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Tag zu Spielen hinzufügen, wo man alle DLCs besitzt</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Eine Benachrichtigung anzeigen, wenn sich der Preis für die ausgewählten Spiele ändert</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">GOG Währung festlegen</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">EA App Währung definieren</sys:String>
