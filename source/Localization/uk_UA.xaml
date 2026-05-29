@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Перевірити безплатні DLC, яких немає у власності</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC unowned</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Показати DLC гри</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">У власності</sys:String>
@@ -36,8 +36,8 @@
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Додати особливість, якщо гра має DLC</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Показати список з усіма DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Показати список з придбаними DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показати список з не придбаними DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only owned DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only unowned DLC</sys:String>
 
     <sys:String x:Key="LOCCheckDlcManuallyOwned">&quot;Придбано&quot; вручну</sys:String>
 
