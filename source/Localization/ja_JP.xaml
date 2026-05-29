@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">所有済みの DLC のみのリストを表示</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">所有済みの DLC のみのリストを表示</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">手動で所有されている</sys:String>
 
     <!-- Notifications -->
 
