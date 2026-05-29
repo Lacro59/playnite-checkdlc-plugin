@@ -6,19 +6,19 @@
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Vérifier les DLC gratuits non possédés</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Voir les DLC du jeu</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcOwned">Possédé</sys:String>
+    <sys:String x:Key="LOCCheckDlcOwned">Posséd</sys:String>
     <sys:String x:Key="LOCCheckDlcFree">Gratuit</sys:String>
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHidden">Caché</sys:String>
-    <sys:String x:Key="LOCCheckDlcHiddenOwned">Possédé caché</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">Cach</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">Possédé cach</sys:String>
     <sys:String x:Key="LOCCheckDlcOnlyFree">Uniquement gratuit</sys:String>
     <sys:String x:Key="LOCCheckDlcShowHidden">Montrer les cachés</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Prix maximum :</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcIsOwned">Est possédé</sys:String>
-    <sys:String x:Key="LOCCheckDlcIsNotOwned">N'est pas possédé</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsOwned">Est posséd</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsNotOwned">N'est pas posséd</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Notification de changement de prix</sys:String>
 
