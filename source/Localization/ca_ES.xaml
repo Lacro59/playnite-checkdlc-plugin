@@ -11,14 +11,14 @@
 
     <!-- DlcView -->
 
-    <sys:String x:Key="LOCCheckDlcHidden">Hidden</sys:String>
-    <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHidden">Ocults</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">Ocults adquirits</sys:String>
+    <sys:String x:Key="LOCCheckDlcOnlyFree">Només gratuïts</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Mostrar ocults</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Preu inferior</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcIsNotOwned">Is not owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsOwned">Està adquirit</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsNotOwned">No està adquirit</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Notificació de canvi de preu</sys:String>
 
@@ -29,7 +29,7 @@
     <!-- SettingsView -->
 
     <sys:String x:Key="LOCCheckDlcAddTagDescription">Afegir una etiqueta a jocs amb contingut DLC</sys:String>
-    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Add tag to games with all DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcAddTagAllDlc">Afegir una etiqueta als jocs amb tots els DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcShowNotification">Mostra una notificació quan el preu canvia per els jocs seleccionats</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineGogCurrency">Definir moneda de GOG</sys:String>
     <sys:String x:Key="LOCCheckDlcDefineOriginCurrency">Definir moneda de l'aplicació EA</sys:String>
@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Mostrar llista amb el contingut DLC adquirit</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Mostrar llista amb el contingut DLC no adquirit</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Adquirits manualment</sys:String>
 
     <!-- Notifications -->
 
