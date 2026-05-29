@@ -3,7 +3,7 @@
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Ingyenes DLC-k, amik még nincsenek meg</sys:String>
+    <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Check free DLC unowned</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Játék DLC-inek megtekintése</sys:String>
 
     <sys:String x:Key="LOCCheckDlcOwned">Meglévők</sys:String>
@@ -36,8 +36,8 @@
     <sys:String x:Key="LOCCheckDlcFeatureDlc">Hozzáadható funkció, ha a játékhoz van DLC</sys:String>
     
     <sys:String x:Key="LOCCheckDlcEnableListDlcAll">Összes DLC-t tartalmazó lista megjelenítése</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Meglévő DLC-ket tartalmazó lista megjelenítése</sys:String>
-    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Hiányzó DLC-ket tartalmazó lista megjelenítése</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Display list with only owned DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Display list with only unowned DLC</sys:String>
 
     <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
 
