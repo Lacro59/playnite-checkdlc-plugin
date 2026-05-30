@@ -12,13 +12,13 @@
     <!-- DlcView -->
 
     <sys:String x:Key="LOCCheckDlcHidden">Скрытый</sys:String>
-    <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">Скрыть приобретённые</sys:String>
+    <sys:String x:Key="LOCCheckDlcOnlyFree">Только бесплатные</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Показать скрытые</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Цена ниже</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcIsNotOwned">Is not owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsOwned">Приобретено</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsNotOwned">Не приобретено</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Уведомить об изменении цены</sys:String>
 
@@ -45,5 +45,11 @@
 
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Ошибка получения цен DLC. Пожалуйста, проверьте настройки валю</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Некоторые DLC для {0} имеют новую цену.</sys:String>
+
+    <!-- CSV export -->
+
+    <sys:String x:Key="LOCCheckDlcPrice">Цена</sys:String>
+    <sys:String x:Key="LOCCheckDlcLink">Ссылка</sys:String>
+    <sys:String x:Key="LOCCheckDlcManualAdded">Manual added</sys:String>
     
 </ResourceDictionary>
