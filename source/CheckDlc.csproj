@@ -147,6 +147,17 @@
       <DependentUpon>PanelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\Epic\PanelViewModel.cs" />
+    <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\IStorePanelViewModel.cs" />
+    <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\StoreSettingsLog.cs" />
+    <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\Models\StoreSettingsEntry.cs" />
+    <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\StorePanelAttachedProperties.cs" />
+    <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\StoreConnectionSection.xaml.cs">
+      <DependentUpon>StoreConnectionSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\StoresSettingsView.xaml.cs">
+      <DependentUpon>StoresSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\StoresSettingsViewModel.cs" />
     <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\Gog\PanelView.xaml.cs">
       <DependentUpon>PanelView.xaml</DependentUpon>
     </Compile>
@@ -411,6 +422,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="playnite-plugincommon\CommonPluginsControls\Stores\Epic\PanelView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="playnite-plugincommon\CommonPluginsControls\Stores\StoreConnectionSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="playnite-plugincommon\CommonPluginsControls\Stores\StorePanelResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="playnite-plugincommon\CommonPluginsControls\Stores\StoresSettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

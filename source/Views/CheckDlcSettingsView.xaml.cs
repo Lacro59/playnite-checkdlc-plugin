@@ -1,4 +1,6 @@
 ﻿using CheckDlc.Services;
+using CommonPluginsControls.Stores;
+using CommonPluginsControls.Stores.Models;
 using CommonPluginsShared;
 using Playnite.SDK;
 using System;
@@ -26,9 +28,13 @@ namespace CheckDlc.Views
         {
             InitializeComponent();
 
+            StoreSettingsLog.Debug("CheckDlc settings view initializing store panels");
+
             SteamPanel.StoreApi = CheckDlc.SteamApi;
             EpicPanel.StoreApi = CheckDlc.EpicApi;
             GogPanel.StoreApi = CheckDlc.GogApi;
+
+            RegisterStorePanels();
 
             // List features
             PART_FeatureDlc.ItemsSource = API.Instance.Database.Features.OrderBy(x => x.Name);
@@ -60,10 +66,39 @@ namespace CheckDlc.Views
                 PART_OriginCurrency.SelectedIndex = idx;
             }
             catch { }
+        }
 
-            SteamPanel.Visibility = PluginDatabase.PluginSettings.PluginState.SteamIsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            EpicPanel.Visibility = PluginDatabase.PluginSettings.PluginState.EpicIsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            GogPanel.Visibility = PluginDatabase.PluginSettings.PluginState.GogIsEnabled ? Visibility.Visible : Visibility.Collapsed;
+        private void RegisterStorePanels()
+        {
+            StoresSettings.RegisterStore(new StoreSettingsEntry
+            {
+                Id = "Steam",
+                NameResourceKey = "LOCCommonStoreSteam",
+                CategoryResourceKey = "LOCCommonStoresLaunchers",
+                Panel = SteamPanel,
+                IsVisible = PluginDatabase.PluginSettings.PluginState.SteamIsEnabled,
+                SortOrder = 0
+            });
+
+            StoresSettings.RegisterStore(new StoreSettingsEntry
+            {
+                Id = "Epic",
+                NameResourceKey = "LOCCommonStoreEpic",
+                CategoryResourceKey = "LOCCommonStoresLaunchers",
+                Panel = EpicPanel,
+                IsVisible = PluginDatabase.PluginSettings.PluginState.EpicIsEnabled,
+                SortOrder = 1
+            });
+
+            StoresSettings.RegisterStore(new StoreSettingsEntry
+            {
+                Id = "Gog",
+                NameResourceKey = "LOCCommonStoreGog",
+                CategoryResourceKey = "LOCCommonStoresLaunchers",
+                Panel = GogPanel,
+                IsVisible = PluginDatabase.PluginSettings.PluginState.GogIsEnabled,
+                SortOrder = 2
+            });
         }
 
 
