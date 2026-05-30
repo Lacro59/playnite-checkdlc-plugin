@@ -39,11 +39,17 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">所有済みの DLC のみのリストを表示</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">所有済みの DLC のみのリストを表示</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">手動で所有済み</sys:String>
 
     <!-- Notifications -->
 
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">DLC 価格の取得に失敗しました。通貨設定を確認してください。</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">{0} の DLC の一部が新しい価格になりました。</sys:String>
+
+    <!-- CSV export -->
+
+    <sys:String x:Key="LOCCheckDlcPrice">Price</sys:String>
+    <sys:String x:Key="LOCCheckDlcLink">Link</sys:String>
+    <sys:String x:Key="LOCCheckDlcManualAdded">Manual added</sys:String>
     
 </ResourceDictionary>
