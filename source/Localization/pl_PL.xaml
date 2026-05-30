@@ -45,5 +45,11 @@
 
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Błąd podczas pobierania cen DLC. Proszę sprawdzić ustawienia waluty</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Niektóre DLC dla {0} mają nową cenę.</sys:String>
+
+    <!-- CSV export -->
+
+    <sys:String x:Key="LOCCheckDlcPrice">Price</sys:String>
+    <sys:String x:Key="LOCCheckDlcLink">Link</sys:String>
+    <sys:String x:Key="LOCCheckDlcManualAdded">Manual added</sys:String>
     
 </ResourceDictionary>
