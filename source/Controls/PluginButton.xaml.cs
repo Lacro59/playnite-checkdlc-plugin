@@ -28,7 +28,7 @@ namespace CheckDlc.Controls
 
         public PluginButton()
         {
-            AlwaysShow = true;
+            AlwaysShow = false;
 
             InitializeComponent();
             DataContext = ControlDataContext;
