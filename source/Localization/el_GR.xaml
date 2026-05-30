@@ -45,5 +45,11 @@
 
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Σφάλμα κατά τη λήψη τιμών DLC. Παρακαλώ ελέγξτε τις ρυθμίσεις συναλλάγματος</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Κάποιο DLC για {0} έχει μια νέα τιμή.</sys:String>
+
+    <!-- CSV export -->
+
+    <sys:String x:Key="LOCCheckDlcPrice">Price</sys:String>
+    <sys:String x:Key="LOCCheckDlcLink">Link</sys:String>
+    <sys:String x:Key="LOCCheckDlcManualAdded">Manual added</sys:String>
     
 </ResourceDictionary>
