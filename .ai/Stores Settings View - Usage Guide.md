@@ -45,7 +45,7 @@ Both layouts use the same `PanelView` controls and the same `StoreSettings` / `I
 
 ## Architecture Overview
 
-```text
+```
 ┌─────────────────────────────────────────────────────────────┐
 │  StoresSettingsView                                         │
 │  ┌──────────────┐   ┌─────────────────────────────────────┐ │
