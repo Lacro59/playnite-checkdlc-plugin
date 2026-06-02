@@ -39,7 +39,7 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Показать список только с включенным DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показать список только с не включёнными DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Вручную заданные как приобретенные</sys:String>
 
     <!-- Notifications -->
 
@@ -50,6 +50,6 @@
 
     <sys:String x:Key="LOCCheckDlcPrice">Цена</sys:String>
     <sys:String x:Key="LOCCheckDlcLink">Ссылка</sys:String>
-    <sys:String x:Key="LOCCheckDlcManualAdded">Manual added</sys:String>
+    <sys:String x:Key="LOCCheckDlcManualAdded">Вручную добавленные</sys:String>
     
 </ResourceDictionary>
