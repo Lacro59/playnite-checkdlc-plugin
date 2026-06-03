@@ -10,6 +10,7 @@ using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace CheckDlc
 {
@@ -75,6 +76,16 @@ namespace CheckDlc
         public CheckDlcSettings Settings { get => _settings; set => SetValue(ref _settings, value); }
         IPluginSettings IPluginSettingsViewModel.Settings => Settings;
 
+        private List<GameFeature> _features = new List<GameFeature>();
+        /// <summary>
+        /// Playnite features available for automatic DLC tagging.
+        /// </summary>
+        public List<GameFeature> Features
+        {
+            get => _features;
+            private set => SetValue(ref _features, value);
+        }
+
         public CheckDlcSettingsViewModel(CheckDlc plugin)
         {
             // Injecting your plugin instance is required for Save/Load method because Playnite saves data to a location based on what plugin requested the operation.
@@ -91,9 +102,16 @@ namespace CheckDlc
             {
                 Settings.SteamStoreSettings = new StoreSettings
                 {
-                    UseApi = Settings.SteamApiSettings.UseApi,
-                    UseAuth = Settings.SteamApiSettings.UseAuth
+                    ForceAuth = true,
+                    UseApi = false,
+                    UseAuth = true
                 };
+            }
+            else
+            {
+                Settings.SteamStoreSettings.ForceAuth = true;
+                Settings.SteamStoreSettings.UseApi = false;
+                Settings.SteamStoreSettings.UseAuth = true;
             }
             if (Settings.EpicStoreSettings == null)
             {
@@ -104,10 +122,38 @@ namespace CheckDlc
             }
         }
 
+        /// <summary>
+        /// Loads Playnite features for the DLC metadata combo box.
+        /// Must run when settings are opened; the database is not populated at plugin startup.
+        /// </summary>
+        public void RefreshFeatures()
+        {
+            if (API.Instance?.Database?.Features == null)
+            {
+                Features = new List<GameFeature>();
+                return;
+            }
+
+            List<GameFeature> features = API.Instance.Database.Features.OrderBy(x => x.Name).ToList();
+            Features = features;
+
+            if (Settings?.DlcFeature == null)
+            {
+                return;
+            }
+
+            GameFeature match = features.FirstOrDefault(x => x.Id == Settings.DlcFeature.Id);
+            if (match != null && !ReferenceEquals(Settings.DlcFeature, match))
+            {
+                Settings.DlcFeature = match;
+            }
+        }
+
         // Code executed when settings view is opened and user starts editing values.
         public void BeginEdit()
         {
             EditingClone = Serialization.GetClone(Settings);
+            RefreshFeatures();
         }
 
         // Code executed when user decides to cancel any changes made since BeginEdit was called.
@@ -122,6 +168,7 @@ namespace CheckDlc
         public void EndEdit()
         {
             // StoreAPI intialization
+            CheckDlc.SteamApi.SetForceAuth(true);
             CheckDlc.SteamApi.StoreSettings = Settings.SteamStoreSettings;
             if (Settings.PluginState.SteamIsEnabled)
             {

@@ -4,7 +4,6 @@ using CheckDlc.Models;
 using CheckDlc.Services;
 using CheckDlc.Views;
 using CommonPlayniteShared.Common;
-using CommonPlayniteShared.PluginLibrary.SteamLibrary.SteamShared;
 using CommonPluginsShared;
 using CommonPluginsShared.Extensions;
 using CommonPluginsShared.PlayniteExtended;
@@ -13,7 +12,6 @@ using CommonPluginsStores.Gog;
 using CommonPluginsStores.Steam;
 using Playnite.SDK;
 using Playnite.SDK.Events;
-using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
@@ -215,6 +213,7 @@ namespace CheckDlc
             {
                 SteamApi = new SteamApi(PluginDatabase.PluginName, PlayniteTools.ExternalPlugin.CheckDlc);
                 SteamApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+                SteamApi.SetForceAuth(true);
                 SteamApi.StoreSettings = PluginDatabase.PluginSettings.SteamStoreSettings;
                 _ = SteamApi.CurrentAccountInfos;
             }

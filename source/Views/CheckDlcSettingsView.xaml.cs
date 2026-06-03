@@ -2,20 +2,14 @@
 using CommonPluginsControls.Stores;
 using CommonPluginsControls.Stores.Models;
 using CommonPluginsShared;
-using Playnite.SDK;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using CheckDlc.Clients;
-using CheckDlc.Models;
-using System.Collections.Generic;
 using CommonPluginsStores.Gog;
-using CommonPluginsStores.Gog.Models;
 using CommonPluginsStores.Models;
-using CommonPluginsStores.Steam;
 
 namespace CheckDlc.Views
 {
@@ -27,6 +21,7 @@ namespace CheckDlc.Views
         public CheckDlcSettingsView()
         {
             InitializeComponent();
+            Loaded += CheckDlcSettingsView_Loaded;
 
             StoreSettingsLog.Debug("CheckDlc settings view initializing store panels");
 
@@ -35,37 +30,15 @@ namespace CheckDlc.Views
             GogPanel.StoreApi = CheckDlc.GogApi;
 
             RegisterStorePanels();
+            InitializeCurrencyComboBoxes();
+        }
 
-            // List features
-            PART_FeatureDlc.ItemsSource = API.Instance.Database.Features.OrderBy(x => x.Name);
-
-            // List GOG currencies
-            List<StoreCurrency> dataGog = CheckDlc.GogApi.GetCurrencies();
-            PART_GogCurrency.ItemsSource = dataGog.OrderBy(x => x.currency).ToList();
-
-            try
+        private void CheckDlcSettingsView_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is CheckDlcSettingsViewModel viewModel)
             {
-                int idx = ((List<StoreCurrency>)PART_GogCurrency.ItemsSource).FindIndex(x => x.currency == PluginDatabase.PluginSettings.GogCurrency.currency);
-                PART_GogCurrency.SelectedIndex = idx;
+                viewModel.RefreshFeatures();
             }
-            catch { }
-
-            // List Origin currencies
-            List<StoreCurrency> dataOrigin = new List<StoreCurrency>
-            {
-                new StoreCurrency { country = "US", currency = "USD", symbol = "$" },
-                new StoreCurrency { country = "GB", currency = "GBP", symbol = "£" },
-                new StoreCurrency { country = "FR", currency = "EUR", symbol = "€" },
-                new StoreCurrency { country = "DE", currency = "EUR", symbol = "€" }
-            };
-            PART_OriginCurrency.ItemsSource = dataOrigin.OrderBy(x => x.currency).ToList();
-
-            try
-            {
-                int idx = ((List<StoreCurrency>)PART_OriginCurrency.ItemsSource).FindIndex(x => x.country == PluginDatabase.PluginSettings.OriginCurrency.country);
-                PART_OriginCurrency.SelectedIndex = idx;
-            }
-            catch { }
         }
 
         private void RegisterStorePanels()
@@ -101,6 +74,50 @@ namespace CheckDlc.Views
             });
         }
 
+        private void InitializeCurrencyComboBoxes()
+        {
+            List<StoreCurrency> gogCurrencies = CheckDlc.GogApi.GetCurrencies()
+                .OrderBy(x => x.currency)
+                .ToList();
+            PART_GogCurrency.ItemsSource = gogCurrencies;
+            SelectCurrency(PART_GogCurrency, PluginDatabase.PluginSettings.GogCurrency, matchCountry: false);
+
+            List<StoreCurrency> originCurrencies = new List<StoreCurrency>
+            {
+                new StoreCurrency { country = "US", currency = "USD", symbol = "$" },
+                new StoreCurrency { country = "GB", currency = "GBP", symbol = "£" },
+                new StoreCurrency { country = "FR", currency = "EUR", symbol = "€" },
+                new StoreCurrency { country = "DE", currency = "EUR", symbol = "€" }
+            }.OrderBy(x => x.currency).ToList();
+            PART_OriginCurrency.ItemsSource = originCurrencies;
+            SelectCurrency(PART_OriginCurrency, PluginDatabase.PluginSettings.OriginCurrency, matchCountry: true);
+        }
+
+        private static void SelectCurrency(ComboBox comboBox, StoreCurrency savedCurrency, bool matchCountry)
+        {
+            if (comboBox?.ItemsSource == null || savedCurrency == null)
+            {
+                return;
+            }
+
+            try
+            {
+                var currencies = (List<StoreCurrency>)comboBox.ItemsSource;
+                StoreCurrency match = matchCountry
+                    ? currencies.Find(x => x.country == savedCurrency.country)
+                    : currencies.Find(x => x.currency == savedCurrency.currency);
+
+                if (match != null)
+                {
+                    comboBox.SelectedItem = match;
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.LogError(ex, true);
+            }
+        }
+
 
         #region Tag
         private void ButtonAddTag_Click(object sender, RoutedEventArgs e)
@@ -115,35 +132,31 @@ namespace CheckDlc.Views
         #endregion
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_RemoveIgnored_Click(object sender, RoutedEventArgs e)
         {
-            _ = Process.Start((string)((FrameworkElement)sender).Tag);
+            RemoveListItem(PART_IgnoredList, sender);
         }
 
+        private void Button_RemoveManuallyOwned_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveListItem(PART_ManuallyOwnedList, sender);
+        }
 
-
-
-        private void Button_Click_Remove(object sender, RoutedEventArgs e)
+        private static void RemoveListItem(ListBox listBox, object sender)
         {
             try
             {
-                int index = int.Parse(((FrameworkElement)sender).Tag.ToString());
-                ((ObservableCollection<string>)PART_IgnoredList.ItemsSource).RemoveAt(index);
-                PART_IgnoredList.Items.Refresh();
-            }
-            catch (Exception ex)
-            {
-                Common.LogError(ex, true);
-            }
-        }
+                string item = ((FrameworkElement)sender).Tag as string;
+                if (string.IsNullOrEmpty(item))
+                {
+                    return;
+                }
 
-        private void Button_Click_Remove2(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                int index = int.Parse(((FrameworkElement)sender).Tag.ToString());
-                ((ObservableCollection<string>)PART_ManuallyOwnedList.ItemsSource).RemoveAt(index);
-                PART_ManuallyOwnedList.Items.Refresh();
+                var collection = listBox?.ItemsSource as ObservableCollection<string>;
+                if (collection != null && collection.Contains(item))
+                {
+                    collection.Remove(item);
+                }
             }
             catch (Exception ex)
             {
