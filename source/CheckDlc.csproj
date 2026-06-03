@@ -148,6 +148,7 @@
     </Compile>
     <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\Epic\PanelViewModel.cs" />
     <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\IStorePanelViewModel.cs" />
+    <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\StorePanelViewModelBase.cs" />
     <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\StoreSettingsLog.cs" />
     <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\Models\StoreSettingsEntry.cs" />
     <Compile Include="playnite-plugincommon\CommonPluginsControls\Stores\StorePanelAttachedProperties.cs" />
