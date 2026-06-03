@@ -174,7 +174,7 @@ namespace CheckDlc.Services
         public override void RefreshNoLoader(Guid id, CancellationToken cancellationToken = default)
         {
             Game game = API.Instance.Database.Games.Get(id);
-            Logger.Info($"RefreshNoLoader({game?.Name} - {game?.Id})");
+            Logger.Info(string.Format("RefreshNoLoader — {0} ({1} - {2})", game?.Name, id, game?.GameId));
 
             if (game == null)
             {
