@@ -40,6 +40,12 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Afficher la liste avec uniquement les DLC non possédés</sys:String>
 
     <sys:String x:Key="LOCCheckDlcManuallyOwned">Manuellement possédés</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsMetadataSection">Métadonnées des jeux</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencySection">Devises des boutiques</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencyDescription">Devise utilisée pour récupérer et afficher les prix des DLC sur GOG et l'application EA, indépendamment des notifications de changement de prix.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIntegrationDescription">Contrôles affichés dans les thèmes personnalisés compatibles. Activez chaque élément à afficher dans la liste ou la fiche de jeu.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIgnoredDescription">Identifiants de DLC masqués dans les listes. Ajoutez ou retirez des entrées depuis la vue DLC du jeu ; supprimez une entrée ici pour l'afficher à nouveau.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsManuallyOwnedDescription">DLC marqués comme possédés manuellement. Ajoutez ou retirez des entrées depuis la vue DLC du jeu.</sys:String>
 
     <!-- Notifications -->
 
