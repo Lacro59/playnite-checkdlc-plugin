@@ -2,6 +2,9 @@
 using CheckDlc.Models;
 using CommonPluginsShared;
 using CommonPluginsShared.Collections;
+using CommonPluginsStores.Epic;
+using CommonPluginsStores.Gog;
+using CommonPluginsStores.Steam;
 using Playnite.SDK;
 using Playnite.SDK.Models;
 using System;
@@ -24,6 +27,90 @@ namespace CheckDlc.Services
             TagBefore = "[DLC]";
             PluginWindows = new CheckDlcWindows(PluginName, this);
             PluginExportCsv = new CheckDlcExport();
+        }
+
+        /// <summary>
+        /// Creates store API clients for enabled library integrations and applies settings.
+        /// Skips stores whose Playnite library plugin is not enabled.
+        /// </summary>
+        /// <param name="settings">Store settings to apply. Uses <see cref="PluginDatabaseObject{CheckDlcSettings, GameDlc, Dlc}.PluginSettings"/> when null.</param>
+        /// <param name="reloadAccountInfos">When true, clears and reloads account information for each enabled store.</param>
+        public void EnsureStoreApis(CheckDlcSettings settings, bool reloadAccountInfos)
+        {
+            CheckDlcSettings storeSettings = settings ?? PluginSettings;
+            if (storeSettings == null)
+            {
+                return;
+            }
+
+            if (storeSettings.PluginState.SteamIsEnabled)
+            {
+                bool created = CheckDlc.SteamApi == null;
+                if (created)
+                {
+                    CheckDlc.SteamApi = new SteamApi(PluginName, ExternalPlugin.CheckDlc);
+                    CheckDlc.SteamApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+                }
+
+                CheckDlc.SteamApi.SetForceAuth(true);
+                CheckDlc.SteamApi.StoreSettings = storeSettings.SteamStoreSettings;
+
+                if (reloadAccountInfos)
+                {
+                    CheckDlc.SteamApi.CurrentAccountInfos = null;
+                }
+
+                if (reloadAccountInfos || created)
+                {
+                    _ = CheckDlc.SteamApi.CurrentAccountInfos;
+                }
+            }
+
+            if (storeSettings.PluginState.EpicIsEnabled)
+            {
+                bool created = CheckDlc.EpicApi == null;
+                if (created)
+                {
+                    CheckDlc.EpicApi = new EpicApi(PluginName, ExternalPlugin.CheckDlc);
+                    CheckDlc.EpicApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+                }
+
+                CheckDlc.EpicApi.SetForceAuth(true);
+                CheckDlc.EpicApi.StoreSettings = storeSettings.EpicStoreSettings;
+
+                if (reloadAccountInfos)
+                {
+                    CheckDlc.EpicApi.CurrentAccountInfos = null;
+                }
+
+                if (reloadAccountInfos || created)
+                {
+                    _ = CheckDlc.EpicApi.CurrentAccountInfos;
+                }
+            }
+
+            if (storeSettings.PluginState.GogIsEnabled)
+            {
+                bool created = CheckDlc.GogApi == null;
+                if (created)
+                {
+                    CheckDlc.GogApi = new GogApi(PluginName, ExternalPlugin.CheckDlc);
+                    CheckDlc.GogApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+                }
+
+                CheckDlc.GogApi.SetForceAuth(true);
+                CheckDlc.GogApi.StoreSettings = storeSettings.GogStoreSettings;
+
+                if (reloadAccountInfos)
+                {
+                    CheckDlc.GogApi.CurrentAccountInfos = null;
+                }
+
+                if (reloadAccountInfos || created)
+                {
+                    _ = CheckDlc.GogApi.CurrentAccountInfos;
+                }
+            }
         }
 
         public override GameDlc Get(Guid id, bool onlyCache = false, bool force = false)

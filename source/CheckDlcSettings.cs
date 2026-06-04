@@ -86,6 +86,15 @@ namespace CheckDlc
             private set => SetValue(ref _features, value);
         }
 
+        /// <summary>Gets whether the GOG library integration is enabled in Playnite.</summary>
+        public bool IsGogStoreEnabled => Settings?.PluginState.GogIsEnabled ?? false;
+
+        /// <summary>Gets whether the Origin/EA library integration is enabled in Playnite.</summary>
+        public bool IsOriginStoreEnabled => Settings?.PluginState.OriginIsEnabled ?? false;
+
+        /// <summary>Gets whether any store currency selector should be shown.</summary>
+        public bool ShowCurrencySection => IsGogStoreEnabled || IsOriginStoreEnabled;
+
         public CheckDlcSettingsViewModel(CheckDlc plugin)
         {
             // Injecting your plugin instance is required for Save/Load method because Playnite saves data to a location based on what plugin requested the operation.
@@ -96,6 +105,11 @@ namespace CheckDlc
 
             // LoadPluginSettings returns null if not saved data is available.
             Settings = savedSettings ?? new CheckDlcSettings();
+
+            if (Settings.EpicSettings == null)
+            {
+                Settings.EpicSettings = new EpicSettings();
+            }
 
             // TODO temp
             if (Settings.SteamStoreSettings == null)
@@ -120,6 +134,16 @@ namespace CheckDlc
                     UseAuth = Settings.EpicSettings.UseAuth
                 };
             }
+        }
+
+        /// <summary>
+        /// Refreshes store availability flags used to show or hide currency selectors in settings.
+        /// </summary>
+        public void RefreshStoreAvailability()
+        {
+            OnPropertyChanged(nameof(IsGogStoreEnabled));
+            OnPropertyChanged(nameof(IsOriginStoreEnabled));
+            OnPropertyChanged(nameof(ShowCurrencySection));
         }
 
         /// <summary>
@@ -154,6 +178,7 @@ namespace CheckDlc
         {
             EditingClone = Serialization.GetClone(Settings);
             RefreshFeatures();
+            RefreshStoreAvailability();
         }
 
         // Code executed when user decides to cancel any changes made since BeginEdit was called.
@@ -167,28 +192,7 @@ namespace CheckDlc
         // This method should save settings made to Option1 and Option2.
         public void EndEdit()
         {
-            // StoreAPI intialization
-            CheckDlc.SteamApi.SetForceAuth(true);
-            CheckDlc.SteamApi.StoreSettings = Settings.SteamStoreSettings;
-            if (Settings.PluginState.SteamIsEnabled)
-            {
-                CheckDlc.SteamApi.CurrentAccountInfos = null;
-                _ = CheckDlc.SteamApi.CurrentAccountInfos;
-            }
-
-            CheckDlc.EpicApi.StoreSettings = Settings.EpicStoreSettings;
-            if (Settings.PluginState.EpicIsEnabled)
-            {
-                CheckDlc.EpicApi.CurrentAccountInfos = null;
-                _ = CheckDlc.EpicApi.CurrentAccountInfos;
-            }
-
-            CheckDlc.GogApi.StoreSettings = Settings.GogStoreSettings;
-            if (Settings.PluginState.GogIsEnabled)
-            {
-                CheckDlc.GogApi.CurrentAccountInfos = null;
-                _ = CheckDlc.GogApi.CurrentAccountInfos;
-            }
+            CheckDlc.PluginDatabase.EnsureStoreApis(Settings, reloadAccountInfos: true);
 
             Plugin.SavePluginSettings(Settings);
             CheckDlc.PluginDatabase.PluginSettings = Settings;

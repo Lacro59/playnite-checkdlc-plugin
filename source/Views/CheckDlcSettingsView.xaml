@@ -13,6 +13,10 @@
              d:DataContext="{d:DesignInstance CheckDlc:CheckDlcSettingsViewModel}">
 
     <Grid Margin="20">
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </Grid.Resources>
+
         <TabControl Name="tcSettings">
             <!-- General -->
             <TabItem Header="{DynamicResource LOCCheckDlc}">
@@ -101,7 +105,8 @@
                         </Border>
 
                         <!-- Store currencies (price display) -->
-                        <Border Style="{StaticResource SectionBorder}" Margin="0">
+                        <Border Style="{StaticResource SectionBorder}" Margin="0"
+                                Visibility="{Binding ShowCurrencySection, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource LOCCheckDlcSettingsCurrencySection}"
                                            Style="{StaticResource SectionHeaderText}" />
@@ -109,30 +114,33 @@
                                            TextWrapping="Wrap"
                                            Opacity="0.75"
                                            Margin="0,0,0,12" />
-                                <Grid>
+                                <Grid Visibility="{Binding IsGogStoreEnabled, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"
+                                      Margin="0,0,0,10">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" MinWidth="180" />
                                         <ColumnDefinition Width="16" />
                                         <ColumnDefinition Width="280" />
                                     </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="10" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0"
+                                    <TextBlock Grid.Column="0"
                                                Text="{DynamicResource LOCCheckDlcDefineGogCurrency}"
                                                Style="{StaticResource ViewColumnLabelText}"
                                                VerticalAlignment="Center" />
-                                    <ComboBox Grid.Row="0" Grid.Column="2"
+                                    <ComboBox Grid.Column="2"
                                               SelectedItem="{Binding Settings.GogCurrency}"
                                               DisplayMemberPath="text"
                                               Name="PART_GogCurrency" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0"
+                                </Grid>
+                                <Grid Visibility="{Binding IsOriginStoreEnabled, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" MinWidth="180" />
+                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="280" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
                                                Text="{DynamicResource LOCCheckDlcDefineOriginCurrency}"
                                                Style="{StaticResource ViewColumnLabelText}"
                                                VerticalAlignment="Center" />
-                                    <ComboBox Grid.Row="2" Grid.Column="2"
+                                    <ComboBox Grid.Column="2"
                                               SelectedItem="{Binding Settings.OriginCurrency}"
                                               DisplayMemberPath="text"
                                               Name="PART_OriginCurrency" />

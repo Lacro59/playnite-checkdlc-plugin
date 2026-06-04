@@ -209,32 +209,7 @@ namespace CheckDlc
         #region Application event
         public override void OnApplicationStarted(OnApplicationStartedEventArgs args)
         {
-            if (PluginDatabase.PluginSettings.PluginState.SteamIsEnabled)
-            {
-                SteamApi = new SteamApi(PluginDatabase.PluginName, PlayniteTools.ExternalPlugin.CheckDlc);
-                SteamApi.SetLanguage(API.Instance.ApplicationSettings.Language);
-                SteamApi.SetForceAuth(true);
-                SteamApi.StoreSettings = PluginDatabase.PluginSettings.SteamStoreSettings;
-                _ = SteamApi.CurrentAccountInfos;
-            }
-
-            if (PluginDatabase.PluginSettings.PluginState.EpicIsEnabled)
-            {
-                EpicApi = new EpicApi(PluginDatabase.PluginName, PlayniteTools.ExternalPlugin.CheckDlc);
-                EpicApi.SetLanguage(API.Instance.ApplicationSettings.Language);
-                EpicApi.SetForceAuth(true);
-                EpicApi.StoreSettings = PluginDatabase.PluginSettings.EpicStoreSettings;
-                _ = EpicApi.CurrentAccountInfos;
-            }
-
-            if (PluginDatabase.PluginSettings.PluginState.GogIsEnabled)
-            {
-                GogApi = new GogApi(PluginDatabase.PluginName, PlayniteTools.ExternalPlugin.CheckDlc);
-                GogApi.SetLanguage(API.Instance.ApplicationSettings.Language);
-                GogApi.SetForceAuth(true);
-                GogApi.StoreSettings = PluginDatabase.PluginSettings.GogStoreSettings;
-                _ = GogApi.CurrentAccountInfos;
-            }
+            PluginDatabase.EnsureStoreApis(null, reloadAccountInfos: false);
 
             _ = Task.Run(() =>
             {
