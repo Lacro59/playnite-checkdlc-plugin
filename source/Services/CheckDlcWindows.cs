@@ -71,7 +71,7 @@ namespace CheckDlc.Services
             {
                 CanBeResizable = false,
                 Height = 720,
-                Width = 1000,
+                Width = 1080,
                 ShowMaximizeButton = false
             };
 
