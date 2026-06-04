@@ -11,7 +11,7 @@ using System.Windows.Controls;
 namespace CheckDlc.Views
 {
     /// <summary>
-    /// Logique d'interaction pour CheckDlcFreeView.xaml
+    /// Interaction logic for CheckDlcFreeView.xaml.
     /// </summary>
     public partial class CheckDlcFreeView : UserControl
     {
@@ -43,6 +43,7 @@ namespace CheckDlc.Views
                     Link = z.Link
                 })).ToList();
             PART_ListviewDlc.ItemsSource = lvDlcs;
+            UpdateTotalFoundCount();
         }
 
 
@@ -132,11 +133,18 @@ namespace CheckDlc.Views
                     })).ToList();
 
                 PART_ListviewDlc.ItemsSource = lvDlcs;
+                UpdateTotalFoundCount();
             }
             catch (Exception ex)
             {
                 Common.LogError(ex, false);
             }
+        }
+
+        private void UpdateTotalFoundCount()
+        {
+            List<LvDlc> data = PART_ListviewDlc.ItemsSource as List<LvDlc>;
+            PART_TotalFoundCount.Text = data != null ? data.Count.ToString() : "0";
         }
     }
 

@@ -41,8 +41,16 @@ namespace CheckDlc.Services
 
         public void ShowFreeDlcWindow(CheckDlc plugin)
         {
+            WindowOptions windowOptions = new WindowOptions
+            {
+                CanBeResizable = false,
+                Height = 720,
+                Width = 1080,
+                ShowMaximizeButton = false
+            };
+
             CheckDlcFreeView viewExtension = new CheckDlcFreeView(plugin);
-            Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), viewExtension);
+            Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), viewExtension, windowOptions);
             windowExtension.ShowDialog();
         }
 
