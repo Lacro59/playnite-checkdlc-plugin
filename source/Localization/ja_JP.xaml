@@ -40,6 +40,12 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">所有済みの DLC のみのリストを表示</sys:String>
 
     <sys:String x:Key="LOCCheckDlcManuallyOwned">手動で所有済み</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsMetadataSection">ゲームメタデータ</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencySection">ストア通貨</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencyDescription">価格変更通知とは別に、GOG および EA app から DLC 価格を取得して表示するために使用する通貨です。</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIntegrationDescription">対応しているカスタムテーマで表示されるコントロールです。ゲームリストまたは詳細ビューに表示したい各要素を有効にしてください。</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIgnoredDescription">リストで非表示にする DLC ストア ID です。ゲームの DLC ビューから項目を追加または削除できます。再度表示するには、ここで項目を削除してください。</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsManuallyOwnedDescription">手動で所有済みとしてマークされた DLC です。ゲームの DLC ビューから項目を追加または削除できます。</sys:String>
 
     <!-- Notifications -->
 
