@@ -215,9 +215,6 @@
                                             <DataTrigger Binding="{Binding IsHidden}" Value="True">
                                                 <Setter Property="IsEnabled" Value="False" />
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsOwned}" Value="True">
-                                                <Setter Property="IsEnabled" Value="False" />
-                                            </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </ScrollViewer.Style>
