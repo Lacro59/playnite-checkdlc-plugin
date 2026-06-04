@@ -40,6 +40,12 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Εμφάνιση λίστας των μη αποκτηθέντων DLC</sys:String>
 
     <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsMetadataSection">Game metadata</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencySection">Store currencies</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencyDescription">Currency used to fetch and display DLC prices from GOG and the EA app, independent of price change notifications.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIntegrationDescription">Controls shown in supported custom themes. Enable each element you want to display in the game list or details view.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIgnoredDescription">DLC store IDs hidden from lists. Add or remove entries from the game DLC view; remove an entry here to show it again.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsManuallyOwnedDescription">DLC marked as owned manually. Add or remove entries from the game DLC view.</sys:String>
 
     <!-- Notifications -->
 
