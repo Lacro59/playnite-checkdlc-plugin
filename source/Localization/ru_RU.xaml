@@ -40,12 +40,12 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показать список только с не включёнными DLC</sys:String>
 
     <sys:String x:Key="LOCCheckDlcManuallyOwned">Вручную заданные как приобретенные</sys:String>
-    <sys:String x:Key="LOCCheckDlcSettingsMetadataSection">Game metadata</sys:String>
-    <sys:String x:Key="LOCCheckDlcSettingsCurrencySection">Store currencies</sys:String>
-    <sys:String x:Key="LOCCheckDlcSettingsCurrencyDescription">Currency used to fetch and display DLC prices from GOG and the EA app, independent of price change notifications.</sys:String>
-    <sys:String x:Key="LOCCheckDlcSettingsIntegrationDescription">Controls shown in supported custom themes. Enable each element you want to display in the game list or details view.</sys:String>
-    <sys:String x:Key="LOCCheckDlcSettingsIgnoredDescription">DLC store IDs hidden from lists. Add or remove entries from the game DLC view; remove an entry here to show it again.</sys:String>
-    <sys:String x:Key="LOCCheckDlcSettingsManuallyOwnedDescription">DLC marked as owned manually. Add or remove entries from the game DLC view.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsMetadataSection">Метаданные игры</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencySection">Валюты магазина</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencyDescription">Валюта, используемая для получения и отображения цен на DLC из приложений GOG и EA, независимо от уведомлений об изменении цен.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIntegrationDescription">Элементы, отображаемые в поддерживаемых кастомных темах. Включите нужный элемент, который вы хотите отобразить в списке игр или в подробном представлении.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIgnoredDescription">Идентификаторы DLC из магазина, скрыты в списках. Добавляйте или удаляйте записи из окна просмотра DLC игры; удалите запись здесь, чтобы показать её снова.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsManuallyOwnedDescription">DLC помечено как приобретенное вручную. Добавляйте или удаляйте записи из просмотра DLC.</sys:String>
 
     <!-- Notifications -->
 
