@@ -56,6 +56,11 @@ namespace CheckDlc.Clients
                         Common.LogDebug(true,
                             $"EpicDlc: no Epic namespace for '{game.Name}' (GameId='{game.GameId}'); skipping DLC catalog query.");
                     }
+                    else
+                    {
+                        Common.LogDebug(true,
+                            $"EpicDlc: resolved namespace '{productNameSpace}' for '{game.Name}' (GameId='{game.GameId}').");
+                    }
 
                     ObservableCollection<DlcInfos> dlcs = EpicApi.GetDlcInfos(productNameSpace, EpicApi.CurrentAccountInfos);
                     dlcs?.ForEach(x =>
