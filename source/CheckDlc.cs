@@ -72,7 +72,6 @@ namespace CheckDlc
             FileSystem.DeleteFile(Path.Combine(PluginDatabase.Paths.PluginUserDataPath, "SteamUserData.json"));
         }
 
-
         #region Custom event
         private void WindowBase_LoadedEvent(object sender, EventArgs e)
         {
@@ -112,8 +111,8 @@ namespace CheckDlc
         }
         #endregion
 
-
         #region Theme integration
+        
         public override Control GetGameViewControl(GetGameViewControlArgs args)
         {
             if (args.Name == "PluginButton")
@@ -136,10 +135,11 @@ namespace CheckDlc
 
             return null;
         }
+        
         #endregion
 
-
         #region Menus
+        
         public override IEnumerable<GameMenuItem> GetGameMenuItems(GetGameMenuItemsArgs args)
         {
             return _menus.GetGameMenuItems(args);
@@ -149,10 +149,11 @@ namespace CheckDlc
         {
             return _menus.GetMainMenuItems(args);
         }
+        
         #endregion
 
-
         #region Game event
+        
         public override void OnGameSelected(OnGameSelectedEventArgs args)
         {
             try
@@ -203,10 +204,11 @@ namespace CheckDlc
         public override void OnGameStopped(OnGameStoppedEventArgs args)
         {
         }
+        
         #endregion
 
-
         #region Application event
+        
         public override void OnApplicationStarted(OnApplicationStartedEventArgs args)
         {
             PluginDatabase.EnsureStoreApis(null, reloadAccountInfos: false);
@@ -282,12 +284,11 @@ namespace CheckDlc
                 }, globalProgressOptions);
             }
         }
-
         public override void OnApplicationStopped(OnApplicationStoppedEventArgs args)
         {
         }
+        
         #endregion
-
 
         public override void OnLibraryUpdated(OnLibraryUpdatedEventArgs args)
         {
@@ -304,8 +305,8 @@ namespace CheckDlc
             }
         }
 
-
         #region Settings
+        
         public override ISettings GetSettings(bool firstRunSettings)
         {
             return PluginSettingsViewModel;
@@ -315,6 +316,7 @@ namespace CheckDlc
         {
             return new CheckDlcSettingsView();
         }
+        
         #endregion
     }
 }
