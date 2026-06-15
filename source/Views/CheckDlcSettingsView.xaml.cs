@@ -46,6 +46,7 @@ namespace CheckDlc.Views
             if (_storeUiInitialized)
             {
                 RefreshStorePanels();
+                RequestStorePanelsBackgroundAuthRefresh();
                 InitializeCurrencyComboBoxes();
                 return;
             }
@@ -72,6 +73,29 @@ namespace CheckDlc.Views
             SteamPanel.StoreApi = settings.PluginState.SteamIsEnabled ? CheckDlc.SteamApi : null;
             EpicPanel.StoreApi = settings.PluginState.EpicIsEnabled ? CheckDlc.EpicApi : null;
             GogPanel.StoreApi = settings.PluginState.GogIsEnabled ? CheckDlc.GogApi : null;
+        }
+
+        /// <summary>
+        /// Schedules a background auth check for each enabled store panel (settings re-open).
+        /// </summary>
+        private void RequestStorePanelsBackgroundAuthRefresh()
+        {
+            CheckDlcSettings settings = PluginDatabase.PluginSettings;
+
+            if (settings.PluginState.SteamIsEnabled)
+            {
+                (SteamPanel.DataContext as IStorePanelViewModel)?.RequestBackgroundAuthRefresh();
+            }
+
+            if (settings.PluginState.EpicIsEnabled)
+            {
+                (EpicPanel.DataContext as IStorePanelViewModel)?.RequestBackgroundAuthRefresh();
+            }
+
+            if (settings.PluginState.GogIsEnabled)
+            {
+                (GogPanel.DataContext as IStorePanelViewModel)?.RequestBackgroundAuthRefresh();
+            }
         }
 
         private void RegisterStorePanels()
