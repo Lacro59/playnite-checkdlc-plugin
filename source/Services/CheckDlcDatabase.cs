@@ -57,10 +57,10 @@ namespace CheckDlc.Services
 
                 if (reloadAccountInfos)
                 {
-                    CheckDlc.SteamApi.CurrentAccountInfos = null;
+                    CheckDlc.SteamApi.ReloadAccountInfos();
+                    _ = CheckDlc.SteamApi.CurrentAccountInfos;
                 }
-
-                if (reloadAccountInfos || created)
+                else if (created)
                 {
                     _ = CheckDlc.SteamApi.CurrentAccountInfos;
                 }
@@ -80,10 +80,10 @@ namespace CheckDlc.Services
 
                 if (reloadAccountInfos)
                 {
-                    CheckDlc.EpicApi.CurrentAccountInfos = null;
+                    CheckDlc.EpicApi.ReloadAccountInfos();
+                    _ = CheckDlc.EpicApi.CurrentAccountInfos;
                 }
-
-                if (reloadAccountInfos || created)
+                else if (created)
                 {
                     _ = CheckDlc.EpicApi.CurrentAccountInfos;
                 }
@@ -103,10 +103,10 @@ namespace CheckDlc.Services
 
                 if (reloadAccountInfos)
                 {
-                    CheckDlc.GogApi.CurrentAccountInfos = null;
+                    CheckDlc.GogApi.ReloadAccountInfos();
+                    _ = CheckDlc.GogApi.CurrentAccountInfos;
                 }
-
-                if (reloadAccountInfos || created)
+                else if (created)
                 {
                     _ = CheckDlc.GogApi.CurrentAccountInfos;
                 }
