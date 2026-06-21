@@ -50,7 +50,10 @@ namespace CheckDlc.Services
             };
 
             CheckDlcFreeView viewExtension = new CheckDlcFreeView(plugin);
-            Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), viewExtension, windowOptions);
+            Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(
+                BuildWindowTitle(ResourceProvider.GetString("LOCCheckDlcViewFreeDlcNoOwned")),
+                viewExtension,
+                windowOptions);
             windowExtension.ShowDialog();
         }
 
@@ -76,8 +79,19 @@ namespace CheckDlc.Services
             };
 
             CheclDlcGameView viewExtension = new CheclDlcGameView(plugin, gameContext);
-            Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(ResourceProvider.GetString("LOCCheckDlc"), viewExtension, windowOptions);
+            Window windowExtension = PlayniteUiHelper.CreateExtensionWindow(
+                BuildWindowTitle(gameContext.Name),
+                viewExtension,
+                windowOptions);
             windowExtension.ShowDialog();
+        }
+
+        private static string BuildWindowTitle(string context)
+        {
+            return string.Format(
+                ResourceProvider.GetString("LOCCheckDlcWindowTitleFormat"),
+                ResourceProvider.GetString("LOCCheckDlc"),
+                context);
         }
     }
 }

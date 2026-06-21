@@ -8,6 +8,15 @@ namespace CheckDlc.Services
 {
     public class CheckDlcExport : PluginExportCsv<GameDlc>
     {
+        /// <inheritdoc/>
+        protected override string GetExportWindowTitle(string pluginName)
+        {
+            return string.Format(
+                ResourceProvider.GetString("LOCCheckDlcWindowTitleFormat"),
+                ResourceProvider.GetString("LOCCheckDlc"),
+                ResourceProvider.GetString("LOCCommonExport"));
+        }
+
         protected override Dictionary<string, string> GetHeader()
         {
             return new Dictionary<string, string>

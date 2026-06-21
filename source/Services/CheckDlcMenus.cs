@@ -88,7 +88,10 @@ namespace CheckDlc.Services
                         new List<GenericItemOption>(),
                         (x) => CheckDlc.SteamApi.GetSearchGame(x),
                         gameMenu.Name.NormalizeGameName(),
-                        ResourceProvider.GetString("LOCCommonSelectGames")
+                        string.Format(
+                            ResourceProvider.GetString("LOCCheckDlcWindowTitleFormat"),
+                            ResourceProvider.GetString("LOCCheckDlc"),
+                            ResourceProvider.GetString("LOCCommonSelectGames"))
                     );
 
                     if (selectedGame != null)
