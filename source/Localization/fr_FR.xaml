@@ -56,6 +56,6 @@
 
     <sys:String x:Key="LOCCheckDlcPrice">Prix</sys:String>
     <sys:String x:Key="LOCCheckDlcLink">Lien</sys:String>
-    <sys:String x:Key="LOCCheckDlcManualAdded">Ajouts manuels</sys:String>
+    <sys:String x:Key="LOCCheckDlcManualAdded">Ajouté manuellement</sys:String>
     
 </ResourceDictionary>
