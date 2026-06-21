@@ -12,6 +12,7 @@ using CommonPluginsStores.Gog;
 using CommonPluginsStores.Steam;
 using Playnite.SDK;
 using Playnite.SDK.Events;
+using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
@@ -294,11 +295,20 @@ namespace CheckDlc
         {
             if (PreventLibraryUpdatedOnStart && PluginSettingsViewModel.Settings.AutoImport)
             {
-                List<Guid> PlayniteDb = PlayniteApi.Database.Games
-                        .Where(x => x.Added != null && x.Added > PluginSettingsViewModel.Settings.LastAutoLibUpdateAssetsDownload)
-                        .Select(x => x.Id).ToList();
+                List<Game> newGames = PlayniteApi.Database.Games
+                    .Where(x => x.Added != null && x.Added > PluginSettingsViewModel.Settings.LastAutoLibUpdateAssetsDownload)
+                    .ToList();
 
-                PluginDatabase.Refresh(PlayniteDb);
+                List<Game> playniteDb = PlayniteTools.FilterLibraryGames(newGames, PluginSettingsViewModel.Settings).ToList();
+
+                Common.LogDebug(true, string.Format(
+                    "[LibraryFilter] OnLibraryUpdated: {0} new game(s) -> {1} after library filter (IncludeEmulatedGames={2}, SourceFilter={3})",
+                    newGames.Count,
+                    playniteDb.Count,
+                    PluginSettingsViewModel.Settings.IncludeEmulatedGames,
+                    PlayniteTools.FormatSourceFilterForLog(PluginSettingsViewModel.Settings)));
+
+                PluginDatabase.Refresh(playniteDb.Select(x => x.Id));
 
                 PluginSettingsViewModel.Settings.LastAutoLibUpdateAssetsDownload = DateTime.Now;
                 SavePluginSettings(PluginSettingsViewModel.Settings);

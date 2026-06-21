@@ -16,6 +16,38 @@ namespace CheckDlc
 {
     public class CheckDlcSettings : PluginSettings
     {
+        /// <summary>
+        /// Normalized source names included in CheckDlc library operations (see <see cref="PlayniteTools.GetSourceName"/>).
+        /// Matches <c>source/Clients</c> store coverage — fixed plugin policy, not exposed in the settings UI.
+        /// Includes legacy Playnite source names (e.g. <c>Origin</c> before EA app rebranding).
+        /// </summary>
+        private static readonly IReadOnlyList<string> FixedSupportedSources = new List<string>
+        {
+            "Steam",
+            "Epic",
+            "GOG",
+            "EA app",
+            "Origin",
+            "Playstation",
+            "Nintendo"
+        };
+
+        public CheckDlcSettings()
+        {
+            ApplyFixedLibraryFilterPolicy();
+        }
+
+        /// <summary>
+        /// Applies fixed library filter values for this plugin (not user-configurable).
+        /// </summary>
+        public void ApplyFixedLibraryFilterPolicy()
+        {
+            IncludeEmulatedGames = false;
+            LibrarySourceFilterMode = SourceFilterMode.Whitelist;
+            EnabledSources = new List<string>(FixedSupportedSources);
+            ExcludedSources = new List<string>();
+        }
+
         #region Settings variables
         public bool EnableTagAllDlc { get; set; } = true;
 
@@ -134,6 +166,8 @@ namespace CheckDlc
                     UseAuth = Settings.EpicSettings.UseAuth
                 };
             }
+
+            Settings.ApplyFixedLibraryFilterPolicy();
         }
 
         /// <summary>
@@ -192,6 +226,8 @@ namespace CheckDlc
         // This method should save settings made to Option1 and Option2.
         public void EndEdit()
         {
+            Settings.ApplyFixedLibraryFilterPolicy();
+
             CheckDlc.PluginDatabase.EnsureStoreApis(Settings, reloadAccountInfos: true);
 
             Plugin.SavePluginSettings(Settings);

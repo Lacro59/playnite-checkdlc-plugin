@@ -1,6 +1,8 @@
-﻿using CheckDlc.Services;
+﻿using CheckDlc.Models;
+using CheckDlc.Services;
 using CommonPluginsShared;
 using Playnite.SDK;
+using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,8 +32,15 @@ namespace CheckDlc.Views
         private void InitData()
         {
             PART_ListviewDlc.ItemsSource = null;
-            List<LvDlc> lvDlcs = PluginDatabase.GetAllCache()
-                .SelectMany(x => x.Items.Where(y => y.IsFree && !y.IsOwned && !y.IsHidden)
+            PART_ListviewDlc.ItemsSource = GetFreeDlcList();
+            UpdateTotalFoundCount();
+        }
+
+        private List<LvDlc> GetFreeDlcList(bool includeHidden = true)
+        {
+            return PluginDatabase.GetAllCache()
+                .Where(IsEligibleForFreeDlcView)
+                .SelectMany(x => x.Items.Where(y => y.IsFree && !y.IsOwned && (!includeHidden || !y.IsHidden))
                 .Select(z => new LvDlc
                 {
                     Icon = x.Icon,
@@ -42,8 +51,18 @@ namespace CheckDlc.Views
                     NameHide = x.Name + "##" + z.Name,
                     Link = z.Link
                 })).ToList();
-            PART_ListviewDlc.ItemsSource = lvDlcs;
-            UpdateTotalFoundCount();
+        }
+
+        private bool IsEligibleForFreeDlcView(GameDlc gameDlc)
+        {
+            if (gameDlc?.IsManual == true)
+            {
+                return true;
+            }
+
+            Game game = API.Instance.Database.Games.Get(gameDlc.Id);
+            return game != null
+                && PlayniteTools.ShouldIncludeLibraryGame(game, PluginDatabase.PluginSettings);
         }
 
 
@@ -119,20 +138,7 @@ namespace CheckDlc.Views
                 PluginDatabase.Refresh(Id);
 
                 PART_ListviewDlc.ItemsSource = null;
-                List<LvDlc> lvDlcs = PluginDatabase.GetAllCache()
-                    .SelectMany(x => x.Items.Where(y => y.IsFree && !y.IsOwned)
-                    .Select(z => new LvDlc
-                    {
-                        Icon = x.Icon,
-                        Id = x.Id,
-                        DlcId = z.Id,
-                        Name = x.Name,
-                        NameDlc = z.Name,
-                        NameHide = x.Name + "##" + z.Name,
-                        Link = z.Link
-                    })).ToList();
-
-                PART_ListviewDlc.ItemsSource = lvDlcs;
+                PART_ListviewDlc.ItemsSource = GetFreeDlcList(includeHidden: false);
                 UpdateTotalFoundCount();
             }
             catch (Exception ex)

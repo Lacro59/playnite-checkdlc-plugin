@@ -30,8 +30,34 @@ namespace CheckDlc.Services
                 return Enumerable.Empty<GameMenuItem>();
             }
 
-            Game gameMenu = args.Games.First();
-            List<Guid> ids = args.Games.Select(x => x.Id).ToList();
+            List<Game> includedGames = args.Games
+                .Where(game => PlayniteTools.ShouldIncludeLibraryGame(game, _settings))
+                .ToList();
+
+            if (includedGames.Count == 0)
+            {
+                Common.LogDebug(true, string.Format(
+                    "[LibraryFilter] CheckDlcMenus: game menu hidden — no eligible game in selection ({0} selected, IncludeEmulatedGames={1}, SourceFilter={2})",
+                    args.Games.Count,
+                    _settings.IncludeEmulatedGames,
+                    PlayniteTools.FormatSourceFilterForLog(_settings)));
+
+                return Enumerable.Empty<GameMenuItem>();
+            }
+
+            int excludedCount = args.Games.Count - includedGames.Count;
+            if (excludedCount > 0)
+            {
+                Common.LogDebug(true, string.Format(
+                    "[LibraryFilter] CheckDlcMenus: {0}/{1} selected game(s) excluded from menu actions (IncludeEmulatedGames={2}, SourceFilter={3})",
+                    excludedCount,
+                    args.Games.Count,
+                    _settings.IncludeEmulatedGames,
+                    PlayniteTools.FormatSourceFilterForLog(_settings)));
+            }
+
+            Game gameMenu = includedGames.First();
+            List<Guid> ids = includedGames.Select(x => x.Id).ToList();
             GameDlc gameDlc = Database.Get(gameMenu, true);
 
             List<GameMenuItem> gameMenuItems = new List<GameMenuItem>();
@@ -76,25 +102,22 @@ namespace CheckDlc.Services
                 }
             });
 
-            if ((CheckDlc.SupportedLibrary.Contains(gameMenu.PluginId) && PlayniteTools.IsEnabledPlaynitePlugin(gameMenu.PluginId)) || ids.Count > 1)
+            gameMenuItems.Add(new GameMenuItem
             {
-                gameMenuItems.Add(new GameMenuItem
+                MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
+                Description = ResourceProvider.GetString("LOCCommonRefreshGameData"),
+                Action = (gameMenuItem) =>
                 {
-                    MenuSection = ResourceProvider.GetString("LOCCheckDlc"),
-                    Description = ResourceProvider.GetString("LOCCommonRefreshGameData"),
-                    Action = (gameMenuItem) =>
+                    if (ids.Count == 1)
                     {
-                        if (ids.Count == 1)
-                        {
-                            Database.Refresh(gameMenu.Id);
-                        }
-                        else
-                        {
-                            Database.Refresh(ids);
-                        }
+                        Database.Refresh(gameMenu.Id);
                     }
-                });
-            }
+                    else
+                    {
+                        Database.Refresh(ids);
+                    }
+                }
+            });
 
             if (gameDlc.HasData)
             {

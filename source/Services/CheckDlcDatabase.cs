@@ -139,6 +139,18 @@ namespace CheckDlc.Services
         public override GameDlc GetWeb(Guid id)
         {
             Game game = API.Instance.Database.Games.Get(id);
+            GameDlc cachedItem = GetOnlyCache(id);
+
+            if (cachedItem?.IsManual != true)
+            {
+                string exclusionReason = PlayniteTools.GetLibraryFilterExclusionReason(game, PluginSettings);
+                if (exclusionReason != null)
+                {
+                    PlayniteTools.LogLibraryFilterExclusion("CheckDlc.GetWeb", game, exclusionReason);
+                    return GetDefault(game);
+                }
+            }
+
             GameDlc gameDlc = GetDefault(game);
             try
             {
@@ -249,6 +261,19 @@ namespace CheckDlc.Services
         public override void SetThemesResources(Game game)
         {
             GameDlc gameDlc = Get(game, true);
+
+            if (gameDlc?.IsManual != true)
+            {
+                string exclusionReason = PlayniteTools.GetLibraryFilterExclusionReason(game, PluginSettings);
+                if (exclusionReason != null)
+                {
+                    PlayniteTools.LogLibraryFilterExclusion("CheckDlc.SetThemesResources", game, exclusionReason);
+                    PluginSettings.HasData = false;
+                    PluginSettings.ListDlcs = new List<Dlc>();
+                    return;
+                }
+            }
+
             PluginSettings.HasData = gameDlc?.HasData ?? false;
             PluginSettings.ListDlcs = new List<Dlc>();
 
@@ -261,31 +286,29 @@ namespace CheckDlc.Services
         public override void RefreshNoLoader(Guid id, CancellationToken cancellationToken = default)
         {
             Game game = API.Instance.Database.Games.Get(id);
-            Logger.Info(string.Format("RefreshNoLoader — {0} ({1} - {2})", game?.Name, id, game?.GameId));
-
             if (game == null)
             {
                 return;
             }
 
             GameDlc loadedItem = Get(id, true);
-            if (CheckDlc.SupportedLibrary.Contains(game.PluginId) && !loadedItem.IsManual)
+
+            if (!loadedItem.IsManual)
             {
-                GameDlc webItem = GetWeb(id);
-                webItem.PriceNotification = loadedItem.PriceNotification;
-
-                if (webItem != null && !ReferenceEquals(loadedItem, webItem))
+                string exclusionReason = PlayniteTools.GetLibraryFilterExclusionReason(game, PluginSettings);
+                if (exclusionReason != null)
                 {
-                    Update(webItem);
+                    PlayniteTools.LogLibraryFilterExclusion(
+                        string.Format("{0}.RefreshNoLoader", PluginName),
+                        game,
+                        exclusionReason);
+                    return;
                 }
-                else
-                {
-                    webItem = loadedItem;
-                }
-
-                ActionAfterRefresh(webItem);
             }
-            else if (loadedItem.IsManual)
+
+            Logger.Info(string.Format("RefreshNoLoader — {0} ({1} - {2})", game.Name, id, game.GameId));
+
+            if (loadedItem.IsManual)
             {
                 GameDlc webItem = GetManual(id, loadedItem.AppId);
 
@@ -302,7 +325,19 @@ namespace CheckDlc.Services
             }
             else
             {
-                Logger.Warn($"The plugin does not support the library {PlayniteTools.GetSourceByPluginId(game.PluginId)}");
+                GameDlc webItem = GetWeb(id);
+                webItem.PriceNotification = loadedItem.PriceNotification;
+
+                if (webItem != null && !ReferenceEquals(loadedItem, webItem))
+                {
+                    Update(webItem);
+                }
+                else
+                {
+                    webItem = loadedItem;
+                }
+
+                ActionAfterRefresh(webItem);
             }
         }
 
@@ -334,6 +369,17 @@ namespace CheckDlc.Services
         protected override bool AppendPluginTag(Game game)
         {
             GameDlc item = Get(game, true);
+
+            if (item?.IsManual != true)
+            {
+                string exclusionReason = PlayniteTools.GetLibraryFilterExclusionReason(game, PluginSettings);
+                if (exclusionReason != null)
+                {
+                    PlayniteTools.LogLibraryFilterExclusion("CheckDlc.AppendPluginTag", game, exclusionReason);
+                    return false;
+                }
+            }
+
             bool modified = base.AppendPluginTag(game);
 
             if (item?.HasData == true && PluginSettings.EnableTagAllDlc && item.HasAllDlc)
