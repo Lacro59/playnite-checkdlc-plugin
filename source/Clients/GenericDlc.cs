@@ -79,6 +79,11 @@ namespace CheckDlc.Clients
 
         public virtual void ShowNotificationPluginNoAuthenticate(string message, ExternalPlugin externalPlugin)
         {
+            if (PluginDatabase.ShouldSkipAuthNotification(ClientName))
+            {
+                return;
+            }
+
             LastErrorId = $"{PluginDatabase.PluginName }-{ClientName.RemoveWhiteSpace().ToLower()}-noauthenticate";
             LastErrorMessage = message;
             Logger.Warn($"{ClientName} user is not authenticated");
