@@ -130,13 +130,22 @@ namespace CheckDlc.Services
                     Description = ResourceProvider.GetString("LOCCommonDeleteGameData"),
                     Action = (gameMenuItem) =>
                     {
-                        if (ids.Count == 1)
+                        List<Guid> idsWithData = ids
+                            .Where(id => Database.Get(id, true).HasData)
+                            .ToList();
+
+                        if (idsWithData.Count == 0)
                         {
-                            Database.Remove(gameMenu);
+                            return;
+                        }
+
+                        if (idsWithData.Count == 1)
+                        {
+                            Database.Remove(idsWithData[0]);
                         }
                         else
                         {
-                            Database.Remove(ids);
+                            Database.Remove(idsWithData);
                         }
                     }
                 });

@@ -358,11 +358,28 @@ namespace CheckDlc.Services
             }
             else
             {
-                if (PluginSettings.DlcFeature?.Id != null && game.FeatureIds?.Find(x => x == PluginSettings.DlcFeature?.Id) != null)
-                {
-                    _ = game.FeatureIds.Remove(PluginSettings.DlcFeature.Id);
-                    API.Instance.Database.Games.Update(game);
-                }
+                RemoveDlcFeatureFromGame(game);
+            }
+        }
+
+        /// <inheritdoc/>
+        protected override void ActionAfterRemove(Guid id)
+        {
+            RemoveDlcFeatureFromGame(API.Instance.Database.Games.Get(id));
+        }
+
+        private void RemoveDlcFeatureFromGame(Game game)
+        {
+            if (game == null)
+            {
+                return;
+            }
+
+            if (PluginSettings.DlcFeature?.Id != null
+                && game.FeatureIds?.Find(x => x == PluginSettings.DlcFeature.Id) != null)
+            {
+                _ = game.FeatureIds.Remove(PluginSettings.DlcFeature.Id);
+                API.Instance.Database.Games.Update(game);
             }
         }
 
