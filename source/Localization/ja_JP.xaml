@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
+    <sys:String x:Key="LOCCheckDlcWindowTitleFormat">{0} - {1}</sys:String>
 
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">所有していない無料の DLC をチェック</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">ゲームの DLC を表示</sys:String>
@@ -39,11 +40,23 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">所有済みの DLC のみのリストを表示</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">所有済みの DLC のみのリストを表示</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">手動で所有済み</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsMetadataSection">ゲームメタデータ</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencySection">ストア通貨</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencyDescription">価格変更通知とは別に、GOG および EA app から DLC 価格を取得して表示するために使用する通貨です。</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIntegrationDescription">対応しているカスタムテーマで表示されるコントロールです。ゲームリストまたは詳細ビューに表示したい各要素を有効にしてください。</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIgnoredDescription">リストで非表示にする DLC ストア ID です。ゲームの DLC ビューから項目を追加または削除できます。再度表示するには、ここで項目を削除してください。</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsManuallyOwnedDescription">手動で所有済みとしてマークされた DLC です。ゲームの DLC ビューから項目を追加または削除できます。</sys:String>
 
     <!-- Notifications -->
 
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">DLC 価格の取得に失敗しました。通貨設定を確認してください。</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">{0} の DLC の一部が新しい価格になりました。</sys:String>
+
+    <!-- CSV export -->
+
+    <sys:String x:Key="LOCCheckDlcPrice">価格</sys:String>
+    <sys:String x:Key="LOCCheckDlcLink">リンク</sys:String>
+    <sys:String x:Key="LOCCheckDlcManualAdded">手動追加</sys:String>
     
 </ResourceDictionary>

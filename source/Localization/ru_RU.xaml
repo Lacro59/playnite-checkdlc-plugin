@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <sys:String x:Key="LOCCheckDlc">Проверить DLC</sys:String>
+    <sys:String x:Key="LOCCheckDlcWindowTitleFormat">{0} - {1}</sys:String>
 
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Проверьте бесплатное DLC, которое не принадлежи</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Просмотр DLC для игры</sys:String>
@@ -12,13 +13,13 @@
     <!-- DlcView -->
 
     <sys:String x:Key="LOCCheckDlcHidden">Скрытый</sys:String>
-    <sys:String x:Key="LOCCheckDlcHiddenOwned">Hidden owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcOnlyFree">Only free</sys:String>
-    <sys:String x:Key="LOCCheckDlcShowHidden">Show hidden</sys:String>
+    <sys:String x:Key="LOCCheckDlcHiddenOwned">Скрыть приобретённые</sys:String>
+    <sys:String x:Key="LOCCheckDlcOnlyFree">Только бесплатные</sys:String>
+    <sys:String x:Key="LOCCheckDlcShowHidden">Показать скрытые</sys:String>
     <sys:String x:Key="LOCCheckDlcPriceInferior">Цена ниже</sys:String>
     
-    <sys:String x:Key="LOCCheckDlcIsOwned">Is owned</sys:String>
-    <sys:String x:Key="LOCCheckDlcIsNotOwned">Is not owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsOwned">Приобретено</sys:String>
+    <sys:String x:Key="LOCCheckDlcIsNotOwned">Не приобретено</sys:String>
     
     <sys:String x:Key="LOCCheckDlcPriceNotification">Уведомить об изменении цены</sys:String>
 
@@ -39,11 +40,23 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Показать список только с включенным DLC</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Показать список только с не включёнными DLC</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Вручную заданные как приобретенные</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsMetadataSection">Метаданные игры</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencySection">Валюты магазина</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencyDescription">Валюта, используемая для получения и отображения цен на DLC из приложений GOG и EA, независимо от уведомлений об изменении цен.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIntegrationDescription">Элементы, отображаемые в поддерживаемых кастомных темах. Включите нужный элемент, который вы хотите отобразить в списке игр или в подробном представлении.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIgnoredDescription">Идентификаторы DLC из магазина, скрыты в списках. Добавляйте или удаляйте записи из окна просмотра DLC игры; удалите запись здесь, чтобы показать её снова.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsManuallyOwnedDescription">DLC помечено как приобретенное вручную. Добавляйте или удаляйте записи из просмотра DLC.</sys:String>
 
     <!-- Notifications -->
 
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Ошибка получения цен DLC. Пожалуйста, проверьте настройки валю</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Некоторые DLC для {0} имеют новую цену.</sys:String>
+
+    <!-- CSV export -->
+
+    <sys:String x:Key="LOCCheckDlcPrice">Цена</sys:String>
+    <sys:String x:Key="LOCCheckDlcLink">Ссылка</sys:String>
+    <sys:String x:Key="LOCCheckDlcManualAdded">Вручную добавленные</sys:String>
     
 </ResourceDictionary>
