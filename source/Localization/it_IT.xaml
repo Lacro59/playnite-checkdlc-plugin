@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <sys:String x:Key="LOCCheckDlc">CheckDlc</sys:String>
+    <sys:String x:Key="LOCCheckDlcWindowTitleFormat">{0} - {1}</sys:String>
 
     <sys:String x:Key="LOCCheckDlcViewFreeDlcNoOwned">Controlla DLC gratuiti non posseduti</sys:String>
     <sys:String x:Key="LOCCheckDlcViewDlc">Mostra dlc gioco</sys:String>
@@ -39,11 +40,23 @@
     <sys:String x:Key="LOCCheckDlcEnableListDlcOwned">Visualizza l'elenco con solo i DLC posseduti</sys:String>
     <sys:String x:Key="LOCCheckDlcEnableListDlNotOwned">Visualizza l'elenco con solo i DLC non posseduti</sys:String>
 
-    <sys:String x:Key="LOCCheckDlcManuallyOwned">Manually owned</sys:String>
+    <sys:String x:Key="LOCCheckDlcManuallyOwned">Posseduto manualmente</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsMetadataSection">Metadati gioco</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencySection">Valute del negozio</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsCurrencyDescription">Valuta utilizzata per recuperare e visualizzare i prezzi DLC dal GOG e dall'app EA, indipendentemente dalle notifiche di variazione dei prezzi.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIntegrationDescription">Controlli mostrati nei temi personalizzati supportati. Abilita ogni elemento che vuoi visualizzare nella lista di gioco o nella vista dettagli.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsIgnoredDescription">ID DLC store nascosti dalle liste. Aggiungi o rimuovi voci dalla vista DLC di gioco; rimuovi una voce qui per mostrarla di nuovo.</sys:String>
+    <sys:String x:Key="LOCCheckDlcSettingsManuallyOwnedDescription">DLC contrassegnato come di proprietà manualmente. Aggiungi o rimuovi voci dalla vista DLC di gioco.</sys:String>
 
     <!-- Notifications -->
 
     <sys:String x:Key="LOCCheckDlcGogErrorCurrency">Errore nell'ottenere i prezzi DLC. Si prega di controllare le impostazioni della valuta</sys:String>
     <sys:String x:Key="LOCCheckDlcNewPrice">Alcuni DLC per {0} hanno un nuovo prezzo.</sys:String>
+
+    <!-- CSV export -->
+
+    <sys:String x:Key="LOCCheckDlcPrice">Prezzo</sys:String>
+    <sys:String x:Key="LOCCheckDlcLink">Link</sys:String>
+    <sys:String x:Key="LOCCheckDlcManualAdded">Aggiunto manualmente</sys:String>
     
 </ResourceDictionary>
