@@ -47,7 +47,7 @@ namespace CheckDlc.Clients
                 if (SteamApi.IsUserLoggedIn)
                 {
                     List<Dlc> newDlcs = new List<Dlc>();
-                    ObservableCollection<DlcInfos> dlcs = SteamApi.GetDlcInfos(game.GameId, SteamApi.CurrentAccountInfos);
+                    ObservableCollection<DlcInfos> dlcs = SteamApi.GetDlcInfos(game.GameId, SteamApi.CurrentAccountInfos, game);
                     dlcs?.ForEach(x =>
                     {
                         Dlc dlc = new Dlc

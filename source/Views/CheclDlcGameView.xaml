@@ -3,248 +3,350 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:CheckDlc.Views"
              xmlns:controls="clr-namespace:DescriptionEditor.PlayniteResources.Controls"
              xmlns:converters="clr-namespace:CommonPlayniteShared.Converters"
-             xmlns:playnitecontrols="clr-namespace:CommonPluginsControls.PlayniteControls" 
-             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
-             xmlns:converters1="clr-namespace:CommonPluginsShared.Converters"
-             mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1000">
+             xmlns:playnitecontrols="clr-namespace:CommonPluginsControls.PlayniteControls"
+             xmlns:pluginConverters="clr-namespace:CommonPluginsShared.Converters"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d"
+             d:DesignHeight="720"
+             d:DesignWidth="1000">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:InvertedBoolenConverter x:Key="InvertedBoolenConverter" />
         <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
-        <converters1:ValueOperationConverter x:Key="ValueOperationConverter" />
+        <pluginConverters:ValueOperationConverter x:Key="ValueOperationConverter" />
+
+        <Style x:Key="GameViewFilterToggleStyle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}">
+            <Setter Property="FontSize" Value="{DynamicResource FontSize}" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+        </Style>
+
+        <Style x:Key="GameViewStatCountTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="Margin" Value="6,0,16,0" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="DlcRowTitleLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="FontSize" Value="{DynamicResource FontSizeLarge}" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsHidden}" Value="True">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsOwned}" Value="True">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DlcRowIconButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="FontFamily" Value="{DynamicResource FontIcoFont}" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="DlcRowIgnoreButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DlcRowIconButtonStyle}">
+            <Setter Property="FontFamily" Value="{DynamicResource CommonFont}" />
+            <Setter Property="Content" Value="&#xe972;" />
+            <Setter Property="ToolTip" Value="{DynamicResource LOCCommonIgnoredItems}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsHidden}" Value="True">
+                    <Setter Property="Content" Value="&#xE971;" />
+                    <Setter Property="ToolTip" Value="{DynamicResource LOCCommonNotIgnoredItems}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DlcRowTransparentExpanderStyle" TargetType="{x:Type Expander}" BasedOn="{StaticResource {x:Type Expander}}">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+        <Style x:Key="DlcRowDescriptionScrollStyle" TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource {x:Type ScrollViewer}}">
+            <Setter Property="IsEnabled" Value="True" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsHidden}" Value="True">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
-    <DockPanel Margin="10" LastChildFill="True" Name="PART">
-        <!-- Filter options -->
-        <Border DockPanel.Dock="Top" BorderThickness="{DynamicResource PopupBorderThickness}" BorderBrush="{DynamicResource NormalBorderBrush}">
-            <Grid Margin="10">
+    <DockPanel x:Name="PART" Margin="10" LastChildFill="True">
+
+        <!-- Toolbar: filters, max price, counters -->
+        <Border DockPanel.Dock="Top"
+                BorderBrush="{DynamicResource NormalBorderBrush}"
+                BorderThickness="{DynamicResource PopupBorderThickness}"
+                CornerRadius="{DynamicResource ControlCornerRadius}"
+                Padding="10">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="30" />
-                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <ToggleButton Content="{DynamicResource LOCCheckDlcHiddenOwned}" FontSize="16" Name="PART_TgHide" Click="PART_TgHide_Click" />
-                    <ToggleButton Content="{DynamicResource LOCCheckDlcOnlyFree}" FontSize="16" Name="PART_TgFree" Margin="10,0,0,0" Click="PART_TgFree_Click" />
-                    <ToggleButton Content="{DynamicResource LOCCheckDlcShowHidden}" FontSize="16" Name="PART_TgHidden" Margin="10,0,0,0" Click="PART_TgHidden_Click" />
+                    <ToggleButton x:Name="PART_TgHide"
+                                  Content="{DynamicResource LOCCheckDlcHiddenOwned}"
+                                  Click="PART_TgHide_Click"
+                                  Style="{StaticResource GameViewFilterToggleStyle}">
+                        <ToggleButton.Margin>0</ToggleButton.Margin>
+                    </ToggleButton>
+                    <ToggleButton x:Name="PART_TgFree"
+                                  Content="{DynamicResource LOCCheckDlcOnlyFree}"
+                                  Click="PART_TgFree_Click"
+                                  Style="{StaticResource GameViewFilterToggleStyle}" />
+                    <ToggleButton x:Name="PART_TgHidden"
+                                  Content="{DynamicResource LOCCheckDlcShowHidden}"
+                                  Click="PART_TgHidden_Click"
+                                  Style="{StaticResource GameViewFilterToggleStyle}" />
                 </StackPanel>
 
-                <Grid Grid.Column="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="60" />
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" Content="{DynamicResource LOCCheckDlcPriceInferior}"
-                           IsEnabled="{Binding ElementName=PART_CbPriceCut, Path=IsChecked}" />
-                    <playnitecontrols:NumericBox Grid.Column="2" Grid.Row="8" x:Name="PART_LimitPrice"
-                                                 MinLongValue="0" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                 IsEnabled="{Binding ElementName=PART_CbPriceInferior, Path=IsChecked}"
-                                                 LongValue="0" TextChanged="PART_LimitPrice_TextChanged" />
-                </Grid>
-
-                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Text="{DynamicResource LOCCheckDlcHidden}" VerticalAlignment="Center" />
-                    <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Name="PART_TotalHiddenCount" VerticalAlignment="Center" Width="40" TextAlignment="Right" />
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            Margin="20,0,0,0">
+                    <TextBlock Style="{StaticResource ViewColumnLabelText}"
+                               Text="{DynamicResource LOCCheckDlcPriceInferior}"
+                               VerticalAlignment="Center" />
+                    <playnitecontrols:NumericBox x:Name="PART_LimitPrice"
+                                                 MinLongValue="0"
+                                                 Width="60"
+                                                 Margin="10,0,0,0"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Center"
+                                                 LongValue="0"
+                                                 TextChanged="PART_LimitPrice_TextChanged" />
                 </StackPanel>
 
-                <StackPanel Grid.Column="4" Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Text="{DynamicResource LOCCheckDlcOwned}" VerticalAlignment="Center" />
-                    <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Name="PART_TotalOwnedCount" VerticalAlignment="Center" Width="40" TextAlignment="Right" />
-                </StackPanel>
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource ViewColumnLabelText}"
+                               Text="{DynamicResource LOCCheckDlcHidden}"
+                               VerticalAlignment="Center" />
+                    <TextBlock x:Name="PART_TotalHiddenCount"
+                               Style="{StaticResource GameViewStatCountTextStyle}" />
 
-                <StackPanel Grid.Column="6" Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Text="{DynamicResource LOCCommonTotalFound}" VerticalAlignment="Center" />
-                    <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Name="PART_TotalFoundCount" 
-                               VerticalAlignment="Center" Width="40" TextAlignment="Right" />
+                    <TextBlock Style="{StaticResource ViewColumnLabelText}"
+                               Text="{DynamicResource LOCCheckDlcOwned}"
+                               VerticalAlignment="Center" />
+                    <TextBlock x:Name="PART_TotalOwnedCount"
+                               Style="{StaticResource GameViewStatCountTextStyle}" />
+
+                    <TextBlock Style="{StaticResource ViewColumnLabelText}"
+                               Text="{DynamicResource LOCCommonTotalFound}"
+                               VerticalAlignment="Center" />
+                    <TextBlock x:Name="PART_TotalFoundCount"
+                               Style="{StaticResource GameViewStatCountTextStyle}">
+                        <TextBlock.Margin>6,0,0,0</TextBlock.Margin>
+                    </TextBlock>
                 </StackPanel>
             </Grid>
         </Border>
 
-        <Grid DockPanel.Dock="Bottom">
-            <ToggleButton Content="{DynamicResource LOCCheckDlcPriceNotification}" HorizontalAlignment="Left" Name="PART_PriceNotification" Click="ToggleButtonPriceNotification_Click" />
+        <!-- Footer: price notification and refresh -->
+        <Grid DockPanel.Dock="Bottom" Margin="0,10,0,0">
+            <ToggleButton x:Name="PART_PriceNotification"
+                          HorizontalAlignment="Left"
+                          Content="{DynamicResource LOCCheckDlcPriceNotification}"
+                          Click="ToggleButtonPriceNotification_Click" />
 
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <TextBlock Name="PART_DataDate" Text="DateTime" Margin="0,0,10,0" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}" />
-                <Button Content="{DynamicResource LOCCommonRefreshGameData}" Click="Button_Click_Refresh" />
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock x:Name="PART_DataDate"
+                           Margin="0,0,10,0"
+                           Style="{DynamicResource BaseTextBlockStyle}"
+                           Text="DateTime"
+                           VerticalAlignment="Center" />
+                <Button Content="{DynamicResource LOCCommonRefreshGameData}"
+                        Click="Button_Click_Refresh" />
             </StackPanel>
         </Grid>
 
-        <ListBox Name="PART_Dlcs" Margin="0,10,0,10">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel IsVirtualizing="True" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
+        <!-- DLC list -->
+        <Border Margin="0,10,0,10"
+                BorderBrush="{DynamicResource NormalBorderBrush}"
+                BorderThickness="{DynamicResource ControlBorderThickness}"
+                CornerRadius="{DynamicResource ControlCornerRadius}">
+            <ListBox x:Name="PART_Dlcs">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel IsVirtualizing="True" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
 
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="10" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-                        <Image Grid.Row="2" Grid.RowSpan="5" Grid.Column="0" Source="{Binding ImagePath, IsAsync=True}" Stretch="Fill" 
-                                RenderOptions.BitmapScalingMode="Linear" VerticalAlignment="Top"
-                                Height="120" Width="250" IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" />
-                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Name, FallbackValue='Game name'}"
-                               VerticalAlignment="Center" FontSize="20" FontWeight="Bold">
-                            <Label.Style>
-                                <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
-                                    <Setter Property="IsEnabled" Value="True" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsHidden}" Value="True">
-                                            <Setter Property="IsEnabled" Value="False" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsOwned}" Value="True">
-                                            <Setter Property="IsEnabled" Value="False" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Label.Style>
-                        </Label>
+                            <!-- Header row -->
+                            <Label Grid.Row="0"
+                                   Grid.Column="2"
+                                   Content="{Binding Name, FallbackValue='Game name'}"
+                                   Style="{StaticResource DlcRowTitleLabelStyle}" />
 
-                        <StackPanel Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" Orientation="Horizontal"
-                                    IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}"
-                                    Visibility="{Binding IsOwned, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}">
+                            <StackPanel Grid.Row="0"
+                                        Grid.Column="4"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}"
+                                        Visibility="{Binding IsOwned, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}">
+                                <TextBlock Style="{DynamicResource BaseTextBlockStyle}"
+                                           Text="{DynamicResource LOCCheckDlcOwned}"
+                                           VerticalAlignment="Center" />
+                                <TextBlock Style="{DynamicResource BaseTextBlockStyle}"
+                                           Text=" - "
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding IsHidden, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}" />
+                                <TextBlock Style="{DynamicResource BaseTextBlockStyle}"
+                                           Text="{DynamicResource LOCCheckDlcHidden}"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding IsHidden, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}" />
+                            </StackPanel>
 
-                            <Label Content="{DynamicResource LOCCheckDlcOwned}" VerticalAlignment="Center" />
+                            <StackPanel Grid.Row="0"
+                                        Grid.Column="4"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        IsEnabled="{Binding IsHidden, Converter={StaticResource InvertedBoolenConverter}}"
+                                        Visibility="{Binding IsOwned, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=False}">
+                                <TextBlock Style="{DynamicResource BaseTextBlockStyle}"
+                                           Text="{DynamicResource LOCCheckDlcFree}"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding IsFree, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}" />
 
-                            <Label Content=" - " VerticalAlignment="Center" Visibility="{Binding IsHidden, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=false}" />
-                            <Label Content="{DynamicResource LOCCheckDlcHidden}" VerticalAlignment="Center" Visibility="{Binding IsHidden, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=false}" />
-                        </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Visibility="{Binding IsFree, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=False}">
+                                    <TextBlock Style="{DynamicResource BaseTextBlockStyle}"
+                                               Text="{Binding Price, FallbackValue='10.0€'}"
+                                               VerticalAlignment="Center" />
+                                    <TextBlock Style="{DynamicResource BaseTextBlockStyle}"
+                                               Margin="10,0,0,0"
+                                               Text="{Binding PriceBase, FallbackValue='20.0€'}"
+                                               TextDecorations="Strikethrough"
+                                               VerticalAlignment="Center"
+                                               Visibility="{Binding IsDiscount, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=True}" />
+                                </StackPanel>
 
-                        <StackPanel Grid.Column="4" Grid.Row="0" Orientation="Horizontal"
-                                    IsEnabled="{Binding IsHidden, Converter={StaticResource InvertedBoolenConverter}}"
-                                    Visibility="{Binding IsOwned, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}">
-                            <Label Content="{DynamicResource LOCCheckDlcFree}" VerticalAlignment="Center" HorizontalAlignment="Right"
-                                   Visibility="{Binding IsFree, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=false}" />
+                                <TextBlock Style="{DynamicResource BaseTextBlockStyle}"
+                                           Text=" - "
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding IsHidden, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}" />
+                                <TextBlock Style="{DynamicResource BaseTextBlockStyle}"
+                                           Text="{DynamicResource LOCCheckDlcHidden}"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding IsHidden, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=False}" />
+                            </StackPanel>
 
-                            <Grid Visibility="{Binding IsFree, Converter={StaticResource InvertedBooleanToVisibilityConverter}, FallbackValue=false}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Row="0"
+                                        Grid.Column="6"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                <Button Style="{StaticResource DlcRowIconButtonStyle}"
+                                        Tag="{Binding Link}"
+                                        Click="Button_Click"
+                                        Content="&#xf028;"
+                                        ToolTip="{Binding Link}">
+                                    <Button.Margin>0</Button.Margin>
+                                </Button>
 
-                                <TextBlock Text="{Binding Price, FallbackValue='10.0€'}" Grid.Column="0" VerticalAlignment="Center" />
-                                <TextBlock Text="{Binding PriceBase, FallbackValue='20.0€'}" Grid.Column="1" Margin="10,0,0,0" TextDecorations="Strikethrough" VerticalAlignment="Center"
-                                            Visibility="{Binding IsDiscount, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=True}" />
-                            </Grid>
+                                <Button x:Name="Part_Owned"
+                                        Tag="{Binding Id}"
+                                        Click="Part_Owned_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DlcRowIconButtonStyle}">
+                                            <Setter Property="IsEnabled" Value="True" />
+                                            <Setter Property="Content" Value="&#xEC4B;" />
+                                            <Setter Property="ToolTip" Value="{DynamicResource LOCCheckDlcIsOwned}" />
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding IsManualOwned}" Value="False" />
+                                                        <Condition Binding="{Binding IsOwned}" Value="True" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                </MultiDataTrigger>
+                                                <DataTrigger Binding="{Binding IsManualOwned}" Value="True">
+                                                    <Setter Property="Content" Value="&#xEC4F;" />
+                                                    <Setter Property="ToolTip" Value="{DynamicResource LOCCheckDlcIsNotOwned}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
 
-                            <Label Content=" - " VerticalAlignment="Center" Visibility="{Binding IsHidden, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=false}" />
-                            <Label Content="{DynamicResource LOCCheckDlcHidden}" VerticalAlignment="Center" Visibility="{Binding IsHidden, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=false}" />
-                        </StackPanel>
+                                <Button x:Name="Part_Ignore"
+                                        Tag="{Binding Id}"
+                                        Click="Part_Ignore_Click"
+                                        Style="{StaticResource DlcRowIgnoreButtonStyle}" />
+                            </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="6">
-                            <Button Tag="{Binding Link}" Click="Button_Click" Content="&#xf028;" FontFamily="{DynamicResource FontIcoFont}"
-                                    ToolTip="{Binding Link}" />
+                            <!-- Content row: cover and description -->
+                            <Image Grid.Row="2"
+                                   Grid.Column="0"
+                                   Width="250"
+                                   Height="120"
+                                   Source="{Binding ImagePath, IsAsync=True}"
+                                   Stretch="Fill"
+                                   RenderOptions.BitmapScalingMode="Linear"
+                                   VerticalAlignment="Top"
+                                   IsEnabled="{Binding IsOwned, Converter={StaticResource InvertedBoolenConverter}}" />
 
-                            <Button Tag="{Binding Id}" Name="Part_Owned" Click="Part_Owned_Click" FontFamily="{DynamicResource FontIcoFont}" Margin="10,0,0,0">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                                        <Setter Property="IsEnabled" Value="True" />
-                                        <Setter Property="Content" Value="&#xEC4B;" />
-                                        <Setter Property="ToolTip" Value="{DynamicResource LOCCheckDlcIsOwned}" />
-                                        <Style.Triggers>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding IsManualOwned}" Value="False" />
-                                                    <Condition Binding="{Binding IsOwned}" Value="True" />
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter Property="IsEnabled" Value="False" />
-                                            </MultiDataTrigger>
-
-                                            <DataTrigger Binding="{Binding IsManualOwned}" Value="True">
-                                                <Setter Property="Content" Value="&#xEC4F;" />
-                                                <Setter Property="ToolTip" Value="{DynamicResource LOCCheckDlcIsNotOwned}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-
-                            <Button Tag="{Binding Id}" Name="Part_Ignore" Click="Part_Ignore_Click" FontFamily="{DynamicResource CommonFont}" Margin="10,0,0,0">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                                        <Setter Property="Content" Value="&#xe972;" />
-                                        <Setter Property="ToolTip" Value="{DynamicResource LOCCommonIgnoredItems}" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsHidden}" Value="True">
-                                                <Setter Property="Content" Value="&#xE971;" />
-                                                <Setter Property="ToolTip" Value="{DynamicResource LOCCommonNotIgnoredItems}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                        </StackPanel>
-
-                        <Expander VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="10" Grid.Row="2" Margin="10,0,0,0" Header="{DynamicResource LOCGameDescriptionTitle}">
-                            <Expander.Style>
-                                <Style TargetType="{x:Type Expander}" BasedOn="{StaticResource {x:Type Expander}}">
-                                    <Setter Property="Background" Value="Transparent" />
-                                </Style>
-                            </Expander.Style>
-
-                            <ScrollViewer MaxHeight="350" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                                <ScrollViewer.Style>
-                                    <Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource {x:Type ScrollViewer}}">
-                                        <Setter Property="IsEnabled" Value="True" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsHidden}" Value="True">
-                                                <Setter Property="IsEnabled" Value="False" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsOwned}" Value="True">
-                                                <Setter Property="IsEnabled" Value="False" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ScrollViewer.Style>
-
-                                <controls:HtmlTextView HtmlText="{Binding Description, FallbackValue='Description HTML'}" 
-                                                   HorizontalAlignment="Center"
-                                                   HtmlFontFamily="{DynamicResource FontFamily}"
-                                                   HtmlForeground="{DynamicResource TextColor}"
-                                                   LinkForeground="{DynamicResource GlyphColor}"
-                                                   HtmlFontSize="{DynamicResource FontSize}">
-
-                                    <controls:HtmlTextView.Width>
-                                        <MultiBinding Converter="{StaticResource ValueOperationConverter}" ConverterParameter="-">
-                                            <Binding ElementName="PART" Path="ActualWidth" />
-                                            <Binding>
-                                                <Binding.Source>
-                                                    <sys:Double>400</sys:Double>
-                                                </Binding.Source>
-                                            </Binding>
-                                        </MultiBinding>
-                                    </controls:HtmlTextView.Width>
-                                </controls:HtmlTextView>
-                            </ScrollViewer>
-                        </Expander>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                            <Expander Grid.Row="2"
+                                      Grid.Column="2"
+                                      Grid.ColumnSpan="5"
+                                      Margin="0"
+                                      Header="{DynamicResource LOCGameDescriptionTitle}"
+                                      Style="{StaticResource DlcRowTransparentExpanderStyle}"
+                                      VerticalAlignment="Top">
+                                <ScrollViewer MaxHeight="350"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                              Style="{StaticResource DlcRowDescriptionScrollStyle}">
+                                    <controls:HtmlTextView HorizontalAlignment="Center"
+                                                           HtmlFontFamily="{DynamicResource FontFamily}"
+                                                           HtmlFontSize="{DynamicResource FontSize}"
+                                                           HtmlForeground="{DynamicResource TextColor}"
+                                                           HtmlText="{Binding Description, FallbackValue='Description HTML'}"
+                                                           LinkForeground="{DynamicResource GlyphColor}">
+                                        <controls:HtmlTextView.Width>
+                                            <MultiBinding Converter="{StaticResource ValueOperationConverter}" ConverterParameter="-">
+                                                <Binding ElementName="PART" Path="ActualWidth" />
+                                                <Binding>
+                                                    <Binding.Source>
+                                                        <sys:Double>400</sys:Double>
+                                                    </Binding.Source>
+                                                </Binding>
+                                            </MultiBinding>
+                                        </controls:HtmlTextView.Width>
+                                    </controls:HtmlTextView>
+                                </ScrollViewer>
+                            </Expander>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
     </DockPanel>
 </UserControl>

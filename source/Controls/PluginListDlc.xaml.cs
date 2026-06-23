@@ -1,90 +1,79 @@
 ﻿using CheckDlc.Models;
 using CheckDlc.Services;
+using CommonPluginsShared;
+using CommonPluginsShared.Extensions;
 using CommonPluginsShared.Collections;
 using CommonPluginsShared.Controls;
 using CommonPluginsShared.Interfaces;
 using Playnite.SDK;
 using Playnite.SDK.Models;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace CheckDlc.Controls
 {
     /// <summary>
-    /// Logique d'interaction pour PluginListDlc.xaml
+    /// Interaction logic for PluginListDlc.xaml
     /// </summary>
     public partial class PluginListDlc : PluginUserControlExtend
     {
-        private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
-        internal override IPluginDatabase pluginDatabase => PluginDatabase;
+        private static CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
+        protected override IPluginDatabase pluginDatabase => PluginDatabase;
 
         private PPluginListDlcDataContext ControlDataContext = new PPluginListDlcDataContext();
-        internal override IDataContext controlDataContext
+        protected override IDataContext controlDataContext
         {
             get => ControlDataContext;
-            set => ControlDataContext = (PPluginListDlcDataContext)controlDataContext;
+            set => ControlDataContext = (PPluginListDlcDataContext)value;
         }
 
-
-        #region Properties
-        public static readonly DependencyProperty ListTypeProperty;
         public ListDlcType ListType { get; set; } = ListDlcType.All;
-        #endregion
-
 
         public PluginListDlc()
         {
             InitializeComponent();
             DataContext = ControlDataContext;
-
-            _ = Task.Run(() =>
-            {
-                // Wait extension database are loaded
-                _ = System.Threading.SpinWait.SpinUntil(() => PluginDatabase.IsLoaded, -1);
-                _ = Dispatcher.BeginInvoke((Action)delegate
-                {
-                    PluginDatabase.PluginSettings.PropertyChanged += PluginSettings_PropertyChanged;
-                    PluginDatabase.Database.ItemUpdated += Database_ItemUpdated;
-                    PluginDatabase.Database.ItemCollectionChanged += Database_ItemCollectionChanged;
-                    API.Instance.Database.Games.ItemUpdated += Games_ItemUpdated;
-
-                    // Apply settings
-                    PluginSettings_PropertyChanged(null, null);
-                });
-            });
+            Loaded += OnLoaded;
         }
 
+        protected override void AttachStaticEvents()
+        {
+            base.AttachStaticEvents();
+
+            AttachPluginEvents(PluginDatabase.PluginName, () =>
+            {
+                PluginDatabase.PluginSettings.PropertyChanged += CreatePluginSettingsHandler();
+                PluginDatabase.DatabaseItemUpdated += CreateDatabaseItemUpdatedHandler<GameDlc>();
+                PluginDatabase.DatabaseItemCollectionChanged += CreateDatabaseCollectionChangedHandler<GameDlc>();
+            });
+        }
 
         public override void SetDefaultDataContext()
         {
             switch (ListType)
             {
                 case ListDlcType.All:
-                    ControlDataContext.IsActivated = PluginDatabase.PluginSettings.Settings.EnableIntegrationListDlcAll;
+                    ControlDataContext.IsActivated = PluginDatabase.PluginSettings.EnableIntegrationListDlcAll;
                     break;
 
                 case ListDlcType.Owned:
-                    ControlDataContext.IsActivated = PluginDatabase.PluginSettings.Settings.EnableIntegrationListDlcOwned;
+                    ControlDataContext.IsActivated = PluginDatabase.PluginSettings.EnableIntegrationListDlcOwned;
                     break;
 
                 case ListDlcType.NotOwned:
-                    ControlDataContext.IsActivated = PluginDatabase.PluginSettings.Settings.EnableIntegrationListDlcNotOwned;
+                    ControlDataContext.IsActivated = PluginDatabase.PluginSettings.EnableIntegrationListDlcNotOwned;
                     break;
             }
 
             ControlDataContext.ItemsSource = new ObservableCollection<Dlc>();
         }
 
-
-        public override void SetData(Game newContext, PluginDataBaseGameBase PluginGameData)
+        public override void SetData(Game newContext, PluginGameEntry pluginGameData)
         {
-            GameDlc gameDlc = (GameDlc)PluginGameData;
+            GameDlc gameDlc = (GameDlc)pluginGameData;
             switch (ListType)
             {
                 case ListDlcType.All:
@@ -98,22 +87,17 @@ namespace CheckDlc.Controls
                 case ListDlcType.NotOwned:
                     ControlDataContext.ItemsSource = gameDlc.Items.Where(x => !x.IsOwned).ToObservable();
                     break;
-
-                default:
-                    break;
             }
         }
 
-
-        #region Events
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!((string)((FrameworkElement)sender).Tag).IsNullOrEmpty())
+            string link = (string)((FrameworkElement)sender).Tag;
+            if (!string.IsNullOrEmpty(link))
             {
-                _ = Process.Start((string)((FrameworkElement)sender).Tag);
+                _ = Process.Start(link);
             }
         }
-        #endregion  
     }
 
 

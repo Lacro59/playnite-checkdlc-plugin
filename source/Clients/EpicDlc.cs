@@ -50,7 +50,18 @@ namespace CheckDlc.Clients
                 if (EpicApi.IsUserLoggedIn)
                 {
                     List<Dlc> newDlcs = new List<Dlc>();
-                    string productNameSpace = EpicApi.GetNameSpace(game);
+                    string productNameSpace = EpicApi.GetNamespaceFromGame(game);
+                    if (productNameSpace.IsNullOrEmpty())
+                    {
+                        Common.LogDebug(true,
+                            $"EpicDlc: no Epic namespace for '{game.Name}' (GameId='{game.GameId}'); skipping DLC catalog query.");
+                    }
+                    else
+                    {
+                        Common.LogDebug(true,
+                            $"EpicDlc: resolved namespace '{productNameSpace}' for '{game.Name}' (GameId='{game.GameId}').");
+                    }
+
                     ObservableCollection<DlcInfos> dlcs = EpicApi.GetDlcInfos(productNameSpace, EpicApi.CurrentAccountInfos);
                     dlcs?.ForEach(x =>
                     {

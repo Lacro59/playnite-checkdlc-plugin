@@ -1,20 +1,15 @@
 ﻿using CheckDlc.Services;
+using CommonPluginsControls.Stores;
+using CommonPluginsControls.Stores.Models;
 using CommonPluginsShared;
-using Playnite.SDK;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using CheckDlc.Clients;
-using CheckDlc.Models;
-using System.Collections.Generic;
-using CommonPluginsStores.Gog;
-using CommonPluginsStores.Gog.Models;
 using CommonPluginsStores.Models;
-using CommonPluginsStores.Origin;
-using CommonPluginsStores.Steam;
 
 namespace CheckDlc.Views
 {
@@ -22,75 +17,197 @@ namespace CheckDlc.Views
     {
         private CheckDlcDatabase PluginDatabase => CheckDlc.PluginDatabase;
 
+        private bool _storeUiInitialized;
+
 
         public CheckDlcSettingsView()
         {
             InitializeComponent();
+            Loaded += CheckDlcSettingsView_Loaded;
+        }
 
-            SteamPanel.StoreApi = CheckDlc.SteamApi;
-            EpicPanel.StoreApi = CheckDlc.EpicApi;
-            GogPanel.StoreApi = CheckDlc.GogApi;
-
-            // List features
-            PART_FeatureDlc.ItemsSource = API.Instance.Database.Features.OrderBy(x => x.Name);
-
-            // List GOG currencies
-            List<StoreCurrency> dataGog = CheckDlc.GogApi.GetCurrencies();
-            PART_GogCurrency.ItemsSource = dataGog.OrderBy(x => x.currency).ToList();
-
-            try
+        private void CheckDlcSettingsView_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DesignerProperties.GetIsInDesignMode(this))
             {
-                int idx = ((List<StoreCurrency>)PART_GogCurrency.ItemsSource).FindIndex(x => x.currency == PluginDatabase.PluginSettings.Settings.GogCurrency.currency);
-                PART_GogCurrency.SelectedIndex = idx;
+                return;
             }
-            catch { }
 
-            // List Origin currencies
-            OriginApi originApi = new OriginApi(PluginDatabase.PluginName);
-            List<StoreCurrency> dataOrigin = originApi.GetCurrencies();
-            PART_OriginCurrency.ItemsSource = dataOrigin.OrderBy(x => x.currency).ToList();
-
-            try
+            if (DataContext is CheckDlcSettingsViewModel viewModel)
             {
-                int idx = ((List<StoreCurrency>)PART_OriginCurrency.ItemsSource).FindIndex(x => x.country == PluginDatabase.PluginSettings.Settings.OriginCurrency.country);
-                PART_OriginCurrency.SelectedIndex = idx;
+                viewModel.RefreshFeatures();
+                viewModel.RefreshStoreAvailability();
             }
-            catch { }
 
-            SteamPanel.Visibility = PluginDatabase.PluginSettings.Settings.PluginState.SteamIsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            EpicPanel.Visibility = PluginDatabase.PluginSettings.Settings.PluginState.EpicIsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            GogPanel.Visibility = PluginDatabase.PluginSettings.Settings.PluginState.GogIsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            PluginDatabase.EnsureStoreApis(
+                (DataContext as CheckDlcSettingsViewModel)?.Settings,
+                reloadAccountInfos: false);
+
+            if (_storeUiInitialized)
+            {
+                RefreshStorePanels();
+                RequestStorePanelsBackgroundAuthRefresh();
+                InitializeCurrencyComboBoxes();
+                return;
+            }
+
+            _storeUiInitialized = true;
+            StoreSettingsLog.Debug("CheckDlc settings view initializing store panels");
+            RegisterStorePanels();
+            InitializeStorePanels();
+            InitializeCurrencyComboBoxes();
         }
 
-
-        #region Tag
-        private void ButtonAddTag_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Binds store panels to API instances when the corresponding library integration is enabled.
+        /// </summary>
+        private void InitializeStorePanels()
         {
-            PluginDatabase.AddTagAllGame();
+            RefreshStorePanels();
         }
 
-        private void ButtonRemoveTag_Click(object sender, RoutedEventArgs e)
+        private void RefreshStorePanels()
         {
-            PluginDatabase.RemoveTagAllGame();
-        }
-        #endregion
+            CheckDlcSettings settings = PluginDatabase.PluginSettings;
 
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Process.Start((string)((FrameworkElement)sender).Tag);
+            SteamPanel.StoreApi = settings.PluginState.SteamIsEnabled ? CheckDlc.SteamApi : null;
+            EpicPanel.StoreApi = settings.PluginState.EpicIsEnabled ? CheckDlc.EpicApi : null;
+            GogPanel.StoreApi = settings.PluginState.GogIsEnabled ? CheckDlc.GogApi : null;
         }
 
-
-
-
-        private void Button_Click_Remove(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Schedules a background auth check for each enabled store panel (settings re-open).
+        /// </summary>
+        private void RequestStorePanelsBackgroundAuthRefresh()
         {
+            CheckDlcSettings settings = PluginDatabase.PluginSettings;
+
+            if (settings.PluginState.SteamIsEnabled)
+            {
+                (SteamPanel.DataContext as IStorePanelViewModel)?.RequestBackgroundAuthRefresh();
+            }
+
+            if (settings.PluginState.EpicIsEnabled)
+            {
+                (EpicPanel.DataContext as IStorePanelViewModel)?.RequestBackgroundAuthRefresh();
+            }
+
+            if (settings.PluginState.GogIsEnabled)
+            {
+                (GogPanel.DataContext as IStorePanelViewModel)?.RequestBackgroundAuthRefresh();
+            }
+        }
+
+        private void RegisterStorePanels()
+        {
+            StoresSettings.RegisterStore(new StoreSettingsEntry
+            {
+                Id = "Steam",
+                NameResourceKey = "LOCCommonStoreSteam",
+                CategoryResourceKey = "LOCCommonStoresLaunchers",
+                Panel = SteamPanel,
+                IsVisible = PluginDatabase.PluginSettings.PluginState.SteamIsEnabled,
+                SortOrder = 0
+            });
+
+            StoresSettings.RegisterStore(new StoreSettingsEntry
+            {
+                Id = "Epic",
+                NameResourceKey = "LOCCommonStoreEpic",
+                CategoryResourceKey = "LOCCommonStoresLaunchers",
+                Panel = EpicPanel,
+                IsVisible = PluginDatabase.PluginSettings.PluginState.EpicIsEnabled,
+                SortOrder = 1
+            });
+
+            StoresSettings.RegisterStore(new StoreSettingsEntry
+            {
+                Id = "Gog",
+                NameResourceKey = "LOCCommonStoreGog",
+                CategoryResourceKey = "LOCCommonStoresLaunchers",
+                Panel = GogPanel,
+                IsVisible = PluginDatabase.PluginSettings.PluginState.GogIsEnabled,
+                SortOrder = 2
+            });
+        }
+
+        private void InitializeCurrencyComboBoxes()
+        {
+            CheckDlcSettings settings = PluginDatabase.PluginSettings;
+
+            if (settings.PluginState.GogIsEnabled)
+            {
+                List<StoreCurrency> gogCurrencies = GetGogCurrencyList();
+                PART_GogCurrency.ItemsSource = gogCurrencies;
+                SelectCurrency(PART_GogCurrency, settings.GogCurrency, matchCountry: false);
+            }
+            else
+            {
+                PART_GogCurrency.ItemsSource = null;
+            }
+
+            if (settings.PluginState.OriginIsEnabled)
+            {
+                List<StoreCurrency> originCurrencies = new List<StoreCurrency>
+                {
+                    new StoreCurrency { country = "US", currency = "USD", symbol = "$" },
+                    new StoreCurrency { country = "GB", currency = "GBP", symbol = "£" },
+                    new StoreCurrency { country = "FR", currency = "EUR", symbol = "€" },
+                    new StoreCurrency { country = "DE", currency = "EUR", symbol = "€" }
+                }.OrderBy(x => x.currency).ToList();
+                PART_OriginCurrency.ItemsSource = originCurrencies;
+                SelectCurrency(PART_OriginCurrency, settings.OriginCurrency, matchCountry: true);
+            }
+            else
+            {
+                PART_OriginCurrency.ItemsSource = null;
+            }
+        }
+
+        private List<StoreCurrency> GetGogCurrencyList()
+        {
+            if (PluginDatabase.PluginSettings.PluginState.GogIsEnabled && CheckDlc.GogApi != null)
+            {
+                return CheckDlc.GogApi.GetCurrencies()
+                    .OrderBy(x => x.currency)
+                    .ToList();
+            }
+
+            StoreCurrency saved = PluginDatabase.PluginSettings.GogCurrency;
+            if (saved != null && !string.IsNullOrEmpty(saved.currency))
+            {
+                return new List<StoreCurrency> { saved };
+            }
+
+            return GetDefaultGogCurrencies();
+        }
+
+        private static List<StoreCurrency> GetDefaultGogCurrencies()
+        {
+            return new List<StoreCurrency>
+            {
+                new StoreCurrency { country = "US", currency = "USD", symbol = "$" }
+            };
+        }
+
+        private static void SelectCurrency(ComboBox comboBox, StoreCurrency savedCurrency, bool matchCountry)
+        {
+            if (comboBox?.ItemsSource == null || savedCurrency == null)
+            {
+                return;
+            }
+
             try
             {
-                int index = int.Parse(((FrameworkElement)sender).Tag.ToString());
-                ((ObservableCollection<string>)PART_IgnoredList.ItemsSource).RemoveAt(index);
-                PART_IgnoredList.Items.Refresh();
+                var currencies = (List<StoreCurrency>)comboBox.ItemsSource;
+                StoreCurrency match = matchCountry
+                    ? currencies.Find(x => x.country == savedCurrency.country)
+                    : currencies.Find(x => x.currency == savedCurrency.currency);
+
+                if (match != null)
+                {
+                    comboBox.SelectedItem = match;
+                }
             }
             catch (Exception ex)
             {
@@ -98,13 +215,45 @@ namespace CheckDlc.Views
             }
         }
 
-        private void Button_Click_Remove2(object sender, RoutedEventArgs e)
+
+        #region Tag
+        private void ButtonAddTag_Click(object sender, RoutedEventArgs e)
+        {
+            PluginDatabase.AddTagAllGames();
+        }
+
+        private void ButtonRemoveTag_Click(object sender, RoutedEventArgs e)
+        {
+            PluginDatabase.RemoveTagAllGames();
+        }
+        #endregion
+
+
+        private void Button_RemoveIgnored_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveListItem(PART_IgnoredList, sender);
+        }
+
+        private void Button_RemoveManuallyOwned_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveListItem(PART_ManuallyOwnedList, sender);
+        }
+
+        private static void RemoveListItem(ListBox listBox, object sender)
         {
             try
             {
-                int index = int.Parse(((FrameworkElement)sender).Tag.ToString());
-                ((ObservableCollection<string>)PART_ManuallyOwnedList.ItemsSource).RemoveAt(index);
-                PART_ManuallyOwnedList.Items.Refresh();
+                string item = ((FrameworkElement)sender).Tag as string;
+                if (string.IsNullOrEmpty(item))
+                {
+                    return;
+                }
+
+                var collection = listBox?.ItemsSource as ObservableCollection<string>;
+                if (collection != null && collection.Contains(item))
+                {
+                    collection.Remove(item);
+                }
             }
             catch (Exception ex)
             {

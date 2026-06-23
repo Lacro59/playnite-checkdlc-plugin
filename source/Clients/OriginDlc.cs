@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CheckDlc.Models;
-using Playnite.SDK.Models;
+﻿using CheckDlc.Models;
 using CommonPluginsShared;
-using static CommonPluginsShared.PlayniteTools;
-using CommonPluginsStores.Gog;
-using System.Collections.ObjectModel;
+using CommonPluginsStores.Ea;
 using CommonPluginsStores.Models;
-using CommonPluginsStores.Origin;
 using Playnite.SDK;
+using Playnite.SDK.Models;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using static CommonPluginsShared.PlayniteTools;
 
 namespace CheckDlc.Clients
 {
     public class OriginDlc : GenericDlc
     {
-        protected static Lazy<OriginApi> _originApi = new Lazy<OriginApi>(() => new OriginApi(PluginDatabase.PluginName));
-        internal static OriginApi OriginApi => _originApi.Value;
+        protected static Lazy<EaApi> _eaApi = new Lazy<EaApi>(() => new EaApi(PluginDatabase.PluginName));
+        internal static EaApi EaApi => _eaApi.Value;
 
         private static bool _settingsOpen = false;
         public static bool SettingsOpen
@@ -29,15 +27,15 @@ namespace CheckDlc.Clients
                 _settingsOpen = value;
                 if (_settingsOpen)
                 {
-                    OriginApi?.ResetIsUserLoggedIn();
+                    EaApi?.ResetIsUserLoggedIn();
                 }
             }
         }
 
 
-        public OriginDlc() : base("Origin", CodeLang.GetOriginLang(API.Instance.ApplicationSettings.Language))
+        public OriginDlc() : base("EA", CodeLang.GetEaLang(API.Instance.ApplicationSettings.Language))
         {
-            OriginApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+            EaApi.SetLanguage(API.Instance.ApplicationSettings.Language);
         }
 
 
@@ -48,17 +46,16 @@ namespace CheckDlc.Clients
 
             try
             {
-                if (OriginApi.IsUserLoggedIn)
+                if (EaApi.IsUserLoggedIn)
                 {
-                    OriginApi.SetCurrency(PluginDatabase.PluginSettings.Settings.OriginCurrency);
-
                     List<Dlc> newDlcs = new List<Dlc>();
-                    ObservableCollection<DlcInfos> dlcs = OriginApi.GetDlcInfos(game.GameId, OriginApi.CurrentAccountInfos);
-                    dlcs?.ForEach(x => 
+                    GameInfos gameInfos = EaApi.GetGameInfos(game.GameId, EaApi.CurrentAccountInfos);
+                    ObservableCollection<DlcInfos> dlcs = gameInfos?.Dlcs;
+                    dlcs?.ForEach(x =>
                     {
                         Dlc dlc = new Dlc
                         {
-                            DlcId = x.Id,
+                            DlcId = x.Id2.IsNullOrEmpty() ? x.Id : x.Id2,
                             Name = x.Name,
                             Description = x.Description,
                             Image = x.Image,

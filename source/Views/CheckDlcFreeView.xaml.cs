@@ -1,6 +1,8 @@
-﻿using CheckDlc.Services;
+﻿using CheckDlc.Models;
+using CheckDlc.Services;
 using CommonPluginsShared;
 using Playnite.SDK;
+using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +13,7 @@ using System.Windows.Controls;
 namespace CheckDlc.Views
 {
     /// <summary>
-    /// Logique d'interaction pour CheckDlcFreeView.xaml
+    /// Interaction logic for CheckDlcFreeView.xaml.
     /// </summary>
     public partial class CheckDlcFreeView : UserControl
     {
@@ -30,19 +32,37 @@ namespace CheckDlc.Views
         private void InitData()
         {
             PART_ListviewDlc.ItemsSource = null;
-            List<LvDlc> lvDlcs = PluginDatabase.Database.Items
-                .SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned && !y.IsHidden)
+            PART_ListviewDlc.ItemsSource = GetFreeDlcList();
+            UpdateTotalFoundCount();
+        }
+
+        private List<LvDlc> GetFreeDlcList(bool includeHidden = true)
+        {
+            return PluginDatabase.GetAllCache()
+                .Where(IsEligibleForFreeDlcView)
+                .SelectMany(x => x.Items.Where(y => y.IsFree && !y.IsOwned && (!includeHidden || !y.IsHidden))
                 .Select(z => new LvDlc
                 {
-                    Icon = x.Value.Icon,
-                    Id = x.Key,
+                    Icon = x.Icon,
+                    Id = x.Id,
                     DlcId = z.Id,
-                    Name = x.Value.Name,
+                    Name = x.Name,
                     NameDlc = z.Name,
-                    NameHide = x.Value.Name + "##" + z.Name,
+                    NameHide = x.Name + "##" + z.Name,
                     Link = z.Link
                 })).ToList();
-            PART_ListviewDlc.ItemsSource = lvDlcs;
+        }
+
+        private bool IsEligibleForFreeDlcView(GameDlc gameDlc)
+        {
+            if (gameDlc?.IsManual == true)
+            {
+                return true;
+            }
+
+            Game game = API.Instance.Database.Games.Get(gameDlc.Id);
+            return game != null
+                && PlayniteTools.ShouldIncludeLibraryGame(game, PluginDatabase.PluginSettings);
         }
 
 
@@ -71,15 +91,15 @@ namespace CheckDlc.Views
             try
             {
                 string id = ((Button)sender).Tag.ToString();
-                if (PluginDatabase.PluginSettings.Settings.IgnoredList.Contains(id))
+                if (PluginDatabase.PluginSettings.IgnoredList.Contains(id))
                 {
-                    _ = PluginDatabase.PluginSettings.Settings.IgnoredList.Remove(id);
+                    _ = PluginDatabase.PluginSettings.IgnoredList.Remove(id);
                 }
                 else
                 {
-                    PluginDatabase.PluginSettings.Settings.IgnoredList.Add(id);
+                    PluginDatabase.PluginSettings.IgnoredList.Add(id);
                 }
-                Plugin.SavePluginSettings(PluginDatabase.PluginSettings.Settings);
+                Plugin.SavePluginSettings(PluginDatabase.PluginSettings);
                 InitData();
             }
             catch (Exception ex)
@@ -93,15 +113,15 @@ namespace CheckDlc.Views
             try
             {
                 string id = ((Button)sender).Tag.ToString();
-                if (PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Contains(id))
+                if (PluginDatabase.PluginSettings.ManuallyOwneds.Contains(id))
                 {
-                    _ = PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Remove(id);
+                    _ = PluginDatabase.PluginSettings.ManuallyOwneds.Remove(id);
                 }
                 else
                 {
-                    PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Add(id);
+                    PluginDatabase.PluginSettings.ManuallyOwneds.Add(id);
                 }
-                Plugin.SavePluginSettings(PluginDatabase.PluginSettings.Settings);
+                Plugin.SavePluginSettings(PluginDatabase.PluginSettings);
                 InitData();
             }
             catch (Exception ex)
@@ -118,25 +138,19 @@ namespace CheckDlc.Views
                 PluginDatabase.Refresh(Id);
 
                 PART_ListviewDlc.ItemsSource = null;
-                List<LvDlc> lvDlcs = PluginDatabase.Database.Items
-                    .SelectMany(x => x.Value.Items.Where(y => y.IsFree && !y.IsOwned)
-                    .Select(z => new LvDlc
-                    {
-                        Icon = x.Value.Icon,
-                        Id = x.Key,
-                        DlcId = z.Id,
-                        Name = x.Value.Name,
-                        NameDlc = z.Name,
-                        NameHide = x.Value.Name + "##" + z.Name,
-                        Link = z.Link
-                    })).ToList();
-
-                PART_ListviewDlc.ItemsSource = lvDlcs;
+                PART_ListviewDlc.ItemsSource = GetFreeDlcList(includeHidden: false);
+                UpdateTotalFoundCount();
             }
             catch (Exception ex)
             {
                 Common.LogError(ex, false);
             }
+        }
+
+        private void UpdateTotalFoundCount()
+        {
+            List<LvDlc> data = PART_ListviewDlc.ItemsSource as List<LvDlc>;
+            PART_TotalFoundCount.Text = data != null ? data.Count.ToString() : "0";
         }
     }
 

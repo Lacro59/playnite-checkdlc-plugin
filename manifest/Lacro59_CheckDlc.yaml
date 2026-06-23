@@ -119,3 +119,21 @@ Packages:
       - 'Updated: UI'
       - 'Updated: CSV data export'
       - 'Added: PlayStation Store & Nintendo Eshop (only Europe) DLC Support (experimental)'
+  - Version: 1.4
+    RequiredApiVersion: 6.16.0
+    ReleaseDate: 2026-06-23
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v1.4/playnite-checkdlc-plugin_1_4.pext
+    Changelog:
+      - 'Updated: Localizations'
+      - 'Added: Unified store settings view in the Libraries tab'
+      - 'Updated: Modernized DLC list, game DLC, and free DLC views'
+      - 'Improved: Progress overlay when deleting plugin data'
+      - 'Improved: Modal window titles aligned with plugin context'
+      - 'Added: Fixed store whitelist filter for library imports'
+      - 'Fixed: Duplicate DLC entries'
+      - 'Fixed: Scroll on owned DLC descriptions'
+      - 'Fixed: CheckDLC controls refresh after batch refresh'
+      - 'Fixed: Steam authentication enforcement'
+      - 'Fixed: Store accounts reload when saving settings'
+      - 'Fixed: Store API handling when saving settings'
+      - 'Improved: Steam DLC fetch uses game context for more reliable results'

@@ -2,57 +2,121 @@
 using CheckDlc.Models;
 using CommonPluginsShared;
 using CommonPluginsShared.Collections;
+using CommonPluginsStores.Epic;
+using CommonPluginsStores.Gog;
+using CommonPluginsStores.Steam;
 using Playnite.SDK;
 using Playnite.SDK.Models;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
-using static CommonPluginsShared.PlayniteTools;
 using System.Threading;
+
+using static CommonPluginsShared.PlayniteTools;
 
 namespace CheckDlc.Services
 {
-    public class CheckDlcDatabase : PluginDatabaseObject<CheckDlcSettingsViewModel, CheckDlcCollection, GameDlc, Dlc>
+    public class CheckDlcDatabase : PluginDatabaseObject<CheckDlcSettings, GameDlc, Dlc>
     {
         public bool SettingsOpen { get; set; } = false;
 
+        public CheckDlc Plugin { get; set; }
 
-        public CheckDlcDatabase(CheckDlcSettingsViewModel PluginSettings, string PluginUserDataPath) : base(PluginSettings, "CheckDlc", PluginUserDataPath)
+        public CheckDlcDatabase(CheckDlcSettings pluginSettings, string pluginUserDataPath) : base(pluginSettings, "CheckDlc", pluginUserDataPath)
         {
             TagBefore = "[DLC]";
+            PluginWindows = new CheckDlcWindows(PluginName, this);
+            PluginExportCsv = new CheckDlcExport();
         }
 
-
-        protected override bool LoadDatabase()
+        /// <summary>
+        /// Creates store API clients for enabled library integrations and applies settings.
+        /// Skips stores whose Playnite library plugin is not enabled.
+        /// </summary>
+        /// <param name="settings">Store settings to apply. Uses <see cref="PluginDatabaseObject{CheckDlcSettings, GameDlc, Dlc}.PluginSettings"/> when null.</param>
+        /// <param name="reloadAccountInfos">When true, clears and reloads account information for each enabled store.</param>
+        public void EnsureStoreApis(CheckDlcSettings settings, bool reloadAccountInfos)
         {
-            try
+            CheckDlcSettings storeSettings = settings ?? PluginSettings;
+            if (storeSettings == null)
             {
-                Stopwatch stopWatch = new Stopwatch();
-                stopWatch.Start();
-
-                Database = new CheckDlcCollection(Paths.PluginDatabasePath);
-                Database.SetGameInfo<Dlc>();
-
-                stopWatch.Stop();
-                TimeSpan ts = stopWatch.Elapsed;
-                Logger.Info($"LoadDatabase with {Database.Count} items - {string.Format("{0:00}:{1:00}.{2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds / 10)}");
-            }
-            catch (Exception ex)
-            {
-                Common.LogError(ex, false, true, PluginName);
-                return false;
+                return;
             }
 
-            return true;
+            if (storeSettings.PluginState.SteamIsEnabled)
+            {
+                bool created = CheckDlc.SteamApi == null;
+                if (created)
+                {
+                    CheckDlc.SteamApi = new SteamApi(PluginName, ExternalPlugin.CheckDlc);
+                    CheckDlc.SteamApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+                }
+
+                CheckDlc.SteamApi.SetForceAuth(true);
+                CheckDlc.SteamApi.StoreSettings = storeSettings.SteamStoreSettings;
+
+                if (reloadAccountInfos)
+                {
+                    CheckDlc.SteamApi.ReloadAccountInfos();
+                    _ = CheckDlc.SteamApi.CurrentAccountInfos;
+                }
+                else if (created)
+                {
+                    _ = CheckDlc.SteamApi.CurrentAccountInfos;
+                }
+            }
+
+            if (storeSettings.PluginState.EpicIsEnabled)
+            {
+                bool created = CheckDlc.EpicApi == null;
+                if (created)
+                {
+                    CheckDlc.EpicApi = new EpicApi(PluginName, ExternalPlugin.CheckDlc);
+                    CheckDlc.EpicApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+                }
+
+                CheckDlc.EpicApi.SetForceAuth(true);
+                CheckDlc.EpicApi.StoreSettings = storeSettings.EpicStoreSettings;
+
+                if (reloadAccountInfos)
+                {
+                    CheckDlc.EpicApi.ReloadAccountInfos();
+                    _ = CheckDlc.EpicApi.CurrentAccountInfos;
+                }
+                else if (created)
+                {
+                    _ = CheckDlc.EpicApi.CurrentAccountInfos;
+                }
+            }
+
+            if (storeSettings.PluginState.GogIsEnabled)
+            {
+                bool created = CheckDlc.GogApi == null;
+                if (created)
+                {
+                    CheckDlc.GogApi = new GogApi(PluginName, ExternalPlugin.CheckDlc);
+                    CheckDlc.GogApi.SetLanguage(API.Instance.ApplicationSettings.Language);
+                }
+
+                CheckDlc.GogApi.SetForceAuth(true);
+                CheckDlc.GogApi.StoreSettings = storeSettings.GogStoreSettings;
+
+                if (reloadAccountInfos)
+                {
+                    CheckDlc.GogApi.ReloadAccountInfos();
+                    _ = CheckDlc.GogApi.CurrentAccountInfos;
+                }
+                else if (created)
+                {
+                    _ = CheckDlc.GogApi.CurrentAccountInfos;
+                }
+            }
         }
-
 
         public override GameDlc Get(Guid id, bool onlyCache = false, bool force = false)
         {
             GameDlc gameDlc = base.GetOnlyCache(id);
 
-            // Get from web
             if ((gameDlc == null && !onlyCache) || force)
             {
                 gameDlc = GetWeb(id);
@@ -75,16 +139,27 @@ namespace CheckDlc.Services
         public override GameDlc GetWeb(Guid id)
         {
             Game game = API.Instance.Database.Games.Get(id);
+            GameDlc cachedItem = GetOnlyCache(id);
+
+            if (cachedItem?.IsManual != true)
+            {
+                string exclusionReason = PlayniteTools.GetLibraryFilterExclusionReason(game, PluginSettings);
+                if (exclusionReason != null)
+                {
+                    PlayniteTools.LogLibraryFilterExclusion("CheckDlc.GetWeb", game, exclusionReason);
+                    return GetDefault(game);
+                }
+            }
+
             GameDlc gameDlc = GetDefault(game);
             try
             {
-                //Thread.Sleep(100);
                 List<Dlc> dlcs = new List<Dlc>();
                 ExternalPlugin pluginType = PlayniteTools.GetPluginType(game.PluginId);
                 switch (pluginType)
                 {
                     case ExternalPlugin.SteamLibrary:
-                        if (PluginSettings.Settings.PluginState.SteamIsEnabled)
+                        if (PluginSettings.PluginState.SteamIsEnabled)
                         {
                             SteamDlc steamDlc = new SteamDlc();
                             dlcs = steamDlc.GetGameDlc(game);
@@ -93,7 +168,7 @@ namespace CheckDlc.Services
 
                     case ExternalPlugin.GogLibrary:
                     case ExternalPlugin.GogOssLibrary:
-                        if (PluginSettings.Settings.PluginState.GogIsEnabled)
+                        if (PluginSettings.PluginState.GogIsEnabled)
                         {
                             GogDlc gogDlc = new GogDlc();
                             dlcs = gogDlc.GetGameDlc(game);
@@ -102,16 +177,15 @@ namespace CheckDlc.Services
 
                     case ExternalPlugin.EpicLibrary:
                     case ExternalPlugin.LegendaryLibrary:
-                        if (PluginSettings.Settings.PluginState.EpicIsEnabled)
+                        if (PluginSettings.PluginState.EpicIsEnabled)
                         {
                             EpicDlc epicDlc = new EpicDlc();
                             dlcs = epicDlc.GetGameDlc(game);
                         }
                         break;
 
-
                     case ExternalPlugin.OriginLibrary:
-                        if (PluginSettings.Settings.PluginState.OriginIsEnabled)
+                        if (PluginSettings.PluginState.OriginIsEnabled)
                         {
                             OriginDlc originDlc = new OriginDlc();
                             dlcs = originDlc.GetGameDlc(game);
@@ -119,7 +193,7 @@ namespace CheckDlc.Services
                         break;
 
                     case ExternalPlugin.PSNLibrary:
-                        if (PluginSettings.Settings.PluginState.PsnIsEnabled)
+                        if (PluginSettings.PluginState.PsnIsEnabled)
                         {
                             PsnDlc psnDlc = new PsnDlc();
                             dlcs = psnDlc.GetGameDlc(game);
@@ -127,7 +201,7 @@ namespace CheckDlc.Services
                         break;
 
                     case ExternalPlugin.NintendoLibrary:
-                        if (PluginSettings.Settings.PluginState.NintendosEnabled)
+                        if (PluginSettings.PluginState.NintendoIsEnabled)
                         {
                             NintendoDlc nintendoDlc = new NintendoDlc();
                             dlcs = nintendoDlc.GetGameDlc(game);
@@ -150,7 +224,6 @@ namespace CheckDlc.Services
                     case ExternalPlugin.SuccessStory:
                     case ExternalPlugin.CheckDlc:
                     case ExternalPlugin.EmuLibrary:
-
                     default:
                         break;
                 }
@@ -185,47 +258,57 @@ namespace CheckDlc.Services
             return gameDlc;
         }
 
-
         public override void SetThemesResources(Game game)
         {
             GameDlc gameDlc = Get(game, true);
-            PluginSettings.Settings.HasData = gameDlc?.HasData ?? false;
-            PluginSettings.Settings.ListDlcs = new List<Dlc>();
 
-            if (PluginSettings.Settings.HasData)
+            if (gameDlc?.IsManual != true)
             {
-                PluginSettings.Settings.ListDlcs = gameDlc.Items;
+                string exclusionReason = PlayniteTools.GetLibraryFilterExclusionReason(game, PluginSettings);
+                if (exclusionReason != null)
+                {
+                    PlayniteTools.LogLibraryFilterExclusion("CheckDlc.SetThemesResources", game, exclusionReason);
+                    PluginSettings.HasData = false;
+                    PluginSettings.ListDlcs = new List<Dlc>();
+                    return;
+                }
+            }
+
+            PluginSettings.HasData = gameDlc?.HasData ?? false;
+            PluginSettings.ListDlcs = new List<Dlc>();
+
+            if (PluginSettings.HasData)
+            {
+                PluginSettings.ListDlcs = gameDlc.Items;
             }
         }
 
-        public override void RefreshNoLoader(Guid id)
+        public override void RefreshNoLoader(Guid id, CancellationToken cancellationToken = default)
         {
             Game game = API.Instance.Database.Games.Get(id);
-            Logger.Info($"RefreshNoLoader({game?.Name} - {game?.Id})");
-
             if (game == null)
             {
                 return;
             }
 
             GameDlc loadedItem = Get(id, true);
-            if (CheckDlc.SupportedLibrary.Contains(game.PluginId) && !loadedItem.IsManual)
+
+            if (!loadedItem.IsManual)
             {
-                GameDlc webItem = GetWeb(id);
-                webItem.PriceNotification = loadedItem.PriceNotification;
-
-                if (webItem != null && !ReferenceEquals(loadedItem, webItem))
+                string exclusionReason = PlayniteTools.GetLibraryFilterExclusionReason(game, PluginSettings);
+                if (exclusionReason != null)
                 {
-                    Update(webItem);
+                    PlayniteTools.LogLibraryFilterExclusion(
+                        string.Format("{0}.RefreshNoLoader", PluginName),
+                        game,
+                        exclusionReason);
+                    return;
                 }
-                else
-                {
-                    webItem = loadedItem;
-                }
-
-                ActionAfterRefresh(webItem);
             }
-            else if (loadedItem.IsManual)
+
+            Logger.Info(string.Format("RefreshNoLoader — {0} ({1} - {2})", game.Name, id, game.GameId));
+
+            if (loadedItem.IsManual)
             {
                 GameDlc webItem = GetManual(id, loadedItem.AppId);
 
@@ -242,121 +325,91 @@ namespace CheckDlc.Services
             }
             else
             {
-                Logger.Warn($"The plugin does not support the library {PlayniteTools.GetSourceByPluginId(game.PluginId)}");
+                GameDlc webItem = GetWeb(id);
+                webItem.PriceNotification = loadedItem.PriceNotification;
+
+                if (webItem != null && !ReferenceEquals(loadedItem, webItem))
+                {
+                    Update(webItem);
+                }
+                else
+                {
+                    webItem = loadedItem;
+                }
+
+                ActionAfterRefresh(webItem);
             }
         }
 
         public override void ActionAfterRefresh(GameDlc item)
         {
             Game game = API.Instance.Database.Games.Get(item.Id);
-            if ((item?.HasData ?? false) && PluginSettings.Settings.DlcFeature != null)
+            if ((item?.HasData ?? false) && PluginSettings.DlcFeature != null)
             {
                 if (game.FeatureIds != null)
                 {
-                    _ = game.FeatureIds.AddMissing(PluginSettings.Settings.DlcFeature.Id);
+                    _ = game.FeatureIds.AddMissing(PluginSettings.DlcFeature.Id);
                 }
                 else
                 {
-                    game.FeatureIds = new List<Guid> { PluginSettings.Settings.DlcFeature.Id };
+                    game.FeatureIds = new List<Guid> { PluginSettings.DlcFeature.Id };
                 }
                 API.Instance.Database.Games.Update(game);
             }
             else
             {
-                if (PluginSettings.Settings.DlcFeature?.Id != null && game.FeatureIds?.Find(x => x == PluginSettings.Settings.DlcFeature?.Id) != null)
-                {
-                    _ = game.FeatureIds.Remove(PluginSettings.Settings.DlcFeature.Id);
-                    API.Instance.Database.Games.Update(game);
-                }
+                RemoveDlcFeatureFromGame(game);
             }
         }
 
+        /// <inheritdoc/>
+        protected override void ActionAfterRemove(Guid id)
+        {
+            RemoveDlcFeatureFromGame(API.Instance.Database.Games.Get(id));
+        }
 
-        public override void AddTag(Game game)
+        private void RemoveDlcFeatureFromGame(Game game)
+        {
+            if (game == null)
+            {
+                return;
+            }
+
+            if (PluginSettings.DlcFeature?.Id != null
+                && game.FeatureIds?.Find(x => x == PluginSettings.DlcFeature.Id) != null)
+            {
+                _ = game.FeatureIds.Remove(PluginSettings.DlcFeature.Id);
+                API.Instance.Database.Games.Update(game);
+            }
+        }
+
+        protected override bool AppendPluginTag(Game game)
         {
             GameDlc item = Get(game, true);
-            if (item.HasData)
-            {
-                try
-                {
-                    Guid? TagId = FindGoodPluginTags(string.Empty);
-                    if (TagId != null)
-                    {
-                        if (game.TagIds != null)
-                        {
-                            game.TagIds.Add((Guid)TagId);
-                        }
-                        else
-                        {
-                            game.TagIds = new List<Guid> { (Guid)TagId };
-                        }
-                    }
 
-                    if (PluginSettings.Settings.EnableTagAllDlc && item.HasAllDlc)
-                    {
-                        TagId = FindGoodPluginTags("100%");
-                        if (TagId != null)
-                        {
-                            game.TagIds.Add((Guid)TagId);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Common.LogError(ex, false, $"Tag insert error with {game.Name}", true, PluginName, string.Format(ResourceProvider.GetString("LOCCommonNotificationTagError"), game.Name));
-                    return;
-                }
-            }
-            else if (TagMissing)
+            if (item?.IsManual != true)
             {
-                if (game.TagIds != null)
+                string exclusionReason = PlayniteTools.GetLibraryFilterExclusionReason(game, PluginSettings);
+                if (exclusionReason != null)
                 {
-                    game.TagIds.Add((Guid)AddNoDataTag());
-                }
-                else
-                {
-                    game.TagIds = new List<Guid> { (Guid)AddNoDataTag() };
+                    PlayniteTools.LogLibraryFilterExclusion("CheckDlc.AppendPluginTag", game, exclusionReason);
+                    return false;
                 }
             }
 
-            API.Instance.MainView.UIDispatcher?.Invoke(() =>
+            bool modified = base.AppendPluginTag(game);
+
+            if (item?.HasData == true && PluginSettings.EnableTagAllDlc && item.HasAllDlc)
             {
-                API.Instance.Database.Games.Update(game);
-                game.OnPropertyChanged();
-            });
-        }
-
-
-
-        internal override string GetCsvData(GlobalProgressActionArgs a, bool minimum)
-        {
-            string csvData = string.Empty;
-            Database.Items?.ForEach(x =>
-            {
-                // Header
-                if (csvData.IsNullOrEmpty())
+                Guid? tagId = FindGoodPluginTags("100%");
+                if (tagId != null)
                 {
-                    csvData = "\"Game name\";\"Platform\";\"Dlc name\";\"Price\";\"Is owned\";\"Is owned manually\";\"Is hidden\";\"Dlc link\";\"Is manual added\";";
+                    AppendTagId(game, tagId.Value);
+                    modified = true;
                 }
+            }
 
-                x.Value.Items.ForEach(y =>
-                {
-                    if (a.CancelToken.IsCancellationRequested)
-                    {
-                        return;
-                    }
-
-                    a.Text = $"{PluginName} - {ResourceProvider.GetString("LOCCommonExtracting")}"
-                        + "\n\n" + $"{a.CurrentProgressValue}/{a.ProgressMaxValue}"
-                        + "\n" + x.Value.Game?.Name + (x.Value.Game?.Source == null ? string.Empty : $" ({x.Value.Game?.Source.Name})");
-
-                    csvData += Environment.NewLine;
-                    csvData += $"\"{x.Value.Name}\";\"{x.Value.Source?.Name ?? x.Value.Platforms?.First()?.Name ?? "Playnite"}\";\"{y.Name}\";\"{y.Price}\";\"{(y.IsOwned ? "X" : string.Empty)}\";\"{(y.IsManualOwned ? "X" : string.Empty)}\";\"{(y.IsHidden ? "X" : string.Empty)}\";\"{y.Link}\";\"{(x.Value.IsManual ? "X" : string.Empty)}\";";
-
-                    a.CurrentProgressValue++;
-                });
-            });
-            return csvData;
+            return modified;
         }
     }
 }

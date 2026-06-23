@@ -1,5 +1,6 @@
 ﻿using CheckDlc.Models;
 using CommonPluginsShared;
+using CommonPluginsShared.Interfaces;
 using CommonPluginsShared.Plugins;
 using CommonPluginsStores;
 using CommonPluginsStores.Models;
@@ -9,11 +10,44 @@ using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace CheckDlc
 {
     public class CheckDlcSettings : PluginSettings
     {
+        /// <summary>
+        /// Normalized source names included in CheckDlc library operations (see <see cref="PlayniteTools.GetSourceName"/>).
+        /// Matches <c>source/Clients</c> store coverage — fixed plugin policy, not exposed in the settings UI.
+        /// Includes legacy Playnite source names (e.g. <c>Origin</c> before EA app rebranding).
+        /// </summary>
+        private static readonly IReadOnlyList<string> FixedSupportedSources = new List<string>
+        {
+            "Steam",
+            "Epic",
+            "GOG",
+            "EA app",
+            "Origin",
+            "Playstation",
+            "Nintendo"
+        };
+
+        public CheckDlcSettings()
+        {
+            ApplyFixedLibraryFilterPolicy();
+        }
+
+        /// <summary>
+        /// Applies fixed library filter values for this plugin (not user-configurable).
+        /// </summary>
+        public void ApplyFixedLibraryFilterPolicy()
+        {
+            IncludeEmulatedGames = false;
+            LibrarySourceFilterMode = SourceFilterMode.Whitelist;
+            EnabledSources = new List<string>(FixedSupportedSources);
+            ExcludedSources = new List<string>();
+        }
+
         #region Settings variables
         public bool EnableTagAllDlc { get; set; } = true;
 
@@ -65,13 +99,33 @@ namespace CheckDlc
         #endregion  
     }
 
-    public class CheckDlcSettingsViewModel : ObservableObject, ISettings
+    public class CheckDlcSettingsViewModel : PluginSettingsViewModel, IPluginSettingsViewModel
     {
-        private CheckDlc Plugin { get; }
+        private readonly CheckDlc Plugin;
         private CheckDlcSettings EditingClone { get; set; }
 
         private CheckDlcSettings _settings;
         public CheckDlcSettings Settings { get => _settings; set => SetValue(ref _settings, value); }
+        IPluginSettings IPluginSettingsViewModel.Settings => Settings;
+
+        private List<GameFeature> _features = new List<GameFeature>();
+        /// <summary>
+        /// Playnite features available for automatic DLC tagging.
+        /// </summary>
+        public List<GameFeature> Features
+        {
+            get => _features;
+            private set => SetValue(ref _features, value);
+        }
+
+        /// <summary>Gets whether the GOG library integration is enabled in Playnite.</summary>
+        public bool IsGogStoreEnabled => Settings?.PluginState.GogIsEnabled ?? false;
+
+        /// <summary>Gets whether the Origin/EA library integration is enabled in Playnite.</summary>
+        public bool IsOriginStoreEnabled => Settings?.PluginState.OriginIsEnabled ?? false;
+
+        /// <summary>Gets whether any store currency selector should be shown.</summary>
+        public bool ShowCurrencySection => IsGogStoreEnabled || IsOriginStoreEnabled;
 
         public CheckDlcSettingsViewModel(CheckDlc plugin)
         {
@@ -84,14 +138,26 @@ namespace CheckDlc
             // LoadPluginSettings returns null if not saved data is available.
             Settings = savedSettings ?? new CheckDlcSettings();
 
+            if (Settings.EpicSettings == null)
+            {
+                Settings.EpicSettings = new EpicSettings();
+            }
+
             // TODO temp
             if (Settings.SteamStoreSettings == null)
             {
                 Settings.SteamStoreSettings = new StoreSettings
                 {
-                    UseApi = Settings.SteamApiSettings.UseApi,
-                    UseAuth = Settings.SteamApiSettings.UseAuth
+                    ForceAuth = true,
+                    UseApi = false,
+                    UseAuth = true
                 };
+            }
+            else
+            {
+                Settings.SteamStoreSettings.ForceAuth = true;
+                Settings.SteamStoreSettings.UseApi = false;
+                Settings.SteamStoreSettings.UseAuth = true;
             }
             if (Settings.EpicStoreSettings == null)
             {
@@ -100,12 +166,53 @@ namespace CheckDlc
                     UseAuth = Settings.EpicSettings.UseAuth
                 };
             }
+
+            Settings.ApplyFixedLibraryFilterPolicy();
+        }
+
+        /// <summary>
+        /// Refreshes store availability flags used to show or hide currency selectors in settings.
+        /// </summary>
+        public void RefreshStoreAvailability()
+        {
+            OnPropertyChanged(nameof(IsGogStoreEnabled));
+            OnPropertyChanged(nameof(IsOriginStoreEnabled));
+            OnPropertyChanged(nameof(ShowCurrencySection));
+        }
+
+        /// <summary>
+        /// Loads Playnite features for the DLC metadata combo box.
+        /// Must run when settings are opened; the database is not populated at plugin startup.
+        /// </summary>
+        public void RefreshFeatures()
+        {
+            if (API.Instance?.Database?.Features == null)
+            {
+                Features = new List<GameFeature>();
+                return;
+            }
+
+            List<GameFeature> features = API.Instance.Database.Features.OrderBy(x => x.Name).ToList();
+            Features = features;
+
+            if (Settings?.DlcFeature == null)
+            {
+                return;
+            }
+
+            GameFeature match = features.FirstOrDefault(x => x.Id == Settings.DlcFeature.Id);
+            if (match != null && !ReferenceEquals(Settings.DlcFeature, match))
+            {
+                Settings.DlcFeature = match;
+            }
         }
 
         // Code executed when settings view is opened and user starts editing values.
         public void BeginEdit()
         {
             EditingClone = Serialization.GetClone(Settings);
+            RefreshFeatures();
+            RefreshStoreAvailability();
         }
 
         // Code executed when user decides to cancel any changes made since BeginEdit was called.
@@ -119,33 +226,12 @@ namespace CheckDlc
         // This method should save settings made to Option1 and Option2.
         public void EndEdit()
         {
-            // StoreAPI intialization
-            CheckDlc.SteamApi.StoreSettings = Settings.SteamStoreSettings;
-            if (Settings.PluginState.SteamIsEnabled)
-            {
-                CheckDlc.SteamApi.SaveCurrentUser();
-                CheckDlc.SteamApi.CurrentAccountInfos = null;
-                _ = CheckDlc.SteamApi.CurrentAccountInfos;
-            }
+            Settings.ApplyFixedLibraryFilterPolicy();
 
-            CheckDlc.EpicApi.StoreSettings = Settings.SteamStoreSettings;
-            if (Settings.PluginState.EpicIsEnabled)
-            {
-                CheckDlc.EpicApi.SaveCurrentUser();
-                CheckDlc.EpicApi.CurrentAccountInfos = null;
-                _ = CheckDlc.EpicApi.CurrentAccountInfos;
-            }
-
-            CheckDlc.GogApi.StoreSettings = Settings.GogStoreSettings;
-            if (Settings.PluginState.GogIsEnabled)
-            {
-                CheckDlc.GogApi.SaveCurrentUser();
-                CheckDlc.GogApi.CurrentAccountInfos = null;
-                _ = CheckDlc.GogApi.CurrentAccountInfos;
-            }
+            CheckDlc.PluginDatabase.EnsureStoreApis(Settings, reloadAccountInfos: true);
 
             Plugin.SavePluginSettings(Settings);
-            CheckDlc.PluginDatabase.PluginSettings = this;
+            CheckDlc.PluginDatabase.PluginSettings = Settings;
             OnPropertyChanged();
         }
 

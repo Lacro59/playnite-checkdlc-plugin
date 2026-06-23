@@ -1,5 +1,6 @@
 ﻿using CommonPluginsShared;
 using CommonPluginsShared.Extensions;
+using CommonPluginsShared.Images;
 using Playnite.SDK.Data;
 using System;
 using System.Linq;
@@ -33,10 +34,10 @@ namespace CheckDlc.Models
         }
 
         [DontSerialize]
-        public bool IsHidden => PluginDatabase.PluginSettings.Settings.IgnoredList.Contains(Id);
+        public bool IsHidden => PluginDatabase.PluginSettings.IgnoredList.Contains(Id);
 
         [DontSerialize]
-        public bool IsManualOwned => PluginDatabase.PluginSettings.Settings.ManuallyOwneds.Contains(Id);
+        public bool IsManualOwned => PluginDatabase.PluginSettings.ManuallyOwneds.Contains(Id);
 
         public string Price { get; set; }
         public string PriceBase { get; set; }
