@@ -25,6 +25,7 @@ namespace CheckDlc.Clients
                 _settingsOpen = value;
                 if (_settingsOpen)
                 {
+                    Common.LogDebug(true, "[SteamAuthCompat] CheckDlc settings opened: resetting cached Steam login state; background auth verification may run.");
                     SteamApi?.ResetIsUserLoggedIn();
                 }
             }

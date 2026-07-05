@@ -137,3 +137,10 @@ Packages:
       - 'Fixed: Store accounts reload when saving settings'
       - 'Fixed: Store API handling when saving settings'
       - 'Improved: Steam DLC fetch uses game context for more reliable results'
+  - Version: 1.4.1
+    RequiredApiVersion: 6.16.0
+    ReleaseDate: 2026-07-05
+    PackageUrl: https://github.com/Lacro59/playnite-checkdlc-plugin/releases/download/v1.4.1/playnite-checkdlc-plugin_1_4_1.pext
+    Changelog:
+      - 'Updated: Localizations'
+      - 'Fixed: Steam authentication no longer breaks SteamLibrary SSO'
